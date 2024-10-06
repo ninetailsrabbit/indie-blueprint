@@ -1,0 +1,82 @@
+[gd_resource type="AudioBusLayout" load_steps=9 format=3 uid="uid://dwc6vlhq77f1r"]
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_vpung"]
+resource_name = "Chorus"
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_mmtr0"]
+resource_name = "LowPassFilter"
+cutoff_hz = 1238.0
+
+[sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_ffhks"]
+resource_name = "Phaser"
+range_min_hz = 838.0
+range_max_hz = 668.0
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_8tgeh"]
+resource_name = "LowPassFilter"
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_exfs2"]
+resource_name = "Compressor"
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_c2aui"]
+resource_name = "Reverb"
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_1uchm"]
+resource_name = "Amplify"
+
+[sub_resource type="AudioEffectEQ" id="AudioEffectEQ_u0nx1"]
+resource_name = "EQ"
+
+[resource]
+bus/0/effect/0/effect = SubResource("AudioEffectChorus_vpung")
+bus/0/effect/0/enabled = false
+bus/0/effect/1/effect = SubResource("AudioEffectLowPassFilter_mmtr0")
+bus/0/effect/1/enabled = false
+bus/0/effect/2/effect = SubResource("AudioEffectPhaser_ffhks")
+bus/0/effect/2/enabled = false
+bus/1/name = &"Music"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectLowPassFilter_8tgeh")
+bus/1/effect/0/enabled = false
+bus/2/name = &"SFX"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectCompressor_exfs2")
+bus/2/effect/0/enabled = true
+bus/3/name = &"EchoSFX"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("AudioEffectReverb_c2aui")
+bus/3/effect/0/enabled = true
+bus/4/name = &"Voice"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectAmplify_1uchm")
+bus/4/effect/0/enabled = true
+bus/5/name = &"UI"
+bus/5/solo = false
+bus/5/mute = false
+bus/5/bypass_fx = false
+bus/5/volume_db = 0.0
+bus/5/send = &"Master"
+bus/6/name = &"Ambient"
+bus/6/solo = false
+bus/6/mute = false
+bus/6/bypass_fx = false
+bus/6/volume_db = 0.0
+bus/6/send = &"Master"
+bus/6/effect/0/effect = SubResource("AudioEffectEQ_u0nx1")
+bus/6/effect/0/enabled = true

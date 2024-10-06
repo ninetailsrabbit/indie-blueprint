@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://mcbfb8jhn6qg"]
+
+[ext_resource type="Script" path="res://autoload/general/global_day_night_clock.gd" id="1_efcca"]
+
+[node name="GlobalDayNightClock" type="Node"]
+script = ExtResource("1_efcca")
