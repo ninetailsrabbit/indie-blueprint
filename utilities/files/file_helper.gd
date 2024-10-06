@@ -1,22 +1,22 @@
 class_name FileHelper
 
 
-static func filepath_is_valid(path: String):
+static func filepath_is_valid(path: String) -> bool:
 	return not path.is_empty() and path.is_absolute_path() and ResourceLoader.exists(path)
 
 
-static func dirpath_is_valid(path: String):
+static func dirpath_is_valid(path: String) -> bool:
 	return not path.is_empty() and path.is_absolute_path() and DirAccess.dir_exists_absolute(path)
 
 
-static func directory_exist_on_executable_path(directory_path: String) -> Error:
+static func directory_exist_on_executable_path(directory_path: String) -> bool:
 	var real_path = OS.get_executable_path().get_base_dir().path_join(directory_path)
 	var directory = DirAccess.open(real_path)
 	
 	if directory == null:
-		return DirAccess.get_open_error()
+		return false
 	
-	return OK
+	return true
 	
 ## Supports RegEx expressions
 static func get_files_recursive(path: String, regex: RegEx = null) -> Array:
@@ -53,17 +53,17 @@ static func get_files_recursive(path: String, regex: RegEx = null) -> Array:
 		return []
 
 
-static func copy_directory_recursive(from_dir :String, to_dir :String) -> bool:
+static func copy_directory_recursive(from_dir :String, to_dir :String) -> Error:
 	if not DirAccess.dir_exists_absolute(from_dir):
 		push_error("PluginUtilities->copy_directory_recursive: directory not found '%s'" % from_dir)
-		return false
+		return ERR_DOES_NOT_EXIST
 		
 	if not DirAccess.dir_exists_absolute(to_dir):
 		
 		var err := DirAccess.make_dir_recursive_absolute(to_dir)
 		if err != OK:
 			push_error("PluginUtilities->copy_directory_recursive: Can't create directory '%s'. Error: %s" % [to_dir, error_string(err)])
-			return false
+			return err
 			
 	var source_dir := DirAccess.open(from_dir)
 	var dest_dir := DirAccess.open(to_dir)
@@ -87,15 +87,15 @@ static func copy_directory_recursive(from_dir :String, to_dir :String) -> bool:
 			
 			if err != OK:
 				push_error("PluginUtilities->copy_directory_recursive: Error checked copy file '%s' to '%s'" % [source, dest])
-				return false
+				return err
 				
-		return true
+		return OK
 	else:
 		push_error("PluginUtilities->copy_directory_recursive: Directory not found: " + from_dir)
-		return false
+		return ERR_DOES_NOT_EXIST
 
 
-static func remove_files_recursive(path: String, regex: RegEx = null) -> void:
+static func remove_files_recursive(path: String, regex: RegEx = null) -> Error:
 	var directory = DirAccess.open(path)
 	
 	if DirAccess.get_open_error() == OK:
@@ -116,8 +116,13 @@ static func remove_files_recursive(path: String, regex: RegEx = null) -> void:
 			file_name = directory.get_next()
 		
 		directory.remove(path)
+		
+		return OK
 	else:
-		push_error("FileHelper->remove_recursive: An error %s happened open directory: %s " % [DirAccess.get_open_error(), path])
+		var error := DirAccess.get_open_error()
+		push_error("FileHelper->remove_recursive: An error %s happened open directory: %s " % [error, path])
+		
+		return error
 
 
 static func get_pck_files(path: String) -> Array:

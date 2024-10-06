@@ -17,12 +17,12 @@ static func get_random_mesh_surface_position(target: MeshInstance3D) -> Vector3:
 	return Vector3.ZERO
 
 
-static func random_inside_unit_circle(position: Vector2, radius: float = 1.0):
+static func random_inside_unit_circle(position: Vector2, radius: float = 1.0) -> Vector2:
 	var angle := randf() * 2.0 * PI
 	return position + Vector2(cos(angle), sin(angle)) * radius
 
 
-static func random_on_unit_circle(position: Vector2):
+static func random_on_unit_circle(position: Vector2) -> Vector2:
 	var angle := randf() * 2.0 * PI
 	var radius := randf()
 	

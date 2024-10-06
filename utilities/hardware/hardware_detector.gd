@@ -42,6 +42,14 @@ static var usable_threads: int = processor_count * 2 # I assume that each core h
 static var computer_screen_size: Vector2i = DisplayServer.screen_get_size()
 
 
+static func is_multithreading_enabled() -> bool:
+	return ProjectSettings.get_setting("rendering/driver/threads/thread_model") == 2
+
+
+static func is_exported_release() -> bool:
+	return OS.has_feature("template")
+
+
 static func is_steam_deck() -> bool:
 	return StringHelper.case_insensitive_comparison(distribution_name, "SteamOS") \
 		or video_adapter_name.containsn("radv vangogh") \
@@ -57,12 +65,6 @@ static func is_mobile() -> bool:
 		or JavaScriptBridge.eval("/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)", true)
 
 
-static func is_multithreading_enabled() -> bool:
-	return ProjectSettings.get_setting("rendering/driver/threads/thread_model") == 2
-
-
-static func is_exported_release() -> bool:
-	return OS.has_feature("template")
 
 
 static func is_windows() -> bool:
