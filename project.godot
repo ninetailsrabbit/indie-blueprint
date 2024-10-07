@@ -22,6 +22,9 @@ GamepadControllerManager="*res://autoload/gamepad/gamepad_controller_manager.gd"
 WindowManager="*res://autoload/viewport/window_manager.gd"
 GameGlobals="*res://autoload/general/game_globals.gd"
 GlobalGameEvents="*res://autoload/general/global_game_events.gd"
+AudioManager="*res://autoload/audio/audio_manager.gd"
+MusicManager="*res://autoload/audio/music_manager.gd"
+SoundPool="*res://autoload/audio/sound_pool.gd"
 
 [display]
 
