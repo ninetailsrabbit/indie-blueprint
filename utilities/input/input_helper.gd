@@ -84,7 +84,7 @@ static func action_released_and_exists(event: InputEvent, action: String) -> boo
 	return InputMap.has_action(action) and event.is_action_released(action)
 
 
-static func is_any_action_just_pressed(_event:InputEvent, actions: Array = []):
+static func is_any_action_just_pressed(actions: Array = []):
 	for action in actions:
 		if Input.is_action_just_pressed(action):
 			return true
@@ -92,17 +92,17 @@ static func is_any_action_just_pressed(_event:InputEvent, actions: Array = []):
 	return false
 	
 
-static func is_any_action_pressed(event: InputEvent, actions: Array = []):
+static func is_any_action_pressed(actions: Array, event: InputEvent = null):
 	for action in actions:
-		if event.is_action_pressed(action):
+		if (event and event.is_action_pressed(action)) or Input.is_action_pressed(action):
 			return true
 			
 	return false
 
 
-static func is_any_action_released(event:InputEvent, actions: Array = []):
+static func is_any_action_released(actions: Array, event: InputEvent):
 	for action in actions:
-		if event.is_action_released(action):
+		if  event.is_action_released(action):
 			return true
 			
 	return false

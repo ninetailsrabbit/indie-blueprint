@@ -63,9 +63,7 @@ static func is_mobile() -> bool:
 	return OS.get_name() == "Android" or OS.get_name() == "iOS" \
 		or (is_web() and OS.has_feature("web_android")) or (is_web() and OS.has_feature("web_ios")) \
 		or JavaScriptBridge.eval("/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)", true)
-
-
-
+		
 
 static func is_windows() -> bool:
 	return OS.get_name() == "Windows" or (is_web() and OS.has_feature("web_windows"))
@@ -174,7 +172,6 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail", 1, "Enabled"),
 			
 		]
-
 	),
 	QualityPreset.Ultra: GraphicQualityPreset.new("For recent PCs with high-end dedicated graphics",
 		[

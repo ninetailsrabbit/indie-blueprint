@@ -34,11 +34,16 @@ var previous_input_joy_direction_right: Vector2
 var previous_world_coordinate_space_direction: Vector3
 #endregion
 
+
+var current_device_id: int = 0
+
 func _init(_actor: Node, _deadzone: float = deadzone):
 	assert(_actor is Node2D or _actor is Node3D, "TransformedInputDirection: The actor needs to inherit from Node2D or Node3D to retrieve the input correctly")
 	
 	actor = _actor
 	deadzone = _deadzone
+	
+	Input.joy_connection_changed.connect(on_joy_connection_changed)
 
 
 func update():
@@ -64,8 +69,9 @@ func update():
 
 
 func _calculate_joystick_movement() -> void:
-	var input_joy_axis_x = Input.get_joy_axis(GamepadControllerManager.current_device_id, JOY_AXIS_LEFT_X)
-	var input_joy_axis_y = Input.get_joy_axis(GamepadControllerManager.current_device_id, JOY_AXIS_LEFT_Y)
+	## Left direction
+	var input_joy_axis_x = Input.get_joy_axis(current_device_id, JOY_AXIS_LEFT_X)
+	var input_joy_axis_y = Input.get_joy_axis(current_device_id, JOY_AXIS_LEFT_Y)
 	
 	var input_joy_x = 0
 	var input_joy_y = 0
@@ -82,8 +88,9 @@ func _calculate_joystick_movement() -> void:
 		
 	input_joy_direction_left = Vector2(input_joy_x, input_joy_y)
 	
-	input_joy_axis_x = Input.get_joy_axis(GamepadControllerManager.current_device_id, JOY_AXIS_RIGHT_X)
-	input_joy_axis_y = Input.get_joy_axis(GamepadControllerManager.current_device_id, JOY_AXIS_RIGHT_Y)
+	## Right direction
+	input_joy_axis_x = Input.get_joy_axis(current_device_id, JOY_AXIS_RIGHT_X)
+	input_joy_axis_y = Input.get_joy_axis(current_device_id, JOY_AXIS_RIGHT_Y)
 	
 	if abs(input_joy_axis_x) > deadzone:
 		input_joy_x = input_joy_axis_x
@@ -139,3 +146,7 @@ func change_move_back_action(new_action: String) -> TransformedInput:
 	
 	return self
 #endregion
+
+
+func on_joy_connection_changed(device_id: int, _connected: bool):
+	current_device_id = device_id
