@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ContentWarning" load_steps=2 format=3 uid="uid://cqquele8ueo01"]
+
+[ext_resource type="Script" path="res://ui/content_warning/advisors/content_warning.gd" id="1_wvg0l"]
+
+[resource]
+script = ExtResource("1_wvg0l")
+can_be_skipped = false
+time_on_screen = 2.0
+time_to_display_content_warning = 2.0
+time_to_hide_content_warning = 2.0
+title = ""
+subtitle = "Viewer discretion is advised"
+description = "This game contains horror elements, including disturbing imagery and sounds"
+secondary_description = ""
+title_translation_key = ""
+subtitle_translation_key = "WARNING_VIEWER_DISCRETION"
+description_translation_key = "WARNING_HORROR_ELEMENTS"
+secondary_description_translation_key = ""

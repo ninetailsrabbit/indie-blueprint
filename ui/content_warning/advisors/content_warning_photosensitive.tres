@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ContentWarning" load_steps=2 format=3 uid="uid://r7k35j3d1qwr"]
+
+[ext_resource type="Script" path="res://ui/content_warning/advisors/content_warning.gd" id="1_yahh0"]
+
+[resource]
+script = ExtResource("1_yahh0")
+can_be_skipped = false
+time_on_screen = 2.0
+time_to_display_content_warning = 2.0
+time_to_hide_content_warning = 2.0
+title = "PHOTOSENSITIVE SEIZURE WARNING"
+subtitle = "Please read before playing"
+description = "A small percentage of individuals may experience a seizure when exposed to certain visual images, flashing, lights, patterns or backgrounds which may appear in video games. Individuals who have had no history of any seizures of epilepsy to date may be undiagnosed and may go on experience seizures while playing video games"
+secondary_description = "Immediately stop playing and consult a medical professional if you experience any symptoms or begin to feel unwell whilst playing %s"
+title_translation_key = "PHOTOSENSITIVE_TITLE"
+subtitle_translation_key = "PHOTOSENSITIVE_SUBTITLE"
+description_translation_key = "PHOTOSENSITIVE_CONTENT"
+secondary_description_translation_key = "PHOTOSENSITIVE_CONTENT_2"

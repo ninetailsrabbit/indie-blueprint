@@ -13,6 +13,7 @@ config_version=5
 config/name="IndieBlueprint"
 config/description="is a comprehensive Godot project template designed to streamline your development process. It includes essential features, optimized settings, and best practices to help you create amazing indie game"
 config/version="1.0.0"
+run/main_scene="res://scenes/entry_point/game-entry_point.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,6 +26,9 @@ GlobalGameEvents="*res://autoload/general/global_game_events.gd"
 AudioManager="*res://autoload/audio/audio_manager.gd"
 MusicManager="*res://autoload/audio/music_manager.gd"
 SoundPool="*res://autoload/audio/sound_pool.gd"
+CursorManager="*res://autoload/screen/cursor_manager.gd"
+SceneTransitionManager="*res://autoload/scenes/scene_transition_manager.tscn"
+GlobalEffects="*res://autoload/effects/global_effects.tscn"
 
 [display]
 
@@ -36,7 +40,10 @@ window/size/window_height_override=720
 [file_customization]
 
 folder_colors={
+"res://assets/": "pink",
 "res://autoload/": "yellow",
+"res://shaders/": "purple",
+"res://ui/": "green",
 "res://utilities/": "gray"
 }
 

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ContentWarning" load_steps=2 format=3 uid="uid://p5m4fngey0i"]
+
+[ext_resource type="Script" path="res://ui/content_warning/advisors/content_warning.gd" id="1_ixu7d"]
+
+[resource]
+script = ExtResource("1_ixu7d")
+can_be_skipped = false
+time_on_screen = 2.0
+time_to_display_content_warning = 2.0
+time_to_hide_content_warning = 2.0
+title = "Mature Content Warning"
+subtitle = ""
+description = "The following video game contains graphics depictions of suicide and violence, which some players may find disturbing. It is intended for mature audiences"
+secondary_description = "Viewer discretion is advised"
+title_translation_key = "MATURE_CONTENT_TITLE"
+subtitle_translation_key = ""
+description_translation_key = "MATURE_CONTENT_DESCRIPTION"
+secondary_description_translation_key = "WARNING_VIEWER_DISCRETION"

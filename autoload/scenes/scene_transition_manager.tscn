@@ -1,0 +1,148 @@
+[gd_scene load_steps=10 format=3 uid="uid://ctfm8pvayni1r"]
+
+[ext_resource type="Script" path="res://autoload/scenes/scene_transition_manager.gd" id="1_kf75r"]
+
+[sub_resource type="Animation" id="Animation_kf1sc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0588235, 0.0588235, 0.0588235, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0p6h8"]
+resource_name = "fade_from_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0588235, 0.0588235, 0.0588235, 1), Color(0.0588235, 0.0588235, 0.0588235, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4yrah"]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0588235, 0.0588235, 0.0588235, 0), Color(0.0588235, 0.0588235, 0.0588235, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4kwo2"]
+resource_name = "voronoi_in_left"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false, 1.0],
+"method": &"voronoi_in_transition"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_77mwk"]
+resource_name = "vornoi_in_right"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true, 1.0],
+"method": &"voronoi_in_transition"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_xwtj7"]
+resource_name = "vornoi_out_left"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true, 1.0],
+"method": &"voronoi_out_transition"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_w7pos"]
+resource_name = "vornoi_out_right"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false, 1.0],
+"method": &"voronoi_out_transition"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fyhyf"]
+_data = {
+"RESET": SubResource("Animation_kf1sc"),
+"fade_from_black": SubResource("Animation_0p6h8"),
+"fade_to_black": SubResource("Animation_4yrah"),
+"voronoi_in_left": SubResource("Animation_4kwo2"),
+"voronoi_in_right": SubResource("Animation_77mwk"),
+"voronoi_out_left": SubResource("Animation_xwtj7"),
+"voronoi_out_right": SubResource("Animation_w7pos")
+}
+
+[node name="SceneTransitionManager" type="Node"]
+script = ExtResource("1_kf75r")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0588235, 0.0588235, 0.0588235, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fyhyf")
+}

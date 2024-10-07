@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ContentWarning" load_steps=2 format=3 uid="uid://bgr4ccqwj3qj7"]
+
+[ext_resource type="Script" path="res://ui/content_warning/advisors/content_warning.gd" id="1_l8dpy"]
+
+[resource]
+script = ExtResource("1_l8dpy")
+can_be_skipped = false
+time_on_screen = 2.0
+time_to_display_content_warning = 2.0
+time_to_hide_content_warning = 2.0
+title = ""
+subtitle = "This game is a work of fiction and imagination. The characters, places, and events depicted are products of the author's creative mind and do not represent reality"
+description = ""
+secondary_description = ""
+title_translation_key = ""
+subtitle_translation_key = "WARNING_RESEMBLANCE_CONTENT"
+description_translation_key = ""
+secondary_description_translation_key = ""
