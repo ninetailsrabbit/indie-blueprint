@@ -42,6 +42,7 @@ window/size/window_height_override=720
 folder_colors={
 "res://assets/": "pink",
 "res://autoload/": "yellow",
+"res://localization/": "teal",
 "res://shaders/": "purple",
 "res://ui/": "green",
 "res://utilities/": "gray"
