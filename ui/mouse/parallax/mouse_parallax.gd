@@ -1,6 +1,6 @@
 ## Achieve a parallax effect when moving the mouse around the screen
 ## This node needs to be the root parent, child ui nodes inherit this effect.
-@icon("res://ui/mouse/mouse_parallax.svg")
+@icon("res://ui/mouse/parallax/mouse_parallax.svg")
 class_name MouseParallax extends Control
 
 

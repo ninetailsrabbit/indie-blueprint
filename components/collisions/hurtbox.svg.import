@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brsafra72o5lj"
-path="res://.godot/imported/performance_metrics.svg-1bc0acb92e1bedaba97f4927204b9694.ctex"
+uid="uid://oyc52ogokudq"
+path="res://.godot/imported/hurtbox.svg-54946fd27afc09fe43348b2d63346427.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/performance/performance_metrics.svg"
-dest_files=["res://.godot/imported/performance_metrics.svg-1bc0acb92e1bedaba97f4927204b9694.ctex"]
+source_file="res://components/collisions/hurtbox.svg"
+dest_files=["res://.godot/imported/hurtbox.svg-54946fd27afc09fe43348b2d63346427.ctex"]
 
 [params]
 

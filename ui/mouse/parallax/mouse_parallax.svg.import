@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dlkggthds0so4"
-path="res://.godot/imported/mouse_parallax.svg-58cba1305b63e9a75f114dc3b03da43b.ctex"
+path="res://.godot/imported/mouse_parallax.svg-87e2de9f23926f3c72c64bfdb2d6cc57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/mouse/mouse_parallax.svg"
-dest_files=["res://.godot/imported/mouse_parallax.svg-58cba1305b63e9a75f114dc3b03da43b.ctex"]
+source_file="res://ui/mouse/parallax/mouse_parallax.svg"
+dest_files=["res://.godot/imported/mouse_parallax.svg-87e2de9f23926f3c72c64bfdb2d6cc57.ctex"]
 
 [params]
 

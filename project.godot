@@ -42,6 +42,7 @@ window/size/window_height_override=720
 folder_colors={
 "res://assets/": "pink",
 "res://autoload/": "yellow",
+"res://components/": "red",
 "res://localization/": "teal",
 "res://shaders/": "purple",
 "res://ui/": "green",
@@ -122,6 +123,8 @@ debug_metrics={
 3d_physics/layer_3="Enemies"
 2d_physics/layer_4="Hitboxes"
 3d_physics/layer_4="Hitboxes"
+2d_physics/layer_5="Shakeables"
+3d_physics/layer_5="Shakeables"
 
 [physics]
 
