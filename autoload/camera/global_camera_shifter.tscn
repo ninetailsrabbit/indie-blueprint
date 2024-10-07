@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://xnk5kohr3iff"]
+
+[ext_resource type="Script" path="res://autoload/camera/global_camera_shifter.gd" id="1_a5ryc"]
+
+[node name="GlobalCameraShifter" type="Node"]
+script = ExtResource("1_a5ryc")
+
+[node name="GlobalCamera2D" type="Camera2D" parent="."]
+enabled = false
+
+[node name="GlobalCamera3D" type="Camera3D" parent="."]
+process_mode = 4

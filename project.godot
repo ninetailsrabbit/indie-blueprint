@@ -40,6 +40,7 @@ window/size/window_height_override=720
 [file_customization]
 
 folder_colors={
+"res://addons/": "gray",
 "res://assets/": "pink",
 "res://autoload/": "yellow",
 "res://components/": "red",
