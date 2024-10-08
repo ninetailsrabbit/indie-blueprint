@@ -49,7 +49,7 @@ func prepare_settings() -> void:
 
 
 func load_settings(path: String = settings_file_path) -> void:
-	var error = config_file_api.load(path)
+	var error: Error = config_file_api.load(path)
 	
 	if error != OK:
 		push_error("SettingsManager: An error %d ocurred trying to load the settings from path %s " % [error, path])
