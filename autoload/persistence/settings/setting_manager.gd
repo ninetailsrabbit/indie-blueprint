@@ -11,13 +11,17 @@ const FileFormat: String = "ini" #  ini or cfg
 
 var settings_file_path: String = OS.get_user_data_dir() + "/settings.%s" % FileFormat
 var config_file_api: ConfigFile = ConfigFile.new()
+var encription: bool = false
 var include_ui_keybindings: bool = false
-var automatic: bool = true
+var load_on_start: bool = true
 
 
+func _enter_tree() -> void:
+	updated_setting_section.connect(on_updated_setting_section)
+	
+	
 func _ready() -> void:
-	print(settings_file_path)
-	if automatic:
+	if load_on_start:
 		prepare_settings()
 
 
@@ -49,7 +53,8 @@ func load_settings(path: String = settings_file_path) -> void:
 	
 	if error != OK:
 		push_error("SettingsManager: An error %d ocurred trying to load the settings from path %s " % [error, path])
-
+		return
+		
 	load_audio()
 	load_graphics()
 	load_localization()
@@ -71,6 +76,7 @@ func create_settings(path: String = settings_file_path) -> void:
 	save_settings(path)
 	
 	created_settings.emit()
+
 
 func create_audio_section() -> void:
 	for bus: String in AudioManager.available_buses:
@@ -342,4 +348,13 @@ func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
 	
 func _get_input_map_actions() -> Array[StringName]:
 	return InputMap.get_actions() if include_ui_keybindings else InputMap.get_actions().filter(func(action): return !action.contains("ui_"))
+#endregion
+
+
+#region Signal callbacks
+func on_updated_setting_section(_section: String, _key: String, _value: Variant) -> void:
+	save_settings()
+	
+	print(_section, _key, _value)
+
 #endregion
