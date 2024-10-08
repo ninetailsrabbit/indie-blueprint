@@ -1,9 +1,9 @@
 class_name TransformedInput
 
-var move_right_action: String = "move_right"
-var move_left_action: String = "move_left"
-var move_forward_action: String = "move_forward"
-var move_back_action: String = "move_back"
+var move_right_action: String = InputControls.MoveRight
+var move_left_action: String = InputControls.MoveLeft
+var move_forward_action: String = InputControls.MoveForward
+var move_back_action: String = InputControls.MoveBack
 
 var actor: Node
 var deadzone: float = 0.5:
