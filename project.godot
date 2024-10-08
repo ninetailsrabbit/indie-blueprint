@@ -30,6 +30,7 @@ CursorManager="*res://autoload/screen/cursor_manager.gd"
 SceneTransitionManager="*res://autoload/scenes/scene_transition_manager.tscn"
 GlobalEffects="*res://autoload/effects/global_effects.tscn"
 SettingManager="*res://autoload/persistence/settings/setting_manager.gd"
+SaveManager="*res://autoload/persistence/save/save_manager.gd"
 
 [display]
 
