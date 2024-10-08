@@ -1,6 +1,6 @@
 class_name GameSettings
 
-#region ConfigFile keys
+#region ConfigFile sections
 const KeybindingsSection: String = "keybindings"
 const GraphicsSection: String = "graphics"
 const AudioSection: String = "audio"
@@ -34,5 +34,29 @@ const SubtitlesLanguageSetting: String = "subtitles_language"
 const SubtitlesEnabledSetting: String = "subtitles"
 
 const MutedAudioSetting: String = "muted"
+#endregion
+
+
+#region Default settings
+static var DefaultSettings: Dictionary = {
+	GameSettings.MutedAudioSetting: false,
+	GameSettings.FpsCounterSetting: false,
+	GameSettings.MaxFpsSetting: 0,
+	GameSettings.WindowDisplaySetting: DisplayServer.window_get_mode(),
+	GameSettings.WindowResolutionSetting: DisplayServer.window_get_size(),
+	GameSettings.VsyncSetting:  DisplayServer.window_get_vsync_mode(),
+	GameSettings.QualityPresetSetting: HardwareDetector.auto_discover_graphics_quality(),
+	GameSettings.MouseSensivitySetting: 3.0,
+	GameSettings.ControllerVibrationSetting: true,
+	GameSettings.ScreenBrightnessSetting: 1.0,
+	GameSettings.PhotosensitivitySetting: false,
+	GameSettings.ScreenShakeSetting: true,
+	GameSettings.DaltonismSetting: WindowManager.DaltonismTypes.No,
+	GameSettings.CurrentLanguageSetting: TranslationServer.get_locale(),
+	GameSettings.VoicesLanguageSetting: TranslationServer.get_locale(),
+	GameSettings.SubtitlesLanguageSetting: TranslationServer.get_locale(),
+	GameSettings.SubtitlesEnabledSetting: false,
+	GameSettings.AllowTelemetrySetting: false
+}
 
 #endregion

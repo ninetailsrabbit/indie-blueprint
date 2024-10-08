@@ -82,38 +82,36 @@ func create_audio_section() -> void:
 	for bus: String in AudioManager.available_buses:
 		update_audio_section(bus, AudioManager.get_default_volume_for_bus(bus))
 		
-	update_audio_section(GameSettings.MutedAudioSetting, false)
+	update_audio_section(GameSettings.MutedAudioSetting, GameSettings.DefaultSettings[GameSettings.MutedAudioSetting])
 
 
 func create_graphics_section() -> void:
-	var quality_preset = HardwareDetector.auto_discover_graphics_quality()
-		
-	update_graphics_section(GameSettings.FpsCounterSetting, false)
-	update_graphics_section(GameSettings.MaxFpsSetting, 0)
-	update_graphics_section(GameSettings.WindowDisplaySetting, DisplayServer.window_get_mode())
-	update_graphics_section(GameSettings.WindowResolutionSetting, DisplayServer.window_get_size())
-	update_graphics_section(GameSettings.VsyncSetting, DisplayServer.window_get_vsync_mode())
-	update_graphics_section(GameSettings.QualityPresetSetting, quality_preset)
+	update_graphics_section(GameSettings.FpsCounterSetting, GameSettings.DefaultSettings[GameSettings.FpsCounterSetting])
+	update_graphics_section(GameSettings.MaxFpsSetting, GameSettings.DefaultSettings[GameSettings.MaxFpsSetting])
+	update_graphics_section(GameSettings.WindowDisplaySetting, GameSettings.DefaultSettings[GameSettings.WindowDisplaySetting])
+	update_graphics_section(GameSettings.WindowResolutionSetting, GameSettings.DefaultSettings[GameSettings.WindowResolutionSetting])
+	update_graphics_section(GameSettings.VsyncSetting, GameSettings.DefaultSettings[GameSettings.VsyncSetting])
+	update_graphics_section(GameSettings.QualityPresetSetting, GameSettings.DefaultSettings[GameSettings.QualityPresetSetting])
 	
 
 func create_accessibility_section() -> void:
-	update_accessibility_section(GameSettings.MouseSensivitySetting, 3.0)
-	update_accessibility_section(GameSettings.ControllerVibrationSetting, true)
-	update_accessibility_section(GameSettings.ScreenBrightnessSetting, 1.0)
-	update_accessibility_section(GameSettings.PhotosensitivitySetting, false)
-	update_accessibility_section(GameSettings.ScreenShakeSetting, true)
-	update_accessibility_section(GameSettings.DaltonismSetting, WindowManager.DaltonismTypes.No)
+	update_accessibility_section(GameSettings.MouseSensivitySetting, GameSettings.DefaultSettings[GameSettings.MouseSensivitySetting])
+	update_accessibility_section(GameSettings.ControllerVibrationSetting, GameSettings.DefaultSettings[GameSettings.ControllerVibrationSetting])
+	update_accessibility_section(GameSettings.ScreenBrightnessSetting, GameSettings.DefaultSettings[GameSettings.ScreenBrightnessSetting])
+	update_accessibility_section(GameSettings.PhotosensitivitySetting, GameSettings.DefaultSettings[GameSettings.PhotosensitivitySetting])
+	update_accessibility_section(GameSettings.ScreenShakeSetting, GameSettings.DefaultSettings[GameSettings.ScreenShakeSetting])
+	update_accessibility_section(GameSettings.DaltonismSetting, GameSettings.DefaultSettings[GameSettings.DaltonismSetting])
 
 
 func create_localization_section() -> void:
-	update_localization_section(GameSettings.CurrentLanguageSetting, TranslationServer.get_locale())
-	update_localization_section(GameSettings.VoicesLanguageSetting, TranslationServer.get_locale())
-	update_localization_section(GameSettings.SubtitlesEnabledSetting, false)
-	update_localization_section(GameSettings.SubtitlesLanguageSetting, TranslationServer.get_locale())
+	update_localization_section(GameSettings.CurrentLanguageSetting, GameSettings.DefaultSettings[GameSettings.CurrentLanguageSetting])
+	update_localization_section(GameSettings.VoicesLanguageSetting, GameSettings.DefaultSettings[GameSettings.VoicesLanguageSetting])
+	update_localization_section(GameSettings.SubtitlesLanguageSetting, GameSettings.DefaultSettings[GameSettings.SubtitlesLanguageSetting])
+	update_localization_section(GameSettings.SubtitlesEnabledSetting, GameSettings.DefaultSettings[GameSettings.SubtitlesEnabledSetting])
 
 
 func create_analytics_section() -> void:
-	update_analytics_section(GameSettings.AllowTelemetrySetting, false)
+	update_analytics_section(GameSettings.AllowTelemetrySetting, GameSettings.DefaultSettings[GameSettings.AllowTelemetrySetting])
 
 
 func create_keybindings_section() -> void:
@@ -354,7 +352,4 @@ func _get_input_map_actions() -> Array[StringName]:
 #region Signal callbacks
 func on_updated_setting_section(_section: String, _key: String, _value: Variant) -> void:
 	save_settings()
-	
-	print(_section, _key, _value)
-
 #endregion
