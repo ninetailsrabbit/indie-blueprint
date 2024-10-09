@@ -35,6 +35,8 @@ const SubtitlesLanguageSetting: String = "subtitles_language"
 const SubtitlesEnabledSetting: String = "subtitles"
 
 const MutedAudioSetting: String = "muted"
+
+const DefaultInputMapActionsSetting: String = "default_input_map_actions"
 #endregion
 
 
@@ -63,4 +65,7 @@ static var DefaultSettings: Dictionary = {
 
 static var FpsLimits: Array[int] = [0, 30, 60, 90, 144, 240, 300]
 
+## Dictionary[StringName, Array[InputEvent]
+## We save the default input map actions to allow players reset to factory default
+static var DefaultInputMapActions: Dictionary = {}
 #endregion

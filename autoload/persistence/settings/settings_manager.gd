@@ -120,11 +120,16 @@ func create_keybindings_section() -> void:
 	var whitespace_regex = RegEx.new()
 	whitespace_regex.compile(r"\s+")
 	
+	
+	update_keybindings_section(GameSettings.DefaultInputMapActionsSetting,[])
+	
 	for action: StringName in _get_input_map_actions():
 		var keybindings_events: Array[String] = []
+		var all_inputs_for_action: Array[InputEvent] = InputHelper.get_all_inputs_for_action(action)
+		## We save the default input map actions to allow players reset to factory default
+		GameSettings.DefaultInputMapActions[action] = all_inputs_for_action
 		
-		for input_event: InputEvent in InputHelper.get_all_inputs_for_action(action):
-			
+		for input_event: InputEvent in  all_inputs_for_action:
 			if input_event is InputEventKey:
 				keybindings_events.append("InputEventKey:%s" %  StringHelper.remove_whitespaces(InputHelper.readable_key(input_event)))
 				
@@ -231,6 +236,9 @@ func load_localization() -> void:
 
 func load_keybindings() -> void:
 	for action: String in config_file_api.get_section_keys(GameSettings.KeybindingsSection):
+		if action in [GameSettings.DefaultInputMapActionsSetting]:
+			continue
+			
 		var keybinding: String = get_keybindings_section(action)
 		
 		InputMap.action_erase_events(action)
@@ -432,7 +440,6 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 	
 func _get_input_map_actions() -> Array[StringName]:
 	return InputMap.get_actions() if include_ui_keybindings else InputMap.get_actions().filter(func(action): return !action.contains("ui_"))
-#endregion
 
 
 #region Signal callbacks
