@@ -1,4 +1,16 @@
 ## Here lives the common translation keys to use across the scenes
+#########
+#This is the notification structure if we want to dynamically changed translations in runtime:
+
+#func _notification(what: int) -> void:
+	#if what == NOTIFICATION_TRANSLATION_CHANGED:
+		#if not is_node_ready():
+			#await ready
+#
+		#YOUR TRANSLATION HERE
+#########
+
+
 class_name TranslationKeys
 	
 static var NoTranslationKey: String = "GENERAL_NO"

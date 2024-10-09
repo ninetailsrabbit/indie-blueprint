@@ -2,11 +2,9 @@ extends Node
 
 signal created_savegame(filename: String)
 signal loaded_savegame(filename: String)
-signal writed_savegame(filename: String)
 signal removed_saved_game(filename: String)
 signal error_creating_savegame(filename: String, error: Error)
 signal error_loading_savegame(filename: String, error: Error)
-signal error_writing_current_savegame(filename: String, error: Error)
 signal error_removing_savegame(filename: String, error: Error)
 
 ## Dictionary<string, SavedGame>

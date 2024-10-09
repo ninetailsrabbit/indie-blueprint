@@ -10,20 +10,32 @@ var valid_window_modes = [
 ## Borderless needs a different id to not overwrite the rest of window mode enums
 var borderless_id = 5
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		if not is_node_ready():
+			await ready
+
+		prepare_screen_mode_items()
+
 
 func _ready() -> void:
-	for mode in valid_window_modes:
-		add_item(_screen_mode_to_string(mode), borderless_id if mode == DisplayServer.WindowFlags.WINDOW_FLAG_BORDERLESS else mode)
+	prepare_screen_mode_items()
 	
 	if DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS):
 		select(get_item_index(borderless_id))
-		
 	else:
 		select(get_item_index(DisplayServer.window_get_mode()))
 	
 	
 	item_selected.connect(on_screen_mode_selected)
 
+
+func prepare_screen_mode_items() -> void:
+	clear()
+	
+	for mode in valid_window_modes:
+		add_item(_screen_mode_to_string(mode), borderless_id if mode == DisplayServer.WindowFlags.WINDOW_FLAG_BORDERLESS else mode)
+	
 
 func _screen_mode_to_string(mode: DisplayServer.WindowMode) -> String:
 	match mode:

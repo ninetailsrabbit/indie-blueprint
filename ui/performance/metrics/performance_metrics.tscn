@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ca0723gt87eb7"]
+[gd_scene load_steps=3 format=3 uid="uid://ca0723gt87eb7"]
 
 [ext_resource type="Script" path="res://ui/performance/metrics/performance_metrics.gd" id="1_cjjbn"]
 [ext_resource type="LabelSettings" uid="uid://d1524b81u6exi" path="res://ui/performance/metrics/hardware_label_settings.tres" id="2_sjbvd"]
-[ext_resource type="Script" path="res://ui/menus/components/option_buttons/screen_mode_option_button.gd" id="3_hmnna"]
 
 [node name="PerformanceMetrics" type="Control"]
 process_mode = 3
@@ -87,11 +86,3 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "GPU:"
 label_settings = ExtResource("2_sjbvd")
-
-[node name="ScreenModeOptionButton" type="OptionButton" parent="."]
-layout_mode = 0
-offset_left = 161.0
-offset_top = 102.0
-offset_right = 392.0
-offset_bottom = 125.0
-script = ExtResource("3_hmnna")
