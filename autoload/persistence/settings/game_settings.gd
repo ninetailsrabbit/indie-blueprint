@@ -60,12 +60,10 @@ static var DefaultSettings: Dictionary = {
 	GameSettings.VoicesLanguageSetting: TranslationServer.get_locale(),
 	GameSettings.SubtitlesLanguageSetting: TranslationServer.get_locale(),
 	GameSettings.SubtitlesEnabledSetting: false,
-	GameSettings.AllowTelemetrySetting: false
+	GameSettings.AllowTelemetrySetting: false,
+	## Dictionary[StringName, Array[InputEvent]
+	GameSettings.DefaultInputMapActionsSetting: {}
 }
 
 static var FpsLimits: Array[int] = [0, 30, 60, 90, 144, 240, 300]
-
-## Dictionary[StringName, Array[InputEvent]
-## We save the default input map actions to allow players reset to factory default
-static var DefaultInputMapActions: Dictionary = {}
 #endregion

@@ -35,5 +35,8 @@ func _get_input_map_actions() -> Array[StringName]:
 
 
 func on_reset_to_default_pressed() -> void:
-	for action: StringName in GameSettings.DefaultInputMapActions:
-		pass
+	var default_input_map_actions: Dictionary = GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting]
+	print(default_input_map_actions)
+	
+	for action: StringName in default_input_map_actions:
+		print(default_input_map_actions)
