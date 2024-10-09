@@ -18,6 +18,13 @@ static func is_mouse_right_button_pressed(event: InputEvent) -> bool:
 	return event is InputEventMouse and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 
 
+static func double_click_to_single(event: InputEvent) -> InputEvent:
+	if event is InputEventMouseButton and event.double_click:
+			event.double_click = false
+	
+	return event
+	
+	
 static func is_mouse_visible() -> bool:
 	return Input.mouse_mode == Input.MOUSE_MODE_VISIBLE || Input.mouse_mode == Input.MOUSE_MODE_CONFINED
 
@@ -44,6 +51,27 @@ static func hide_mouse_cursor() -> void:
 
 static func hide_mouse_cursor_confined() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+
+
+static func is_modifier_key() -> bool:
+	return Input.is_key_pressed(KEY_CTRL)
+	
+	
+static func any_key_modifier_is_pressed() -> bool:
+	return shift_modifier_pressed() or ctrl_modifier_pressed() or alt_modifier_pressed()
+
+
+static func shift_modifier_pressed() -> bool:
+	return Input.is_key_pressed(KEY_SHIFT)
+	
+	
+static func ctrl_modifier_pressed() -> bool:
+	return Input.is_key_pressed(KEY_CTRL)
+
+
+static func alt_modifier_pressed() -> bool:
+	return Input.is_key_pressed(KEY_ALT)
+
 
 
 static func is_controller_button(event: InputEvent) -> bool:
