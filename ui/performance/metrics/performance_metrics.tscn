@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ca0723gt87eb7"]
+[gd_scene load_steps=5 format=3 uid="uid://ca0723gt87eb7"]
 
 [ext_resource type="Script" path="res://ui/performance/metrics/performance_metrics.gd" id="1_cjjbn"]
 [ext_resource type="LabelSettings" uid="uid://d1524b81u6exi" path="res://ui/performance/metrics/hardware_label_settings.tres" id="2_sjbvd"]
+[ext_resource type="Script" path="res://ui/menus/components/option_buttons/screen_mode_option_button.gd" id="3_bo2ma"]
+[ext_resource type="Script" path="res://ui/menus/components/checkbox/screen_borderless_checkbox.gd" id="4_w57lk"]
 
 [node name="PerformanceMetrics" type="Control"]
 process_mode = 3
@@ -86,3 +88,19 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "GPU:"
 label_settings = ExtResource("2_sjbvd")
+
+[node name="ScreenModeOptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 51.0
+offset_right = 423.0
+offset_bottom = 85.0
+script = ExtResource("3_bo2ma")
+
+[node name="ScreenBorderlessCheckbox" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 124.0
+offset_right = 380.0
+offset_bottom = 148.0
+script = ExtResource("4_w57lk")

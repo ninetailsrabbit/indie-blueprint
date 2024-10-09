@@ -89,6 +89,7 @@ func create_graphics_section() -> void:
 	update_graphics_section(GameSettings.FpsCounterSetting, GameSettings.DefaultSettings[GameSettings.FpsCounterSetting])
 	update_graphics_section(GameSettings.MaxFpsSetting, GameSettings.DefaultSettings[GameSettings.MaxFpsSetting])
 	update_graphics_section(GameSettings.WindowDisplaySetting, GameSettings.DefaultSettings[GameSettings.WindowDisplaySetting])
+	update_graphics_section(GameSettings.WindowDisplayBorderlessSetting,  GameSettings.DefaultSettings[GameSettings.WindowDisplayBorderlessSetting])
 	update_graphics_section(GameSettings.WindowResolutionSetting, GameSettings.DefaultSettings[GameSettings.WindowResolutionSetting])
 	update_graphics_section(GameSettings.VsyncSetting, GameSettings.DefaultSettings[GameSettings.VsyncSetting])
 	update_graphics_section(GameSettings.QualityPresetSetting, GameSettings.DefaultSettings[GameSettings.QualityPresetSetting])
