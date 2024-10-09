@@ -23,4 +23,4 @@ func audio_slider_drag_ended(volume_changed: bool):
 			AudioManager.change_volume("EchoSFX", value)
 		AudioManager.change_volume(target_bus, value)
 		
-		SettingManager.update_audio_section(target_bus, value)
+		SettingsManager.update_audio_section(target_bus, value)

@@ -59,5 +59,5 @@ func on_screen_mode_selected(idx) -> void:
 		DisplayServer.window_set_mode(get_item_id(idx))
 		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 		
-	SettingManager.update_graphics_section(GameSettings.WindowDisplaySetting, DisplayServer.window_get_mode())
-	SettingManager.update_graphics_section(GameSettings.WindowDisplayBorderlessSetting, DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS))
+	SettingsManager.update_graphics_section(GameSettings.WindowDisplaySetting, DisplayServer.window_get_mode())
+	SettingsManager.update_graphics_section(GameSettings.WindowDisplayBorderlessSetting, DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS))

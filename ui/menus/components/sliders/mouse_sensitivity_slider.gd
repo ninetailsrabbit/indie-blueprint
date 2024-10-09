@@ -12,9 +12,9 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	value = SettingManager.get_accessibility_section(GameSettings.MouseSensivitySetting)
+	value = SettingsManager.get_accessibility_section(GameSettings.MouseSensivitySetting)
 		
 
 
 func on_sensitivity_changed(sensitivity_changed: float) -> void:
-	SettingManager.update_accessibility_section(GameSettings.MouseSensivitySetting, value)
+	SettingsManager.update_accessibility_section(GameSettings.MouseSensivitySetting, value)

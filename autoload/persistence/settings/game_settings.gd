@@ -60,4 +60,6 @@ static var DefaultSettings: Dictionary = {
 	GameSettings.AllowTelemetrySetting: false
 }
 
+static var FpsLimits: Array[int] = [0, 30, 60, 90, 144, 240, 300]
+
 #endregion
