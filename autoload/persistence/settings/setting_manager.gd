@@ -206,6 +206,8 @@ func load_graphics() -> void:
 				Engine.max_fps = config_value
 			GameSettings.WindowDisplaySetting:
 				DisplayServer.window_set_mode(config_value)
+			GameSettings.WindowDisplayBorderlessSetting:
+				DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, bool(config_value))
 			GameSettings.WindowResolutionSetting:
 				DisplayServer.window_set_size(config_value)
 			GameSettings.VsyncSetting:
@@ -272,11 +274,13 @@ func get_analytics_section(key: String):
 #region Section updaters
 func update_audio_section(key: String, value: Variant) -> void:
 	config_file_api.set_value(GameSettings.AudioSection, key, value)
+	
 	updated_setting_section.emit(GameSettings.AudioSection, key, value)
 
 
 func update_keybindings_section(key: String, value: Variant) -> void:
 	config_file_api.set_value(GameSettings.KeybindingsSection, key, value)
+	
 	updated_setting_section.emit(GameSettings.KeybindingsSection, key, value)
 
 
