@@ -1,8 +1,10 @@
 class_name LanguageSelector extends OptionButton
 
-@export_enum(GameSettings.CurrentLanguageSetting, 
+@export_enum(
+GameSettings.CurrentLanguageSetting, 
 GameSettings.SubtitlesLanguageSetting, 
-GameSettings.VoicesLanguageSetting) var setting_related = GameSettings.CurrentLanguageSetting
+GameSettings.VoicesLanguageSetting
+) var setting_related = GameSettings.CurrentLanguageSetting
 ## Ues the original name or native speakers of the language. If disabled, its English name will be used.
 @export var use_native_name: bool = true
 
@@ -39,5 +41,4 @@ func _ready() -> void:
 func on_language_selected(idx) -> void:
 	var selected_language = language_by_option_button_id[get_item_id(idx)]
 	SettingsManager.update_localization_section(setting_related, selected_language.iso_code)
-
 	TranslationServer.set_locale(selected_language.iso_code)
