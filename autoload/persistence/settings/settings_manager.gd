@@ -81,9 +81,15 @@ func create_settings(path: String = settings_file_path) -> void:
 func create_audio_section() -> void:
 	for bus: String in AudioManager.available_buses:
 		update_audio_section(bus, AudioManager.get_default_volume_for_bus(bus))
+	
+	var buses_are_muted: bool = GameSettings.DefaultSettings[GameSettings.MutedAudioSetting]
+	update_audio_section(GameSettings.MutedAudioSetting, buses_are_muted)
+	
+	if(buses_are_muted):
+		AudioManager.mute_all_buses()
+	else:
+		AudioManager.unmute_all_buses()
 		
-	update_audio_section(GameSettings.MutedAudioSetting, GameSettings.DefaultSettings[GameSettings.MutedAudioSetting])
-
 
 func create_graphics_section() -> void:
 	update_graphics_section(GameSettings.FpsCounterSetting, GameSettings.DefaultSettings[GameSettings.FpsCounterSetting])
@@ -97,6 +103,7 @@ func create_graphics_section() -> void:
 
 func create_accessibility_section() -> void:
 	update_accessibility_section(GameSettings.MouseSensivitySetting, GameSettings.DefaultSettings[GameSettings.MouseSensivitySetting])
+	update_accessibility_section(GameSettings.ReversedMouseSetting, GameSettings.DefaultSettings[GameSettings.ReversedMouseSetting])
 	update_accessibility_section(GameSettings.ControllerVibrationSetting, GameSettings.DefaultSettings[GameSettings.ControllerVibrationSetting])
 	update_accessibility_section(GameSettings.ScreenBrightnessSetting, GameSettings.DefaultSettings[GameSettings.ScreenBrightnessSetting])
 	update_accessibility_section(GameSettings.PhotosensitivitySetting, GameSettings.DefaultSettings[GameSettings.PhotosensitivitySetting])

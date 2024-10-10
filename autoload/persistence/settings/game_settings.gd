@@ -20,6 +20,7 @@ const VsyncSetting: String = "vsync"
 const QualityPresetSetting: String = "quality_preset"
 
 const MouseSensivitySetting: String = "mouse_sensitivity"
+const ReversedMouseSetting: String = "reversed_mouse"
 const ControllerVibrationSetting: String = "controller_vibration"
 
 const ScreenBrightnessSetting: String = "screen_brightness"
@@ -51,6 +52,7 @@ static var DefaultSettings: Dictionary = {
 	GameSettings.VsyncSetting:  DisplayServer.window_get_vsync_mode(),
 	GameSettings.QualityPresetSetting: HardwareDetector.auto_discover_graphics_quality(),
 	GameSettings.MouseSensivitySetting: 3.0,
+	GameSettings.ReversedMouseSetting: false,
 	GameSettings.ControllerVibrationSetting: true,
 	GameSettings.ScreenBrightnessSetting: 1.0,
 	GameSettings.PhotosensitivitySetting: false,

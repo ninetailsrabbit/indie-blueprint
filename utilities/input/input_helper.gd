@@ -92,7 +92,7 @@ static func numeric_key_pressed(event: InputEvent) -> bool:
 
 static func readable_key(key: InputEventKey):
 	var key_with_modifiers: Key = key.get_physical_keycode_with_modifiers() if key.keycode == KEY_NONE else key.get_keycode_with_modifiers()
-	
+
 	return OS.get_keycode_string(key_with_modifiers).replace("+", "+ ")
 
 

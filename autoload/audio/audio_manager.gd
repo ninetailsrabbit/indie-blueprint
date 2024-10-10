@@ -79,6 +79,10 @@ func is_stream_looped(stream: AudioStream) -> bool:
 	return false
 
 
+func all_buses_are_muted() -> bool:
+	return enumerate_available_buses().all(is_muted)
+
+
 func is_muted(bus = MasterBusIndex) -> bool:
 	return AudioServer.is_bus_mute(get_bus(bus))
 	
