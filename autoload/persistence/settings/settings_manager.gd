@@ -116,80 +116,80 @@ func create_analytics_section() -> void:
 
 
 func create_keybindings_section() -> void:
-	var keybindings: Dictionary = {}
-	var whitespace_regex = RegEx.new()
-	whitespace_regex.compile(r"\s+")
-	
-	for action: StringName in _get_input_map_actions():
-		var keybindings_events: Array[String] = []
-		var all_inputs_for_action: Array[InputEvent] = InputHelper.get_all_inputs_for_action(action)
-		## We save the default input map actions to allow players reset to factory default
-		GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting][action] = all_inputs_for_action
-		
-		for input_event: InputEvent in  all_inputs_for_action:
-			if input_event is InputEventKey:
-				keybindings_events.append("InputEventKey:%s" %  StringHelper.remove_whitespaces(InputHelper.readable_key(input_event)))
-				
-			if input_event is InputEventMouseButton:
-				var mouse_button_text: String = ""
-				
-				match(input_event.button_index):
-					MOUSE_BUTTON_LEFT:
-						mouse_button_text = "LMB"
-					MOUSE_BUTTON_RIGHT:
-						mouse_button_text = "RMB"
-					MOUSE_BUTTON_MIDDLE:
-						mouse_button_text = "MMB"
-					MOUSE_BUTTON_WHEEL_DOWN:
-						mouse_button_text = "WheelDown"
-					MOUSE_BUTTON_WHEEL_UP:
-						mouse_button_text = "WheelUp"
-					MOUSE_BUTTON_WHEEL_RIGHT:
-						mouse_button_text = "WheelRight"
-					MOUSE_BUTTON_WHEEL_LEFT:
-						mouse_button_text = "WheelLeft"
-						
-				keybindings_events.append("InputEventMouseButton%s%d%s%s" % [InputEventSeparator, input_event.button_index, InputEventSeparator, mouse_button_text])
-			
-			if input_event is InputEventJoypadMotion:
-				var joypadAxis: String = ""
-				
-				match(input_event.axis):
-					JOY_AXIS_LEFT_X:
-						joypadAxis = "Left Stick %s" % "Left" if input_event.axis_value < 0 else "Right"
-					JOY_AXIS_LEFT_Y:
-						joypadAxis = "Left Stick %s" % "Up" if input_event.axis_value < 0 else "Down"
-					JOY_AXIS_RIGHT_X:
-						joypadAxis = "Right Stick %s" % "Left" if input_event.axis_value < 0 else "Right"
-					JOY_AXIS_RIGHT_Y:
-						joypadAxis = "Right Stick %s" % "Up" if input_event.axis_value < 0 else "Down"
-					JOY_AXIS_TRIGGER_LEFT:
-						joypadAxis = "Left Trigger"
-					JOY_AXIS_TRIGGER_RIGHT:
-						joypadAxis = "Right trigger"
-				
-				keybindings_events.append("InputEventJoypadMotion%s%d%s%d%s%s" % [InputEventSeparator, input_event.axis, InputEventSeparator, input_event.axis_value, InputEventSeparator, joypadAxis])
-				
-			if input_event is InputEventJoypadButton:
-				var joypadButton: String = ""
-				
-				if(GamepadControllerManager.current_controller_is_xbox() or GamepadControllerManager.current_controller_is_generic()):
-					joypadButton = "%s Button" % GamepadControllerManager.XboxButtonLabels[input_event.button_index]
-				
-				elif GamepadControllerManager.current_controller_is_switch() or GamepadControllerManager.current_controller_is_switch_joycon():
-					joypadButton = "%s Button" % GamepadControllerManager.SwitchButtonLabels[input_event.button_index]
-				
-				elif  GamepadControllerManager.current_controller_is_playstation():
-					joypadButton = "%s Button" % GamepadControllerManager.PlaystationButtonLabels[input_event.button_index]
-					
-				keybindings_events.append("InputEventJoypadButton%s%d%s%s" % [InputEventSeparator, input_event.button_index, InputEventSeparator, joypadButton])
-				
-				
-		keybindings[action] = KeybindingSeparator.join(keybindings_events)
-		
-		update_keybindings_section(action, keybindings[action])
-		update_keybindings_section(GameSettings.DefaultInputMapActionsSetting, GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting])
+	_get_input_map_actions().map(create_keybinding_events_for_action)
+	update_keybindings_section(GameSettings.DefaultInputMapActionsSetting, GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting])
 #endregion
+
+
+func create_keybinding_events_for_action(action: StringName) -> Array[String]:
+	var keybinding_events: Array[String] = []
+	var all_inputs_for_action: Array[InputEvent] = InputHelper.get_all_inputs_for_action(action)
+	## We save the default input map actions to allow players reset to factory default
+	GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting][action] = all_inputs_for_action
+	
+	for input_event: InputEvent in all_inputs_for_action:
+		if input_event is InputEventKey:
+			keybinding_events.append("InputEventKey:%s" %  StringHelper.remove_whitespaces(InputHelper.readable_key(input_event)))
+			
+		if input_event is InputEventMouseButton:
+			var mouse_button_text: String = ""
+			
+			match(input_event.button_index):
+				MOUSE_BUTTON_LEFT:
+					mouse_button_text = "LMB"
+				MOUSE_BUTTON_RIGHT:
+					mouse_button_text = "RMB"
+				MOUSE_BUTTON_MIDDLE:
+					mouse_button_text = "MMB"
+				MOUSE_BUTTON_WHEEL_DOWN:
+					mouse_button_text = "WheelDown"
+				MOUSE_BUTTON_WHEEL_UP:
+					mouse_button_text = "WheelUp"
+				MOUSE_BUTTON_WHEEL_RIGHT:
+					mouse_button_text = "WheelRight"
+				MOUSE_BUTTON_WHEEL_LEFT:
+					mouse_button_text = "WheelLeft"
+					
+			keybinding_events.append("InputEventMouseButton%s%d%s%s" % [InputEventSeparator, input_event.button_index, InputEventSeparator, mouse_button_text])
+		
+		if input_event is InputEventJoypadMotion:
+			var joypadAxis: String = ""
+			
+			match(input_event.axis):
+				JOY_AXIS_LEFT_X:
+					joypadAxis = "Left Stick %s" % "Left" if input_event.axis_value < 0 else "Right"
+				JOY_AXIS_LEFT_Y:
+					joypadAxis = "Left Stick %s" % "Up" if input_event.axis_value < 0 else "Down"
+				JOY_AXIS_RIGHT_X:
+					joypadAxis = "Right Stick %s" % "Left" if input_event.axis_value < 0 else "Right"
+				JOY_AXIS_RIGHT_Y:
+					joypadAxis = "Right Stick %s" % "Up" if input_event.axis_value < 0 else "Down"
+				JOY_AXIS_TRIGGER_LEFT:
+					joypadAxis = "Left Trigger"
+				JOY_AXIS_TRIGGER_RIGHT:
+					joypadAxis = "Right trigger"
+			
+			keybinding_events.append("InputEventJoypadMotion%s%d%s%d%s%s" % [InputEventSeparator, input_event.axis, InputEventSeparator, input_event.axis_value, InputEventSeparator, joypadAxis])
+			
+		if input_event is InputEventJoypadButton:
+			var joypadButton: String = ""
+			
+			if(GamepadControllerManager.current_controller_is_xbox() or GamepadControllerManager.current_controller_is_generic()):
+				joypadButton = "%s Button" % GamepadControllerManager.XboxButtonLabels[input_event.button_index]
+			
+			elif GamepadControllerManager.current_controller_is_switch() or GamepadControllerManager.current_controller_is_switch_joycon():
+				joypadButton = "%s Button" % GamepadControllerManager.SwitchButtonLabels[input_event.button_index]
+			
+			elif  GamepadControllerManager.current_controller_is_playstation():
+				joypadButton = "%s Button" % GamepadControllerManager.PlaystationButtonLabels[input_event.button_index]
+				
+			keybinding_events.append("InputEventJoypadButton%s%d%s%s" % [InputEventSeparator, input_event.button_index, InputEventSeparator, joypadButton])
+	
+	
+	update_keybindings_section(action, KeybindingSeparator.join(keybinding_events))
+	
+	return keybinding_events
+
 
 #region Load
 func load_audio() -> void:

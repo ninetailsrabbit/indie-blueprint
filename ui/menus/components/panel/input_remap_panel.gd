@@ -40,6 +40,9 @@ func _input(event: InputEvent) -> void:
 		
 
 func _ready() -> void:
+	for child in NodeTraversal.find_nodes_of_custom_class(action_list, InputActionKeybindingDisplay):
+		child.queue_free()
+	
 	set_process_input(is_remapping)
 	load_input_keybindings(_get_input_map_actions())
 		
