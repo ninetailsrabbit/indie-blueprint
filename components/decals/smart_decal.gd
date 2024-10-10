@@ -2,7 +2,9 @@ class_name SmartDecal extends Decal
 
 ## A fade out animation after time in seconds
 @export var fade_after: float = 3.0
+## The time that takes to fade out the decal
 @export var fade_out_time: float = 1.5
+## Randomize the spin on the Y axis to create a more natural feeling
 @export var spin_randomization: bool = false
 
 func _ready() -> void:
