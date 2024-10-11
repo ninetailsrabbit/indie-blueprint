@@ -67,6 +67,13 @@ static func intersects(a: Array[Variant], b: Array[Variant]) -> bool:
 	return false
 
 
+static func intersected_elements(a: Array[Variant], b: Array[Variant]) -> Array[Variant]:
+	if intersects(a, b):
+		return a.filter(func(element): return element in b)
+		
+	return []
+	
+
 static func merge_unique(first: Array[Variant], second: Array[Variant]) -> Array[Variant]:
 	var merged_array: Array[Variant] = remove_duplicates(first)
 

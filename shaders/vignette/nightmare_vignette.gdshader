@@ -24,7 +24,7 @@ vec4 layer(in vec4 front_color, in vec4 back_color) {
 
 void fragment() {
 	vec3 static_plot = vec3(generate_random_static(STATIC_GRANULARITY,UPDATE_INTERVAL,UV));
-	
+
 	vec2 c1 = vec2(0.5);
 	vec2 pv1 = get_polar_coords(c1,UV);
 	float func = BORDER_SIZE-.015*cos(4.0*pv1.y);

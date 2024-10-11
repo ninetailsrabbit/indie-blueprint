@@ -9,7 +9,7 @@ uniform float blur_outer : hint_range(0, 1) = 0.66; // Outer edge of the blur ef
 void fragment() {
     // Original color of the pixel from the screen
     vec4 pixelColor = texture(screen_texture, UV);
-    
+
     // Color with blur effect from the screen
     vec4 blurColor = textureLod(screen_texture, SCREEN_UV, blur_amount);
 
