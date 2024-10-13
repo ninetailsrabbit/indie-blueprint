@@ -27,6 +27,7 @@ var remaining_animations := []
 
 
 func _ready():
+	color_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	color_rect.z_index = 100
 	
 	transition_requested.connect(on_transition_requested)

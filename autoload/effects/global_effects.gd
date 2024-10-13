@@ -20,9 +20,10 @@ var is_fading: bool = false
 
 
 func _ready() -> void:
-	fade_background.modulate.a = 0
-	
 	mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
+
+	fade_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade_background.modulate.a = 0
 	
 	fade_started.connect(on_fade_started)
 	fade_finished.connect(on_fade_finished)
