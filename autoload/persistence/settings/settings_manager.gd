@@ -440,11 +440,9 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 				RenderingServer.positional_soft_shadow_filter_set_quality(quality.enabled)
 			"mesh_level_of_detail":
 				viewport.mesh_lod_threshold = quality.enabled
-
-
-
 #endregion
 	
+
 func _get_input_map_actions() -> Array[StringName]:
 	return InputMap.get_actions() if include_ui_keybindings else InputMap.get_actions().filter(func(action): return !action.contains("ui_"))
 

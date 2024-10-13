@@ -15,9 +15,9 @@ float vignette(vec2 uv){
 void fragment(){
 	vec4 color = texture(screen_vec, SCREEN_UV);
 	vec4 text = texture(TEXTURE, UV);
-	
+
 	text.rgba *= (vignette_rgb.rgba);
 	text.rgba *= (1.0 - vignette(UV));
-	
+
 	COLOR = vec4((text.rgb)*color.rgb,text.a);
 }
