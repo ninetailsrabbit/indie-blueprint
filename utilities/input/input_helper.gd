@@ -25,14 +25,13 @@ static func double_click_to_single(event: InputEvent) -> InputEvent:
 	return event
 
 
-static mouse_relative_motion(event: InputEvent) -> Vector2:
+static func mouse_relative_motion(event: InputEvent, scene_tree: SceneTree) -> Vector2:
 	if event is InputEventMouseMotion and is_mouse_captured():
-		var motion: InputEventMouseMotion = event.xformed_by(get_tree().root.get_final_transform())
+		var motion: InputEventMouseMotion = event.xformed_by(scene_tree.root.get_final_transform())
 		
 		return motion.relative
 	
 	return Vector2.ZERO
-
 
 	
 static func is_mouse_visible() -> bool:

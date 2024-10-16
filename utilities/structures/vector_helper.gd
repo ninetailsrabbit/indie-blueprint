@@ -35,6 +35,17 @@ static func up_direction_opposite_vector3(up_direction: Vector3) -> Vector3:
 	
 	return Vector3.ZERO
 
+## Converts Vectors like Vector3(1, 0, 0) into Vector3(0, 1, 1)
+static func invert_vector(vector: Vector3) -> Vector3:
+	var new_vector: Vector3 = vector.normalized().round()
+
+	new_vector.x = 0 if new_vector.x != 0 else 1
+	new_vector.y = 0 if new_vector.y != 0 else 1
+	new_vector.z = 0 if new_vector.z != 0 else 1
+	
+	return new_vector
+	
+
 static func generate_2d_random_directions_using_degrees(num_directions: int = 10, origin: Vector2 = Vector2.UP, min_angle: float = 0.0, max_angle: float = 360.0) -> Array[Vector2]:
 	var random_directions: Array[Vector2] = []
 
@@ -79,20 +90,30 @@ static func generate_random_angle_in_degrees(min_angle: float = 0.0, max_angle: 
 	return min_angle + randf() * (max_angle - min_angle)
 
 
+static func generate_2d_random_fixed_direction() -> Vector2:
+	var direction: Vector2 = Vector2(randi_range(-1, 1), randi_range(-1, 1)).normalized()
+	
+	while direction.is_zero_approx():
+		direction =  Vector2(randi_range(-1, 1), randi_range(-1, 1)).normalized()
+		
+	return direction
+
+
 static func generate_2d_random_direction() -> Vector2:
 	return Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 
 
-static func generate_2d_random_fixed_direction() -> Vector2:
-	return Vector2(randi_range(-1, 1), randi_range(-1, 1)).normalized()
+static func generate_3d_random_fixed_direction() -> Vector3:
+	var direction: Vector3 = Vector3(randi_range(-1, 1), randi_range(-1, 1), randi_range(-1, 1)).normalized()
+	
+	while direction.is_zero_approx():
+		direction =  Vector3(randi_range(-1, 1), randi_range(-1, 1), randi_range(-1, 1)).normalized()
+		
+	return direction
 
 
 static func generate_3d_random_direction() -> Vector3:
 	return Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()
-
-
-static func generate_3d_random_fixed_direction() -> Vector3:
-	return Vector3(randi_range(-1, 1), randi_range(-1, 1), randi_range(-1, 1)).normalized()
 
 
 static func translate_x_axis_to_vector(axis: float) -> Vector2:
