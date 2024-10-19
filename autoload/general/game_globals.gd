@@ -22,4 +22,7 @@ func delay_func(callable: Callable, time: float, deferred: bool = true):
 		else:
 			callable.call()
 
+## Example of use: await GameGlobals.wait(1.5)
+func wait(seconds:float = 1.0):
+	return get_tree().create_timer(seconds).timeout
 #endregion
