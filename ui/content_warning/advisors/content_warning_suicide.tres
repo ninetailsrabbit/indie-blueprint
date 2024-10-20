@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ContentWarning" load_steps=2 format=3 uid="uid://bv0gmqiphekgj"]
+
+[ext_resource type="Script" path="res://ui/content_warning/advisors/content_warning.gd" id="1_0etnp"]
+
+[resource]
+script = ExtResource("1_0etnp")
+can_be_skipped = false
+time_on_screen = 2.0
+time_to_display_content_warning = 2.0
+time_to_hide_content_warning = 2.0
+title = ""
+subtitle = ""
+description = "The following game contains graphic depictions of suicide which some players may find troubling. If you or someone know is struggling, information and crisis resources are available at www.wannatalkaboutit.com"
+secondary_description = ""
+title_translation_key = ""
+subtitle_translation_key = ""
+description_translation_key = "WARNING_SUICIDE_ADVICE"
+secondary_description_translation_key = ""
