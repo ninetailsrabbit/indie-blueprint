@@ -381,6 +381,7 @@ func apply_graphics_on_directional_light(directional_light: DirectionalLight3D, 
 						directional_light.shadow_bias = 0.005
 
 
+@warning_ignore("int_as_enum_without_cast")
 func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_preset: HardwareDetector.QualityPreset = HardwareDetector.QualityPreset.Medium) -> void:
 	var viewport: Viewport = world_environment.get_viewport()
 	var preset: HardwareDetector.GraphicQualityPreset = HardwareDetector.graphics_quality_presets[quality_preset]
