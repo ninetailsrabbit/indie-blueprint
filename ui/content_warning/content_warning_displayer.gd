@@ -4,7 +4,7 @@ class_name ContentWarnings extends Control
 signal content_warning_displayed(content_warning: ContentWarning)
 signal all_content_warnings_displayed
 
-@export var input_actions_that_skip_warning := ["ui_accept"]
+@export var input_actions_that_skip_warning: Array[String] = ["ui_accept"]
 @export var content_warnings_to_display: Array[ContentWarning] = []
 
 @onready var content_warning_title: Label = %ContentWarningTitle

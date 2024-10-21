@@ -16,15 +16,15 @@ uniform float scan_size = 2.0;
 uniform float scanline_alpha = 0.9;
 uniform float lines_velocity = 30.0;
 
-vec2 distort(vec2 p) 
+vec2 distort(vec2 p)
 {
 	float angle = p.y / p.x;
 	float theta = atan(p.y,p.x);
 	float radius = pow(length(p), BarrelPower);
-	
+
 	p.x = radius * cos(theta);
 	p.y = radius * sin(theta);
-	
+
 	return 0.5 * (p + vec2(1.0,1.0));
 }
 
@@ -45,7 +45,7 @@ void fragment()
 	vec2 xy = SCREEN_UV * 2.0;
 	xy.x -= 1.0;
 	xy.y -= 1.0;
-	
+
 	float d = length(xy);
 	if(d < 1.5){
 		xy = distort(xy);
@@ -53,7 +53,7 @@ void fragment()
 	else{
 		xy = SCREEN_UV;
 	}
-	
+
 	float pixel_size_x = 1.0/screen_width*bleeding_range_x;
 	float pixel_size_y = 1.0/screen_height*bleeding_range_y;
 	vec4 color_left = texture(SCREEN_TEXTURE,xy - vec2(pixel_size_x, pixel_size_y));
