@@ -1,11 +1,11 @@
-extends Control
+extends PanelContainer
 
 const InputActionKeybindingScene = preload("res://ui/menus/components/panel/input_action_keybinding.tscn")
 
 @export var include_ui_actions: bool = false
 
 @onready var action_list: VBoxContainer = %ActionListVboxContainer
-@onready var reset_to_default_button: Button = $PanelContainer/MarginContainer/ActionListVboxContainer/ResetToDefaultButton
+@onready var reset_to_default_button: Button = $MarginContainer/ActionListVboxContainer/ResetToDefaultButton
 
 var is_remapping: bool = false:
 	set(value):
@@ -78,7 +78,7 @@ func on_reset_to_default_pressed() -> void:
 	var default_input_map_actions: Dictionary = GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting]
 	
 	if not default_input_map_actions.is_empty():
-		for input_action_keybinding: HBoxContainer in NodeTraversal.find_nodes_of_type(action_list, HBoxContainer.new()):
+		for input_action_keybinding: InputActionKeybindingDisplay in NodeTraversal.find_nodes_of_custom_class(action_list, InputActionKeybindingDisplay):
 			var current_action: StringName = StringName(input_action_keybinding.action)
 			
 			if default_input_map_actions.has(current_action):

@@ -27,7 +27,7 @@ func setup(_action: StringName, _keybinding: InputEvent) -> void:
 func display_keybindings() -> void:
 	if not action.is_empty() and keybinding:
 		action_label.text = tr(action.to_upper())
-		input_key_label.text = keybinding.as_text()
+		input_key_label.text = keybinding.as_text().replace("(Physical)", "").strip_edges()
 
 
 func update_keybinding(new_event: InputEvent) -> void:
