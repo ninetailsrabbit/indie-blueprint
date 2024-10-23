@@ -21,12 +21,6 @@ enum WeaponCategory {
 }
 #endregion
 
-#region Weapon slots
-const PrimaryWeaponSlot: String = "primary_weapon"
-const SecondaryWeaponSlot: String = "secondary_weapon"
-const HeavyWeaponSlot: String = "heavy_weapon"
-const MeleeWeaponSlot: String = "melee_weapon"
-#endregion
 
 class WeaponRecord:
 	var id: StringName

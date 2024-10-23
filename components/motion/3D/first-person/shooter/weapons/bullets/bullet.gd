@@ -117,7 +117,7 @@ func on_body_collision(other_body: Node) -> void:
 	if collision_points.size() > 0:
 		collider = other_body as Node3D
 		
-		origin_weapon.bullet_impact_manager.spawn_decal_from_bullet(self)
+		origin_weapon.bullet_impact_manager.spawn_impact_from_bullet(self)
 		
 		if collider is RigidBody3D:
 			collider.apply_impulse(impact_force * direction, -collision_points.front())

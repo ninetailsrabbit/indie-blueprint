@@ -213,14 +213,6 @@ func muzzle_effect() -> void:
 
 
 
-## TODO - Manage the hits based on the surface it's colliding instead of getting a preloaded scene
-#func bullet_impact_hit(collision_point: Vector3) -> void:
-	#if weapon_configuration.use_impact_hit and weapon_configuration.hit_scene:
-		#var hit_impact = weapon_configuration.hit_scene.instantiate() as BulletHit
-		#get_tree().root.add_child(hit_impact)
-		#hit_impact.global_position = collision_point
-
-
 func _handle_hitscan_collision(target_hitscan: Dictionary) -> void:
 ## Only hitscan, spawn bullet decals on raycast collision points
 	if not target_hitscan.is_empty():
@@ -231,7 +223,7 @@ func _handle_hitscan_collision(target_hitscan: Dictionary) -> void:
 			## Spawn the weapon bullet to use the hitbox on the hitscan collision point
 			_handle_projectile_collision(0.0, adjusted_position)
 		else:
-			bullet_impact_manager.spawn_decal_from_hitscan(target_hitscan)
+			bullet_impact_manager.spawn_impact_from_hitscan(target_hitscan)
 
 			if collider is RigidBody3D:
 				collider.apply_impulse(weapon_configuration.bullet.impact_force * Camera3DHelper.forward_direction(camera), -adjusted_position)
