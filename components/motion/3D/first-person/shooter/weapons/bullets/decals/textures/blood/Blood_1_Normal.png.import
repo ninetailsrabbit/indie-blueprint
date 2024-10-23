@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj185127i4sb3"
-path="res://.godot/imported/bullet_hole_basic.png-7afa0af1b6d2f470340b138a465e52d1.ctex"
+uid="uid://qshvlh5uohr"
+path="res://.godot/imported/Blood_1_Normal.png-1901418dafaad0625f8c2f46f9bc6e1c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/motion/3D/first-person/shooter/weapons/bullets/decals/bullet_hole_basic.png"
-dest_files=["res://.godot/imported/bullet_hole_basic.png-7afa0af1b6d2f470340b138a465e52d1.ctex"]
+source_file="res://components/motion/3D/first-person/shooter/weapons/bullets/decals/textures/blood/Blood_1_Normal.png"
+dest_files=["res://.godot/imported/Blood_1_Normal.png-1901418dafaad0625f8c2f46f9bc6e1c.ctex"]
 
 [params]
 

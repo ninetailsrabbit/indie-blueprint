@@ -8,6 +8,7 @@ signal drawed_weapon(weapon: WeaponDatabase.WeaponRecord)
 
 #@export var actor: FirstPersonController
 #@export var camera_controller: CameraController3D
+## This is a node that holds a Camera3D and where the weapon recoil will be applied to simulate the kick on each shoot that affects accuracy. 
 @export var camera_recoil_node: Node3D
 ## Slots to hold weapons on the format Dictionary[InputAction, WeaponId] where input action is the key that
 ## equips the related weapon with the id provided
