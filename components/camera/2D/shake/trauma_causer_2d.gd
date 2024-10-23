@@ -1,4 +1,4 @@
-@icon("res://components/camera/shake/trauma_causer.svg")
+@icon("res://components/camera/2D/shake/trauma_causer.svg")
 class_name TraumaCauser2D extends Area2D
 
 @export_range(0, 1, 0.01) var trauma_amount: float = 0.5

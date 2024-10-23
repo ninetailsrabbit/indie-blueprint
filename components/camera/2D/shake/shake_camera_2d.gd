@@ -1,4 +1,4 @@
-@icon("res://components/camera/shake/shake_camera_2d.svg")
+@icon("res://components/camera/2D/shake/shake_camera_2d.svg")
 class_name ShakeCamera2D extends Camera2D
 
 ## ## Power of the trauma to control the intensity of camera shake.

@@ -1,4 +1,4 @@
-@icon("res://components/camera/shake/trauma_detector.svg")
+@icon("res://components/camera/2D/shake/trauma_detector.svg")
 class_name TraumaDetector2D extends Area2D
 
 @export var camera: ShakeCamera2D
