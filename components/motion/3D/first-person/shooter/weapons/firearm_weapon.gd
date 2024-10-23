@@ -1,9 +1,6 @@
 @icon("res://components/motion/3D/first-person/shooter/weapons/weapon.svg")
 class_name FireArmWeapon extends Node3D
 
-#const MuzzleFlashScene = preload("res://scenes/world/weapons/muzzle/muzzle_flash.tscn")
-#const BulletDecalScene = preload("res://scenes/world/weapons/decals/bullet_decal.tscn")
-
 const GroupName = "firearm-weapons"
 
 signal stored
@@ -22,7 +19,7 @@ signal aim_finished
 			weapon_configuration = value
 			active = weapon_configuration != null
 @export var muzzle_flash_scene: PackedScene = preload("res://components/motion/3D/first-person/shooter/weapons/muzzle/emitter/muzzle_flash.tscn")
-
+ 
 
 enum CombatStates {
 	Neutral,
