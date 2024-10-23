@@ -1,6 +1,6 @@
 class_name BulletHit extends Node3D
 
-@export var texture: Texture2D = preload("res://components/motion/3D/first-person/shooter/weapons/bullets/surface_hits/smoke/TX_Smoke.png")
+@export var texture: Texture2D = preload("res://components/motion/3D/first-person/shooter/weapons/bullets/impact/textures/smoke/TX_Smoke.png")
 
 @onready var impact: GPUParticles3D = $Impact
 @onready var timer: Timer = $Timer

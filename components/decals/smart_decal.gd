@@ -4,6 +4,8 @@ class_name SmartDecal extends Decal
 @export var min_size: Vector3 = Vector3.ONE
 ## The maximum size this decal can have. Set both min_size and max_size to not apply a random range between them
 @export var max_size: Vector3 = Vector3.ONE
+## The randomization of range size it's equal so x,y,z have the same value. It uses the 'x' value from size vectors
+@export var random_size_equals: bool = true
 ## A fade out animation after time in seconds. Set to zero to disable it and keep the decal on the world.
 @export var fade_after: float = 3.0
 ## The time that takes to fade out the decal when fade_after it's enabled.
@@ -16,10 +18,12 @@ func _enter_tree() -> void:
 	adjust_size()
 
 
-
 func adjust_size() -> void:
 	if not min_size.is_zero_approx() and not max_size.is_zero_approx():
-		size = Vector3(randf_range(min_size.x, max_size.x), randf_range(min_size.y, max_size.y), randf_range(min_size.z, max_size.z))
+		if random_size_equals:
+			size  = Vector3.ONE * randf_range(min_size.x, max_size.x)
+		else:
+			size = Vector3(randf_range(min_size.x, max_size.x), randf_range(min_size.y, max_size.y), randf_range(min_size.z, max_size.z))
 	elif min_size.is_zero_approx() and not max_size.is_zero_approx():
 		size = max_size
 	elif not min_size.is_zero_approx() and max_size.is_zero_approx():
