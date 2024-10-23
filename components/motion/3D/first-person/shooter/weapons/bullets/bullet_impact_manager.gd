@@ -4,6 +4,7 @@ class_name BulletImpactManager extends Node
 #region Prefab decal scenes
 const BulletHoleNormal: PackedScene = preload("res://components/motion/3D/first-person/shooter/weapons/bullets/decals/scenes/bullet_normal_decal.tscn")
 const BulletHoleMetal: PackedScene = preload("res://components/motion/3D/first-person/shooter/weapons/bullets/decals/scenes/bullet_metal_decal.tscn")
+const BulletHoleBlood = preload("res://components/motion/3D/first-person/shooter/weapons/bullets/decals/scenes/bullet_blood_decal.tscn")
 #endregion
 
 #region Impact scenes
@@ -20,7 +21,8 @@ const SurfaceOrganicGroup: StringName = &"organic"
 
 var surface_decals: Dictionary = {
 	SurfaceNormalGroup: BulletHoleNormal,
-	SurfaceMetalGroup: BulletHoleMetal
+	SurfaceMetalGroup: BulletHoleMetal,
+	SurfaceOrganicGroup: BulletHoleBlood
 }
 
 var surface_impacts: Dictionary = {

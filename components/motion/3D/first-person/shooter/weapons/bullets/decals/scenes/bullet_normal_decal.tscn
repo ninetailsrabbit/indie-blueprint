@@ -6,3 +6,5 @@
 [node name="BulletNormalDecal" type="Decal"]
 texture_albedo = ExtResource("1_vq5ou")
 script = ExtResource("1_lh8ix")
+min_size = Vector3(0.2, 0.2, 0.2)
+max_size = Vector3(0.3, 0.3, 0.3)
