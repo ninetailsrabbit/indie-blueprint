@@ -60,6 +60,7 @@ var active: bool = true:
 
 var hitscan_result: Dictionary = {}
 
+var bullet_impact_manager: BulletImpactManager
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if weapon_configuration.motion.keep_pressed_to_aim:
@@ -76,6 +77,9 @@ func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
 	active = weapon_configuration != null
+	
+	bullet_impact_manager = BulletImpactManager.new()
+	add_child(bullet_impact_manager)
 
 
 func _ready() -> void:
@@ -208,19 +212,6 @@ func muzzle_effect() -> void:
 		weapon_mesh.muzzle_marker.add_child(muzzle)
 
 
-## If the bullet speed it's too high, the collision point can't be wrong and not show the decal in the world
-#func bullet_decal(collision_point: Vector3, normal: Vector3) -> void:
-	#if weapon_configuration.enable_bullet_decal and weapon_configuration.bullet_decal_texture:
-		#var bullet_hit_decal: SmartDecal = BulletDecalScene.instantiate() as SmartDecal
-		#bullet_hit_decal.texture_albedo = weapon_configuration.bullet_decal_texture
-		#bullet_hit_decal.min_size = weapon_configuration.bullet_decal_min_size
-		#bullet_hit_decal.max_size = weapon_configuration.bullet_decal_max_size
-		#
-		#get_tree().root.add_child(bullet_hit_decal)
-		#
-		#bullet_hit_decal.global_position = collision_point
-		#bullet_hit_decal.adjust_to_normal(normal)
-		#
 
 ## TODO - Manage the hits based on the surface it's colliding instead of getting a preloaded scene
 #func bullet_impact_hit(collision_point: Vector3) -> void:
@@ -234,20 +225,17 @@ func _handle_hitscan_collision(target_hitscan: Dictionary) -> void:
 ## Only hitscan, spawn bullet decals on raycast collision points
 	if not target_hitscan.is_empty():
 		var collider = target_hitscan.get("collider")
-		var normal: Vector3 = target_hitscan.get("normal").normalized()
 		var adjusted_position = target_hitscan.get("position")
 		
 		if collider.collision_layer == GameGlobals.enemies_collision_layer:
 			## Spawn the weapon bullet to use the hitbox on the hitscan collision point
 			_handle_projectile_collision(0.0, adjusted_position)
-		#else:
-			#bullet_impact_hit(adjusted_position)
-			#bullet_decal(adjusted_position, normal)
-			#
-			if collider is RigidBody3D:
-				collider.apply_impulse(Vector3.ONE * Camera3DHelper.forward_direction(camera), -adjusted_position)
-	
+		else:
+			bullet_impact_manager.spawn_decal_from_hitscan(target_hitscan)
 
+			if collider is RigidBody3D:
+				collider.apply_impulse(weapon_configuration.bullet.impact_force * Camera3DHelper.forward_direction(camera), -adjusted_position)
+			
 
 func _handle_hitscan_and_projectile_collision(target_hitscan: Dictionary) -> void:
 		_handle_hitscan_collision(target_hitscan)

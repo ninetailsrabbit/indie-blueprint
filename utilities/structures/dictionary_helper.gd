@@ -1,6 +1,14 @@
 class_name DictionaryHelper
 
 
+static func contain_all_keys(target: Dictionary, keys: Array[String]) -> bool:
+	return target.keys().all(func(key: String): return key in keys)
+
+
+static func contain_any_key(target: Dictionary, keys: Array[String]) -> bool:
+	return target.keys().any(func(key: String): return key in keys)
+
+
 static func reverse_key_value(source_dict: Dictionary) -> Dictionary:
 	var reversed := {}
 	
@@ -9,7 +17,7 @@ static func reverse_key_value(source_dict: Dictionary) -> Dictionary:
 	
 	return reversed
 	
-	
+
 static func merge_recursive(dest: Dictionary, source: Dictionary) -> void:
 	for key in source:
 		if source[key] is Dictionary:

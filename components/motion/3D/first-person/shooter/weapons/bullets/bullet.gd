@@ -3,6 +3,7 @@ class_name Bullet extends RigidBody3D
 const GroupName = "bullets"
 
 @export var damage: int = 10
+@export var impact_force: Vector3 = Vector3.ONE
 @export var direction: Vector3
 @export var speed: float = 100.0
 @export var delete_after_seconds: float = 5.0
@@ -11,6 +12,7 @@ const GroupName = "bullets"
 
 var origin_weapon: FireArmWeapon
 var distance_traveled: float = 0
+var collider: Node3D
 var collision_points: Array[Vector3] = []
 var collision_normals: Array[Vector3] = []
 
@@ -19,6 +21,9 @@ var initial_position: Vector3 = Vector3.ZERO
 
 func _enter_tree() -> void:
 	add_to_group(GroupName)
+	
+	contact_monitor = true
+	max_contacts_reported  = 2
 	
 	body_entered.connect(on_body_collision)
 	
@@ -88,7 +93,7 @@ func setup(weapon: FireArmWeapon, travel_direction: Vector3, spawn_position: Vec
 
 ## Use as data when the hurtbox detects this hitbox to calculate the damage
 func collision_damage() -> float:
-	var total_damage = damage + origin_weapon.weapon_configuration.bullet.base_damage
+	var total_damage = origin_weapon.weapon_configuration.fire.shoot_damage + damage
 	
 	if distance_traveled <= origin_weapon.weapon_configuration.bullet.close_distance_to_apply_damage_multiplier:
 		total_damage *= origin_weapon.weapon_configuration.bullet.close_distance_damage_multiplier
@@ -102,15 +107,18 @@ func collision_damage() -> float:
 	return total_damage
 
 
+func collided() -> bool:
+	return collider and collision_points.size() > 0 and collision_normals.size() > 0
+
+
 func on_body_collision(other_body: Node) -> void:
-	if other_body.collision_layer in [GameGlobals.world_collision_layer] and collision_points.size() > 0:
+	if collision_points.size() > 0:
+		collider = other_body as Node3D
 		
-		#for collision_point: Vector3 in collision_points:
-			#origin_weapon.fire_impact_hit(collision_point)
-			#origin_weapon.fire_decal(collision_point, collision_normals[collision_points.find(collision_point)])
-		#
-		if other_body is RigidBody3D:
-			other_body.apply_impulse(Vector3.ONE * direction, -collision_points.front())
+		origin_weapon.bullet_impact_manager.spawn_decal_from_bullet(self)
+		
+		if collider is RigidBody3D:
+			collider.apply_impulse(impact_force * direction, -collision_points.front())
 	
 	collision_mask = 0
 	freeze = true

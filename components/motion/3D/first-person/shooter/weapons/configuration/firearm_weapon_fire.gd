@@ -9,6 +9,8 @@ enum BurstTypes {
 	FiveRoundBurst, # A specific type of burst-fire that fires five rounds per trigger pull.
 }
 
+## The additional fire damage that will be added to the bullet
+@export var shoot_damage: int = 5 
 ## When enabled, the weapon it's reloaded automatically when the magazine gets empty
 @export var auto_reload_on_empty_magazine: bool = true
 ## The reload time defined, if the weapon has an animation, the animation time will be used instead.
