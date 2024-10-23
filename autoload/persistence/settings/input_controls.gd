@@ -17,5 +17,10 @@ const PushWave: String = "push_wave"
 const Aim: String = "aim"
 const Shoot: String = "shoot"
 
+const PrimaryWeapon: String = "primary_weapon"
+const SecondaryWeapon: String = "secondary_weapon"
+const HeavyWeapon: String = "heavy_weapon"
+const MeleeWeapon: String = "melee_weapon"
+
 const PerformanceMetrics: String = "performance_metrics"
 const PauseGame: String = "pause"

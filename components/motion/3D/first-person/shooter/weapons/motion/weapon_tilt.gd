@@ -1,4 +1,4 @@
-class_name WeaponTilt extends 
+class_name WeaponTilt extends FireArmWeaponMotion
 
 @export var tilt_horizontal: float = 0.1
 @export var tilt_vertical: float = 0.01

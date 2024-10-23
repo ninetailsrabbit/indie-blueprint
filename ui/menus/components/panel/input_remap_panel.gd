@@ -3,7 +3,7 @@ extends PanelContainer
 const InputActionKeybindingScene = preload("res://ui/menus/components/panel/input_action_keybinding.tscn")
 
 @export var include_ui_actions: bool = false
-
+@export var exclude_actions: Array[String] = []
 @onready var action_list: VBoxContainer = %ActionListVboxContainer
 @onready var reset_to_default_button: Button = $MarginContainer/ActionListVboxContainer/ResetToDefaultButton
 
@@ -69,8 +69,13 @@ func reset_remapping() -> void:
 
 
 func _get_input_map_actions() -> Array[StringName]:
-	return InputMap.get_actions() if include_ui_actions else InputMap.get_actions().filter(func(action): return !action.contains("ui_"))
+	var input_map_actions: Array[StringName] = InputMap.get_actions() if include_ui_actions else InputMap.get_actions().filter(func(action): return !action.contains("ui_"))
 
+	if exclude_actions.size() > 0:
+		input_map_actions = input_map_actions.filter(func(action): return not action in exclude_actions)
+		
+	return input_map_actions
+	
 
 func on_reset_to_default_pressed() -> void:
 	reset_remapping()
