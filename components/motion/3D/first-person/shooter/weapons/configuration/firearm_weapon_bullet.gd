@@ -6,6 +6,7 @@ class_name FireArmWeaponBullet extends Resource
 @export var bullet_scene: PackedScene
 ## The base damage that is applied to the bullet from this weapon
 @export var base_damage: int = 10
+## If the bullet reachs a collision point below this distance, a multiplier it's applied to the damage
 @export var close_distance_to_apply_damage_multiplier: int = 25
 ## The closer the shot this multiplier will be applied.
 @export var close_distance_damage_multiplier: float = 1.5

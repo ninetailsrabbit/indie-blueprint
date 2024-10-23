@@ -10,10 +10,15 @@ class_name FireArmWeaponConfiguration extends Resource
 ## When enabled a projectile it's spawned on the barrel marker of the weapon mesh that can interat with the physic world. 
 ## The bullet scene defined in this resource it's the one spawned as projectile
 @export var projectile: bool = false
-## When enabled and the weapon shoot but the hitscan collision it's empty, the bullets are spawned on the limit of this weapon fire range where the hitscan it's pointing at
+## When projectile and this variable is enabled and the weapon shoot but the hitscan collision it's empty, the bullets are spawned on the limit of this weapon fire range where the hitscan it's pointing at
 @export var spawn_bullets_on_empty_hitscan: bool = true
 ## When enabled, if the hitscan does not collide with anything a bullet it's spawned on the fire range limit as rigid body
-@export var spawn_bullets_on_fire_range_limit_when_empty_hitscan: bool = false
+@export var spawn_bullets_on_fire_range_limit: bool = false
+@export_group("Configuration")
+@export var ammo: FireArmWeaponAmmo
+@export var bullet: FireArmWeaponBullet
+@export var fire: FireArmWeaponFire
+@export var motion: FireArmWeaponMotion
 @export_group("Muzzle flash")
 @export var muzzle_texture: Texture2D
 @export var muzzle_lifetime: float = 0.03
