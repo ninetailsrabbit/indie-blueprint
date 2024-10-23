@@ -18,13 +18,18 @@ class_name FireArmWeaponConfiguration extends Resource
 @export var ammo: FireArmWeaponAmmo
 @export var bullet: FireArmWeaponBullet
 @export var fire: FireArmWeaponFire
-@export var motion: FireArmWeaponMotion
+@export var motion: FireArmWeaponMotionConfiguration
 @export_group("Muzzle flash")
 @export var muzzle_texture: Texture2D
 @export var muzzle_lifetime: float = 0.03
 @export var muzzle_min_size: Vector2 = Vector2(0.05, 0.05)
 @export var muzzle_max_size: Vector2 = Vector2(0.35, 0.35)
 @export var muzzle_emit_on_ready: bool = true
+@export var muzzle_spawn_light: bool = true
+@export var muzzle_light_lifetime: float = 0.01
+@export_range(0, 16, 0.1) var muzzle_min_light_energy: float = 1.0
+@export_range(0, 16, 0.1) var muzzle_max_light_energy: float = 1.0
+@export var muzzle_light_color: Color = Color("FFD700")
 #@export_category("Bullet decal")
 #@export var enable_bullet_decal: bool = true
 #@export var bullet_decal_texture: Texture2D

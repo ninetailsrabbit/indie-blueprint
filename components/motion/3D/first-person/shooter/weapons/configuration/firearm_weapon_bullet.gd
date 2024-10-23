@@ -3,7 +3,7 @@ class_name FireArmWeaponBullet extends Resource
 
 @export_group("Bullet")
 ## The bullet scene to spawn in the world when weapon shoots
-@export var bullet_scene: PackedScene
+@export var scene: PackedScene
 ## The base damage that is applied to the bullet from this weapon
 @export var base_damage: int = 10
 ## If the bullet reachs a collision point below this distance, a multiplier it's applied to the damage

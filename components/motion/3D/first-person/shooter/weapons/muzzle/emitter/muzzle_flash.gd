@@ -89,6 +89,12 @@ func setup_from_weapon_configuration(configuration: FireArmWeaponConfiguration) 
 	max_size = configuration.muzzle_max_size
 	emit_on_ready = configuration.muzzle_emit_on_ready
 	
+	spawn_light = configuration.muzzle_spawn_light
+	light_lifetime = configuration.muzzle_light_lifetime
+	min_light_energy = configuration.muzzle_min_light_energy
+	max_light_energy = configuration.muzzle_max_light_energy
+	light_color = configuration.muzzle_light_color
+
 
 func _prepare_timers() -> void:
 	if is_instance_valid(muzzle_timer):

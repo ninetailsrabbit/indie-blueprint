@@ -1,4 +1,4 @@
-class_name FireArmWeaponMotion extends Resource
+class_name FireArmWeaponMotionConfiguration extends Resource
 
 @export var can_aim: bool = true
 @export var sway_enabled: bool = true
@@ -7,6 +7,10 @@ class_name FireArmWeaponMotion extends Resource
 @export var impulse_enabled: bool = true
 @export var recoil_enabled: bool = true
 @export var camera_recoil_enabled: bool = true
+@export_group("Aim")
+@export var aim_input_action: String = InputControls.Aim
+@export var keep_pressed_to_aim: bool = true
+@export var center_weapon_on_aim: bool = true
 @export_group("Camera shake")
 @export var camera_shake_enabled: bool = true
 @export var camera_shake_magnitude: float = 0.01
@@ -15,10 +19,6 @@ class_name FireArmWeaponMotion extends Resource
 @export var camera_recoil_amount: Vector3 = Vector3.ZERO
 @export var camera_recoil_lerp_speed: float = 8.0
 @export var camera_recoil_snap_amount: float = 6.0
-@export_group("Aim")
-@export var aim_input_action: String = InputControls.Aim
-@export var keep_pressed_to_aim: bool = true
-@export var center_weapon_on_aim: bool = true
 @export_range(0, 179, 0.1) var zoom_level_on_aim: float = 65
 ## The offset to adjust the position of the weapon when aiming
 @export var aim_offset: Vector3 = Vector3.ZERO

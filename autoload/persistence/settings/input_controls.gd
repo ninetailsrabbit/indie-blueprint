@@ -15,6 +15,7 @@ const Throw: String = "throw"
 const PushWave: String = "push_wave"
 
 const Aim: String = "aim"
+const Shoot: String = "shoot"
 
 const PerformanceMetrics: String = "performance_metrics"
 const PauseGame: String = "pause"
