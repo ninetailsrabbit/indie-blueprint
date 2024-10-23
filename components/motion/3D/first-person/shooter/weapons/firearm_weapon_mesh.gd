@@ -7,6 +7,7 @@ class_name FireArmWeaponMesh extends Node3D
 @export var animation_player: AnimationPlayer
 ## Technique to avoid weapon clipping using a shader, the fov of the weapon it's separated from the world fov
 @export var apply_viewmodel: bool = true
+@export var viewmodel_shader: Shader = preload("res://shaders/viewmodel/viewmodel.gdshader")
 ## The Fov of the weapon in the camera using the viewmodel shader, this a fov on his own separated from the main 3D world
 @export var viewmodel_fov: float = 75.0
 
@@ -18,11 +19,27 @@ func _ready() -> void:
 
 func setup_viewmodel_fov(fov_value: float = viewmodel_fov) -> void:
 	for mesh_instance: MeshInstance3D in NodeTraversal.find_nodes_of_type(self, MeshInstance3D.new()):
-		for surface in range(mesh_instance.mesh.get_surface_count()):
-			var material = mesh_instance.get_active_material(surface)
-			if material is ShaderMaterial:
-				material.set_shader_parameter("viewmodel_fov", fov_value)
+		mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
+		for surface_idx in range(mesh_instance.mesh.get_surface_count()):
+			var material = mesh_instance.mesh.surface_get_material(surface_idx)
+			
+			if material is ShaderMaterial and material.shader == viewmodel_shader:
+				material.set_shader_parameter("viewmodel_fov", fov_value)
+			elif material is StandardMaterial3D:
+				var weapon_shader_material: ShaderMaterial = ShaderMaterial.new()
+				viewmodel_shader.set_shader_parameter("texture_albedo", material.albedo_texture)
+				viewmodel_shader.set_shader_parameter("texture_metallic", material.metallic_texture)
+				viewmodel_shader.set_shader_parameter("texture_roughness", material.roughness_texture)
+				viewmodel_shader.set_shader_parameter("texture_normal", material.normal_texture)
+				viewmodel_shader.set_shader_parameter("albedo", material.albedo_color)
+				viewmodel_shader.set_shader_parameter("metallic", material.metallic)
+				viewmodel_shader.set_shader_parameter("specular", material.metallic_specular)
+				viewmodel_shader.set_shader_parameter("roughness", material.roughness)
+				viewmodel_shader.set_shader_parameter("viewmodel_fov", fov_value)
+				var tex_channels = { 0: Vector4(1., 0., 0., 0.), 1: Vector4(0., 1., 0., 0.), 2: Vector4(0., 0., 1., 0.), 3: Vector4(1., 0., 0., 1.), 4: Vector4() }
+				viewmodel_shader.set_shader_parameter("metallic_texture_channel", tex_channels[material.metallic_texture_channel])
+				mesh_instance.mesh.surface_set_material(surface_idx, weapon_shader_material)
 
 #region Animation overrides
 func idle_animation() -> void:
