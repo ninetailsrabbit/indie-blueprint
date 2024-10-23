@@ -42,7 +42,7 @@ func _ready() -> void:
 		timer.start()
 	
 	collision_layer = GameGlobals.bullets_collision_layer
-	collision_mask = GameGlobals.world_collision_layer | GameGlobals.enemies_collision_layer
+	collision_mask = GameGlobals.world_collision_layer | GameGlobals.enemies_collision_layer | GameGlobals.grabbables_collision_layer
 	
 	if direction == null:
 		direction = Camera3DHelper.forward_direction(get_viewport().get_camera_3d())
@@ -87,7 +87,9 @@ func setup(weapon: FireArmWeapon, travel_direction: Vector3, spawn_position: Vec
 	## We adjust the direction to fit the spread angle in the projectile (for example, on shotguns)
 	var spread_angle: float = deg_to_rad(weapon.weapon_configuration.fire.bullet_spread_degrees)
 	spread_angle = randf_range(-spread_angle, spread_angle)
-		
+	
+	damage = origin_weapon.weapon_configuration.bullet.base_damage
+	impact_force = origin_weapon.weapon_configuration.bullet.impact_force
 	direction = travel_direction.rotated(VectorHelper.directions_v3.pick_random(), spread_angle)
 	initial_position = spawn_position
 

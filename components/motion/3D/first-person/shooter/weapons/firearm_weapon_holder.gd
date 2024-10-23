@@ -276,7 +276,6 @@ func _prepare_weapon_motion(weapon_configuration: FireArmWeaponConfiguration) ->
 	else:
 		weapon_impulse.disable()
 	
-	
 	if weapon_configuration.motion.recoil_enabled:
 		weapon_recoil.kick = weapon_configuration.motion.recoil_kick
 		weapon_recoil.kick_power = weapon_configuration.motion.recoil_kick_power

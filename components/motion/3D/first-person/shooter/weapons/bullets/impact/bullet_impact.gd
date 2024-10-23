@@ -1,4 +1,4 @@
-class_name BulletHit extends Node3D
+class_name BulletImpact extends Node3D
 
 @export var texture: Texture2D = preload("res://components/motion/3D/first-person/shooter/weapons/bullets/impact/textures/smoke/TX_Smoke.png")
 

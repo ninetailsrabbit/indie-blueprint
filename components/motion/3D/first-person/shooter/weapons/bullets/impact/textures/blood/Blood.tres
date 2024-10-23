@@ -1,0 +1,28 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=5 format=3 uid="uid://dn0e3k8n3wtko"]
+
+[sub_resource type="Gradient" id="3"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="4"]
+gradient = SubResource("3")
+
+[sub_resource type="Curve" id="1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="2"]
+curve = SubResource("1")
+
+[resource]
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, -1)
+spread = 25.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+angular_velocity_min = -100.0
+angular_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+scale_curve = SubResource("2")
+color_ramp = SubResource("4")

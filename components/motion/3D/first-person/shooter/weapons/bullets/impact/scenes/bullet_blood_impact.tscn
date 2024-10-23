@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxccs73cbth0y"]
+
+[ext_resource type="Material" uid="uid://dn0e3k8n3wtko" path="res://components/motion/3D/first-person/shooter/weapons/bullets/impact/textures/blood/Blood.tres" id="1_dc0ef"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/bullets/impact/bullet_impact.gd" id="1_ebai7"]
+[ext_resource type="Material" uid="uid://d4m4ssue3eexd" path="res://components/motion/3D/first-person/shooter/weapons/bullets/impact/textures/blood/MT_Blood.tres" id="2_0d86f"]
+
+[sub_resource type="QuadMesh" id="1"]
+material = ExtResource("2_0d86f")
+size = Vector2(0.1, 0.1)
+
+[node name="BulletBloodImpact" type="Node3D"]
+script = ExtResource("1_ebai7")
+
+[node name="Impact" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 4
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = ExtResource("1_dc0ef")
+draw_pass_1 = SubResource("1")
+
+[node name="Timer" type="Timer" parent="."]
