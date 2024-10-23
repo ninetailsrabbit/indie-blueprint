@@ -1,7 +1,7 @@
 @icon("res://components/interaction/3D/grabbable.svg")
 class_name Interactable3D extends Area3D
 
-const GroupName = "interactables-3d"
+const GroupName = "interactables"
 
 signal interacted()
 signal canceled_interaction()
@@ -75,6 +75,7 @@ func _ready() -> void:
 	interacted.connect(on_interacted)
 	focused.connect(on_focused)
 	unfocused.connect(on_unfocused)
+	canceled_interaction.connect(on_canceled_interaction)
 	
 	
 func activate() -> void:
@@ -140,12 +141,21 @@ func _remove_outline_shader() -> void:
 func on_interacted() -> void:
 	if disable_after_interaction:
 		deactivate()
-		
+	
+	GlobalGameEvents.interactable_interacted.emit(self)
 		
 func on_focused() -> void:
 	_apply_outline_shader()
-
+	
+	GlobalGameEvents.interactable_focused.emit(self)
+	
 
 func on_unfocused() -> void:
 	_remove_outline_shader()
+	
+	GlobalGameEvents.interactable_unfocused.emit(self)
+	
+func on_canceled_interaction() -> void:
+	GlobalGameEvents.interactable_canceled_interaction.emit(self)
+	
 #endregion

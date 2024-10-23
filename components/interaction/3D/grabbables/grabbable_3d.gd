@@ -16,7 +16,7 @@
 class_name Grabbable3D extends RigidBody3D
 
 const MaximumTransparency: int = 255
-const GroupName: String = "grabbable-3d"
+const GroupName: String = "grabbables"
 
 signal pulled(grabber: Node3D)
 signal throwed
@@ -142,13 +142,15 @@ func _remove_outline_shader() -> void:
 			OutlineMode.InvertedHull:
 				grabbable_mesh.material_overlay = null
 			
-	
 
 #region Signal callbacks
 func on_focused() -> void:
 	_apply_outline_shader()
 
+	GlobalGameEvents.grabbable_focused.emit(self)
 
 func on_unfocused() -> void:
 	_remove_outline_shader()
+	
+	GlobalGameEvents.grabbable_unfocused.emit(self)
 #endregion

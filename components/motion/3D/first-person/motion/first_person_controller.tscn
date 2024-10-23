@@ -1,0 +1,262 @@
+[gd_scene load_steps=31 format=3 uid="uid://bx3bh475g3jjf"]
+
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/first_person_controller.gd" id="1_v7v7g"]
+[ext_resource type="PackedScene" uid="uid://bcj2w63oj13e5" path="res://components/motion/3D/first-person/motion/debug_ui/first_person_debug_ui.tscn" id="2_ml2dd"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/mechanics/camera_controller_3d.gd" id="5_2gxvf"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="5_xm8yq"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/idle.gd" id="6_lht5s"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/walk.gd" id="7_52vlc"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/air/fall.gd" id="8_5oo54"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/crouch.gd" id="8_to2uw"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/crawl.gd" id="9_ps4a4"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/run.gd" id="10_8ycq6"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/air/jump.gd" id="10_ynwvi"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/slide.gd" id="11_jpv7j"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/special/swim.gd" id="12_vyybp"]
+[ext_resource type="Script" path="res://components/camera/3D/camera_shake_3d.gd" id="14_smxor"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/firearm_weapon_holder.gd" id="15_cjftc"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_sway.gd" id="16_2a3la"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_noise.gd" id="17_vpodh"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_tilt.gd" id="18_2tnx5"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_impulse.gd" id="19_bbu1p"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_recoil.gd" id="20_iio1q"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/firearm_weapon.gd" id="21_q3kyc"]
+
+[sub_resource type="Animation" id="Animation_x0wk0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CeilShapeCast:target_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.65, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraController:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.75, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p5yay"]
+resource_name = "crawl"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CeilShapeCast:target_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.1, 0), Vector3(0, -0.3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraController:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.1, 0), Vector3(0, -0.1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_uc3uk"]
+resource_name = "crouch"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CeilShapeCast:target_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.65, 0), Vector3(0, 0.1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraController:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.75, 0), Vector3(0, 0.1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8y2xj"]
+_data = {
+"RESET": SubResource("Animation_x0wk0"),
+"crawl": SubResource("Animation_p5yay"),
+"crouch": SubResource("Animation_uc3uk")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1od8w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3iq5"]
+height = 1.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ftet6"]
+height = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_plvkn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dfk1p"]
+noise_type = 3
+seed = 50
+frequency = 0.02
+offset = Vector3(1, 0.5, 0)
+fractal_octaves = 1
+fractal_lacunarity = 1.0
+
+[node name="FirstPersonController" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879968, 0)
+collision_layer = 2
+collision_mask = 21
+script = ExtResource("1_v7v7g")
+fov_by_state = {
+"run": 85.0,
+"slide": 80.0
+}
+crawl = true
+
+[node name="DebugUI" parent="." instance=ExtResource("2_ml2dd")]
+script = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8y2xj")
+}
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("5_xm8yq")
+current_state = NodePath("Ground/Idle")
+
+[node name="Ground" type="Node" parent="FiniteStateMachine"]
+
+[node name="Idle" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("6_lht5s")
+actor = NodePath("../../..")
+
+[node name="Walk" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("7_52vlc")
+actor = NodePath("../../..")
+speed = 4.5
+side_speed = 4.2
+acceleration = 20.0
+friction = 15.0
+
+[node name="Crouch" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("8_to2uw")
+actor = NodePath("../../..")
+speed = 2.0
+side_speed = 1.9
+
+[node name="Run" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("10_8ycq6")
+actor = NodePath("../../..")
+speed = 5.5
+side_speed = 5.0
+acceleration = 15.0
+friction = 12.0
+
+[node name="Crawl" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("9_ps4a4")
+actor = NodePath("../../..")
+speed = 1.5
+side_speed = 1.4
+
+[node name="Slide" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("11_jpv7j")
+actor = NodePath("../../..")
+
+[node name="Air" type="Node" parent="FiniteStateMachine"]
+
+[node name="Jump" type="Node" parent="FiniteStateMachine/Air" node_paths=PackedStringArray("actor")]
+script = ExtResource("10_ynwvi")
+actor = NodePath("../../..")
+
+[node name="Fall" type="Node" parent="FiniteStateMachine/Air" node_paths=PackedStringArray("actor")]
+script = ExtResource("8_5oo54")
+actor = NodePath("../../..")
+
+[node name="Special" type="Node" parent="FiniteStateMachine"]
+
+[node name="Swim" type="Node" parent="FiniteStateMachine/Special" node_paths=PackedStringArray("eyes", "actor")]
+script = ExtResource("12_vyybp")
+eyes = NodePath("../../../CameraController/Head")
+actor = NodePath("../../..")
+
+[node name="StandCollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1od8w")
+
+[node name="CrouchCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.291229, 0)
+shape = SubResource("CapsuleShape3D_n3iq5")
+
+[node name="CrawlCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.398812, 0)
+shape = SubResource("CapsuleShape3D_ftet6")
+
+[node name="CeilShapeCast" type="ShapeCast3D" parent="."]
+shape = SubResource("SphereShape3D_plvkn")
+target_position = Vector3(0, 0.65, 0)
+debug_shape_custom_color = Color(0, 0.854902, 0, 1)
+
+[node name="CameraController" type="Node3D" parent="." node_paths=PackedStringArray("actor", "camera", "bob_head")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("5_2gxvf")
+actor = NodePath("..")
+camera = NodePath("Head/CameraShake3D")
+bob_head = NodePath("Head")
+
+[node name="Head" type="Node3D" parent="CameraController"]
+
+[node name="CameraShake3D" type="Camera3D" parent="CameraController/Head"]
+script = ExtResource("14_smxor")
+
+[node name="FireArmWeaponHolder" type="Node3D" parent="CameraController/Head/CameraShake3D" node_paths=PackedStringArray("camera_recoil_node")]
+script = ExtResource("15_cjftc")
+camera_recoil_node = NodePath("../..")
+
+[node name="Sway" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder"]
+script = ExtResource("16_2a3la")
+smoothing = 10.0
+
+[node name="Noise" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder/Sway"]
+script = ExtResource("17_vpodh")
+noise = SubResource("FastNoiseLite_dfk1p")
+
+[node name="Tilt" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder/Sway/Noise"]
+script = ExtResource("18_2tnx5")
+
+[node name="Impulse" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder/Sway/Noise/Tilt"]
+script = ExtResource("19_bbu1p")
+
+[node name="Recoil" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder/Sway/Noise/Tilt/Impulse"]
+script = ExtResource("20_iio1q")
+
+[node name="FireArmWeapon" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder/Sway/Noise/Tilt/Impulse/Recoil" node_paths=PackedStringArray("camera")]
+script = ExtResource("21_q3kyc")
+camera = NodePath("../../../../../../..")

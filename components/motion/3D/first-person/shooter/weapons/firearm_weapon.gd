@@ -1,4 +1,4 @@
-@icon("res://scenes/world/weapons/weapon.svg")
+@icon("res://components/motion/3D/first-person/shooter/weapons/weapon.svg")
 class_name FireArmWeapon extends Node3D
 
 #const MuzzleFlashScene = preload("res://scenes/world/weapons/muzzle/muzzle_flash.tscn")
