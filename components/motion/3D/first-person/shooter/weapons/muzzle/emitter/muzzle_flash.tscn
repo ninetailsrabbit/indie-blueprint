@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://oyoxt2tvh50i"]
+
+[ext_resource type="Material" path="res://components/motion/3D/first-person/shooter/weapons/muzzle/emitter/muzzle_flash.tres" id="1_8n8hf"]
+[ext_resource type="Material" path="res://components/motion/3D/first-person/shooter/weapons/muzzle/emitter/muzzle_flash_base_material.tres" id="2_45uex"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/muzzle/emitter/muzzle_flash.gd" id="3_nqvbf"]
+[ext_resource type="Texture2D" uid="uid://cqhpga1q75f07" path="res://components/motion/3D/first-person/shooter/weapons/muzzle/textures/muzzle_flash_texture.png" id="4_1rj1c"]
+
+[sub_resource type="QuadMesh" id="1"]
+material = ExtResource("2_45uex")
+size = Vector2(0.05, 0.05)
+
+[node name="MuzzleFlash" type="GPUParticles3D"]
+layers = 2
+cast_shadow = 0
+emitting = false
+amount = 2
+one_shot = true
+local_coords = true
+process_material = ExtResource("1_8n8hf")
+draw_pass_1 = SubResource("1")
+script = ExtResource("3_nqvbf")
+texture = ExtResource("4_1rj1c")
+light_lifetime = 0.02
+min_light_energy = 0.5
+light_color = Color(0.879987, 0.889305, 0.300331, 1)
+
+[node name="MuzzleTimer" type="Timer" parent="."]
+
+[node name="LightTimer" type="Timer" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0363735, 0.426833, -0.557059)
+light_color = Color(0.892678, 0.876522, 0.461396, 1)
+light_energy = 0.5
+light_indirect_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+distance_fade_begin = 3.0
+distance_fade_shadow = 2.0
+omni_range = 2.0
+omni_attenuation = 0.0
+omni_shadow_mode = 0

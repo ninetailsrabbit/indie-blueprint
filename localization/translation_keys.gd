@@ -39,12 +39,10 @@ static var DaltonismKeys: Dictionary = {
 	WindowManager.DaltonismTypes.Deuteranopia: DeuteranopiaTranslationKey,
 	WindowManager.DaltonismTypes.Tritanopia: TritanopiaTranslationKey,
 	WindowManager.DaltonismTypes.Achromatopsia: AchromatopsiaTranslationKey,
-	
 }
 
 
 static var GraphicsQualityTranslationKey := "GRAPHICS_QUALITY"
-
 static var QualityLowTranslationKey := "QUALITY_LOW"
 static var QualityMediumTranslationKey := "QUALITY_MEDIUM"
 static var QualityHighTranslationKey := "QUALITY_HIGH"
