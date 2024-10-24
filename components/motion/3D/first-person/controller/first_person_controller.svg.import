@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doimiv1cns6ts"
-path="res://.godot/imported/camera_controller_3d.svg-67a768402679091367f487db49edbc21.ctex"
+uid="uid://cjk82i4cuyjsf"
+path="res://.godot/imported/first_person_controller.svg-8399258e9c5763b4e2d85d622f2052ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/motion/3D/first-person/motion/mechanics/camera_controller_3d.svg"
-dest_files=["res://.godot/imported/camera_controller_3d.svg-67a768402679091367f487db49edbc21.ctex"]
+source_file="res://components/motion/3D/first-person/controller/first_person_controller.svg"
+dest_files=["res://.godot/imported/first_person_controller.svg-8399258e9c5763b4e2d85d622f2052ec.ctex"]
 
 [params]
 

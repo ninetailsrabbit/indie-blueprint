@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vnm44mfdfpa6"
-path="res://.godot/imported/head.svg-c4786ddb99e6606aac7c661431160554.ctex"
+path="res://.godot/imported/head.svg-aeb1dce402934c38a1052e2cd0b039a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/motion/3D/first-person/motion/mechanics/head.svg"
-dest_files=["res://.godot/imported/head.svg-c4786ddb99e6606aac7c661431160554.ctex"]
+source_file="res://components/motion/3D/first-person/controller/mechanics/head.svg"
+dest_files=["res://.godot/imported/head.svg-aeb1dce402934c38a1052e2cd0b039a6.ctex"]
 
 [params]
 

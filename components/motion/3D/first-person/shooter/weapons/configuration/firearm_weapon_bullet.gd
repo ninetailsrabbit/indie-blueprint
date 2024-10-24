@@ -3,11 +3,13 @@ class_name FireArmWeaponBullet extends Resource
 
 @export_group("Bullet")
 ## The bullet scene to spawn in the world when weapon shoots
-@export var scene: PackedScene
+@export var scene: PackedScene = preload("res://components/motion/3D/first-person/shooter/weapons/bullets/scenes/bullet_standard.tscn")
 ## The base damage that is applied to the bullet from this weapon
 @export var base_damage: int = 10
 ## The impact force to apply when collides with rigid bodies
 @export var impact_force: Vector3 = Vector3.ONE
+## When the bullet trace it's displaying after n shoots
+@export var trace_every_n_shoots: int = 3
 ## If the bullet reachs a collision point below this distance, a multiplier it's applied to the damage
 @export var close_distance_to_apply_damage_multiplier: int = 25
 ## The closer the shot this multiplier will be applied.

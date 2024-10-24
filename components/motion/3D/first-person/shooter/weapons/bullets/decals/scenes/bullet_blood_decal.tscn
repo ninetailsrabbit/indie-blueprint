@@ -8,6 +8,6 @@
 texture_albedo = ExtResource("1_ouhng")
 texture_normal = ExtResource("2_hn2fg")
 script = ExtResource("2_cakbo")
-min_size = Vector3(0.3, 0.3, 0.3)
+min_size = Vector3(0.2, 0.2, 0.2)
 max_size = Vector3(0.5, 0.5, 0.5)
 random_size_equals = false

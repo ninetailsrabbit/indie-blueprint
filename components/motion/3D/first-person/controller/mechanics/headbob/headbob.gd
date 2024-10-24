@@ -1,4 +1,4 @@
-@icon("res://components/motion/3D/first-person/motion/mechanics/head.svg")
+@icon("res://components/motion/3D/first-person/controller/mechanics/head.svg")
 class_name HeadBob extends Node3D
 
 @export var actor: FirstPersonController

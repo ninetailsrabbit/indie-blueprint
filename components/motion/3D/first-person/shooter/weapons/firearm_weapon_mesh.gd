@@ -13,7 +13,7 @@ class_name FireArmWeaponMesh extends Node3D
 
 
 func _ready() -> void:
-	if apply_viewmodel:
+	if apply_viewmodel and viewmodel_shader is Shader:
 		setup_viewmodel_fov(viewmodel_fov)
 
 
@@ -28,17 +28,18 @@ func setup_viewmodel_fov(fov_value: float = viewmodel_fov) -> void:
 				material.set_shader_parameter("viewmodel_fov", fov_value)
 			elif material is StandardMaterial3D:
 				var weapon_shader_material: ShaderMaterial = ShaderMaterial.new()
-				viewmodel_shader.set_shader_parameter("texture_albedo", material.albedo_texture)
-				viewmodel_shader.set_shader_parameter("texture_metallic", material.metallic_texture)
-				viewmodel_shader.set_shader_parameter("texture_roughness", material.roughness_texture)
-				viewmodel_shader.set_shader_parameter("texture_normal", material.normal_texture)
-				viewmodel_shader.set_shader_parameter("albedo", material.albedo_color)
-				viewmodel_shader.set_shader_parameter("metallic", material.metallic)
-				viewmodel_shader.set_shader_parameter("specular", material.metallic_specular)
-				viewmodel_shader.set_shader_parameter("roughness", material.roughness)
-				viewmodel_shader.set_shader_parameter("viewmodel_fov", fov_value)
+				weapon_shader_material.shader = viewmodel_shader
+				weapon_shader_material.set_shader_parameter("texture_albedo", material.albedo_texture)
+				weapon_shader_material.set_shader_parameter("texture_metallic", material.metallic_texture)
+				weapon_shader_material.set_shader_parameter("texture_roughness", material.roughness_texture)
+				weapon_shader_material.set_shader_parameter("texture_normal", material.normal_texture)
+				weapon_shader_material.set_shader_parameter("albedo", material.albedo_color)
+				weapon_shader_material.set_shader_parameter("metallic", material.metallic)
+				weapon_shader_material.set_shader_parameter("specular", material.metallic_specular)
+				weapon_shader_material.set_shader_parameter("roughness", material.roughness)
+				weapon_shader_material.set_shader_parameter("viewmodel_fov", fov_value)
 				var tex_channels = { 0: Vector4(1., 0., 0., 0.), 1: Vector4(0., 1., 0., 0.), 2: Vector4(0., 0., 1., 0.), 3: Vector4(1., 0., 0., 1.), 4: Vector4() }
-				viewmodel_shader.set_shader_parameter("metallic_texture_channel", tex_channels[material.metallic_texture_channel])
+				weapon_shader_material.set_shader_parameter("metallic_texture_channel", tex_channels[material.metallic_texture_channel])
 				mesh_instance.mesh.surface_set_material(surface_idx, weapon_shader_material)
 
 #region Animation overrides

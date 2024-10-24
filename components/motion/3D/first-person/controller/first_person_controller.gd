@@ -1,4 +1,4 @@
-@icon("res://components/motion/3D/first-person/motion/first_person_controller.svg")
+@icon("res://components/motion/3D/first-person/controller/first_person_controller.svg")
 class_name FirstPersonController extends CharacterBody3D
 
 @export var mouse_mode_switch_input_actions: Array[String] = ["ui_cancel"]

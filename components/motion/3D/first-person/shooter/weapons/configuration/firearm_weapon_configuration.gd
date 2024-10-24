@@ -30,14 +30,3 @@ class_name FireArmWeaponConfiguration extends Resource
 @export_range(0, 16, 0.1) var muzzle_min_light_energy: float = 1.0
 @export_range(0, 16, 0.1) var muzzle_max_light_energy: float = 1.0
 @export var muzzle_light_color: Color = Color("FFD700")
-#@export_category("Bullet decal")
-#@export var enable_bullet_decal: bool = true
-#@export var bullet_decal_texture: Texture2D
-#@export var bullet_decal_min_size: Vector3 = Vector3(0.03, 0.03, 0.03)
-#@export var bullet_decal_max_size: Vector3 = Vector3(0.03, 0.03, 0.03)
-#@export var bullet_decal_fade_after: float = 3.0
-#@export var bullet_decal_fade_out_time: float = 1.5
-#@export_category("Bullet Impact")
-### TODO - Manage the hits based on the surface it's colliding instead of a preloaded scene
-#@export var hit_scene: PackedScene = preload("res://scenes/world/weapons/bullets/impact/Hit.tscn")
-#@export var use_impact_hit: bool = true

@@ -1,4 +1,4 @@
-@icon("res://components/motion/3D/first-person/motion/mechanics/camera_controller_3d.svg")
+@icon("res://components/motion/3D/first-person/controller/mechanics/camera_controller_3d.svg")
 class_name CameraController3D extends Node3D
 
 @export var actor: FirstPersonController

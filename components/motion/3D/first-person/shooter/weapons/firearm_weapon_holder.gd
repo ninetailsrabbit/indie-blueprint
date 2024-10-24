@@ -6,8 +6,8 @@ signal changed_weapon(from: WeaponDatabase.WeaponRecord, to: WeaponDatabase.Weap
 signal stored_weapon(weapon: WeaponDatabase.WeaponRecord)
 signal drawed_weapon(weapon: WeaponDatabase.WeaponRecord)
 
-#@export var actor: FirstPersonController
-#@export var camera_controller: CameraController3D
+@export var actor: FirstPersonController
+@export var camera_controller: CameraController3D
 ## This is a node that holds a Camera3D and where the weapon recoil will be applied to simulate the kick on each shoot that affects accuracy. 
 @export var camera_recoil_node: Node3D
 ## Slots to hold weapons on the format Dictionary[InputAction, WeaponId] where input action is the key that
@@ -77,13 +77,8 @@ func _ready() -> void:
 	_prepare_firearm_weapon_placement(firearm_weapon_placement)
 	
 	original_holder_position = position
-	#original_camera_fov = camera_controller.camera.fov
+	original_camera_fov = camera_controller.camera.fov
 	
-	## TODO - MANUAL ASSIGNATION TO TEST THE WEAPONS
-	#assign_primary_weapon_slot(WeaponDatabase.IdentifierRifleAr15)
-	#assign_secondary_weapon_slot(WeaponDatabase.IdentifierShotgunSpas)
-	#
-
 
 func _physics_process(delta: float) -> void:
 	if current_weapon:
@@ -115,13 +110,13 @@ func check_aim(delta: float = get_physics_process_delta_time()) -> void:
 		match firearm_weapon_placement.current_aim_state:
 			FireArmWeapon.AimStates.Aim:
 				if firearm_weapon_placement.weapon_configuration.motion.center_weapon_on_aim:
-					position = position.lerp(Vector3(0, position.y, position.z), firearm_weapon_placement.weapon_configuration.aim_smoothing * delta)
+					position = position.lerp(Vector3(0, position.y, position.z), firearm_weapon_placement.weapon_configuration.motion.aim_smoothing * delta)
 				
 				rotation = Vector3.ZERO
-				#camera_controller.camera.fov = lerpf(camera_controller.camera.fov, firearm_weapon_placement.weapon_configuration.motion.zoom_level_on_aim, firearm_weapon_placement.weapon_configuration.motion.aim_smoothing * delta)
+				camera_controller.camera.fov = lerpf(camera_controller.camera.fov, firearm_weapon_placement.weapon_configuration.motion.zoom_level_on_aim, firearm_weapon_placement.weapon_configuration.motion.aim_smoothing * delta)
 			
 			FireArmWeapon.AimStates.Holded:
-				#camera_controller.camera.fov = lerpf(camera_controller.camera.fov, original_camera_fov, firearm_weapon_placement.weapon_configuration.motion.aim_smoothing * delta)
+				camera_controller.camera.fov = lerpf(camera_controller.camera.fov, original_camera_fov, firearm_weapon_placement.weapon_configuration.motion.aim_smoothing * delta)
 				
 				if firearm_weapon_placement.weapon_configuration.motion.center_weapon_on_aim:
 					position = position.lerp(original_holder_position, firearm_weapon_placement.weapon_configuration.motion.aim_smoothing * delta)
@@ -289,8 +284,8 @@ func _prepare_weapon_motion(weapon_configuration: FireArmWeaponConfiguration) ->
 
 
 func _can_aim() -> bool:
-	return current_weapon and firearm_weapon_placement.weapon_configuration.motion.can_aim #\
-		#and (not actor.finite_state_machine.current_state is Run and not actor.finite_state_machine.current_state is Slide)
+	return current_weapon and firearm_weapon_placement.weapon_configuration.motion.can_aim \
+		and (not actor.finite_state_machine.current_state is Run and not actor.finite_state_machine.current_state is Slide)
 	
 
 func on_fired_weapon(_target_hitscan: Dictionary) -> void:

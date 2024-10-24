@@ -5,6 +5,7 @@ class_name WeaponDatabase
 #const IdentifierPistol9MM: StringName = &"9mm"
 #endregion
 
+
 #region Weapon categories
 enum WeaponCategory {
 	Pistol,

@@ -1,18 +1,18 @@
 [gd_scene load_steps=31 format=3 uid="uid://bx3bh475g3jjf"]
 
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/first_person_controller.gd" id="1_v7v7g"]
-[ext_resource type="PackedScene" uid="uid://bcj2w63oj13e5" path="res://components/motion/3D/first-person/motion/debug_ui/first_person_debug_ui.tscn" id="2_ml2dd"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/mechanics/camera_controller_3d.gd" id="5_2gxvf"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/first_person_controller.gd" id="1_v7v7g"]
+[ext_resource type="PackedScene" uid="uid://bcj2w63oj13e5" path="res://components/motion/3D/first-person/controller/debug_ui/first_person_debug_ui.tscn" id="2_ml2dd"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/mechanics/camera_controller_3d.gd" id="5_2gxvf"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="5_xm8yq"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/idle.gd" id="6_lht5s"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/walk.gd" id="7_52vlc"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/air/fall.gd" id="8_5oo54"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/crouch.gd" id="8_to2uw"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/crawl.gd" id="9_ps4a4"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/run.gd" id="10_8ycq6"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/air/jump.gd" id="10_ynwvi"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/ground/slide.gd" id="11_jpv7j"]
-[ext_resource type="Script" path="res://components/motion/3D/first-person/motion/states/special/swim.gd" id="12_vyybp"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/ground/idle.gd" id="6_lht5s"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/ground/walk.gd" id="7_52vlc"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/air/fall.gd" id="8_5oo54"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/ground/crouch.gd" id="8_to2uw"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/ground/crawl.gd" id="9_ps4a4"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/ground/run.gd" id="10_8ycq6"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/air/jump.gd" id="10_ynwvi"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/ground/slide.gd" id="11_jpv7j"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/special/swim.gd" id="12_vyybp"]
 [ext_resource type="Script" path="res://components/camera/3D/camera_shake_3d.gd" id="14_smxor"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/firearm_weapon_holder.gd" id="15_cjftc"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_sway.gd" id="16_2a3la"]
@@ -141,8 +141,9 @@ fov_by_state = {
 }
 crawl = true
 
-[node name="DebugUI" parent="." instance=ExtResource("2_ml2dd")]
-script = null
+[node name="DebugUI" parent="." node_paths=PackedStringArray("actor", "finite_state_machine") instance=ExtResource("2_ml2dd")]
+actor = NodePath("..")
+finite_state_machine = NodePath("../FiniteStateMachine")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -236,8 +237,11 @@ bob_head = NodePath("Head")
 [node name="CameraShake3D" type="Camera3D" parent="CameraController/Head"]
 script = ExtResource("14_smxor")
 
-[node name="FireArmWeaponHolder" type="Node3D" parent="CameraController/Head/CameraShake3D" node_paths=PackedStringArray("camera_recoil_node")]
+[node name="FireArmWeaponHolder" type="Node3D" parent="CameraController/Head/CameraShake3D" node_paths=PackedStringArray("actor", "camera_controller", "camera_recoil_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33, -0.55, -0.56)
 script = ExtResource("15_cjftc")
+actor = NodePath("../../../..")
+camera_controller = NodePath("../../..")
 camera_recoil_node = NodePath("../..")
 
 [node name="Sway" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder"]

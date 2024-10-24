@@ -91,7 +91,7 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	if (fire_timer < weapon_configuration.fire.fire.fire_rate):
+	if (fire_timer < weapon_configuration.fire.fire_rate):
 		fire_timer += delta
 		
 	hitscan_result = hitscan()
@@ -126,7 +126,7 @@ func shoot(target_hitscan: Dictionary = hitscan_result, use_fire_timer: bool = t
 		current_combat_state = CombatStates.Fire
 		
 		if camera and weapon_configuration.motion.camera_shake_enabled:
-			camera.trauma(weapon_configuration.motion.camera_shake_time, weapon_configuration.camera_shake_magnitude)
+			camera.trauma(weapon_configuration.motion.camera_shake_time, weapon_configuration.motion.camera_shake_magnitude)
 		
 		weapon_configuration.ammo.current_ammunition -= weapon_configuration.fire.bullets_per_shoot
 		weapon_configuration.ammo.current_magazine -= weapon_configuration.fire.bullets_per_shoot
@@ -184,7 +184,7 @@ func hitscan() -> Dictionary:
 	if camera:
 		var screen_center: Vector2i = WindowManager.screen_center()
 		var origin = camera.project_ray_origin(screen_center)
-		var to: Vector3 = origin + camera.project_ray_normal(screen_center) * weapon_configuration.fire_range
+		var to: Vector3 = origin + camera.project_ray_normal(screen_center) * weapon_configuration.fire.fire_range
 		
 		return create_hitscan(origin, to)
 		
@@ -234,11 +234,11 @@ func _handle_hitscan_and_projectile_collision(target_hitscan: Dictionary) -> voi
 		
 		## If no collision is detected, the bullets are spawned on the weapon fire range limit
 		if target_hitscan.is_empty() and weapon_configuration.spawn_bullets_on_empty_hitscan:
-			_handle_projectile_collision(weapon_configuration.fire.fire_range if weapon_configuration.spawn_bullets_on_fire_range_limit_when_empty_hitscan else 0.0)
+			_handle_projectile_collision(weapon_configuration.fire.fire_range if weapon_configuration.spawn_bullets_on_fire_range_limit else 0.0)
 		
 
 func _handle_projectile_collision(spawn_range: float = 0.0, initial_position: Vector3 = Vector3.ZERO) -> void:
-	if weapon_configuration.bullet_scene:
+	if weapon_configuration.bullet.scene:
 		var bullet: Bullet = weapon_configuration.bullet.scene.instantiate() as Bullet
 		bullet.setup(self, Camera3DHelper.forward_direction(camera), initial_position)
 		weapon_mesh.barrel_marker.add_child(bullet)
@@ -249,7 +249,7 @@ func _can_shoot(use_fire_timer: bool = true) -> bool:
 	if not active:
 		return false
 		
-	if use_fire_timer and fire_timer < weapon_configuration.fire_rate:
+	if use_fire_timer and fire_timer < weapon_configuration.fire.fire_rate:
 		return false
 		
 	if current_combat_state == CombatStates.Reload:

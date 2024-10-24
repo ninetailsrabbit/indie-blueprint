@@ -4,11 +4,13 @@ const GroupName = "bullets"
 
 @export var damage: int = 10
 @export var impact_force: Vector3 = Vector3.ONE
+@export_range(0, 100.0, 0.01) var trace_display_chance: float = 50.0
 @export var direction: Vector3
-@export var speed: float = 100.0
+@export var speed: float = 50.0
 @export var delete_after_seconds: float = 5.0
 
 @onready var timer: Timer = $Timer
+@onready var trace: MeshInstance3D = $Trace
 
 var origin_weapon: FireArmWeapon
 var distance_traveled: float = 0
@@ -18,12 +20,16 @@ var collision_normals: Array[Vector3] = []
 
 ## A different spawn position to create bullets on specific points for example on a hitscan collision
 var initial_position: Vector3 = Vector3.ZERO
+var original_gravity_scale: float = gravity_scale
 
 func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
 	contact_monitor = true
+	continuous_cd = true
 	max_contacts_reported  = 2
+	gravity_scale = 0
+	
 	
 	body_entered.connect(on_body_collision)
 	
@@ -34,6 +40,11 @@ func _ready() -> void:
 		queue_free()
 		return
 	
+	trace.hide()
+	
+	if MathHelper.chance(trace_display_chance / 100.0):
+		trace.show()
+		
 	if delete_after_seconds > 0 and is_instance_valid(timer):
 		timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 		timer.wait_time = delete_after_seconds
@@ -50,7 +61,7 @@ func _ready() -> void:
 	var spread_angle: float = deg_to_rad(origin_weapon.weapon_configuration.fire.bullet_spread_degrees)
 	
 	scale /= origin_weapon.weapon_mesh.scale
-	position = Vector3.ZERO 
+	position = Vector3.ZERO
 
 	if not initial_position.is_zero_approx():
 		global_position = initial_position
@@ -69,6 +80,9 @@ func _ready() -> void:
 	
 func _physics_process(_delta: float) -> void:
 	distance_traveled = NodePositioner.global_distance_to_v3(origin_weapon, self)
+	
+	if distance_traveled >= origin_weapon.weapon_configuration.fire.fire_range:
+		gravity_scale = original_gravity_scale
 
 
 func _integrate_forces(state):
