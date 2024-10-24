@@ -54,7 +54,8 @@ func get_detected_interactable():
 	
 	var ray_query = PhysicsRayQueryParameters3D.create(
 		from, 
-		to, 
+		to,
+		GameGlobals.world_collision_layer | GameGlobals.interactables_collision_layer | GameGlobals.grabbables_collision_layer
 	)
 	
 	ray_query.collide_with_areas = true

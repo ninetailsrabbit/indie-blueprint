@@ -1,19 +1,8 @@
 @icon("res://autoload/screen/dynamic_crosshair.svg")
 extends Control
 
-## It's enabled draw the dynamic pointer in the center of the screen
-@export var use_dynamic_pointer: bool = false:
-	set(value):
-		if value != use_dynamic_pointer:
-			use_dynamic_pointer = value
-			
-			if use_dynamic_pointer:
-				queue_redraw()
-				show()
-			else:
-				hide()
-			
-@export var dot_radius: float = 1.5:
+
+@export var dot_radius: float = 2.0:
 	set(value):
 		if value != dot_radius:
 			dot_radius = value
@@ -63,17 +52,17 @@ var left_reticle_original_rotation: float
 var reticle_original_dot_radius: float
 var reticle_original_dot_color: Color
 
+var dot_reticle_show: bool = true
+
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	
-	if use_dynamic_pointer:
-		queue_redraw()
-	else:
-		hide()
-		
+	queue_redraw()
 	prepare_reticles()
 	_save_reticle_original_values()
+	
+	hide_cross_reticle()
 
 
 func prepare_reticles() -> void:
@@ -93,7 +82,30 @@ func prepare_reticles() -> void:
 		
 		left_reticle.add_point(Vector2(-reticle_width_scaled, 0))
 		left_reticle.add_point(Vector2(-reticle_y_scaled, 0))
+	
+	
+func display_dot_reticle(radius: float = dot_radius, color: Color = dot_color) -> void:
+	if dot_reticle_show:
+		draw_circle(Vector2.ZERO, radius, dot_color)
+	else:
+		draw_circle(Vector2.ZERO, 0.0, dot_color)
 		
+
+func hide_dot_reticle() -> void:
+	pass
+
+func display_cross_reticle() -> void:
+	top_reticle.show()
+	bottom_reticle.show()
+	right_reticle.show()
+	left_reticle.show()
+	
+	
+func hide_cross_reticle() -> void:
+	top_reticle.hide()
+	bottom_reticle.hide()
+	right_reticle.hide()
+	left_reticle.hide()
 		
 func expand_reticles(distance: float = 5.0, time: float = 0.15) -> void:
 		var tween: Tween = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
@@ -167,16 +179,4 @@ func _save_reticle_original_values() -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, dot_radius, dot_color)
-
-
-#region Signal callbacks
-func on_expanded_requested(distance: float) -> void:
-	expand_reticles(distance)
-
-func on_rotation_requested(angle_in_degrees: float) -> void:
-	rotate_reticles(angle_in_degrees)
-
-func on_reset_requested() -> void:
-	reset_all_values_to_default()
-#endregion
+	display_dot_reticle()
