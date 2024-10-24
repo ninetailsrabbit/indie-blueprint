@@ -33,7 +33,8 @@ func adjust_size() -> void:
 func adjust_to_normal(normal: Vector3) -> void:
 	if not normal.is_equal_approx(Vector3.UP) and not normal.is_equal_approx(Vector3.DOWN):
 		look_at(global_position + normal, Vector3.UP)
-		rotate_object_local(Vector3.RIGHT, PI / 2)
+		
+	rotate_object_local(Vector3.RIGHT, PI / 2)
 		
 	if spin_randomization:
 		rotate_object_local(Vector3.UP, randf_range(0, TAU))
