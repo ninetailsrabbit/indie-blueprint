@@ -75,8 +75,6 @@ func check_is_dead() -> bool:
 	
 	if is_dead:
 		died.emit()
-		
-	
 
 	return is_dead
 

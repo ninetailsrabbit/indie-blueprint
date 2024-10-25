@@ -1,0 +1,272 @@
+# GodotExtensionatorStarter - Translation template:
+#
+# Automatically generated, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GodotExtensionatorStarter\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+
+#: localization/translation_keys.gd
+msgid "GENERAL_NO"
+msgstr "No"
+
+#: localization/translation_keys.gd
+msgid "GENERAL_YES"
+msgstr "Si"
+
+#: localization/translation_keys.gd
+msgid "AUDIO_TAB"
+msgstr "Audio"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_TAB"
+msgstr "Pantalla"
+
+#: localization/translation_keys.gd
+msgid "GRAPHICS_TAB"
+msgstr "Gráficos"
+
+#: localization/translation_keys.gd
+msgid "GENERAL_TAB"
+msgstr "General"
+
+#: localization/translation_keys.gd
+msgid "CONTROLS_TAB"
+msgstr "Controles"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_DEUTERANOPIA"
+msgstr "Deutenaropia"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_PROTANOPIA"
+msgstr "Protanopia"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_TRITANOPIA"
+msgstr "Tritanopia"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_ACHROMATOPSIA"
+msgstr "Achromatopsia"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_MODE_WINDOWED"
+msgstr "Ventana"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SCREEN_MODE_BORDERLESS"
+msgstr "Sin bordes"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_MODE_FULLSCREEN"
+msgstr "Pantalla completa"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_MODE_EXCLUSIVE_FULLSCREEN"
+msgstr "Pantalla completa exclusiva"
+
+#: localization/translation_keys.gd
+msgid "GRAPHICS_QUALITY"
+msgstr "Calidad de gráficos"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_LOW"
+msgstr "Bajo"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_MEDIUM"
+msgstr "Medio"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_HIGH"
+msgstr "Alto"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_ULTRA"
+msgstr "Ultra"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_TITLE"
+msgstr "Advertencia sobre convulsiones fotosensibles"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_SUBTITLE"
+msgstr "Por favor, leer antes de jugar"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_CONTENT"
+msgstr ""
+"Un pequeño porcentaje de personas puede experimentar convulsiones al estar "
+"expuestas a ciertas imágenes visuales, destellos, luces, patrones o fondos "
+"que pueden aparecer en los videojuegos. Las personas sin antecedentes de "
+"convulsiones o epilepsia pueden no estar diagnosticadas y pueden "
+"experimentar convulsiones mientras juegan videojuegos"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_CONTENT_2"
+msgstr ""
+"Deja de jugar de inmediato y consulta a un profesional de la salud si "
+"experimentas algún síntoma o comienzas a sentirte mal mientras juegas"
+
+#: ui/content_warning/advisors/content_warning_mature_content.tres
+msgid "WARNING_VIEWER_DISCRETION"
+msgstr "Se recomienda la discreción del espectador"
+
+#: ui/content_warning/advisors/content_warning_horror_elements.tres
+msgid "WARNING_HORROR_ELEMENTS"
+msgstr ""
+"Este juego contiene elementos de terror, incluyendo imágenes y sonidos "
+"perturbadores"
+
+#: ui/content_warning/advisors/content_warning_mature_content.tres
+msgid "MATURE_CONTENT_TITLE"
+msgstr "Advertencia contenido mayores de edad"
+
+#: ui/content_warning/advisors/content_warning_mature_content.tres
+msgid "MATURE_CONTENT_DESCRIPTION"
+msgstr ""
+"El siguiente videojuego contiene representaciones gráficas de suicidio y "
+"violencia que algunos jugadores pueden encontrar perturbadoras. Está "
+"destinado a audiencias maduras"
+
+#: ui/content_warning/advisors/content_warning_resemblance.tres
+msgid "WARNING_RESEMBLANCE_CONTENT"
+msgstr ""
+"Este juego es una obra de ficción e imaginación. Los personajes, lugares y "
+"eventos representados son productos de la mente creativa del autor y no "
+"representan la realidad"
+
+#: ui/content_warning/advisors/content_warning_suicide.tres
+msgid "WARNING_SUICIDE_ADVICE"
+msgstr ""
+"The following game contains graphic depictions of suicide which some players "
+"may find troubling. If you or someone you know is struggling, information "
+"and crisis resources are available at www.wannatalkaboutit.com"
+
+#: ui/menus/components/panel/input_remap_panel.tscn
+msgid "RESET_TO_DEFAULT"
+msgstr "Restablecer valores por defecto"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_MASTER"
+msgstr "Master"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_MUSIC"
+msgstr "Música"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_SFX"
+msgstr "SFX"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_VOICE"
+msgstr "Voces"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_AMBIENT"
+msgstr "Ambiente"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_UI"
+msgstr "Interfaz"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "MUTE_ACTION"
+msgstr "Mutear"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_WINDOW_MODE"
+msgstr "Modo de pantalla"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_RESOLUTION"
+msgstr "Resolución"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_VSYNC_INFO"
+msgstr ""
+"Sincroniza la tasa de fotogramas del juego con la frecuencia de "
+"actualización de tu monitor para reducir defectos en la imagen."
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_VSYNC"
+msgstr "Vsync"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_FPS_LIMIT"
+msgstr "Límite de FPS"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_BRIGHTNESS"
+msgstr "Brillo"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_GRAPHIC_QUALITY"
+msgstr "Calidad de gráficos"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_SCREENSHAKE"
+msgstr "Temblor de pantalla"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_PHOTOSENSITIVE"
+msgstr "Fotosensitivo"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_LANGUAGE"
+msgstr "Idioma"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SUBTITLES_LANGUAGE"
+msgstr "Idioma subtitulos"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "VOICES_LANGUAGE"
+msgstr "Idioma voces"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_TELEMETRY"
+msgstr "Permitir telemetría"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_MOUSE_SENSITIVITY"
+msgstr "Sensibilidad del ratón"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_REVERSE_MOUSE"
+msgstr "Invertir ratón"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BACK_BUTTON"
+msgstr "Atrás"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "GAME_TITLE"
+msgstr "GAME_TITLE"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_EXIT_GAME"
+msgstr "Salir"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_START"
+msgstr "Nueva partida"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_SETTINGS"
+msgstr "Opciones"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_CREDITS"
+msgstr "Créditos"

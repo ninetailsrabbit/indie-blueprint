@@ -41,10 +41,10 @@ void fragment() {
     uvY = float(int(uvY)) * (1.0 / noiseQuality);
     float noise = rand(vec2(TIME* 0.00001, uvY));
     uv.x += noise * noiseIntensity;
-	
+
 	vec2 offsetR = vec2(0.006 * sin(TIME), 0.0) * colorOffsetIntensity;
     vec2 offsetG = vec2(0.0073 * (cos(TIME * 0.97)), 0.0) * colorOffsetIntensity;
-	
+
 	float r = texture(screen_texture, uv + offsetR).r;
     float g = texture(screen_texture, uv + offsetG).g;
     float b = texture(screen_texture, uv).b;

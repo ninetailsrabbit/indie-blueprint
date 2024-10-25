@@ -127,7 +127,6 @@ static var available_languages: Dictionary = {
 	Languages.Dutch: Language.new("nl", "nl_NL", "Nederlands", "Dutch"),
 	Languages.German: Language.new("de", "de_DE", "Deutsch", "German"),
 	Languages.Greek: Language.new("el", "el_GR", "Ελληνικά", "Greek"),
-	Languages.Esperanto: Language.new("eo", "eo_UY", "Esperanto", "Esperanto"),
 	Languages.Spanish: Language.new("es", "es_ES", "Español", "Spanish"),
 	Languages.Indonesian: Language.new("id", "id_ID", "Indonesian", "Indonesian"),
 	Languages.Italian: Language.new("it", "it_IT", "Italiano", "Italian"),
@@ -151,6 +150,7 @@ static var available_languages: Dictionary = {
 	Languages.Hindi: Language.new("hi", "hi_IN", "हिंदी", "Hindi"),
 	Languages.Arabic: Language.new("ar", "ar_EG", "العربية", "Arabic"),
 	## Not so common languages
+	Languages.Esperanto: Language.new("eo", "eo_UY", "Esperanto", "Esperanto"),
 	Languages.Vietnamese: Language.new("vi", "vi_VN", "Tiếng Việt", "Vietnamese"),
 	Languages.Persian: Language.new("fa", "fa_IR", "فارسی", "Persian"),
 	Languages.Thai: Language.new("th", "th_TH", "ภาษาไทย", "Thai"),

@@ -1,0 +1,248 @@
+# GodotExtensionatorStarter - Translation template:
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GodotExtensionatorStarter\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+
+#: localization/translation_keys.gd
+msgid "GENERAL_NO"
+msgstr "GENERAL_NO"
+
+#: localization/translation_keys.gd
+msgid "GENERAL_YES"
+msgstr "GENERAL_YES"
+
+#: localization/translation_keys.gd
+msgid "AUDIO_TAB"
+msgstr "AUDIO_TAB"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_TAB"
+msgstr "SCREEN_TAB"
+
+#: localization/translation_keys.gd
+msgid "GRAPHICS_TAB"
+msgstr "GRAPHICS_TAB"
+
+#: localization/translation_keys.gd
+msgid "GENERAL_TAB"
+msgstr "GENERAL_TAB"
+
+#: localization/translation_keys.gd
+msgid "CONTROLS_TAB"
+msgstr "CONTROLS_TAB"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_DEUTERANOPIA"
+msgstr "DALTONISM_DEUTERANOPIA"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_PROTANOPIA"
+msgstr "DALTONISM_PROTANOPIA"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_TRITANOPIA"
+msgstr "DALTONISM_TRITANOPIA"
+
+#: localization/translation_keys.gd
+msgid "DALTONISM_ACHROMATOPSIA"
+msgstr "DALTONISM_ACHROMATOPSIA"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_MODE_WINDOWED"
+msgstr "SCREEN_MODE_WINDOWED"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SCREEN_MODE_BORDERLESS"
+msgstr "SCREEN_MODE_BORDERLESS"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_MODE_FULLSCREEN"
+msgstr "SCREEN_MODE_FULLSCREEN"
+
+#: localization/translation_keys.gd
+msgid "SCREEN_MODE_EXCLUSIVE_FULLSCREEN"
+msgstr "SCREEN_MODE_EXCLUSIVE_FULLSCREEN"
+
+#: localization/translation_keys.gd
+msgid "GRAPHICS_QUALITY"
+msgstr "GRAPHICS_QUALITY"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_LOW"
+msgstr "QUALITY_LOW"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_MEDIUM"
+msgstr "QUALITY_MEDIUM"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_HIGH"
+msgstr "QUALITY_HIGH"
+
+#: localization/translation_keys.gd
+msgid "QUALITY_ULTRA"
+msgstr "QUALITY_ULTRA"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_TITLE"
+msgstr "PHOTOSENSITIVE_TITLE"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_SUBTITLE"
+msgstr "PHOTOSENSITIVE_SUBTITLE"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_CONTENT"
+msgstr "PHOTOSENSITIVE_CONTENT"
+
+#: ui/content_warning/advisors/content_warning_photosensitive.tres
+msgid "PHOTOSENSITIVE_CONTENT_2"
+msgstr "PHOTOSENSITIVE_CONTENT_2"
+
+#: ui/content_warning/advisors/content_warning_mature_content.tres
+msgid "WARNING_VIEWER_DISCRETION"
+msgstr "WARNING_VIEWER_DISCRETION"
+
+#: ui/content_warning/advisors/content_warning_horror_elements.tres
+msgid "WARNING_HORROR_ELEMENTS"
+msgstr "WARNING_HORROR_ELEMENTS"
+
+#: ui/content_warning/advisors/content_warning_mature_content.tres
+msgid "MATURE_CONTENT_TITLE"
+msgstr "MATURE_CONTENT_TITLE"
+
+#: ui/content_warning/advisors/content_warning_mature_content.tres
+msgid "MATURE_CONTENT_DESCRIPTION"
+msgstr "MATURE_CONTENT_DESCRIPTION"
+
+#: ui/content_warning/advisors/content_warning_resemblance.tres
+msgid "WARNING_RESEMBLANCE_CONTENT"
+msgstr "WARNING_RESEMBLANCE_CONTENT"
+
+#: ui/content_warning/advisors/content_warning_suicide.tres
+msgid "WARNING_SUICIDE_ADVICE"
+msgstr "WARNING_SUICIDE_ADVICE"
+
+#: ui/menus/components/panel/input_remap_panel.tscn
+msgid "RESET_TO_DEFAULT"
+msgstr "RESET_TO_DEFAULT"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_MASTER"
+msgstr "BUS_MASTER"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_MUSIC"
+msgstr "BUS_MUSIC"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_SFX"
+msgstr "BUS_SFX"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_VOICE"
+msgstr "BUS_VOICE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_AMBIENT"
+msgstr "BUS_AMBIENT"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BUS_UI"
+msgstr "BUS_UI"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "MUTE_ACTION"
+msgstr "MUTE_ACTION"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_WINDOW_MODE"
+msgstr "SETTINGS_WINDOW_MODE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_RESOLUTION"
+msgstr "SETTINGS_RESOLUTION"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_VSYNC_INFO"
+msgstr "SETTINGS_VSYNC_INFO"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_VSYNC"
+msgstr "SETTINGS_VSYNC"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_FPS_LIMIT"
+msgstr "SETTINGS_FPS_LIMIT"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_BRIGHTNESS"
+msgstr "SETTINGS_BRIGHTNESS"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_GRAPHIC_QUALITY"
+msgstr "SETTING_GRAPHIC_QUALITY"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_SCREENSHAKE"
+msgstr "SETTING_SCREENSHAKE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_PHOTOSENSITIVE"
+msgstr "SETTING_PHOTOSENSITIVE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_LANGUAGE"
+msgstr "SETTINGS_LANGUAGE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SUBTITLES_LANGUAGE"
+msgstr "SUBTITLES_LANGUAGE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "VOICES_LANGUAGE"
+msgstr "VOICES_LANGUAGE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_TELEMETRY"
+msgstr "SETTINGS_TELEMETRY"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_MOUSE_SENSITIVITY"
+msgstr "SETTINGS_MOUSE_SENSITIVITY"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTING_REVERSE_MOUSE"
+msgstr "SETTING_REVERSE_MOUSE"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "BACK_BUTTON"
+msgstr "BACK_BUTTON"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "GAME_TITLE"
+msgstr "GAME_TITLE"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_EXIT_GAME"
+msgstr "MENU_EXIT_GAME"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_START"
+msgstr "MENU_START"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_SETTINGS"
+msgstr "MENU_SETTINGS"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_CREDITS"
+msgstr "MENU_CREDITS"

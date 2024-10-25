@@ -16,8 +16,6 @@ var languages_included: Array[Localization.Language] = [
 	Localization.italian(),
 	Localization.german(),
 	Localization.french(),
-	Localization.polish(),
-	Localization.dutch(),
 	Localization.russian()
 ]
 

@@ -211,6 +211,10 @@ jump={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/translations/de.po", "res://localization/translations/en.mo", "res://localization/translations/en.po", "res://localization/translations/es.mo", "res://localization/translations/es.po", "res://localization/translations/fr.po", "res://localization/translations/it.po", "res://localization/translations/pt.po", "res://localization/translations/ru.po")
+
 [layer_names]
 
 2d_physics/layer_1="World"

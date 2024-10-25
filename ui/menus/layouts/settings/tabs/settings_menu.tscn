@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cs1auqp2g4yn4"]
+[gd_scene load_steps=15 format=3 uid="uid://cs1auqp2g4yn4"]
 
 [ext_resource type="Script" path="res://ui/menus/components/slider/audio_slider.gd" id="1_hou6f"]
+[ext_resource type="Script" path="res://ui/menus/layouts/settings/tabs/settings_menu.gd" id="1_iwgds"]
 [ext_resource type="Script" path="res://ui/menus/components/option_button/screen_mode_option_button.gd" id="2_42cln"]
 [ext_resource type="Script" path="res://ui/menus/components/checkbox/screen_borderless_checkbox.gd" id="3_ifc12"]
 [ext_resource type="Script" path="res://ui/menus/components/option_button/screen_resolutions_option_button.gd" id="4_ar00i"]
@@ -21,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_iwgds")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -45,10 +47,11 @@ theme_override_constants/margin_bottom = 150
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer"]
 layout_mode = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Audio" type="TabBar" parent="MarginContainer/TabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -176,7 +179,6 @@ text = "MUTE_ACTION"
 
 [node name="Screen" type="TabBar" parent="MarginContainer/TabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -221,7 +223,7 @@ script = ExtResource("2_42cln")
 [node name="ScreenBorderlessCheckbox" type="CheckBox" parent="MarginContainer/TabContainer/Screen/MarginContainer/VBoxContainer/DisplayModeHbox"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Borderless"
+text = "SCREEN_MODE_BORDERLESS"
 script = ExtResource("3_ifc12")
 
 [node name="ResolutionLabel" type="Label" parent="MarginContainer/TabContainer/Screen/MarginContainer/VBoxContainer"]
