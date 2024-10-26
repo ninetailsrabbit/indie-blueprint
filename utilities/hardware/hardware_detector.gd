@@ -128,7 +128,7 @@ static var devices_by_quality: Dictionary = {
 	],
 }
 
-# https://github.com/Calinou/godot-sponza/blob/master/scripts/settings_gui.gd
+# Based on https://github.com/Calinou/godot-sponza/blob/master/scripts/settings_gui.gd
 static var graphics_quality_presets: Dictionary = {
 	QualityPreset.Low: GraphicQualityPreset.new("For low-end PCs with integrated graphics, as well as mobile devices",
 		[

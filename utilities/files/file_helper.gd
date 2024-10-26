@@ -120,7 +120,7 @@ static func remove_files_recursive(path: String, regex: RegEx = null) -> Error:
 		return OK
 	else:
 		var error := DirAccess.get_open_error()
-		push_error("FileHelper->remove_recursive: An error %s happened open directory: %s " % [error, path])
+		push_error("FileHelper->remove_recursive: An error %s happened open directory: %s " % [error_string(error), path])
 		
 		return error
 
@@ -147,7 +147,7 @@ static func load_csv(path: String, as_dictionary := true):
 	var open_error := FileAccess.get_open_error()
 	
 	if open_error != Error.OK:
-		push_error("FileHelper: ERROR_CODE[%s] Error opening file %s" % [open_error,path])
+		push_error("FileHelper: ERROR_CODE[%s] Error opening file %s" % [error_string(open_error), path])
 		return ERR_PARSE_ERROR
 
 	while not file.eof_reached():
@@ -196,7 +196,7 @@ static func load_csv(path: String, as_dictionary := true):
 			
 	return lines
 
-
+	
 static func _detect_limiter_from_file(filename: String) -> String:
 	match filename.get_extension().to_lower():
 		"csv":

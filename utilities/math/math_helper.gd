@@ -77,6 +77,17 @@ static func factorials_from(number) -> Array[float]:
 static func quantize_angle_to_90(target_angle: float) -> float:
 	return roundf(fmod(target_angle, TAU) / (PI / 2)) * (PI / 2)
 
+
+static func angle_is_between(angle: float, start_angle: float, end_angle: float) -> bool:
+	if start_angle == end_angle or abs(start_angle) == PI and abs(end_angle) == PI:
+		return true
+		
+	# adapted from from https://stackoverflow.com/questions/42246870/clamp-angle-to-arbitrary-range
+	var n_min = wrapf(start_angle - angle, -PI, PI)
+	var n_max = wrapf(end_angle - angle, -PI, PI)
+	
+	return n_min <= 0.0 and n_max >= 0.0
+
 ## Quaternions are a mathematical representation commonly used in 3D graphics to represent rotations.
 ## Axis-angle representation specifies a rotation by an axis vector and the angle of rotation around that axis
 ## Useful for Animation or Inverse Kinematics, Gimbal lock (when rotations get stuck or limited), Data storage or Transmission

@@ -11,6 +11,7 @@ const AnalyticsSection: String = "analytics"
 #endregion
 
 #region Setting properties
+## This settings are used as keys for the configuration file .ini or .cfg
 const FpsCounterSetting: String = "fps_counter"
 const MaxFpsSetting: String = "max_fps"
 const WindowDisplaySetting: String = "display"

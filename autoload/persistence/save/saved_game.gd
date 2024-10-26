@@ -39,7 +39,7 @@ func delete():
 		var error = DirAccess.remove_absolute(SavedGame.get_save_path(filename))
 		
 		if error != OK:
-			push_error("An error happened trying to delete the file %s with code %s" % [filename, error])
+			push_error("An error happened trying to delete the file %s with code %s" % [filename, error_string(error)])
 
 
 static func save_exists(_filename: String) -> bool:

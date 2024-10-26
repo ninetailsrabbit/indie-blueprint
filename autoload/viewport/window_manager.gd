@@ -148,17 +148,36 @@ func get_camera2d_frame(viewport: Viewport = get_viewport()) -> Rect2:
 	
 	
 #region Screenshot
+## Recommended to call this method after await RenderingServer.frame_post_draw
 func screenshot(viewport: Viewport) -> Image:
-	return viewport.get_texture().get_image()
+	var screenshot_image = viewport.get_texture().get_image()
 	
+	assert(screenshot_image is Image, "WindowManager::screenshot: The image output is null")
+
+	return screenshot_image
+
+
+func screenshot_to_folder(folder: String = "%s/screenshots" % [OS.get_user_data_dir()], viewport: Viewport = get_viewport()) -> Error:
+	var create_dir_error: Error = DirAccess.make_dir_recursive_absolute(folder)
 	
-func screenshot_to_texture_rect(viewport: Viewport, texture_rect: TextureRect = TextureRect.new()) -> TextureRect:
-	var img = screenshot(viewport)
+	if create_dir_error != OK:
+		push_error("WindowManager::screenshot_to_folder: Can't create directory '%s'. Error: %s" % [folder, error_string(create_dir_error)])
+		return create_dir_error
+		
+	var screenshot_image: Image = screenshot(viewport)
+	var screenshot_save_error = screenshot_image.save_png("%s/%s.png" % [folder, Time.get_datetime_string_from_system().replace(":", "_")])
 	
-	assert(img is Image, "ViewportHelper::screenshot_to_texture_rect: The image output is null")
+	if screenshot_save_error != OK:
+		push_error("WindowManager::screenshot_to_folder: Can't save screenshot image '%s'. Error: %s" % [folder, error_string(screenshot_save_error)])
+		
+	return screenshot_save_error
+
+## Recommended to call this method after await RenderingServer.frame_post_draw
+func screenshot_to_texture_rect(viewport: Viewport = get_viewport(), texture_rect: TextureRect = TextureRect.new()) -> TextureRect:
+	var screenshot_image = screenshot(viewport)
 	
 	#img.flip_y()
-	texture_rect.texture = ImageTexture.create_from_image(img)
+	texture_rect.texture = ImageTexture.create_from_image(screenshot_image)
 	
 	return texture_rect
 #endregion

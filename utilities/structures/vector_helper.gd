@@ -22,6 +22,8 @@ static var opposite_directions_v3 = {
 	Vector3.BACK: Vector3.FORWARD
 }
 
+
+
 static func up_direction_opposite_vector2(up_direction: Vector2) -> Vector2:
 	if opposite_directions_v2.has(up_direction):
 		return opposite_directions_v2[up_direction]
