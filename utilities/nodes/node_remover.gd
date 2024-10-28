@@ -36,3 +36,17 @@ static func queue_free_children(node: Node, except: Array = []) -> void:
 		remove(child)
 	
 	except.clear()
+
+
+## Exceptions are passed as [Area3D.new().get_class)
+static func free_children(node: Node, except: Array = []) -> void:
+	if node.get_child_count() == 0:
+		return
+
+	var childrens = node.get_children().filter(func(child): return not child.get_class() in except)
+	childrens.reverse()
+	
+	for child in childrens.filter(func(_node: Node): return is_node_valid(_node)):
+		child.free()
+	
+	except.clear()
