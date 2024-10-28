@@ -30,8 +30,6 @@ func _ready():
 	color_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	color_rect.z_index = 100
 	
-	transition_requested.connect(on_transition_requested)
-	transition_finished.connect(on_transition_finished)
 	transition_animation_player.animation_finished.connect(on_animation_finished)
 	
 	
@@ -59,7 +57,7 @@ func transition_to_scene(
 			
 		_transition_to_scene_file(scene, loading_screen)
 	
-	if scene is PackedScene:
+	elif scene is PackedScene:
 		if not remaining_animations.is_empty():
 			await trigger_transition(remaining_animations.pop_back())
 				
@@ -161,11 +159,3 @@ func on_animation_finished(_animation_name: String):
 	
 	if animation and transition_animation_player.get_animation_list().has(animation):
 		transition_animation_player.play(animation)
-
-
-func on_transition_requested(_next_scene_path: String):
-	GlobalGameEvents.scene_transition_requested.emit(_next_scene_path)
-
-
-func on_transition_finished(_next_scene_path: String):
-	GlobalGameEvents.scene_transition_finished.emit(_next_scene_path)
