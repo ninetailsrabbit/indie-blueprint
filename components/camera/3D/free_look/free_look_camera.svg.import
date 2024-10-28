@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df37odhldu56g"
-path="res://.godot/imported/trauma_causer.svg-ed5beef12f36421b2abc3383fde24445.ctex"
+uid="uid://dn0vn1yokfou2"
+path="res://.godot/imported/free_look_camera.svg-a45daf69db064e4c69fe59f5c1e3b7f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/camera/3D/trauma_causer.svg"
-dest_files=["res://.godot/imported/trauma_causer.svg-ed5beef12f36421b2abc3383fde24445.ctex"]
+source_file="res://components/camera/3D/free_look/free_look_camera.svg"
+dest_files=["res://.godot/imported/free_look_camera.svg-a45daf69db064e4c69fe59f5c1e3b7f4.ctex"]
 
 [params]
 

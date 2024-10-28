@@ -1,4 +1,4 @@
-@icon("res://components/camera/3D/trauma_causer.svg")
+@icon("res://components/camera/3D/shake/trauma_causer.svg")
 class_name TraumaCauser3D extends Area3D
 
 @export var trauma_time := 1.0

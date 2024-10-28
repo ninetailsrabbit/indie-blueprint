@@ -1,4 +1,4 @@
-@icon("res://components/camera/3D/camera_shake_3d.svg")
+@icon("res://components/camera/3D/shake/camera_shake_3d.svg")
 class_name CameraShake3D extends Camera3D
 
 @export var shake_time: float = 1.3
