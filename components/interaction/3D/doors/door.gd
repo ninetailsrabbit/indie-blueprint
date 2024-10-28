@@ -28,6 +28,7 @@ signal tried_to_open_locked_door
 @export var door_name: String = "Door"
 @export var key_id: String = ""
 @export var delay_before_close: float = 0.0
+@export_range(0, 180, 0.01) var default_open_angle: float = 0.0
 @export_group("Tween")
 @export var use_tweens: bool = false
 @export var time_to_open: float = 0.3
@@ -55,8 +56,11 @@ func _ready() -> void:
 
 	is_locked = not key_id.is_empty()
 	
+	pivot_point.rotation.y = deg_to_rad(default_open_angle)
+	
 	interactable.interacted.connect(on_interacted)
 	tried_to_open_locked_door.connect(on_tried_to_open_locked_door)
+	
 	
 func open() -> void:
 	if is_locked:
@@ -78,7 +82,7 @@ func close() -> void:
 	
 	if use_tweens:
 		door_tween = create_tween()
-		door_tween.tween_property(pivot_point, "rotation:y", 0, time_to_open).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+		door_tween.tween_property(pivot_point, "rotation:y", deg_to_rad(default_open_angle), time_to_open).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	else:
 		if animation_player.has_animation(close_door_animation):
 			animation_player.play(close_door_animation)
