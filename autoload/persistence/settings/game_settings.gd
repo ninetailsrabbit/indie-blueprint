@@ -1,44 +1,44 @@
 class_name GameSettings
 
 #region ConfigFile sections
-const KeybindingsSection: String = "keybindings"
-const GraphicsSection: String = "graphics"
-const AudioSection: String = "audio"
-const ControlsSection: String = "controls"
-const AccessibilitySection: String = "accessibility"
-const LocalizationSection: String = "localization"
-const AnalyticsSection: String = "analytics"
+const KeybindingsSection: StringName = &"keybindings"
+const GraphicsSection: StringName = &"graphics"
+const AudioSection: StringName = &"audio"
+const ControlsSection: StringName = &"controls"
+const AccessibilitySection: StringName = &"accessibility"
+const LocalizationSection: StringName = &"localization"
+const AnalyticsSection: StringName = &"analytics"
 #endregion
 
 #region Setting properties
 ## This settings are used as keys for the configuration file .ini or .cfg
-const FpsCounterSetting: String = "fps_counter"
-const MaxFpsSetting: String = "max_fps"
-const WindowDisplaySetting: String = "display"
-const WindowDisplayBorderlessSetting: String = "borderless"
-const WindowResolutionSetting: String = "resolution"
-const VsyncSetting: String = "vsync"
-const QualityPresetSetting: String = "quality_preset"
+const FpsCounterSetting: StringName = &"fps_counter"
+const MaxFpsSetting: StringName = &"max_fps"
+const WindowDisplaySetting: StringName = &"display"
+const WindowDisplayBorderlessSetting: StringName = &"borderless"
+const WindowResolutionSetting: StringName = &"resolution"
+const VsyncSetting: StringName = &"vsync"
+const QualityPresetSetting: StringName = &"quality_preset"
 
-const MouseSensivitySetting: String = "mouse_sensitivity"
-const ReversedMouseSetting: String = "reversed_mouse"
-const ControllerVibrationSetting: String = "controller_vibration"
+const MouseSensivitySetting: StringName = &"mouse_sensitivity"
+const ReversedMouseSetting: StringName = &"reversed_mouse"
+const ControllerVibrationSetting: StringName = &"controller_vibration"
 
-const ScreenBrightnessSetting: String = "screen_brightness"
-const PhotosensitivitySetting: String = "photosensitive"
-const ScreenShakeSetting: String = "screenshake"
-const DaltonismSetting: String = "daltonism"
+const ScreenBrightnessSetting: StringName = &"screen_brightness"
+const PhotosensitivitySetting: StringName = &"photosensitive"
+const ScreenShakeSetting: StringName = &"screenshake"
+const DaltonismSetting: StringName = &"daltonism"
 
-const AllowTelemetrySetting: String = "allow_telemetry"
+const AllowTelemetrySetting: StringName = &"allow_telemetry"
 
-const CurrentLanguageSetting: String = "current_language"
-const VoicesLanguageSetting: String = "voices_language"
-const SubtitlesLanguageSetting: String = "subtitles_language"
-const SubtitlesEnabledSetting: String = "subtitles"
+const CurrentLanguageSetting: StringName = &"current_language"
+const VoicesLanguageSetting: StringName = &"voices_language"
+const SubtitlesLanguageSetting: StringName = &"subtitles_language"
+const SubtitlesEnabledSetting: StringName = &"subtitles"
 
-const MutedAudioSetting: String = "muted"
+const MutedAudioSetting: StringName = &"muted"
 
-const DefaultInputMapActionsSetting: String = "default_input_map_actions"
+const DefaultInputMapActionsSetting: StringName = &"default_input_map_actions"
 #endregion
 
 
