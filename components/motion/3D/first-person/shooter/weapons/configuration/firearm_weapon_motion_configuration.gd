@@ -9,7 +9,7 @@ class_name FireArmWeaponMotionConfiguration extends Resource
 @export var camera_recoil_enabled: bool = true
 @export var camera_shake_enabled: bool = true
 @export_group("Aim")
-@export var aim_input_action: String = InputControls.Aim
+@export var aim_input_action: StringName = InputControls.Aim
 @export var keep_pressed_to_aim: bool = true
 @export var center_weapon_on_aim: bool = true
 @export_group("Camera shake")

@@ -21,11 +21,11 @@ signal dropped_grabbable(body: Grabbable3D)
 ## The maximum number of grabbables this grabber can hold at the same time, this takes priority over available_slots
 @export var max_number_of_grabbables: int = 1
 @export_group("Input Actions")
-@export var pull_input_action: String = InputControls.Pull
-@export var pull_area_input_action: String = InputControls.PullArea
-@export var drop_input_action: String = InputControls.Drop
-@export var throw_input_action: String = InputControls.Throw
-@export var push_wave_input_action: String =  InputControls.PushWave
+@export var pull_input_action: StringName = InputControls.Pull
+@export var pull_area_input_action: StringName = InputControls.PullArea
+@export var drop_input_action: StringName = InputControls.Drop
+@export var throw_input_action: StringName = InputControls.Throw
+@export var push_wave_input_action: StringName =  InputControls.PushWave
 @export_group("Abilities")
 @export var pull_individual_ability: bool = true
 @export var pull_area_ability: bool = false

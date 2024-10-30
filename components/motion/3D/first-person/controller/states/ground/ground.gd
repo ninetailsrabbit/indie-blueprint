@@ -19,13 +19,13 @@ class_name GroundState extends MachineState
 ## Shortcut for converting vectors to horizontal
 @export var horizontal := Vector3(1, 0, 1)
 @export_group("Input actions")
-@export var run_input_action: String = "run"
-@export var jump_input_action: String = "jump"
-@export var crouch_input_action: String = "crouch"
-@export var crawl_input_action: String = "crawl"
+@export var run_input_action: StringName = InputControls.RunAction
+@export var jump_input_action: StringName = InputControls.JumpAction
+@export var crouch_input_action: StringName = InputControls.CrouchAction
+@export var crawl_input_action: StringName = InputControls.CrawlAction
 @export_group("Animation")
-@export var crouch_animation: String = "crouch"
-@export var crawl_animation: String = "crawl"
+@export var crouch_animation: StringName = "crouch"
+@export var crawl_animation: StringName = "crawl"
 
 var current_speed: float = 0
 var stair_stepping := false

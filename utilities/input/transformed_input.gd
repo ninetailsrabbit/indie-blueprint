@@ -1,9 +1,9 @@
 class_name TransformedInput
 
-var move_right_action: String = InputControls.MoveRight
-var move_left_action: String = InputControls.MoveLeft
-var move_forward_action: String = InputControls.MoveForward
-var move_back_action: String = InputControls.MoveBack
+var move_right_action: StringName = InputControls.MoveRight
+var move_left_action: StringName = InputControls.MoveLeft
+var move_forward_action: StringName = InputControls.MoveForward
+var move_back_action: StringName = InputControls.MoveBack
 
 var actor: Node
 var deadzone: float = 0.5:
@@ -123,25 +123,25 @@ func _update_previous_directions():
 	
 
 #region Action setters
-func change_move_right_action(new_action: String) -> TransformedInput:
+func change_move_right_action(new_action: StringName) -> TransformedInput:
 	move_right_action = new_action
 	
 	return self
 
 
-func change_move_left_action(new_action: String) -> TransformedInput:
+func change_move_left_action(new_action: StringName) -> TransformedInput:
 	move_left_action = new_action
 	
 	return self
 
 
-func change_move_forward_action(new_action: String) -> TransformedInput:
+func change_move_forward_action(new_action: StringName) -> TransformedInput:
 	move_forward_action = new_action
 	
 	return self
 
 
-func change_move_back_action(new_action: String) -> TransformedInput:
+func change_move_back_action(new_action: StringName) -> TransformedInput:
 	move_back_action = new_action
 	
 	return self

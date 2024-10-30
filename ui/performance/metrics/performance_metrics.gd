@@ -1,7 +1,7 @@
 @icon("res://ui/performance/metrics/performance_metrics.svg")
 extends Control
 
-@export var show_hardware_specs_input_action: String = InputControls.PerformanceMetrics
+@export var show_hardware_specs_input_action: StringName = InputControls.PerformanceMetrics
 @export var only_fps_counter: bool = false
 
 @onready var fps_label: Label = %FPSLabel

@@ -5,7 +5,7 @@ signal time_tick(day: int, hour: int, minute: int)
 
 const MinutesPerDay: int = 1440
 const MinutesPerHour: int = 60
-const InGameToRealMinuteDuration: int = TAU / MinutesPerDay
+const InGameToRealMinuteDuration := TAU / MinutesPerDay
 
 ## This value when it's 1.0 means that one minute in real time translates into one second in-game, so modify this value as is needed
 @export var in_game_speed: float = 1.0 

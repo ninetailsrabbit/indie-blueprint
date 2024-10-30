@@ -3,7 +3,7 @@ class_name MouseRayCastInteractor3D extends Node3D
 @export var origin_camera: Camera3D
 @export var ray_length: float = 1000.0
 @export var interact_mouse_button = MOUSE_BUTTON_LEFT
-@export var cancel_interact_input_action: String = InputControls.CancelInteraction
+@export var cancel_interact_input_action: StringName = InputControls.CancelInteraction
 
 @onready var current_camera: Camera3D = origin_camera:
 	set(new_camera):

@@ -1,7 +1,7 @@
 class_name RayCastInteractor3D extends RayCast3D
 
-@export var interact_input_action: String = InputControls.Interact
-@export var cancel_interact_input_action: String = InputControls.CancelInteraction
+@export var interact_input_action: StringName = InputControls.Interact
+@export var cancel_interact_input_action: StringName = InputControls.CancelInteraction
 
 
 var current_interactable: Interactable3D

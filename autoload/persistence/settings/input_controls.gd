@@ -1,26 +1,33 @@
 class_name InputControls
 
-const MoveRight: String = "move_right"
-const MoveLeft: String = "move_left"
-const MoveForward: String = "move_forward"
-const MoveBack: String = "move_back"
+const MoveRight: StringName = &"move_right"
+const MoveLeft: StringName = &"move_left"
+const MoveForward: StringName = &"move_forward"
+const MoveBack: StringName = &"move_back"
 
-const Interact: String = "interact"
-const CancelInteraction: String = "cancel_interact"
+const CrouchAction: StringName = &"crouch"
+const CrawlAction: StringName = &"crawl"
+const RunAction: StringName = &"run"
+const JumpAction: StringName = &"jump"
 
-const Pull: String = "pull"
-const PullArea: String = "pull_area"
-const Drop: String = "drop"
-const Throw: String = "throw"
-const PushWave: String = "push_wave"
+const Interact: StringName = &"interact"
+const CancelInteraction: StringName = &"cancel_interact"
 
-const Aim: String = "aim"
-const Shoot: String = "shoot"
+const Pull: StringName = &"pull"
+const PullArea: StringName = &"pull_area"
+const Drop: StringName = &"drop"
+const Throw: StringName = &"throw"
+const PushWave: StringName = &"push_wave"
 
-const PrimaryWeapon: String = "primary_weapon"
-const SecondaryWeapon: String = "secondary_weapon"
-const HeavyWeapon: String = "heavy_weapon"
-const MeleeWeapon: String = "melee_weapon"
+const Aim: StringName = &"aim"
+const Shoot: StringName = &"shoot"
 
-const PerformanceMetrics: String = "performance_metrics"
-const PauseGame: String = "pause"
+const PrimaryWeapon: StringName = &"primary_weapon"
+const SecondaryWeapon: StringName = &"secondary_weapon"
+const HeavyWeapon: StringName = &"heavy_weapon"
+const MeleeWeapon: StringName = &"melee_weapon"
+
+const Drag: StringName = &"drag"
+
+const PerformanceMetrics: StringName = &"performance_metrics"
+const PauseGame: StringName = &"pause"
