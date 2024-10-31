@@ -31,14 +31,13 @@ func save_settings(path: String = settings_file_path) -> void:
 	var error: Error = config_file_api.save_encrypted_pass(path, encription_key()) if use_encription else config_file_api.save(path)
 	
 	if error != OK:
-		push_error("SettingsOrchestrator: An error %d ocurred trying to save the settings on file %s " % [error_string(error), path])
+		push_error("SettingsManager: An error %d ocurred trying to save the settings on file %s " % [error_string(error), path])
 		
 
 func reset_to_factory_settings(path: String = settings_file_path) -> void:
-	if FileAccess.file_exists(path):
-		config_file_api.clear()
-		DirAccess.remove_absolute(path)
-		
+	config_file_api.clear()
+	
+	remove_settings_file(path)
 	create_settings(path)
 	load_settings(path)
 	
