@@ -3,6 +3,7 @@ extends Node
 signal reset_to_default_settings
 signal created_settings
 signal loaded_settings
+signal removed_setting_file
 signal updated_setting_section(section: String, key: String, value: Variant)
 
 const KeybindingSeparator: String = "|"
@@ -11,7 +12,7 @@ const FileFormat: String = "ini" #  ini or cfg
 
 var settings_file_path: String = OS.get_user_data_dir() + "/settings.%s" % FileFormat
 var config_file_api: ConfigFile = ConfigFile.new()
-var encription: bool = false
+var use_encription: bool = false
 var include_ui_keybindings: bool = false
 var load_on_start: bool = true
 
@@ -27,8 +28,11 @@ func _ready() -> void:
 
 #region Generic
 func save_settings(path: String = settings_file_path) -> void:
-	config_file_api.save(path)
-
+	var error: Error = config_file_api.save_encrypted_pass(path, encription_key()) if use_encription else config_file_api.save(path)
+	
+	if error != OK:
+		push_error("SettingsOrchestrator: An error %d ocurred trying to save the settings on file %s " % [error_string(error), path])
+		
 
 func reset_to_factory_settings(path: String = settings_file_path) -> void:
 	if FileAccess.file_exists(path):
@@ -49,7 +53,7 @@ func prepare_settings() -> void:
 
 
 func load_settings(path: String = settings_file_path) -> void:
-	var error: Error = config_file_api.load(path)
+	var error: Error = config_file_api.load_encrypted_pass(path, encription_key()) if use_encription else config_file_api.load(path) 
 	
 	if error != OK:
 		push_error("SettingsManager: An error %d ocurred trying to load the settings from path %s " % [error_string(error), path])
@@ -61,6 +65,14 @@ func load_settings(path: String = settings_file_path) -> void:
 	load_keybindings()
 	
 	loaded_settings.emit()
+
+
+func remove_settings_file(path: String = settings_file_path) -> void:
+	if FileAccess.file_exists(path):
+		DirAccess.remove_absolute(path)
+		
+	removed_setting_file.emit()
+	
 #endregion
 
 
@@ -447,6 +459,9 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 func _get_input_map_actions() -> Array[StringName]:
 	return InputMap.get_actions() if include_ui_keybindings else InputMap.get_actions().filter(func(action): return !action.contains("ui_"))
 
+
+func encription_key() -> StringName:
+	return (&"%s%s" % [ProjectSettings.get_setting("application/config/name"), ProjectSettings.get_setting("application/config/description")]).sha256_text()
 
 #region Signal callbacks
 func on_updated_setting_section(_section: String, _key: String, _value: Variant) -> void:
