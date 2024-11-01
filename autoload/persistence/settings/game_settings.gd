@@ -31,9 +31,9 @@ const DaltonismSetting: StringName = &"daltonism"
 
 const AllowTelemetrySetting: StringName = &"allow_telemetry"
 
-const CurrentLanguageSetting: StringName = &"current_language"
-const VoicesLanguageSetting: StringName = &"voices_language"
-const SubtitlesLanguageSetting: StringName = &"subtitles_language"
+const CurrentLanguageSetting: String = "current_language"
+const VoicesLanguageSetting: String = "voices_language"
+const SubtitlesLanguageSetting: String = "subtitles_language"
 const SubtitlesEnabledSetting: StringName = &"subtitles"
 
 const MutedAudioSetting: StringName = &"muted"
