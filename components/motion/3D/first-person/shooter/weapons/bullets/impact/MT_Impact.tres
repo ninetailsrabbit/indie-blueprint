@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://555pj40vc3ir"]
 
-[ext_resource type="Texture2D" uid="uid://dkvvk2e5luens" path="res://scenes/world/weapons/bullets/impact/TX_Smoke.png" id="1_hji6g"]
+[ext_resource type="Texture2D" uid="uid://8b3lb0oesw0j" path="res://components/motion/3D/first-person/shooter/weapons/bullets/impact/textures/smoke/TX_Smoke.png" id="1_hji6g"]
 
 [resource]
 transparency = 1
