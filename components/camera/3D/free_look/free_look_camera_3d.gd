@@ -29,7 +29,8 @@ var active: bool = false:
 				free_camera_enabled.emit()
 			else:
 				free_camera_disabled.emit()
-		active = value
+				
+			active = value
 		
 var motion: Vector3
 var view_motion: Vector2
@@ -69,23 +70,23 @@ func _input(event):
 			
 
 	if event is InputEventKey:
-			if event.keycode == toggle_activation_key and event.pressed:
-				active = not active
-				
-				if not active:
-					return
+		if event.keycode == toggle_activation_key and event.pressed:
+			active = not active
 			
-			var motion_value := int(event.pressed) # translate bool into 1 or 0
-			
-			match event.keycode:
-				move_forward_key:
-					motion.z = -motion_value
-				move_back_key:
-					motion.z = motion_value
-				move_right_key:
-					motion.x = motion_value
-				move_left_key:
-					motion.x = -motion_value
+			if not active:
+				return
+		
+		var motion_value := int(event.pressed) # translate bool into 1 or 0
+		
+		match event.keycode:
+			move_forward_key:
+				motion.z = -motion_value
+			move_back_key:
+				motion.z = motion_value
+			move_right_key:
+				motion.x = motion_value
+			move_left_key:
+				motion.x = -motion_value
 
 
 func _process(_delta):
@@ -130,11 +131,13 @@ func on_free_camera_enabled():
 	
 func on_free_camera_disabled():
 	gimbal_base.origin = global_transform.origin
-	previous_camera.make_current()
 	
-	clear_current()
+	if previous_camera:
+		clear_current()
+		previous_camera.make_current()
+		print("comeback to ", previous_camera)
+	
 	set_process(false)
-	set_process_input(false)
 	
 	Input.mouse_mode = previous_mouse_mode
 

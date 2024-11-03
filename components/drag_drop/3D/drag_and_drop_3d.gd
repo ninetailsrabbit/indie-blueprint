@@ -58,7 +58,7 @@ func on_draggable_drag_started(draggable: Draggable3D) -> void:
 	current_draggable = draggable
 
 
-func on_draggable_drag_ended(draggable: Draggable3D) -> void:
+func on_draggable_drag_ended(_draggable: Draggable3D) -> void:
 	current_draggable = null
 	
 

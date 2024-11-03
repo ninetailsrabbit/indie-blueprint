@@ -45,7 +45,7 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 	if InputHelper.is_any_action_just_pressed(mouse_mode_switch_input_actions):
 		switch_mouse_capture_mode()
 		
-#
+
 func _enter_tree() -> void:
 	add_to_group(group_name)
 	
