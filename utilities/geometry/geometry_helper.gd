@@ -4,7 +4,7 @@ class_name GeometryHelper
 static func get_random_mesh_surface_position(target: MeshInstance3D) -> Vector3:
 	if target.mesh:
 		var target_mesh_faces = target.mesh.get_faces()
-		var random_face: Vector3 = target_mesh_faces[randi() % target_mesh_faces.size()]
+		var random_face: Vector3 = target_mesh_faces[randi() % target_mesh_faces.size()] * target.scale
 		
 		random_face = Vector3(abs(random_face.x), abs(random_face.y), abs(random_face.z))
 		
@@ -64,3 +64,21 @@ static func polygon_bounding_box(polygon: PackedVector2Array) -> Rect2:
 		max_vec =  Vector2(max(max_vec.x, vec.x), max(max_vec.y, vec.y))
 		
 	return Rect2(min_vec, max_vec - min_vec)
+
+
+static func create_box_mesh(size: Vector3 = Vector3.ONE) -> MeshInstance3D:
+	var mesh = MeshInstance3D.new()
+	var box = BoxMesh.new()
+	box.size = size
+	mesh.mesh = box
+	
+	return mesh
+	
+
+static func create_plane_mesh(size: Vector2 = Vector2.ONE) -> MeshInstance3D:
+	var mesh = MeshInstance3D.new()
+	var plane = PlaneMesh.new()
+	plane.size = size
+	mesh.mesh = plane
+	
+	return mesh
