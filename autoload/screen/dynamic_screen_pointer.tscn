@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://co10huwfvo8tx"]
+[gd_scene load_steps=3 format=3 uid="uid://co10huwfvo8tx"]
 
 [ext_resource type="Script" path="res://autoload/screen/dynamic_screen_pointer.gd" id="1_3lj1f"]
+[ext_resource type="Script" path="res://autoload/screen/dynamic_screen_pointer_canvas_layer.gd" id="1_ixmrb"]
 
 [node name="DynamicScreenPointerCanvasLayer" type="CanvasLayer"]
 layer = 2
+script = ExtResource("1_ixmrb")
 
 [node name="DynamicScreenPointerControl" type="Control" parent="."]
 layout_mode = 3
@@ -23,21 +25,26 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DynamicScreenPointer" type="Control" parent="DynamicScreenPointerControl/CenterContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("1_3lj1f")
 
 [node name="TopReticle" type="Line2D" parent="DynamicScreenPointerControl/CenterContainer/DynamicScreenPointer"]
+unique_name_in_owner = true
 points = PackedVector2Array(0, -5, 0, -15)
 width = 2.0
 
 [node name="BottomReticle" type="Line2D" parent="DynamicScreenPointerControl/CenterContainer/DynamicScreenPointer"]
+unique_name_in_owner = true
 points = PackedVector2Array(0, 5, 0, 15)
 width = 2.0
 
 [node name="RightReticle" type="Line2D" parent="DynamicScreenPointerControl/CenterContainer/DynamicScreenPointer"]
+unique_name_in_owner = true
 points = PackedVector2Array(5, 0, 15, 0)
 width = 2.0
 
 [node name="LeftReticle" type="Line2D" parent="DynamicScreenPointerControl/CenterContainer/DynamicScreenPointer"]
+unique_name_in_owner = true
 points = PackedVector2Array(-5, 0, -15, 0)
 width = 2.0

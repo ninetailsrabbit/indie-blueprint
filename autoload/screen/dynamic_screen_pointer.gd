@@ -1,5 +1,5 @@
 @icon("res://autoload/screen/dynamic_crosshair.svg")
-extends Control
+class_name DynamicScreenPointerControl extends Control
 
 
 @export var dot_radius: float = 2.0:
@@ -34,10 +34,10 @@ extends Control
 			if reticle_scale:
 				prepare_reticles()
 
-@onready var top_reticle: Line2D = $TopReticle
-@onready var bottom_reticle: Line2D = $BottomReticle
-@onready var right_reticle: Line2D = $RightReticle
-@onready var left_reticle: Line2D = $LeftReticle
+@onready var top_reticle: Line2D = %TopReticle
+@onready var bottom_reticle: Line2D = %BottomReticle
+@onready var right_reticle: Line2D = %RightReticle
+@onready var left_reticle: Line2D = %LeftReticle
 
 var top_reticle_original_position: Vector2
 var bottom_reticle_original_position: Vector2
