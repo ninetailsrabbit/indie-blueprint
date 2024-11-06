@@ -51,6 +51,7 @@ func handle_drag_motion():
 	
 		if result.has("position"):
 			current_draggable.target.global_position = result.position
+			current_draggable.target.global_position.y += current_draggable.height_offset
 	
 
 #region Signal callbacks

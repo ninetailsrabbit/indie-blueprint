@@ -31,14 +31,14 @@ points = PackedVector3Array(-0.5, -0.5, 0, -0.497651, -0.5, -0.0490407, -0.49246
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1cyx5"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2duun"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r02rh"]
 albedo_color = Color(1, 0.518501, 0.993146, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1jrfy"]
 material = SubResource("StandardMaterial3D_r02rh")
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2duun"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [node name="Test" type="Node3D"]
 
@@ -48,6 +48,11 @@ environment = SubResource("Environment_i3vwh")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
+
+[node name="DragAndDrop3D" type="Node3D" parent="." node_paths=PackedStringArray("origin_camera")]
+script = ExtResource("2_neekr")
+origin_camera = NodePath("../Camera3D")
+drag_distance_from_camera = 15.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -76,16 +81,17 @@ skeleton = NodePath("../..")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2.24056, 2.4086)
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5535, 0.437463, 0)
-mesh = SubResource("BoxMesh_1jrfy")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+[node name="Draggable3D" type="Node3D" parent="StaticBody3D2" node_paths=PackedStringArray("target")]
+script = ExtResource("1_v05lo")
+target = NodePath("..")
+height_offset = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("ConvexPolygonShape3D_2duun")
 
-[node name="DragAndDrop3D" type="Node3D" parent="." node_paths=PackedStringArray("origin_camera")]
-script = ExtResource("2_neekr")
-origin_camera = NodePath("../Camera3D")
-drag_distance_from_camera = 15.0
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_1jrfy")
+skeleton = NodePath("../..")

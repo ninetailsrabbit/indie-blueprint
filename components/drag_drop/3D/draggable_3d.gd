@@ -4,6 +4,7 @@ class_name Draggable3D extends Node3D
 signal drag_started
 signal drag_ended
 
+
 const GroupName: StringName = &"draggable"
 
 ## It only supports nodes that inherits from CollisionObject3D (Area3D, and PhysicsBody3D related)
@@ -25,6 +26,7 @@ const GroupName: StringName = &"draggable"
 				if not target.input_event.is_connected(on_target_input_event):
 					target.input_event.connect(on_target_input_event)
 
+@export var height_offset: float = 0.0
 @export var reset_position_on_release: bool = false
 
 var original_position: Vector3
@@ -47,7 +49,9 @@ func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
 	if target:
-		target.input_event.connect(on_target_input_event)
+		if not target.input_event.is_connected(on_target_input_event):
+			target.input_event.connect(on_target_input_event)
+			
 		original_position = target.global_position
 
 
