@@ -1,7 +1,6 @@
 class_name FireArmWeaponBullet extends Resource
 
 
-@export_group("Bullet")
 ## The bullet scene to spawn in the world when weapon shoots
 @export var scene: PackedScene 
 ## The base damage that is applied to the bullet from this weapon

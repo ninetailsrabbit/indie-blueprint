@@ -23,9 +23,6 @@ class_name ShakeCamera2D extends Camera2D
 var trauma: float = 0.0
 var noise_y: float = 0.0
 
-func _unhandled_input(event):
-	if event.is_action_pressed("interact"):
-		add_trauma(1.0)
 
 func _ready():
 	noise.seed = randi()
