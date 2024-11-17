@@ -85,7 +85,7 @@ static func create_plane_mesh(size: Vector2 = Vector2.ONE) -> MeshInstance3D:
 
 #time complexity O(n^2), the more complex method is faster, but is harder to write
 ##checks if a 2D polygon is valid
-func is_valid_polygon(points: PackedVector2Array) -> bool:
+static func is_valid_polygon(points: PackedVector2Array) -> bool:
 	if points.size() < 3:
 		return false  # A polygon must have at least 3 points
 
@@ -107,7 +107,7 @@ func is_valid_polygon(points: PackedVector2Array) -> bool:
 	return true  # No intersections found
 
 ## calculates area of a 2D polygon
-func calculate_polygon_area(polygon: PackedVector2Array) -> float:
+static func calculate_polygon_area(polygon: PackedVector2Array) -> float:
 	if polygon.size() < 3:
 		return 0.0
 	
@@ -119,7 +119,7 @@ func calculate_polygon_area(polygon: PackedVector2Array) -> float:
 	return abs(area) / 2.0
 
 ## returns fractured 2D polygons
-func fracture_polygons_triangles(polygon: PackedVector2Array):
+static func fracture_polygons_triangles(polygon: PackedVector2Array) -> Array:
 	var fractured_polygons: Array = []
 	var trianglies: Array = Geometry2D.triangulate_polygon(polygon)
 	var chunks: Array
