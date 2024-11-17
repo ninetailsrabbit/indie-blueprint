@@ -82,3 +82,25 @@ static func create_plane_mesh(size: Vector2 = Vector2.ONE) -> MeshInstance3D:
 	mesh.mesh = plane
 	
 	return mesh
+
+#time complexity O(n^2), the more complex method is faster, but is harder to write
+static func is_polygon_valid(polygon: PackedVector2Array) -> bool:
+	if polygon.size() < 3:
+		return false  # A polygon must have at least 3 points
+
+	for i in range(polygon.size()):
+		var start1 = polygon[i]
+		var end1 = polygon[(i + 1) % polygon.size()]  # Wrap around to the first point
+		
+		for j in range(i + 1, polygon.size()):
+			var start2 = polygon[j]
+			var end2 = polygon[(j + 1) % polygon.size()]  # Wrap around to the first point
+			
+			# Skip adjacent edges or edges sharing a vertex
+			if start1 == end2 or start2 == end1:
+				continue
+				
+			if Geometry2D.segment_intersects_segment(start1, end1, start2, end2):
+				return false  # Found an intersection, invalid polygon
+	
+	return true  # No intersections found
