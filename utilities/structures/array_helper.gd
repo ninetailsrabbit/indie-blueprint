@@ -83,11 +83,24 @@ static func merge_unique(first: Array[Variant], second: Array[Variant]) -> Array
 			
 	return merged_array
 
+##Separates an Array into smaller array:
+## argument 1: array that is going to be converted
+## argument 2: size of these smaller arrays
+## argument 3: writes smaller arrays even if they aren't full
+## Example:
+## ArrayHelper.chunk[[1,2,3,4,5,6,7,8,9], 3]
+## [1,2,3,4,5,6,7,8,9] -> [[1,2,3], [4,5,6], [7,8,9]]
+## Example 2:
+## ArrayHelper.chunk([1,2,3,4,5,6,7,8,9], 4)
+## [1,2,3,4,5,6,7,8,9] -> [[1, 2, 3, 4], [5, 6, 7, 8], [9]]
 
-static func chunk(array: Array[Variant], size: int):
+static func chunk(array: Array[Variant], size: int, write_only_full_chunks: bool = false):
 	var result = []
 	var i = 0
 	var j = -1
+	
+	if write_only_full_chunks:
+		array = array.slice(0, floor(array.size() / float(size)) * size)
 	
 	for element in array:
 		if i % size == 0:

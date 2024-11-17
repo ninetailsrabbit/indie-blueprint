@@ -18,8 +18,11 @@ class_name Grabbable3D extends RigidBody3D
 const MaximumTransparency: int = 255
 const GroupName: String = "grabbables"
 
+@warning_ignore("unused_signal")
 signal pulled(grabber: Node3D)
+@warning_ignore("unused_signal")
 signal throwed
+@warning_ignore("unused_signal")
 signal dropped
 signal focused
 signal unfocused
