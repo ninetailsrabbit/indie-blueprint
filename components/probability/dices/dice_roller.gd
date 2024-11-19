@@ -54,7 +54,6 @@ func roll_dices(amount: int, sides: int, roll_type: RollResultTypes = RollResult
 	return result
 
 
-
 func roll_dices_detailed(amount: int, sides: int) -> Dictionary:
 	var detail_result: Dictionary = {
 		"sides": sides,
