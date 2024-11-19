@@ -82,3 +82,55 @@ static func create_plane_mesh(size: Vector2 = Vector2.ONE) -> MeshInstance3D:
 	mesh.mesh = plane
 	
 	return mesh
+
+#time complexity O(n^2), the more complex method is faster, but is harder to write
+##checks if a 2D polygon is valid
+static func is_valid_polygon(points: PackedVector2Array) -> bool:
+	if points.size() < 3:
+		return false  # A polygon must have at least 3 points
+
+	for i in range(points.size()):
+		var start1: Vector2 = points[i]
+		var end1: Vector2 = points[(i + 1) % points.size()]  # Wrap around to the first point
+		
+		for j in range(i + 1, points.size()):
+			var start2: Vector2 = points[j]
+			var end2: Vector2 = points[(j + 1) % points.size()]  # Wrap around to the first point
+			
+			# Skip adjacent edges or edges sharing a vertex
+			if start1 == end2 or start2 == end1:
+				continue
+				
+			if Geometry2D.segment_intersects_segment(start1, end1, start2, end2):
+				return false  # Found an intersection, invalid polygon
+	
+	return true  # No intersections found
+
+## calculates area of a 2D polygon
+static func calculate_polygon_area(polygon: PackedVector2Array) -> float:
+	if polygon.size() < 3:
+		return 0.0
+	
+	var area: float = 0.0
+	for i in range(polygon.size()):
+		var current: Vector2 = polygon[i]
+		var next: Vector2 = polygon[(i + 1) % polygon.size()]
+		area += current.x * next.y - current.y * next.x
+	return abs(area) / 2.0
+
+## returns fractured 2D polygons
+static func fracture_polygons_triangles(polygon: PackedVector2Array) -> Array:
+	var fractured_polygons: Array = []
+	var trianglies: Array = Geometry2D.triangulate_polygon(polygon)
+	var chunks: Array
+	for i in range(0, trianglies.size(), 3):
+		chunks.append(trianglies.slice(i, i + 3))
+
+	for n in chunks:
+		
+		var triangle_points: PackedVector2Array
+		for point in n:
+			triangle_points.append(polygon[point])
+		fractured_polygons.append(triangle_points)
+	
+	return fractured_polygons
