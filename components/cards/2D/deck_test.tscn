@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce4aqbsmlvgs0"]
+
+[ext_resource type="Script" path="res://components/cards/2D/deck_test.gd" id="1_xp6n1"]
+
+[node name="DeckTest" type="Node"]
+script = ExtResource("1_xp6n1")
+
+[node name="NumberCard" type="Marker2D" parent="."]
+position = Vector2(278, 187)
+
+[node name="AceCard" type="Marker2D" parent="."]
+position = Vector2(151, 190)
+
+[node name="JackCard" type="Marker2D" parent="."]
+position = Vector2(568, 189)
+
+[node name="QueenCard" type="Marker2D" parent="."]
+position = Vector2(427, 185)
+
+[node name="KingCard" type="Marker2D" parent="."]
+position = Vector2(692, 193)
+
+[node name="JokerCard" type="Marker2D" parent="."]
+position = Vector2(279, 444)
+
+[node name="Back" type="Marker2D" parent="."]
+position = Vector2(174, 440)
+
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 1032.0
+offset_top = 492.0
+offset_right = 1064.0
+offset_bottom = 512.0

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlhetu8fmoy1u"]
+
+[ext_resource type="Script" path="res://components/cards/2D/playing_cards/french_playing_card.gd" id="1_76u3g"]
+
+[node name="FrenchPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_76u3g")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

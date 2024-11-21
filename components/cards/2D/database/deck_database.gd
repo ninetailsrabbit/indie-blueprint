@@ -1,5 +1,8 @@
 class_name DeckDatabase
 
+const SpanishPlayingCardScene: PackedScene = preload("res://components/cards/2D/playing_cards/spanish_playing_card.tscn")
+const FrenchPlayingCardScene: PackedScene = preload("res://components/cards/2D/playing_cards/french_playing_card.tscn")
+
 const PixelSpanishDeck: StringName = &"pixel_spanish_deck"
 const KinFrenchPlayingCards: StringName = &"kin_french_deck"
 
@@ -14,14 +17,15 @@ static func create_deck(id: StringName, type: DeckManager.DeckTypes) -> Deck:
 	return null
 
 
-static func create_spanish_deck(id: StringName) -> SpanishDeck:
+static func create_spanish_deck(id: StringName) -> Deck:
 	if spanish_decks.has(id):
 		var selected_deck: Dictionary = spanish_decks[id]
-		var deck: Deck = SpanishDeck.new()
+		var deck: Deck = Deck.new()
+		deck.deck_type = DeckManager.DeckTypes.Spanish
 		deck.backs.append_array(selected_deck[DeckManager.CommonSuits.Back])
 		
 		for card_texture: CompressedTexture2D in selected_deck[DeckManager.CommonSuits.Joker]:
-			var joker_card: PlayingCard = SpanishPlayingCard.new()
+			var joker_card: SpanishPlayingCard = SpanishPlayingCardScene.instantiate() as SpanishPlayingCard
 			joker_card.id = "joker_%d" % deck.jokers.size() 
 			joker_card.display_name = "Joker"
 			joker_card.front_texture = card_texture
@@ -33,14 +37,23 @@ static func create_spanish_deck(id: StringName) -> SpanishDeck:
 			var card_value: int = 1
 		
 			for card_texture: CompressedTexture2D in selected_deck[suit]:
-				var playing_card: PlayingCard = SpanishPlayingCard.new()
+				var playing_card: SpanishPlayingCard = SpanishPlayingCardScene.instantiate() as SpanishPlayingCard
 				playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
 				playing_card.front_texture = card_texture
 				playing_card.value = card_value
 				playing_card.table_value = card_value
 				deck.cards.append(playing_card)
 				
-				card_value += 1
+				if deck.cards_by_suit.has(suit):
+					deck.cards_by_suit[suit].append(playing_card)
+				else:
+					deck.cards_by_suit[suit] = [playing_card]
+					
+				## In the spanish deck after the 7 the next one is the jack so we change the card value that allows to be 10 in the next iteration
+				if card_value == 7:
+					card_value = 10
+				else:
+					card_value += 1
 			
 		return deck
 			
@@ -49,14 +62,15 @@ static func create_spanish_deck(id: StringName) -> SpanishDeck:
 	return null
 
 
-static func create_french_deck(id: StringName) -> FrenchDeck:
+static func create_french_deck(id: StringName) -> Deck:
 	if french_decks.has(id):
 		var selected_deck: Dictionary = french_decks[id]
-		var deck: Deck = FrenchDeck.new()
+		var deck: Deck = Deck.new()
+		deck.deck_type = DeckManager.DeckTypes.French
 		deck.backs.append_array(selected_deck[DeckManager.CommonSuits.Back])
 		
 		for card_texture: CompressedTexture2D in selected_deck[DeckManager.CommonSuits.Joker]:
-			var joker_card: PlayingCard = SpanishPlayingCard.new()
+			var joker_card: FrenchPlayingCard = FrenchPlayingCardScene.instantiate() as FrenchPlayingCard
 			joker_card.id = "joker_%d" % deck.jokers.size() 
 			joker_card.display_name = "Joker"
 			joker_card.front_texture = card_texture
@@ -68,13 +82,18 @@ static func create_french_deck(id: StringName) -> FrenchDeck:
 			var card_value: int = 1
 		
 			for card_texture: CompressedTexture2D in selected_deck[suit]:
-				var playing_card: PlayingCard = SpanishPlayingCard.new()
+				var playing_card: FrenchPlayingCard = FrenchPlayingCardScene.instantiate() as FrenchPlayingCard
 				playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
 				playing_card.front_texture = card_texture
 				playing_card.value = card_value
 				playing_card.table_value = card_value
 				deck.cards.append(playing_card)
 				
+				if deck.cards_by_suit.has(suit):
+					deck.cards_by_suit[suit].append(playing_card)
+				else:
+					deck.cards_by_suit[suit] = [playing_card]
+					
 				card_value += 1
 			
 		return deck

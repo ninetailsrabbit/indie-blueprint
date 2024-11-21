@@ -19,6 +19,14 @@ static func sum_floats(values: Array[float]) -> float:
 	return result
 	
 
+static func repeat(element: Variant, times: int) -> Array[Variant]:
+	var result: Array[Variant] = []
+	
+	for _time: int in times:
+		result.append(element.duplicate())
+		
+	return result
+
 ## Flatten any array with n dimensions recursively
 static func flatten(array: Array[Variant]):
 	var result := []

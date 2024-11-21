@@ -5,6 +5,7 @@ signal hovered
 signal faced_up
 signal faced_down
 
+@export var sprite: Sprite2D
 @export var id: StringName
 @export var display_name: String
 @export_multiline var description: String
@@ -22,6 +23,7 @@ enum Orientation {
 	FaceDown
 }
 
+
 var card_orientation: PlayingCard.Orientation = Orientation.FaceDown:
 	set(value):
 		if card_orientation != value:
@@ -32,6 +34,15 @@ var card_orientation: PlayingCard.Orientation = Orientation.FaceDown:
 			else:
 				faced_down.emit()
 
+func _ready() -> void:
+	assert(sprite is Sprite2D, "PlayingCard: The playing card %s needs a Sprite2D node to display the card texture" % id)
+	
+	sprite.texture = front_texture
+	
+	var texture_size: Vector2 = sprite.texture.get_size()
+	sprite.scale = Vector2(size.x / texture_size.x, size.y / texture_size.y)
+
+	
 #region Card orientation
 func is_face_up() -> bool:
 	return card_orientation == Orientation.FaceUp
