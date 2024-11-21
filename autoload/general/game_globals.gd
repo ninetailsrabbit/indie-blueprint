@@ -14,12 +14,6 @@ const bullets_collision_layer: int = 128
 
 
 #region General helpers
-@warning_ignore("narrowing_conversion")
-func collision_layer_to_value(layer: int) -> int:
-	layer = clampi(layer, 1, 32)
-	
-	return pow(2, layer - 1)
-
 ## Example with lambda -> Utilities.delay_func(func(): print("test"), 1.5)
 ## Example with arguments -> Utilities.delay_func(print_text.bind("test"), 2.0)
 func delay_func(callable: Callable, time: float, deferred: bool = true):

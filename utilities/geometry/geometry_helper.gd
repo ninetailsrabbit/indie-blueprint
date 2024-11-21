@@ -82,13 +82,65 @@ static func create_plane_mesh(size: Vector2 = Vector2.ONE) -> MeshInstance3D:
 	mesh.mesh = plane
 	
 	return mesh
+	
+	
+static func create_quad_mesh(size: Vector2 = Vector2.ONE) -> MeshInstance3D:
+	var mesh = MeshInstance3D.new()
+	var quad = QuadMesh.new()
+	quad.size = size
+	mesh.mesh = quad
+	
+	return mesh
+
+
+static func create_prism_mesh(size: Vector3 = Vector3.ONE, left_to_right: float = 0.5) -> MeshInstance3D:
+	var mesh = MeshInstance3D.new()
+	var prism = PrismMesh.new()
+	prism.size = size
+	prism.left_to_right = clampf(left_to_right, -2, 2)
+	mesh.mesh = prism
+	
+	return mesh
+	
+	
+static func create_cilinder_mesh(height: float = 2.0, top_radius: float = 0.5, bottom_radius: float = 0.5) -> MeshInstance3D:
+	var mesh = MeshInstance3D.new()
+	var cylinder = CylinderMesh.new()
+	cylinder.height = clampf(height, 0.001, 100.0)
+	cylinder.top_radius = clampf(top_radius, 0, 100.0)
+	cylinder.bottom_radius = clampf(bottom_radius, 0, 100.0)
+	mesh.mesh = cylinder
+	
+	return mesh
+	
+
+	
+static func create_sphere_mesh(height: float = 2.0, radius: float = 0.5, is_hemisphere: bool = false) -> MeshInstance3D:
+	var mesh = MeshInstance3D.new()
+	var cylinder = SphereMesh.new()
+	cylinder.height = clampf(height, 0.001, 100.0)
+	cylinder.radius = clampf(radius, 0, 100.0)
+	cylinder.is_hemisphere = is_hemisphere
+	mesh.mesh = cylinder
+	
+	return mesh
+	
+	
+static func create_capsule_mesh(height: float = 2.0, radius: float = 0.5) -> MeshInstance3D:
+	var mesh = MeshInstance3D.new()
+	var capsule = CapsuleMesh.new()
+	capsule.height = clampf(height, 0.001, 100.0)
+	capsule.radius = clampf(radius, 0, 100.0)
+	mesh.mesh = capsule
+	
+	return mesh
 
 # Time complexity O(n^2), the more complex method is faster, but is harder to write
 static func is_valid_polygon(points: PackedVector2Array) -> bool:
 	if points.size() < 3:
 		return false  # A polygon must have at least 3 points
 
-	for i in range(points.size()):
+	for i in points.size():
 		var start1: Vector2 = points[i]
 		var end1: Vector2 = points[(i + 1) % points.size()]  # Wrap around to the first point
 		
@@ -112,9 +164,10 @@ static func calculate_polygon_area(polygon: PackedVector2Array) -> float:
 	
 	var area: float = 0.0
 	
-	for i in range(polygon.size()):
+	for i in polygon.size():
 		var current: Vector2 = polygon[i]
 		var next: Vector2 = polygon[(i + 1) % polygon.size()]
+		
 		area += current.x * next.y - current.y * next.x
 		
 	return abs(area) / 2.0
@@ -129,10 +182,11 @@ static func fracture_polygons_triangles(polygon: PackedVector2Array) -> Array:
 		chunks.append(trianglies.slice(i, i + 3))
 
 	for n in chunks:
-		
 		var triangle_points: PackedVector2Array
+		
 		for point in n:
 			triangle_points.append(polygon[point])
+			
 		fractured_polygons.append(triangle_points)
 	
 	return fractured_polygons
