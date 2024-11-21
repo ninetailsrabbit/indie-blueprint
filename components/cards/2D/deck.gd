@@ -160,6 +160,13 @@ func pick_random_joker() -> PlayingCard:
 #endregion
 
 #region Pickers
+func pick_cards(cards: Array[PlayingCard]) -> Array[PlayingCard]:
+	for card in cards:
+		pick_card(card)
+		
+	return cards
+	
+	
 func pick_card(card: PlayingCard) -> PlayingCard:
 	remove_card(card)
 	picked_card.emit(card)
@@ -175,12 +182,30 @@ func number_cards_from_suit(suit) -> Array[PlayingCard]:
 	return extract_number_cards(cards_from_suit(suit))
 
 
+func figure_cards() -> Array[PlayingCard]:
+	return extract_figure_cards(current_cards)
+	
+
+func figure_cards_from_suit(suit) -> Array[PlayingCard]:
+	return extract_figure_cards(cards_from_suit(suit))
+
+
 func extract_number_cards(selected_cards: Array[PlayingCard]) -> Array[PlayingCard]:
 	match deck_type:
 		DeckTypes.Spanish:
 			return selected_cards.filter(func(card: PlayingCard): return card.value > 1 and card.value < 8)
 		DeckTypes.French:
 			return selected_cards.filter(func(card: PlayingCard): return card.value > 1 and card.value < 11)
+	 
+	return []
+
+
+func extract_figure_cards(selected_cards: Array[PlayingCard]) -> Array[PlayingCard]:
+	match deck_type:
+		DeckTypes.Spanish:
+			return selected_cards.filter(func(card: PlayingCard): return card.is_jack() or card.is_knight() or card.is_king())
+		DeckTypes.French:
+			return selected_cards.filter(func(card: PlayingCard): return card.is_jack() or card.is_queen() or card.is_king())
 	 
 	return []
 
