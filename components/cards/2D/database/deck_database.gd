@@ -6,14 +6,15 @@ const FrenchPlayingCardScene: PackedScene = preload("res://components/cards/2D/p
 const PixelSpanishDeck: StringName = &"pixel_spanish_deck"
 const KinFrenchPlayingCardsDeck: StringName = &"kin_french_deck"
 
-const french_suits: Array[Deck.FrenchSuits] = [Deck.FrenchSuits.Club, Deck.FrenchSuits.Heart, Deck.FrenchSuits.Diamond, Deck.FrenchSuits.Spade]
-const spanish_suits: Array[Deck.SpanishSuits] = [Deck.SpanishSuits.Club, Deck.SpanishSuits.Cup, Deck.SpanishSuits.Gold, Deck.SpanishSuits.Sword]
+const FrenchSuits: Array[Deck.FrenchSuits] = [Deck.FrenchSuits.Club, Deck.FrenchSuits.Heart, Deck.FrenchSuits.Diamond, Deck.FrenchSuits.Spade]
+const SpanishSuits: Array[Deck.SpanishSuits] = [Deck.SpanishSuits.Club, Deck.SpanishSuits.Cup, Deck.SpanishSuits.Gold, Deck.SpanishSuits.Sword]
 	
 
 static func get_deck(id: StringName) -> Deck:
 	return available_decks.get(id, null)
 			
 
+#region Loaders
 static func _load_spanish_deck(deck_data: Dictionary) -> Deck:
 	var deck: Deck = Deck.new() 
 	deck.deck_type = Deck.DeckTypes.Spanish
@@ -24,7 +25,6 @@ static func _load_spanish_deck(deck_data: Dictionary) -> Deck:
 	
 	return deck
 
-	
 
 static func _load_french_deck(deck_data: Dictionary) -> Deck:
 	var deck: Deck = Deck.new()
@@ -35,8 +35,8 @@ static func _load_french_deck(deck_data: Dictionary) -> Deck:
 	_add_cards_to_deck(deck, deck_data, FrenchPlayingCardScene)
 	
 	return deck
-
-
+	
+#endregion
 
 #region Private
 static func _add_jokers_to_deck(selected_deck: Deck, deck_data: Dictionary, playing_card_scene: PackedScene) -> void:
@@ -59,9 +59,9 @@ static func _add_cards_to_deck(selected_deck: Deck, deck_data: Dictionary, playi
 	var suits = []
 	
 	if selected_deck.is_spanish_deck():
-		suits = spanish_suits
+		suits = SpanishSuits
 	elif selected_deck.is_french_deck():
-		suits = french_suits
+		suits = FrenchSuits
 	else:
 		push_error("DeckDatabase: The selected deck type %s has no support on this database " % selected_deck.deck_type)
 		
