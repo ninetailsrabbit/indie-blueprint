@@ -1,12 +1,38 @@
 class_name Deck extends Node
 
+signal added_card(card: PlayingCard)
+signal added_cards(card: Array[PlayingCard])
 signal picked_card(card: PlayingCard)
 signal discarded_card(card: PlayingCard)
 signal emptied_deck
 signal filled
 signal shuffled
 
-var deck_type: DeckManager.DeckTypes
+enum DeckTypes {
+	French,
+	Spanish
+}
+
+enum CommonSuits {
+	Joker = 5,
+	Back = 6
+}
+
+enum SpanishSuits {
+	Cup,
+	Gold,
+	Sword,
+	Club
+}
+
+enum FrenchSuits {
+	Heart,
+	Diamond,
+	Spade,
+	Club
+}
+
+var deck_type: DeckTypes
 #region Card templates
 var cards_by_suit: Dictionary = {}
 var cards: Array[PlayingCard] = []
@@ -20,14 +46,12 @@ var current_cards: Array[PlayingCard] = []
 var discard_pile: Array[PlayingCard] = []
 
 
-
-func fill(amount_of_jokers: int = 0) -> Deck:
+#region Preparation 
+func fill() -> Deck:
 	current_cards = cards.duplicate()
 	current_cards_by_suit = cards_by_suit.duplicate(true)
-	
-	if amount_of_jokers > 0 and jokers.size() > 0:
-		var selected_joker: PlayingCard = jokers.pick_random()
-		current_cards.append_array(ArrayHelper.repeat(selected_joker, amount_of_jokers))
+	## The jokers can be only added by the function 'add_jokers'
+	current_cards_by_suit[Deck.CommonSuits.Joker].clear()
 	
 	filled.emit()
 	
@@ -39,20 +63,9 @@ func shuffle() -> Deck:
 	shuffled.emit()
 	
 	return self
+#endregion
 	
-	
-func pick_card(card: PlayingCard) -> PlayingCard:
-	remove_card(card)
-	
-	picked_card.emit()
-	
-	return card
-
-#region Random picks
-func pick_random_number_card() -> PlayingCard:
-	return pick_card(number_cards().pick_random())
-
-
+#region Random pickers
 func pick_random_card() -> PlayingCard:
 	if current_cards.is_empty():
 		return null
@@ -61,7 +74,11 @@ func pick_random_card() -> PlayingCard:
 	return pick_card(current_cards.pick_random())
 	
 
-## The function parameter is not typed as the suits are separated into different enums
+func pick_random_number_card() -> PlayingCard:
+	return pick_card(number_cards().pick_random())
+
+
+## The function parameter "suit" is not typed as the suits are separated into different enums
 func pick_random_card_from_suit(suit) -> PlayingCard:
 	if current_cards_by_suit.has(suit) and current_cards_by_suit[suit].size() > 0:
 		return pick_card(current_cards_by_suit[suit].pick_random())
@@ -78,6 +95,13 @@ func pick_random_ace() -> PlayingCard:
 	return pick_card(aces.pick_random())
 #endregion
 
+#region Pickers
+func pick_card(card: PlayingCard) -> PlayingCard:
+	remove_card(card)
+	
+	picked_card.emit()
+	
+	return card
 
 func number_cards() -> Array[PlayingCard]:
 	return extract_number_cards(current_cards)
@@ -87,12 +111,12 @@ func number_cards_from_suit(suit) -> Array[PlayingCard]:
 	return extract_number_cards(cards_from_suit(suit))
 
 
-func extract_number_cards(cards: Array[PlayingCard]) -> Array[PlayingCard]:
+func extract_number_cards(selected_cards: Array[PlayingCard]) -> Array[PlayingCard]:
 	match deck_type:
-		DeckManager.DeckTypes.Spanish:
-			return cards.filter(func(card: PlayingCard): return card.value > 1 and card.value < 8)
-		DeckManager.DeckTypes.French:
-			return cards.filter(func(card: PlayingCard): return card.value > 1 and card.value < 11)
+		DeckTypes.Spanish:
+			return selected_cards.filter(func(card: PlayingCard): return card.value > 1 and card.value < 8)
+		DeckTypes.French:
+			return selected_cards.filter(func(card: PlayingCard): return card.value > 1 and card.value < 11)
 	 
 	return []
 
@@ -103,12 +127,38 @@ func cards_from_suit(suit) -> Array[PlayingCard]:
 	
 	return []
 
+#endregion
 
+func add_cards(new_cards: Array[PlayingCard]) -> void:
+	current_cards.append_array(new_cards)
+	
+	for card: PlayingCard in new_cards:
+		current_cards_by_suit[card.suit].append(card)
+	
+	added_cards.emit(new_cards)
+
+
+func add_card(card: PlayingCard) -> void:
+	current_cards.append(card)
+	current_cards_by_suit[card.suit].append(card)
+	
+	added_card.emit(card)
+	
+	
 func remove_card(card: PlayingCard):
 	current_cards.erase(card)
-	current_cards_by_suit.erase(current_cards_by_suit.find_key(card))
+	
+	if current_cards_by_suit.has(card.suit):
+		current_cards_by_suit[card.suit].erase(card)
 	
 	add_to_discard_pile(card)
+
+
+func add_jokers(amount: int) -> Deck:
+	if amount > 0 and jokers.size() > 0:
+		add_cards(ArrayHelper.repeat(jokers.pick_random(), amount))
+		
+	return self
 	
 
 #region Discard pile
@@ -125,5 +175,15 @@ func extract_from_discard_pile(card: PlayingCard) -> PlayingCard:
 		return selected_card
 	
 	return null
+
+#endregion
+
+#region Information
+func is_spanish_deck() -> bool:
+	return deck_type == DeckTypes.Spanish
+	
+	
+func is_french_deck() -> bool:
+	return deck_type == DeckTypes.French
 	
 #endregion

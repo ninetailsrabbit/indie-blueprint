@@ -1,7 +1,7 @@
 class_name FrenchPlayingCard extends PlayingCard
 
 
-@export var suit: DeckManager.FrenchSuits
+@export var suit: Deck.FrenchSuits
 
 
 

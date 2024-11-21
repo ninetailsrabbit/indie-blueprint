@@ -21,8 +21,8 @@ func _ready() -> void:
 	var spanish_deck: Deck = DeckDatabase.create_spanish_deck(DeckDatabase.PixelSpanishDeck)
 	var french_deck: Deck = DeckDatabase.create_french_deck(DeckDatabase.KinFrenchPlayingCards)
 	
-	spanish_deck.fill(2)
-	french_deck.fill(0)
+	spanish_deck.fill()
+	french_deck.fill()
 	
 	number_card.add_child(spanish_deck.pick_random_number_card())
 	jack_card.add_child(spanish_deck.pick_random_ace())

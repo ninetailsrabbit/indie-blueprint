@@ -1,7 +1,7 @@
 class_name SpanishPlayingCard extends PlayingCard
 
 
-@export var suit: DeckManager.SpanishSuits
+@export var suit: Deck.SpanishSuits
 
 
 func is_jack() -> bool:
