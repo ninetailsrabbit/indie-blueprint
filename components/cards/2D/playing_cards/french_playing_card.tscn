@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" path="res://components/cards/2D/playing_cards/french_playing_card.gd" id="1_76u3g"]
 
-[node name="FrenchPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite")]
+[node name="FrenchPlayingCard" type="Node2D" node_paths=PackedStringArray("front_sprite", "back_sprite")]
 script = ExtResource("1_76u3g")
-sprite = NodePath("Sprite2D")
+front_sprite = NodePath("FrontSprite")
+back_sprite = NodePath("BackSprite")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="FrontSprite" type="Sprite2D" parent="."]
+
+[node name="BackSprite" type="Sprite2D" parent="."]

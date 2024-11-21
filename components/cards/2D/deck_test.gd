@@ -21,11 +21,22 @@ func _ready() -> void:
 	var spanish_deck: Deck = DeckDatabase.create_spanish_deck(DeckDatabase.PixelSpanishDeck)
 	var french_deck: Deck = DeckDatabase.create_french_deck(DeckDatabase.KinFrenchPlayingCards)
 	
-	spanish_deck.fill()
-	french_deck.fill()
+	spanish_deck.fill().add_jokers(2)
+	french_deck.fill().add_jokers(1)
 	
 	number_card.add_child(spanish_deck.pick_random_number_card())
-	jack_card.add_child(spanish_deck.pick_random_ace())
+	ace_card.add_child(spanish_deck.pick_random_ace())
+	
+	jack_card.add_child(spanish_deck.pick_random_jack())
+	queen_card.add_child(spanish_deck.pick_random_knight())
+	king_card.add_child(spanish_deck.pick_random_king())
+	
+	joker_card.add_child(spanish_deck.pick_random_joker())
+	
+	var back_sprite: Sprite2D = Sprite2D.new()
+	back_sprite.texture = spanish_deck.backs.pick_random()
+	back.add_child(back_sprite)
+	
 
 
 func on_deck_selected(idx: int) -> void:

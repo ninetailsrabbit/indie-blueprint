@@ -86,6 +86,24 @@ func pick_random_card_from_suit(suit) -> PlayingCard:
 	return null
 
 
+func pick_random_card_of_value(value: int) -> PlayingCard:
+	var selected_cards: Array[PlayingCard] = current_cards.filter(func(card: PlayingCard): return card.value == value)
+	
+	if selected_cards.size() > 0:
+		return pick_card(selected_cards.pick_random())
+	
+	return null
+
+
+func pick_random_card_of_suit_and_value(suit, value: int) -> PlayingCard:
+	var selected_cards: Array[PlayingCard] = cards_from_suit(suit).filter(func(card: PlayingCard): return card.value == value)
+	
+	if selected_cards.size() > 0:
+		return pick_card(selected_cards.pick_random())
+	
+	return null
+
+
 func pick_random_ace() -> PlayingCard:
 	var aces: Array[PlayingCard] = current_cards.filter(func(card: PlayingCard): return card.is_ace())
 	
@@ -93,15 +111,61 @@ func pick_random_ace() -> PlayingCard:
 		return null
 		
 	return pick_card(aces.pick_random())
+
+
+func pick_random_jack() -> PlayingCard:
+	var jacks: Array[PlayingCard] = current_cards.filter(func(card: PlayingCard): return card.is_jack())
+	
+	if jacks.is_empty():
+		return null
+		
+	return pick_card(jacks.pick_random())
+
+
+func pick_random_queen() -> PlayingCard:
+	var queens: Array[PlayingCard] = current_cards.filter(func(card: PlayingCard): return card.is_queen())
+	
+	if queens.is_empty():
+		return null
+		
+	return pick_card(queens.pick_random())
+
+
+func pick_random_knight() -> PlayingCard:
+	var knights: Array[PlayingCard] = current_cards.filter(func(card: PlayingCard): return card.is_knight())
+	
+	if knights.is_empty():
+		return null
+		
+	return pick_card(knights.pick_random())
+
+
+func pick_random_king() -> PlayingCard:
+	var kings: Array[PlayingCard] = current_cards.filter(func(card: PlayingCard): return card.is_king())
+	
+	if kings.is_empty():
+		return null
+		
+	return pick_card(kings.pick_random())
+
+
+func pick_random_joker() -> PlayingCard:
+	var selected_jokers: Array[PlayingCard] = current_cards.filter(func(card: PlayingCard): return card.is_joker())
+	
+	if selected_jokers.is_empty():
+		return null
+		
+	return pick_card(selected_jokers.pick_random())
+
 #endregion
 
 #region Pickers
 func pick_card(card: PlayingCard) -> PlayingCard:
 	remove_card(card)
-	
-	picked_card.emit()
+	picked_card.emit(card)
 	
 	return card
+
 
 func number_cards() -> Array[PlayingCard]:
 	return extract_number_cards(current_cards)
@@ -161,7 +225,10 @@ func remove_card(card: PlayingCard):
 
 func add_jokers(amount: int) -> Deck:
 	if amount > 0 and jokers.size() > 0:
-		add_cards(ArrayHelper.repeat(jokers.pick_random(), amount))
+		var new_jokers: Array[PlayingCard] = []
+		new_jokers.assign(ArrayHelper.repeat(jokers.pick_random(), amount))
+		
+		add_cards(new_jokers)
 		
 	return self
 	

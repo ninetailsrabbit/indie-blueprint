@@ -135,7 +135,6 @@ func on_free_camera_disabled():
 	if previous_camera:
 		clear_current()
 		previous_camera.make_current()
-		print("comeback to ", previous_camera)
 	
 	set_process(false)
 	
