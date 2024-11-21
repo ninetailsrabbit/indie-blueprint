@@ -15,11 +15,12 @@ func _ready() -> void:
 	option_button.item_selected.connect(on_deck_selected)
 	
 	option_button.add_item(DeckDatabase.PixelSpanishDeck)
-	option_button.add_item(DeckDatabase.KinFrenchPlayingCards)
+	option_button.add_item(DeckDatabase.KinFrenchPlayingCardsDeck)
 	option_button.select(0)
 	
-	var spanish_deck: Deck = DeckDatabase.create_spanish_deck(DeckDatabase.PixelSpanishDeck)
-	var french_deck: Deck = DeckDatabase.create_french_deck(DeckDatabase.KinFrenchPlayingCards)
+	DeckDatabase.get_deck(DeckDatabase.PixelSpanishDeck)
+	var spanish_deck: Deck = DeckDatabase.get_deck(DeckDatabase.PixelSpanishDeck)
+	var french_deck: Deck = DeckDatabase.get_deck(DeckDatabase.KinFrenchPlayingCardsDeck)
 	
 	spanish_deck.fill().add_jokers(2)
 	french_deck.fill().add_jokers(1)

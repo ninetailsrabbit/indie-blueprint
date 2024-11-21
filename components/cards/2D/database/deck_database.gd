@@ -4,115 +4,96 @@ const SpanishPlayingCardScene: PackedScene = preload("res://components/cards/2D/
 const FrenchPlayingCardScene: PackedScene = preload("res://components/cards/2D/playing_cards/french_playing_card.tscn")
 
 const PixelSpanishDeck: StringName = &"pixel_spanish_deck"
-const KinFrenchPlayingCards: StringName = &"kin_french_deck"
+const KinFrenchPlayingCardsDeck: StringName = &"kin_french_deck"
 
-
-static func create_deck(id: StringName, type: Deck.DeckTypes) -> Deck:
-	match type:
-		Deck.DeckTypes.Spanish:
-			return create_spanish_deck(id)
-		Deck.DeckTypes.French:
-			return create_french_deck(id)
+const french_suits: Array[Deck.FrenchSuits] = [Deck.FrenchSuits.Club, Deck.FrenchSuits.Heart, Deck.FrenchSuits.Diamond, Deck.FrenchSuits.Spade]
+const spanish_suits: Array[Deck.SpanishSuits] = [Deck.SpanishSuits.Club, Deck.SpanishSuits.Cup, Deck.SpanishSuits.Gold, Deck.SpanishSuits.Sword]
 	
-	return null
 
-
-static func create_spanish_deck(id: StringName) -> Deck:
-	if spanish_decks.has(id):
-		var selected_deck: Dictionary = spanish_decks[id]
-		var deck: Deck = Deck.new()
-		deck.deck_type = Deck.DeckTypes.Spanish
-		deck.backs.append_array(selected_deck[Deck.CommonSuits.Back])
-		
-		for card_texture: CompressedTexture2D in selected_deck[Deck.CommonSuits.Joker]:
-			var joker_card: SpanishPlayingCard = SpanishPlayingCardScene.instantiate() as SpanishPlayingCard
-			joker_card.id = "joker_%d" % deck.jokers.size() 
-			joker_card.display_name = "Joker"
-			joker_card.front_texture = card_texture
-			joker_card.value = 0
-			joker_card.table_value = 0
-			deck.jokers.append(joker_card)
+static func get_deck(id: StringName) -> Deck:
+	return available_decks.get(id, null)
 			
-			if deck.cards_by_suit.has(Deck.CommonSuits.Joker):
-				deck.cards_by_suit[Deck.CommonSuits.Joker].append(joker_card)
-			else:
-				deck.cards_by_suit[Deck.CommonSuits.Joker] = [joker_card]
+
+static func _load_spanish_deck(deck_data: Dictionary) -> Deck:
+	var deck: Deck = Deck.new() 
+	deck.deck_type = Deck.DeckTypes.Spanish
+	deck.backs.append_array(deck_data[Deck.CommonSuits.Back])
 	
-		for suit in [Deck.SpanishSuits.Club, Deck.SpanishSuits.Cup, Deck.SpanishSuits.Gold, Deck.SpanishSuits.Sword]:
-			var card_value: int = 1
+	_add_jokers_to_deck(deck, deck_data, SpanishPlayingCardScene)
+	_add_cards_to_deck(deck, deck_data, SpanishPlayingCardScene)
+	
+	return deck
+
+	
+
+static func _load_french_deck(deck_data: Dictionary) -> Deck:
+	var deck: Deck = Deck.new()
+	deck.deck_type = Deck.DeckTypes.French
+	deck.backs.append_array(deck_data[Deck.CommonSuits.Back])
+	
+	_add_jokers_to_deck(deck, deck_data, FrenchPlayingCardScene)
+	_add_cards_to_deck(deck, deck_data, FrenchPlayingCardScene)
+	
+	return deck
+
+
+
+#region Private
+static func _add_jokers_to_deck(selected_deck: Deck, deck_data: Dictionary, playing_card_scene: PackedScene) -> void:
+	for card_texture: CompressedTexture2D in deck_data[Deck.CommonSuits.Joker]:
+		var joker_card: PlayingCard = playing_card_scene.instantiate() as PlayingCard
+		joker_card.id = "joker_%d" % selected_deck.jokers.size() 
+		joker_card.display_name = "Joker"
+		joker_card.front_texture = card_texture
+		joker_card.value = 0
+		joker_card.table_value = 0
+		selected_deck.jokers.append(joker_card)
 		
-			for card_texture: CompressedTexture2D in selected_deck[suit]:
-				var playing_card: SpanishPlayingCard = SpanishPlayingCardScene.instantiate() as SpanishPlayingCard
-				playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
-				playing_card.front_texture = card_texture
-				playing_card.value = card_value
-				playing_card.table_value = card_value
-				deck.cards.append(playing_card)
+		if selected_deck.cards_by_suit.has(Deck.CommonSuits.Joker):
+			selected_deck.cards_by_suit[Deck.CommonSuits.Joker].append(joker_card)
+		else:
+			selected_deck.cards_by_suit[Deck.CommonSuits.Joker] = [joker_card]
+
+
+static func _add_cards_to_deck(selected_deck: Deck, deck_data: Dictionary, playing_card_scene: PackedScene) -> void:
+	var suits = []
+	
+	if selected_deck.is_spanish_deck():
+		suits = spanish_suits
+	elif selected_deck.is_french_deck():
+		suits = french_suits
+	else:
+		push_error("DeckDatabase: The selected deck type %s has no support on this database " % selected_deck.deck_type)
+		
+		return
+		
+	for suit in suits:
+		var card_value: int = 1
+		
+		for card_texture: CompressedTexture2D in deck_data[suit]:
+			var playing_card: PlayingCard = playing_card_scene.instantiate() as PlayingCard
+			playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
+			playing_card.front_texture = card_texture
+			playing_card.value = card_value
+			playing_card.table_value = card_value
+			selected_deck.cards.append(playing_card)
+			
+			if selected_deck.cards_by_suit.has(suit):
+				selected_deck.cards_by_suit[suit].append(playing_card)
+			else:
+				selected_deck.cards_by_suit[suit] = [playing_card]
 				
-				if deck.cards_by_suit.has(suit):
-					deck.cards_by_suit[suit].append(playing_card)
-				else:
-					deck.cards_by_suit[suit] = [playing_card]
-					
+			if selected_deck.is_spanish_deck():
 				## In the spanish deck after the 7 the next one is the jack so we change the card value that allows to be 10 in the next iteration
 				if card_value == 7:
 					card_value = 10
 				else:
 					card_value += 1
-			
-		return deck
-			
-	push_error("DeckManager: The deck with id %s does not exists in this database" % id)
-	
-	return null
-
-
-static func create_french_deck(id: StringName) -> Deck:
-	if french_decks.has(id):
-		var selected_deck: Dictionary = french_decks[id]
-		var deck: Deck = Deck.new()
-		deck.deck_type = Deck.DeckTypes.French
-		deck.backs.append_array(selected_deck[Deck.CommonSuits.Back])
-		
-		for card_texture: CompressedTexture2D in selected_deck[Deck.CommonSuits.Joker]:
-			var joker_card: FrenchPlayingCard = FrenchPlayingCardScene.instantiate() as FrenchPlayingCard
-			joker_card.id = "joker_%d" % deck.jokers.size() 
-			joker_card.display_name = "Joker"
-			joker_card.front_texture = card_texture
-			joker_card.value = 0
-			joker_card.table_value = 0
-			deck.jokers.append(joker_card)
-			
-			if deck.cards_by_suit.has(Deck.CommonSuits.Joker):
-				deck.cards_by_suit[Deck.CommonSuits.Joker].append(joker_card)
 			else:
-				deck.cards_by_suit[Deck.CommonSuits.Joker] = [joker_card]
-				
-		for suit in [Deck.FrenchSuits.Club, Deck.FrenchSuits.Heart, Deck.FrenchSuits.Diamond, Deck.FrenchSuits.Spade]:
-			var card_value: int = 1
-		
-			for card_texture: CompressedTexture2D in selected_deck[suit]:
-				var playing_card: FrenchPlayingCard = FrenchPlayingCardScene.instantiate() as FrenchPlayingCard
-				playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
-				playing_card.front_texture = card_texture
-				playing_card.value = card_value
-				playing_card.table_value = card_value
-				deck.cards.append(playing_card)
-				
-				if deck.cards_by_suit.has(suit):
-					deck.cards_by_suit[suit].append(playing_card)
-				else:
-					deck.cards_by_suit[suit] = [playing_card]
-					
 				card_value += 1
-			
-		return deck
-			
-	push_error("DeckManager: The deck with id %s does not exists in this database" % id)
+#endregion
 	
-	return null
-
-
+#region Preloaded decks
 static var kin_french_deck: Dictionary = {
 	Deck.CommonSuits.Joker: [
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/jokers/Joker_1.png"),
@@ -187,7 +168,6 @@ static var kin_french_deck: Dictionary = {
 	],
 }
 
-
 static var pixel_spanish_deck: Dictionary = {
 	Deck.CommonSuits.Joker: [
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/jokers/joker_1.png"),
@@ -248,13 +228,17 @@ static var pixel_spanish_deck: Dictionary = {
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/hearts/copa10.png")
 	]
 }
+#endregion
 
-
-static var spanish_decks: Dictionary = {
-	PixelSpanishDeck: pixel_spanish_deck
+static var available_decks: Dictionary = {
+	PixelSpanishDeck: _load_spanish_deck(pixel_spanish_deck),
+	KinFrenchPlayingCardsDeck: _load_french_deck(kin_french_deck)
 }
 
+static var spanish_decks: Dictionary = {
+	PixelSpanishDeck: available_decks[PixelSpanishDeck]
+}
 
 static var french_decks: Dictionary = {
-	KinFrenchPlayingCards: kin_french_deck
+	KinFrenchPlayingCardsDeck: available_decks[KinFrenchPlayingCardsDeck]
 }
