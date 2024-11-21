@@ -129,18 +129,23 @@ func cards_from_suit(suit) -> Array[PlayingCard]:
 
 #endregion
 
-func add_cards(new_cards: Array[PlayingCard]) -> void:
-	current_cards.append_array(new_cards)
-	
+func add_cards(new_cards: Array[PlayingCard], allow_duplicates: bool = false) -> void:
 	for card: PlayingCard in new_cards:
-		current_cards_by_suit[card.suit].append(card)
+		add_card(card, allow_duplicates)
 	
 	added_cards.emit(new_cards)
 
 
-func add_card(card: PlayingCard) -> void:
-	current_cards.append(card)
-	current_cards_by_suit[card.suit].append(card)
+func add_card(card: PlayingCard, allow_duplicates: bool = false) -> void:
+	if allow_duplicates:
+		current_cards.append(card)
+		current_cards_by_suit[card.suit].append(card)
+	else:
+		if not current_cards.has(card):
+			current_cards.append(card)
+			
+		if not current_cards_by_suit[card.suit].has(card):
+			current_cards_by_suit[card.suit].append(card)
 	
 	added_card.emit(card)
 	
@@ -179,6 +184,10 @@ func extract_from_discard_pile(card: PlayingCard) -> PlayingCard:
 #endregion
 
 #region Information
+func size() -> int:
+	return current_cards.size()
+	
+
 func is_spanish_deck() -> bool:
 	return deck_type == DeckTypes.Spanish
 	
