@@ -25,17 +25,17 @@ func _ready() -> void:
 	spanish_deck.fill().add_jokers(2)
 	french_deck.fill().add_jokers(1)
 	
-	number_card.add_child(spanish_deck.pick_random_number_card())
-	ace_card.add_child(spanish_deck.pick_random_ace())
+	number_card.add_child(french_deck.pick_random_number_card())
+	ace_card.add_child(french_deck.pick_random_ace())
 	
-	jack_card.add_child(spanish_deck.pick_random_jack())
-	queen_card.add_child(spanish_deck.pick_random_knight())
-	king_card.add_child(spanish_deck.pick_random_king())
+	jack_card.add_child(french_deck.pick_random_jack())
+	queen_card.add_child(french_deck.pick_random_queen())
+	king_card.add_child(french_deck.pick_random_king())
 	
-	joker_card.add_child(spanish_deck.pick_random_joker())
+	joker_card.add_child(french_deck.pick_random_joker())
 	
 	var back_sprite: Sprite2D = Sprite2D.new()
-	back_sprite.texture = spanish_deck.backs.pick_random()
+	back_sprite.texture = french_deck.backs.pick_random()
 	back.add_child(back_sprite)
 	
 

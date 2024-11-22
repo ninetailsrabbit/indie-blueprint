@@ -231,6 +231,10 @@ locale/translations=PackedStringArray("res://localization/translations/de.po", "
 3d_physics/layer_6="Interactables"
 2d_physics/layer_7="Grabbables"
 3d_physics/layer_7="Grabbables"
+2d_physics/layer_8="Bullets"
+3d_physics/layer_8="Bullets"
+2d_physics/layer_9="PlayingCards"
+3d_physics/layer_9="PlayingCards"
 
 [physics]
 

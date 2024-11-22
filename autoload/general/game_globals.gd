@@ -10,6 +10,7 @@ const shakeables_collision_layer: int = 16
 const interactables_collision_layer: int = 32
 const grabbables_collision_layer: int = 64
 const bullets_collision_layer: int = 128
+const playing_cards_collision_layer: int = 256
 #endregion
 
 

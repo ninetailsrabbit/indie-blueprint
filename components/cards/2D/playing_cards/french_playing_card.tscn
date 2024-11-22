@@ -1,12 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlhetu8fmoy1u"]
+[gd_scene load_steps=5 format=3 uid="uid://dlhetu8fmoy1u"]
 
 [ext_resource type="Script" path="res://components/cards/2D/playing_cards/french_playing_card.gd" id="1_76u3g"]
+[ext_resource type="Texture2D" uid="uid://cfdn3ffougbpc" path="res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro1.png" id="2_ldpkk"]
 
-[node name="FrenchPlayingCard" type="Node2D" node_paths=PackedStringArray("front_sprite", "back_sprite")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_358og"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1b87"]
+
+[node name="FrenchPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite", "card_area", "card_detection_area")]
 script = ExtResource("1_76u3g")
-front_sprite = NodePath("FrontSprite")
-back_sprite = NodePath("BackSprite")
+sprite = NodePath("Sprite")
+card_area = NodePath("CardArea")
+card_detection_area = NodePath("CardDetectionArea")
 
-[node name="FrontSprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ldpkk")
 
-[node name="BackSprite" type="Sprite2D" parent="."]
+[node name="CardArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea"]
+shape = SubResource("RectangleShape2D_358og")
+
+[node name="CardDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDetectionArea"]
+shape = SubResource("RectangleShape2D_d1b87")
+debug_color = Color(0.835293, 0.384534, 0.142036, 0.42)

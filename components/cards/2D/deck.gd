@@ -160,11 +160,11 @@ func pick_random_joker() -> PlayingCard:
 #endregion
 
 #region Pickers
-func pick_cards(cards: Array[PlayingCard]) -> Array[PlayingCard]:
-	for card in cards:
+func pick_cards(selected_cards: Array[PlayingCard]) -> Array[PlayingCard]:
+	for card in selected_cards:
 		pick_card(card)
 		
-	return cards
+	return selected_cards
 	
 	
 func pick_card(card: PlayingCard) -> PlayingCard:

@@ -1,12 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnm4vripav20"]
+[gd_scene load_steps=4 format=3 uid="uid://cnm4vripav20"]
 
 [ext_resource type="Script" path="res://components/cards/2D/playing_cards/spanish_playing_card.gd" id="1_yo6v0"]
 
-[node name="SpanishPlayingCard" type="Node2D" node_paths=PackedStringArray("front_sprite", "back_sprite")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgjqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibmwf"]
+
+[node name="SpanishPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite", "card_area", "card_detection_area")]
 script = ExtResource("1_yo6v0")
-front_sprite = NodePath("FrontSprite")
-back_sprite = NodePath("BackSprite")
+sprite = NodePath("Sprite")
+card_area = NodePath("CardArea")
+card_detection_area = NodePath("CardDetectionArea")
 
-[node name="FrontSprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 
-[node name="BackSprite" type="Sprite2D" parent="."]
+[node name="CardArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea"]
+shape = SubResource("RectangleShape2D_jgjqv")
+
+[node name="CardDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDetectionArea"]
+shape = SubResource("RectangleShape2D_ibmwf")
+debug_color = Color(0.835293, 0.384534, 0.142036, 0.42)
