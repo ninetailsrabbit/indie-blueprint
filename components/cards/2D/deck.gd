@@ -283,6 +283,10 @@ func has_aces() -> bool:
 	return current_cards.any(func(card: PlayingCard): return card.is_ace())
 	
 	
+func has_jokers() -> bool:
+	return current_cards.any(func(card: PlayingCard): return card.is_joker())
+	
+	
 func has_jacks() -> bool:
 	return current_cards.any(func(card: PlayingCard): return card.is_jack())
 	
