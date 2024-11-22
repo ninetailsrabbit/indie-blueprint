@@ -46,6 +46,7 @@ var current_cards_by_suit: Dictionary = {}
 var current_cards: Array[PlayingCard] = []
 var discard_pile: Array[PlayingCard] = []
 
+var jokers_count_for_empty_deck: bool = false
 
 #region Preparation 
 func fill() -> Deck:
@@ -245,16 +246,20 @@ func remove_card(card: PlayingCard):
 	
 	if current_cards_by_suit.has(card.suit):
 		current_cards_by_suit[card.suit].erase(card)
+		removed_card.emit(card)
 	
-	removed_card.emit(card)
+	if (has_only_jokers() and not jokers_count_for_empty_deck) or current_cards.is_empty():
+		emptied_deck.emit()
 	
 	add_to_discard_pile(card)
 	
 
-func add_jokers(amount: int) -> Deck:
+func add_jokers(amount: int, selected_card: PlayingCard = null) -> Deck:
 	if amount > 0 and jokers.size() > 0:
 		var new_jokers: Array[PlayingCard] = []
-		new_jokers.assign(ArrayHelper.repeat(jokers.pick_random(), amount))
+		var joker: PlayingCard = selected_card if selected_card != null and selected_card.is_joker() else jokers.pick_random()
+		
+		new_jokers.assign(ArrayHelper.repeat(joker, amount))
 		
 		add_cards(new_jokers)
 		
@@ -285,6 +290,10 @@ func has_aces() -> bool:
 	
 func has_jokers() -> bool:
 	return current_cards.any(func(card: PlayingCard): return card.is_joker())
+	
+
+func has_only_jokers() -> bool:
+	return current_cards.all(func(card: PlayingCard): return card.is_joker())
 	
 	
 func has_jacks() -> bool:
