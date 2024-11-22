@@ -73,6 +73,7 @@ static func _add_cards_to_deck(selected_deck: Deck, deck_data: Dictionary, playi
 		for card_texture: CompressedTexture2D in deck_data[suit]:
 			var playing_card: PlayingCard = playing_card_scene.instantiate() as PlayingCard
 			playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
+			playing_card.display_name = playing_card.id.to_pascal_case()
 			playing_card.front_texture = card_texture
 			playing_card.value = card_value
 			playing_card.table_value = card_value

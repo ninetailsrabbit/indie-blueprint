@@ -60,7 +60,10 @@ var mouse_region: Button
 
 		
 func _enter_tree() -> void:
-	name = "%s-%s" % [id, display_name]
+	name = display_name
+	
+	faced_up.connect(on_faced_up)
+	faced_down.connect(on_faced_down)
 
 
 func _ready() -> void:
@@ -80,15 +83,13 @@ func _ready() -> void:
 	
 	original_position = global_position
 	original_z_index = z_index
-	
-	print("global position ", original_position)
+
 
 func _process(delta: float) -> void:
 	global_position = global_position.lerp(get_global_mouse_position(), smooth_factor * delta) if smooth_factor > 0 else get_global_mouse_position()
 	current_position = global_position + m_offset
 	
 
-	
 #region Card orientation
 func is_face_up() -> bool:
 	return card_orientation == Orientation.FaceUp
@@ -125,6 +126,10 @@ func is_ace() -> bool:
 
 
 #region Overridables
+func is_number() -> bool:
+	return false
+
+
 func is_jack() -> bool:
 	return false
 	
@@ -185,6 +190,14 @@ func _enable_areas_based_on_drag() -> void:
 #endregion
 
 #region Signal callbacks
+func on_faced_up() -> void:
+	sprite.texture = front_texture
+	
+	
+func on_faced_down() -> void:
+	sprite.texture = back_texture
+	
+	
 func on_detected_card(other_area: Area2D) -> void:
 	print("detected card ", other_area.get_parent())
 	

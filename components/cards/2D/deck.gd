@@ -3,6 +3,7 @@ class_name Deck extends Node
 signal added_card(card: PlayingCard)
 signal added_cards(card: Array[PlayingCard])
 signal picked_card(card: PlayingCard)
+signal removed_card(card: PlayingCard)
 signal discarded_card(card: PlayingCard)
 signal emptied_deck
 signal filled
@@ -245,8 +246,10 @@ func remove_card(card: PlayingCard):
 	if current_cards_by_suit.has(card.suit):
 		current_cards_by_suit[card.suit].erase(card)
 	
+	removed_card.emit(card)
+	
 	add_to_discard_pile(card)
-
+	
 
 func add_jokers(amount: int) -> Deck:
 	if amount > 0 and jokers.size() > 0:
@@ -276,6 +279,30 @@ func extract_from_discard_pile(card: PlayingCard) -> PlayingCard:
 #endregion
 
 #region Information
+func has_aces() -> bool:
+	return current_cards.any(func(card: PlayingCard): return card.is_ace())
+	
+	
+func has_jacks() -> bool:
+	return current_cards.any(func(card: PlayingCard): return card.is_jack())
+	
+	
+func has_queens() -> bool:
+	return current_cards.any(func(card: PlayingCard): return card.is_queen())
+	
+
+func has_knights() -> bool:
+	return current_cards.any(func(card: PlayingCard): return card.is_knight())
+	
+
+func has_kings() -> bool:
+	return current_cards.any(func(card: PlayingCard): return card.is_king())
+	
+	
+func has_number_cards() -> bool:
+	return current_cards.any(func(card: PlayingCard): return card.is_number())
+	
+
 func size() -> int:
 	return current_cards.size()
 	
