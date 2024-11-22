@@ -4,7 +4,8 @@ signal added_card(card: PlayingCard)
 signal added_cards(card: Array[PlayingCard])
 signal picked_card(card: PlayingCard)
 signal removed_card(card: PlayingCard)
-signal discarded_card(card: PlayingCard)
+signal added_to_discard_pile(card: PlayingCard)
+signal recovered_card_from_discard_pile(card: PlayingCard)
 signal emptied_deck
 signal filled
 signal shuffled
@@ -270,17 +271,26 @@ func add_jokers(amount: int, selected_card: PlayingCard = null) -> Deck:
 func add_to_discard_pile(card: PlayingCard) -> void:
 	if not discard_pile.has(card):
 		discard_pile.append(card)
-		discarded_card.emit(card)
+		added_to_discard_pile.emit(card)
 
 
 func extract_from_discard_pile(card: PlayingCard) -> PlayingCard:
 	if discard_pile.has(card):
 		var selected_card: PlayingCard = discard_pile[discard_pile.find(card)]
-	
+		discard_pile.erase(card)
+		
 		return selected_card
 	
 	return null
 
+
+func recover_from_discard_pile(card: PlayingCard) -> PlayingCard:
+	var card_to_recover: PlayingCard = extract_from_discard_pile(card)
+	
+	if card_to_recover != null:
+		add_card(card_to_recover)
+		recovered_card_from_discard_pile.emit(card)
+	return null
 #endregion
 
 #region Information

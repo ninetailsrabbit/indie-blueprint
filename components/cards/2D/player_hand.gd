@@ -5,7 +5,10 @@ signal removed_card(card: PlayingCard)
 signal add_card_request_denied(card: PlayingCard)
 signal sorted_cards(previous: Array[PlayingCard], current: Array[PlayingCard])
 
-@export var maximum_cards: int = 4
+@export var maximum_cards: int = 4:
+	set(value):
+		maximum_cards = maxi(1, value)
+
 
 var current_cards: Array[PlayingCard] = []
 
