@@ -77,6 +77,7 @@ static func _add_cards_to_deck(selected_deck: Deck, deck_data: Dictionary, playi
 			playing_card.front_texture = card_texture
 			playing_card.value = card_value
 			playing_card.table_value = card_value
+			playing_card.suit = suit
 			selected_deck.cards.append(playing_card)
 			
 			if selected_deck.cards_by_suit.has(suit):

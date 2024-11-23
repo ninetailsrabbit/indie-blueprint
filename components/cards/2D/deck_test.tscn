@@ -35,4 +35,5 @@ offset_bottom = 512.0
 
 [node name="DeckPile" parent="." instance=ExtResource("2_j0h3i")]
 position = Vector2(1037, 236)
-allowed_suits = Array[int]([0])
+maximum_cards_in_pile = 2
+allowed_spanish_suits = Array[int]([2, 3])

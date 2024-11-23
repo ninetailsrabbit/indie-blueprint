@@ -3,7 +3,7 @@ class_name DeckPile extends Node2D
 signal added_card(card: PlayingCard)
 signal removed_card(card: PlayingCard)
 signal add_card_request_denied(card: PlayingCard)
-
+signal filled
 
 @export var detection_area_size: Vector2 = Vector2(60, 96):
 	set(value):
@@ -12,14 +12,17 @@ signal add_card_request_denied(card: PlayingCard)
 			change_detection_area_size(detection_area_size)
 ## Set to zero to allow an infinite amount of cards
 @export var maximum_cards_in_pile: int = 0
-@export var allowed_suits: Array[Deck.AllSuits] = [
-	Deck.AllSuits.Cup,
-	Deck.AllSuits.Gold,
-	Deck.AllSuits.Club,
-	Deck.AllSuits.Sword,
-	Deck.AllSuits.Heart,
-	Deck.AllSuits.Diamond,
-	Deck.AllSuits.Spade,
+@export var allowed_spanish_suits: Array[Deck.SpanishSuits] = [
+	Deck.SpanishSuits.Cup,
+	Deck.SpanishSuits.Gold,
+	Deck.SpanishSuits.Club,
+	Deck.SpanishSuits.Sword,
+]
+@export var allowed_french_suits: Array[Deck.FrenchSuits] = [
+	Deck.FrenchSuits.Diamond,
+	Deck.FrenchSuits.Heart,
+	Deck.FrenchSuits.Club,
+	Deck.FrenchSuits.Spade,
 ]
 
 
@@ -49,12 +52,19 @@ func change_detection_area_size(new_size: Vector2) -> void:
 
 
 func add_card(card: PlayingCard) -> void:
-	if (maximum_cards_in_pile > 0 and current_cards.size() == maximum_cards_in_pile) or not card.suit in allowed_suits:
-		add_card_request_denied.emit(card)
-	else:
+	if _card_can_be_added_to_pile(card):
 		current_cards.append(card)
+		card.reparent(cards_zone)
+		card.global_position = global_position
+		last_detected_card = null
+		
 		added_card.emit(card)
-	
+		
+		if current_cards.size() == maximum_cards_in_pile:
+			filled.emit()
+	else:
+		add_card_request_denied.emit(card)
+		
 	
 func remove_card(card: PlayingCard):
 	if has_card(card):
@@ -64,6 +74,15 @@ func remove_card(card: PlayingCard):
 	
 func has_card(card: PlayingCard) -> bool:
 	return current_cards.has(card)
+	
+	
+func _card_can_be_added_to_pile(card: PlayingCard) -> bool:
+	var is_allowed_spanish_card: bool = card.is_spanish() and card.suit in allowed_spanish_suits
+	var is_allowed_french_card: bool = card.is_french() and card.suit in allowed_french_suits
+	
+	return (maximum_cards_in_pile == 0 or (maximum_cards_in_pile > 0 and current_cards.size() < maximum_cards_in_pile)) \
+		and (is_allowed_spanish_card or is_allowed_french_card)
+	
 	
 
 #region Signal callbacks
@@ -84,7 +103,4 @@ func on_card_exited(_other_area: Area2D) -> void:
 
 func on_card_detected(card: PlayingCard) -> void:
 	add_card(card)
-	card.reparent(cards_zone)
-	card.global_position = global_position
-	last_detected_card = null
 #endregion

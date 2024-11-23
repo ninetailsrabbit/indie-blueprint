@@ -126,6 +126,14 @@ func flip() -> void:
 	
 	
 #region Values
+func is_spanish() -> bool:
+	return false
+	
+
+func is_french() -> bool:
+	return false
+
+
 func is_joker() -> bool:
 	return value == 0
 	

@@ -4,6 +4,14 @@ class_name FrenchPlayingCard extends PlayingCard
 @export var suit: Deck.FrenchSuits
 
 
+func is_spanish() -> bool:
+	return false
+	
+
+func is_french() -> bool:
+	return true
+	
+	
 func is_number() -> bool:
 	return value > 1 and value < 11
 
