@@ -235,6 +235,7 @@ locale/translations=PackedStringArray("res://localization/translations/de.po", "
 3d_physics/layer_8="Bullets"
 2d_physics/layer_9="PlayingCards"
 3d_physics/layer_9="PlayingCards"
+3d_physics/layer_10="DeckPiles"
 
 [physics]
 

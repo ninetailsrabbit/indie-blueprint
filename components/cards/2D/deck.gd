@@ -20,6 +20,16 @@ enum CommonSuits {
 	Back = 6
 }
 
+enum AllSuits {
+	Cup = 7,
+	Gold = 8,
+	Sword = 9,
+	Club = 10,
+	Heart = 11,
+	Diamond = 12,
+	Spade = 13,
+}
+
 enum SpanishSuits {
 	Cup,
 	Gold,

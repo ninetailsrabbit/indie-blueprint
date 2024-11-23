@@ -53,6 +53,12 @@ var is_holded: bool = false:
 	set(value):
 		if value != is_holded:
 			is_holded = value
+			
+			if is_holded:
+				holded.emit()
+			else:
+				released.emit()
+				
 			set_process(is_holded)
 			_enable_areas_based_on_drag()
 			
@@ -62,8 +68,12 @@ var mouse_region: Button
 func _enter_tree() -> void:
 	name = display_name
 	
-	faced_up.connect(on_faced_up)
-	faced_down.connect(on_faced_down)
+	## This card can be reparented when enter a deck pile so we need to create this signal check
+	if not faced_up.is_connected(on_faced_up):
+		faced_up.connect(on_faced_up)
+		
+	if not faced_down.is_connected(on_faced_down):
+		faced_down.connect(on_faced_down)
 
 
 func _ready() -> void:
@@ -173,19 +183,21 @@ func _prepare_areas() -> void:
 	card_area.collision_mask = 0
 	card_area.monitorable = true
 	card_area.monitoring = false
+	card_detection_area.priority = 1
 	card_area.get_child(0).shape.size = mouse_region.size * sprite.scale
 	
 	card_detection_area.collision_layer = 0
 	card_detection_area.collision_mask = GameGlobals.playing_cards_collision_layer
 	card_detection_area.monitorable = false
 	card_detection_area.monitoring = true
+	card_detection_area.priority = 2
 	card_detection_area.get_child(0).shape.size = mouse_region.size * 0.85 * sprite.scale
 	
 	card_detection_area.area_entered.connect(on_detected_card)
 	
 	
 func _enable_areas_based_on_drag() -> void:
-	card_area.set_deferred("monitorable", not is_holded)
+	#card_area.set_deferred("monitorable", not is_holded)
 	card_detection_area.set_deferred("monitoring", is_holded)
 #endregion
 
@@ -199,8 +211,12 @@ func on_faced_down() -> void:
 	
 	
 func on_detected_card(other_area: Area2D) -> void:
-	print("detected card ", other_area.get_parent())
+	var detected_card = other_area.get_parent()
 	
+	if detected_card != self:
+		print("detected card ", detected_card)
+
+		
 	
 func on_mouse_region_pressed() -> void:
 	pass
@@ -208,11 +224,10 @@ func on_mouse_region_pressed() -> void:
 
 func on_mouse_region_holded() -> void:
 	if not is_holded:
-		m_offset = transform.origin - get_global_mouse_position()	
+		m_offset = transform.origin - get_global_mouse_position()
 		is_holded = true
 		z_index = original_z_index + 100
 		z_as_relative = false
-		
 
 			
 func on_mouse_region_released() -> void:
