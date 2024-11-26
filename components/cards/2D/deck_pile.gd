@@ -1,5 +1,7 @@
 class_name DeckPile extends Node2D
 
+const GroupName: StringName = &"deck-piles"
+
 signal added_card(card: PlayingCard)
 signal removed_card(card: PlayingCard)
 signal add_card_request_denied(card: PlayingCard)
@@ -35,6 +37,10 @@ var current_cards: Array[PlayingCard] = []
 var last_detected_card: PlayingCard
 
 
+func _enter_tree() -> void:
+	add_to_group(GroupName)
+	
+
 func _ready() -> void:
 	detection_card_area.monitorable = false
 	detection_card_area.monitoring = true
@@ -53,9 +59,12 @@ func change_detection_area_size(new_size: Vector2) -> void:
 
 func add_card(card: PlayingCard) -> void:
 	if _card_can_be_added_to_pile(card):
+		
 		current_cards.append(card)
 		card.reparent(cards_zone)
-		card.global_position = global_position
+		card.position = Vector2.ZERO
+		card.lock()
+		
 		last_detected_card = null
 		
 		added_card.emit(card)
@@ -74,12 +83,20 @@ func remove_card(card: PlayingCard):
 	
 func has_card(card: PlayingCard) -> bool:
 	return current_cards.has(card)
+
+
+func is_empty() -> bool:
+	return current_cards.is_empty()
 	
-	
+
 func _card_can_be_added_to_pile(card: PlayingCard) -> bool:
+	if card.bypass_deck_pile_conditions:
+		return true
+		
 	var is_allowed_spanish_card: bool = card.is_spanish() and card.suit in allowed_spanish_suits
 	var is_allowed_french_card: bool = card.is_french() and card.suit in allowed_french_suits
 	
+	print("french card allowed ", is_allowed_french_card)
 	return (maximum_cards_in_pile == 0 or (maximum_cards_in_pile > 0 and current_cards.size() < maximum_cards_in_pile)) \
 		and (is_allowed_spanish_card or is_allowed_french_card)
 	
@@ -102,5 +119,11 @@ func on_card_exited(_other_area: Area2D) -> void:
 	
 
 func on_card_detected(card: PlayingCard) -> void:
+	var parent =  card.get_parent()
+	
+	if parent is PlayerHand:
+		parent.remove_card(card)
+	
 	add_card(card)
+	
 #endregion

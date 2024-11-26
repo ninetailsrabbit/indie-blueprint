@@ -1,4 +1,6 @@
-class_name Deck extends Node
+class_name Deck extends Node2D
+
+const GroupName: StringName = &"decks"
 
 signal added_card(card: PlayingCard)
 signal added_cards(card: Array[PlayingCard])
@@ -53,13 +55,49 @@ var jokers: Array[PlayingCard] = []
 var backs: Array[CompressedTexture2D] = []
 
 
+var current_back_texture: CompressedTexture2D
 var current_cards_by_suit: Dictionary = {}
 var current_cards: Array[PlayingCard] = []
 var discard_pile: Array[PlayingCard] = []
 
 var jokers_count_for_empty_deck: bool = false
 
+var visual_pile_node: Node2D
+var start_visual_pile_with_amount: int
+var visual_pile_counter: int
+
 #region Preparation 
+func _enter_tree() -> void:
+	add_to_group(GroupName)
+	removed_card.connect(on_removed_card)
+
+
+func _ready() -> void:
+	if current_back_texture == null:
+		current_back_texture = backs.pick_random()
+	
+
+func draw_visual_pile(amount: int = 5, distance: float = 1.5) -> void:
+	start_visual_pile_with_amount = amount
+	
+	visual_pile_counter = ceili(cards.size() / start_visual_pile_with_amount)
+	
+	if visual_pile_node == null:
+		visual_pile_node = Node2D.new()
+		add_child(visual_pile_node)
+		
+	for i in amount:
+		var sprite = Sprite2D.new()
+		sprite.texture = current_back_texture
+		sprite.position = Vector2(i * distance, -i * distance)
+		visual_pile_node.add_child(sprite)
+		
+		if i == 0:
+			sprite.position.y += 1
+			sprite.show_behind_parent = true
+			sprite.self_modulate = Color("1616166f")
+	
+
 func fill() -> Deck:
 	current_cards = cards.duplicate()
 	current_cards_by_suit = cards_by_suit.duplicate(true)
@@ -83,9 +121,21 @@ func pick_random_card() -> PlayingCard:
 	if current_cards.is_empty():
 		return null
 	
-		
 	return pick_card(current_cards.pick_random())
 	
+
+func pick_random_cards(amount: int) -> Array[PlayingCard]:
+	if current_cards.is_empty():
+		return []
+	
+	var selected_cards: Array[PlayingCard] = []
+	amount = clamp(amount, 1, current_cards.size())
+	
+	for i in amount:
+		selected_cards.append(pick_card(current_cards.pick_random()))
+	
+	return selected_cards
+
 
 func pick_random_number_card() -> PlayingCard:
 	return pick_card(number_cards().pick_random())
@@ -259,7 +309,7 @@ func remove_card(card: PlayingCard):
 		current_cards_by_suit[card.suit].erase(card)
 		removed_card.emit(card)
 	
-	if (has_only_jokers() and not jokers_count_for_empty_deck) or current_cards.is_empty():
+	if is_empty():
 		emptied_deck.emit()
 	
 	add_to_discard_pile(card)
@@ -336,6 +386,10 @@ func has_number_cards() -> bool:
 	return current_cards.any(func(card: PlayingCard): return card.is_number())
 	
 
+func is_empty() -> bool:
+	return (has_only_jokers() and not jokers_count_for_empty_deck) or current_cards.is_empty()
+
+
 func size() -> int:
 	return current_cards.size()
 	
@@ -346,5 +400,15 @@ func is_spanish_deck() -> bool:
 	
 func is_french_deck() -> bool:
 	return deck_type == DeckTypes.French
+#endregion
+
+
+#region Signal callbacks
+func on_removed_card(_card: PlayingCard) -> void:
+	visual_pile_counter -= 1
 	
+	if visual_pile_counter == 0 and visual_pile_node.get_child_count() > 0:
+		NodeTraversal.get_last_child(visual_pile_node).queue_free()
+		visual_pile_counter = ceili(cards.size() / start_visual_pile_with_amount)
+
 #endregion

@@ -41,7 +41,7 @@ static func _load_french_deck(deck_data: Dictionary) -> Deck:
 #region Private
 static func _add_jokers_to_deck(selected_deck: Deck, deck_data: Dictionary, playing_card_scene: PackedScene) -> void:
 	for card_texture: CompressedTexture2D in deck_data[Deck.CommonSuits.Joker]:
-		var joker_card: PlayingCard = playing_card_scene.instantiate() as PlayingCard
+		var joker_card: PlayingCard = playing_card_scene.instantiate()
 		joker_card.id = "joker_%d" % selected_deck.jokers.size() 
 		joker_card.display_name = "Joker"
 		joker_card.front_texture = card_texture
@@ -71,7 +71,7 @@ static func _add_cards_to_deck(selected_deck: Deck, deck_data: Dictionary, playi
 		var card_value: int = 1
 		
 		for card_texture: CompressedTexture2D in deck_data[suit]:
-			var playing_card: PlayingCard = playing_card_scene.instantiate() as PlayingCard
+			var playing_card: PlayingCard = playing_card_scene.instantiate()
 			playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
 			playing_card.display_name = playing_card.id.to_pascal_case()
 			playing_card.front_texture = card_texture

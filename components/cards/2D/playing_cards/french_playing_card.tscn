@@ -7,11 +7,14 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1b87"]
 
-[node name="FrenchPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite", "card_area", "card_detection_area")]
+[node name="FrenchPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite", "shadow_sprite", "card_area", "card_detection_area")]
 script = ExtResource("1_76u3g")
 sprite = NodePath("Sprite")
+shadow_sprite = NodePath("Shadow")
 card_area = NodePath("CardArea")
 card_detection_area = NodePath("CardDetectionArea")
+
+[node name="Shadow" type="Sprite2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_ldpkk")

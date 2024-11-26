@@ -1,5 +1,7 @@
 class_name PlayingCard extends Node2D
 
+const GroupName: StringName = &"playing-cards"
+
 signal faced_up
 signal faced_down
 signal holded
@@ -9,21 +11,24 @@ signal mouse_entered
 signal mouse_exited
 signal focus_entered
 signal focus_exited
-
+signal locked
+signal unlocked
 
 @export var sprite: Sprite2D
+@export var shadow_sprite: Sprite2D
 @export var card_area: Area2D
 @export var card_detection_area: Area2D
 @export var id: StringName
 @export var display_name: String
 @export_multiline var description: String
-@export var size: Vector2 = Vector2(60, 96)
+@export var size: Vector2 = Vector2.ZERO
 @export var front_texture: Texture2D
 @export var back_texture: Texture2D
 ## The meta value from the card
 @export var value: int = 1
 ## The value that this card have in the table, can differ from the meta value
 @export var table_value: int = 1
+@export var bypass_deck_pile_conditions: bool = false
 @export_group("Drag")
 @export var reset_position_on_release: bool = true
 @export var smooth_factor: float = 20.0
@@ -63,10 +68,24 @@ var is_holded: bool = false:
 			_enable_areas_based_on_drag()
 			
 var mouse_region: Button
-
+var is_locked: bool = false:
+	set(value):
+		if value != is_locked:
+			is_locked = value
+			
+			if is_locked:
+				locked.emit()
+			else:
+				unlocked.emit()
 		
+		set_process(not is_locked)
+
+
 func _enter_tree() -> void:
-	name = display_name
+	add_to_group(GroupName)
+	
+	if not display_name.is_empty():
+		name = display_name
 	
 	## This card can be reparented when enter a deck pile so we need to create this signal check
 	if not faced_up.is_connected(on_faced_up):
@@ -80,13 +99,8 @@ func _ready() -> void:
 	assert(sprite is Sprite2D, "PlayingCard: The playing card %s needs a Sprite2D node to display the card texture" % id)
 	
 	set_process(false)
-	
-	sprite.texture = front_texture
-	
-	if not size.is_zero_approx():
-		var texture_size: Vector2 = sprite.texture.get_size()
-		sprite.scale = Vector2(size.x / texture_size.x, size.y / texture_size.y)
-	
+
+	_prepare_sprite()
 	_prepare_mouse_region_button()
 	_prepare_areas()
 	_enable_areas_based_on_drag()
@@ -122,6 +136,15 @@ func flip() -> void:
 		face_down()
 	else:
 		face_up()
+	
+	
+func lock() -> void:
+	is_locked = true
+
+
+func unlock() -> void:
+	is_locked = false
+	
 #endregion
 	
 	
@@ -167,6 +190,22 @@ func is_king() -> bool:
 
 
 #region Private
+func _prepare_sprite() -> void:
+	sprite.texture = front_texture
+	
+	if size.is_zero_approx():
+		size = sprite.texture.get_size()
+		
+	var texture_size: Vector2 = sprite.texture.get_size()
+	sprite.scale = Vector2(size.x / texture_size.x, size.y / texture_size.y)
+	
+	shadow_sprite.texture = sprite.texture
+	shadow_sprite.scale = sprite.scale
+	shadow_sprite.show_behind_parent = true
+	shadow_sprite.self_modulate = Color("1616166f")
+	shadow_sprite.position.y = sprite.position.y + 2
+	
+
 func _prepare_mouse_region_button() -> void:
 	if mouse_region == null:
 		mouse_region = Button.new()
@@ -222,16 +261,14 @@ func on_detected_card(other_area: Area2D) -> void:
 	var detected_card = other_area.get_parent()
 	
 	if detected_card != self:
-		print("detected card ", detected_card)
+		pass
 
-		
-	
 func on_mouse_region_pressed() -> void:
 	pass
 		
 
 func on_mouse_region_holded() -> void:
-	if not is_holded:
+	if not is_holded and not is_locked:
 		m_offset = transform.origin - get_global_mouse_position()
 		is_holded = true
 		z_index = original_z_index + 100
@@ -239,10 +276,11 @@ func on_mouse_region_holded() -> void:
 
 			
 func on_mouse_region_released() -> void:
-	reset_position()
-	is_holded = false
-	z_index = original_z_index
-	z_as_relative = true
+	if not is_locked:
+		reset_position()
+		is_holded = false
+		z_index = original_z_index
+		z_as_relative = true
 
 
 func reset_position() -> void:

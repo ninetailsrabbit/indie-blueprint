@@ -6,11 +6,14 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ibmwf"]
 
-[node name="SpanishPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite", "card_area", "card_detection_area")]
+[node name="SpanishPlayingCard" type="Node2D" node_paths=PackedStringArray("sprite", "shadow_sprite", "card_area", "card_detection_area")]
 script = ExtResource("1_yo6v0")
 sprite = NodePath("Sprite")
+shadow_sprite = NodePath("Shadow")
 card_area = NodePath("CardArea")
 card_detection_area = NodePath("CardDetectionArea")
+
+[node name="Shadow" type="Sprite2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 
