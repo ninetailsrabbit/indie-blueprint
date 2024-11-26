@@ -64,7 +64,7 @@ var is_holded: bool = false:
 			else:
 				released.emit()
 				
-			set_process(is_holded)
+			set_process(is_holded and not is_locked)
 			_enable_areas_based_on_drag()
 			
 var mouse_region: Button
@@ -77,8 +77,8 @@ var is_locked: bool = false:
 				locked.emit()
 			else:
 				unlocked.emit()
-		
-		set_process(not is_locked)
+			
+			set_process(is_holded and not is_locked)
 
 
 func _enter_tree() -> void:
@@ -110,9 +110,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	global_position = global_position.lerp(get_global_mouse_position(), smooth_factor * delta) if smooth_factor > 0 else get_global_mouse_position()
-	current_position = global_position + m_offset
-	
+	if not is_locked:
+		global_position = global_position.lerp(get_global_mouse_position(), smooth_factor * delta) if smooth_factor > 0 else get_global_mouse_position()
+		current_position = global_position + m_offset
+		
 
 #region Card orientation
 func is_face_up() -> bool:
@@ -244,8 +245,7 @@ func _prepare_areas() -> void:
 	
 	
 func _enable_areas_based_on_drag() -> void:
-	#card_area.set_deferred("monitorable", not is_holded)
-	card_detection_area.set_deferred("monitoring", is_holded)
+	card_detection_area.set_deferred("monitoring", is_holded and not is_locked)
 #endregion
 
 #region Signal callbacks
@@ -268,7 +268,7 @@ func on_mouse_region_pressed() -> void:
 		
 
 func on_mouse_region_holded() -> void:
-	if not is_holded and not is_locked:
+	if not is_holded and not is_locked:		
 		m_offset = transform.origin - get_global_mouse_position()
 		is_holded = true
 		z_index = original_z_index + 100

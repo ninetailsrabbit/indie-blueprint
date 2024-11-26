@@ -19,7 +19,7 @@ var current_cards: Array[PlayingCard] = []
 
 
 func _enter_tree() -> void:
-	pass
+	name  = "PlayerHand"
 
 
 func draw_from_deck(deck: Deck, amount: int):
@@ -36,11 +36,15 @@ func draw_animation_from_deck(deck: Deck, cards: Array[PlayingCard], duration: f
 		add_card(card)
 		card.global_position = deck.global_position
 		
+		card.lock()
+		
 		var tween: Tween = create_tween()
 		tween.tween_property(card, "global_position", global_position, duration).from(deck.global_position)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		
 		await tween.finished
+		card.unlock()
+		
 		adjust_hand_position()
 
 
@@ -52,13 +56,16 @@ func adjust_hand_position(except: Array[PlayingCard] = []) -> void:
 		var offset = (target_cards.size() / 2.0 - index) * (card.size.x + distance_between_cards)
 		var target_position = position.x - offset
 		
+		card.lock()
+		
 		var tween = create_tween()
 		tween.tween_property(card, "position:x", target_position, 0.06)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		
 		card.original_position = card.global_position
+		card.unlock()
 
-	
+
 func add_card(card: PlayingCard) -> void:
 	if current_cards.size() == maximum_cards:
 		add_card_request_denied.emit(card)
@@ -132,6 +139,9 @@ func on_card_holded(card: PlayingCard):
 	
 
 func on_card_released(card: PlayingCard):
+	## Wait for the deck pile to detect the card
+	await GameGlobals.wait(0.1)
+	
 	if has_card(card):
 		adjust_hand_position()
 #endregion

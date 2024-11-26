@@ -39,21 +39,21 @@ void fragment(){
 	vec2 uv = FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy;
 	vec2 uvn = uv;
 	vec3 col = vec3( 0.0 );
-	
+
 	// tape wave
 	uvn.x += ( noise( vec2( uvn.y, TIME ) ) - 0.5 )* 0.005;
 	uvn.x += ( noise( vec2( uvn.y * 100.0, TIME * 10.0 ) ) - 0.5 ) * tape_wave_amount;
-	
+
 	// tape crease
 	float tcPhase = clamp( ( sin( uvn.y * 8.0 - TIME * PI * 1.2 ) - 0.92 ) * noise( vec2( TIME ) ), 0.0, 0.01 ) * tape_crease_amount;
 	float tcNoise = max( noise( vec2( uvn.y * 100.0, TIME * 10.0 ) ) - 0.5, 0.0 );
 	uvn.x = uvn.x - tcNoise * tcPhase;
-	
+
 	// switching noise
 	float snPhase = smoothstep( 0.03, 0.0, uvn.y );
 	uvn.y += snPhase * 0.3;
 	uvn.x += snPhase * ( ( noise( vec2( uv.y * 100.0, TIME * 10.0 ) ) - 0.5 ) * 0.2 );
-	
+
 	col = tex2D( SCREEN_TEXTURE, uvn );
 	col *= 1.0 - tcPhase;
 	col = mix(
@@ -61,7 +61,7 @@ void fragment(){
 		col.yzx,
 		snPhase
 	);
-	
+
 	// bloom
 	for( float x = -4.0; x < 2.5; x += 1.0 ){
 		col.xyz += vec3(
@@ -71,9 +71,9 @@ void fragment(){
 		) * 0.1;
 	}
 	col *= 0.6;
-	
+
 	// ac beat
 	col *= 1.0 + clamp( noise( vec2( 0.0, uv.y + TIME * lines_velocity ) ) * 0.6 - 0.25, 0.0, 0.1 );
-	
+
 	COLOR = vec4( col, 1.0 );
 }
