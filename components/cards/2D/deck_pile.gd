@@ -4,7 +4,9 @@ const GroupName: StringName = &"deck-piles"
 
 signal added_card(card: PlayingCard)
 signal removed_card(card: PlayingCard)
+signal removed_cards(cards: Array[PlayingCard])
 signal add_card_request_denied(card: PlayingCard)
+signal emptied(cards: Array[PlayingCard])
 signal filled
 
 @export var detection_area_size: Vector2 = Vector2(60, 96):
@@ -46,7 +48,7 @@ func _ready() -> void:
 	detection_card_area.monitoring = true
 	detection_card_area.collision_layer = 0
 	detection_card_area.collision_mask = GameGlobals.playing_cards_collision_layer
-	detection_card_area.priority = 1
+	detection_card_area.priority = 3
 	change_detection_area_size(detection_area_size)
 	
 	detection_card_area.area_entered.connect(on_card_entered)
@@ -73,21 +75,42 @@ func add_card(card: PlayingCard) -> void:
 			filled.emit()
 	else:
 		add_card_request_denied.emit(card)
+
+
+func clear() -> void:
+	if not is_empty():
+		emptied.emit(current_cards)
+		remove_cards(current_cards)
 		
 	
+func remove_cards(cards: Array[PlayingCard] = current_cards):
+	for card: PlayingCard in cards:
+		remove_card(card)
+
+	removed_cards.emit(cards)
+
+
 func remove_card(card: PlayingCard):
 	if has_card(card):
 		current_cards.erase(card)
 		removed_card.emit(card)
-		
-	
+
+
 func has_card(card: PlayingCard) -> bool:
 	return current_cards.has(card)
 
 
 func is_empty() -> bool:
 	return current_cards.is_empty()
-	
+
+
+func total_card_value() -> float:
+	return current_cards.reduce(func(accum: float, card: PlayingCard): return card.value + accum, 0.0)
+
+
+func total_card_table_value() -> float:
+	return current_cards.reduce(func(accum: float, card: PlayingCard): return card.table_value + accum, 0.0)
+
 
 func _card_can_be_added_to_pile(card: PlayingCard) -> bool:
 	if card.bypass_deck_pile_conditions:
@@ -96,7 +119,6 @@ func _card_can_be_added_to_pile(card: PlayingCard) -> bool:
 	var is_allowed_spanish_card: bool = card.is_spanish() and card.suit in allowed_spanish_suits
 	var is_allowed_french_card: bool = card.is_french() and card.suit in allowed_french_suits
 	
-	print("french card allowed ", is_allowed_french_card)
 	return (maximum_cards_in_pile == 0 or (maximum_cards_in_pile > 0 and current_cards.size() < maximum_cards_in_pile)) \
 		and (is_allowed_spanish_card or is_allowed_french_card)
 	
@@ -123,7 +145,5 @@ func on_card_detected(card: PlayingCard) -> void:
 	
 	if parent is PlayerHand:
 		parent.remove_card(card)
-	
-	add_card(card)
-	
+		add_card(card)
 #endregion

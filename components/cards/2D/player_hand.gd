@@ -8,6 +8,7 @@ signal add_cards_request_denied(card: Array[PlayingCard])
 signal sorted_cards(previous: Array[PlayingCard], current: Array[PlayingCard])
 
 
+@export var id: StringName
 @export var maximum_cards: int = 4:
 	set(value):
 		maximum_cards = maxi(1, value)
@@ -34,16 +35,14 @@ func draw_from_deck(deck: Deck, amount: int):
 func draw_animation_from_deck(deck: Deck, cards: Array[PlayingCard], duration: float = 0.3) -> void:
 	for card: PlayingCard in filter_cards_by_maximum_hand_size(cards):
 		add_card(card)
-		card.global_position = deck.global_position
-		
 		card.lock()
+		card.global_position = deck.global_position
 		
 		var tween: Tween = create_tween()
 		tween.tween_property(card, "global_position", global_position, duration).from(deck.global_position)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		
 		await tween.finished
-		card.unlock()
 		
 		adjust_hand_position()
 
@@ -56,14 +55,13 @@ func adjust_hand_position(except: Array[PlayingCard] = []) -> void:
 		var offset = (target_cards.size() / 2.0 - index) * (card.size.x + distance_between_cards)
 		var target_position = position.x - offset
 		
-		card.lock()
 		
 		var tween = create_tween()
 		tween.tween_property(card, "position:x", target_position, 0.06)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		
+		await tween.finished
 		card.original_position = card.global_position
-		card.unlock()
 
 
 func add_card(card: PlayingCard) -> void:
@@ -133,13 +131,22 @@ func filter_cards_by_maximum_hand_size(cards: Array[PlayingCard]) -> Array[Playi
 	return cards.slice(0, maximum_cards - current_cards.size())
 
 
+func lock_cards() -> void:
+	for card: PlayingCard in current_cards:
+		card.lock()
+
+
+func unlock_cards() -> void:
+	for card: PlayingCard in current_cards:
+		card.unlock()
+
+
 #region Signal callbacks
 func on_card_holded(card: PlayingCard):
 	adjust_hand_position([card])
 	
 
 func on_card_released(card: PlayingCard):
-	## Wait for the deck pile to detect the card
 	await GameGlobals.wait(0.1)
 	
 	if has_card(card):

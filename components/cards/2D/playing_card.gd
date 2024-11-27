@@ -25,9 +25,9 @@ signal unlocked
 @export var front_texture: Texture2D
 @export var back_texture: Texture2D
 ## The meta value from the card
-@export var value: int = 1
+@export var value: float = 1.0
 ## The value that this card have in the table, can differ from the meta value
-@export var table_value: int = 1
+@export var table_value: float = 1.0
 @export var bypass_deck_pile_conditions: bool = false
 @export_group("Drag")
 @export var reset_position_on_release: bool = true
@@ -73,12 +73,12 @@ var is_locked: bool = false:
 		if value != is_locked:
 			is_locked = value
 			
+			set_process(is_holded and not is_locked)
+			
 			if is_locked:
 				locked.emit()
 			else:
 				unlocked.emit()
-			
-			set_process(is_holded and not is_locked)
 
 
 func _enter_tree() -> void:
@@ -113,7 +113,6 @@ func _process(delta: float) -> void:
 	if not is_locked:
 		global_position = global_position.lerp(get_global_mouse_position(), smooth_factor * delta) if smooth_factor > 0 else get_global_mouse_position()
 		current_position = global_position + m_offset
-		
 
 #region Card orientation
 func is_face_up() -> bool:
@@ -145,7 +144,6 @@ func lock() -> void:
 
 func unlock() -> void:
 	is_locked = false
-	
 #endregion
 	
 	
@@ -268,7 +266,7 @@ func on_mouse_region_pressed() -> void:
 		
 
 func on_mouse_region_holded() -> void:
-	if not is_holded and not is_locked:		
+	if not is_holded and not is_locked:
 		m_offset = transform.origin - get_global_mouse_position()
 		is_holded = true
 		z_index = original_z_index + 100
@@ -276,11 +274,10 @@ func on_mouse_region_holded() -> void:
 
 			
 func on_mouse_region_released() -> void:
-	if not is_locked:
-		reset_position()
-		is_holded = false
-		z_index = original_z_index
-		z_as_relative = true
+	reset_position()
+	is_holded = false
+	z_index = original_z_index
+	z_as_relative = true
 
 
 func reset_position() -> void:

@@ -1,7 +1,5 @@
 class_name Deck extends Node2D
 
-const GroupName: StringName = &"decks"
-
 signal added_card(card: PlayingCard)
 signal added_cards(card: Array[PlayingCard])
 signal picked_card(card: PlayingCard)
@@ -68,7 +66,6 @@ var visual_pile_counter: int
 
 #region Preparation 
 func _enter_tree() -> void:
-	add_to_group(GroupName)
 	removed_card.connect(on_removed_card)
 
 
