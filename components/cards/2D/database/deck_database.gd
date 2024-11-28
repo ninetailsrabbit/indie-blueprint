@@ -1,14 +1,10 @@
 class_name DeckDatabase
 
-const SpanishPlayingCardScene: PackedScene = preload("res://components/cards/2D/playing_cards/spanish_playing_card.tscn")
-const FrenchPlayingCardScene: PackedScene = preload("res://components/cards/2D/playing_cards/french_playing_card.tscn")
+const PlayingCardScene: PackedScene = preload("res://components/cards/2D/playing_card.tscn")
 
 const PixelSpanishDeck: StringName = &"pixel_spanish_deck"
 const KinFrenchPlayingCardsDeck: StringName = &"kin_french_deck"
 
-const FrenchSuits: Array[Deck.FrenchSuits] = [Deck.FrenchSuits.Club, Deck.FrenchSuits.Heart, Deck.FrenchSuits.Diamond, Deck.FrenchSuits.Spade]
-const SpanishSuits: Array[Deck.SpanishSuits] = [Deck.SpanishSuits.Club, Deck.SpanishSuits.Cup, Deck.SpanishSuits.Gold, Deck.SpanishSuits.Sword]
-	
 
 static func get_deck(id: StringName) -> Deck:
 	return available_decks.get(id, null)
@@ -18,10 +14,10 @@ static func get_deck(id: StringName) -> Deck:
 static func _load_spanish_deck(deck_data: Dictionary) -> Deck:
 	var deck: Deck = Deck.new() 
 	deck.deck_type = Deck.DeckTypes.Spanish
-	deck.backs.append_array(deck_data[Deck.CommonSuits.Back])
+	deck.backs.append_array(deck_data[PlayingCard.Suits.Back])
 	
-	_add_jokers_to_deck(deck, deck_data, SpanishPlayingCardScene)
-	_add_cards_to_deck(deck, deck_data, SpanishPlayingCardScene)
+	_add_jokers_to_deck(deck, deck_data, PlayingCardScene)
+	_add_cards_to_deck(deck, deck_data, PlayingCardScene)
 	
 	return deck
 
@@ -29,10 +25,10 @@ static func _load_spanish_deck(deck_data: Dictionary) -> Deck:
 static func _load_french_deck(deck_data: Dictionary) -> Deck:
 	var deck: Deck = Deck.new()
 	deck.deck_type = Deck.DeckTypes.French
-	deck.backs.append_array(deck_data[Deck.CommonSuits.Back])
+	deck.backs.append_array(deck_data[PlayingCard.Suits.Back])
 	
-	_add_jokers_to_deck(deck, deck_data, FrenchPlayingCardScene)
-	_add_cards_to_deck(deck, deck_data, FrenchPlayingCardScene)
+	_add_jokers_to_deck(deck, deck_data, PlayingCardScene)
+	_add_cards_to_deck(deck, deck_data, PlayingCardScene)
 	
 	return deck
 	
@@ -40,7 +36,7 @@ static func _load_french_deck(deck_data: Dictionary) -> Deck:
 
 #region Private
 static func _add_jokers_to_deck(selected_deck: Deck, deck_data: Dictionary, playing_card_scene: PackedScene) -> void:
-	for card_texture: CompressedTexture2D in deck_data[Deck.CommonSuits.Joker]:
+	for card_texture: CompressedTexture2D in deck_data[PlayingCard.Suits.Joker]:
 		var joker_card: PlayingCard = playing_card_scene.instantiate()
 		joker_card.id = "joker_%d" % selected_deck.jokers.size() 
 		joker_card.display_name = "Joker"
@@ -49,19 +45,19 @@ static func _add_jokers_to_deck(selected_deck: Deck, deck_data: Dictionary, play
 		joker_card.table_value = 0
 		selected_deck.jokers.append(joker_card)
 		
-		if selected_deck.cards_by_suit.has(Deck.CommonSuits.Joker):
-			selected_deck.cards_by_suit[Deck.CommonSuits.Joker].append(joker_card)
+		if selected_deck.cards_by_suit.has(PlayingCard.Suits.Joker):
+			selected_deck.cards_by_suit[PlayingCard.Suits.Joker].append(joker_card)
 		else:
-			selected_deck.cards_by_suit[Deck.CommonSuits.Joker] = [joker_card]
+			selected_deck.cards_by_suit[PlayingCard.Suits.Joker] = [joker_card]
 
 
 static func _add_cards_to_deck(selected_deck: Deck, deck_data: Dictionary, playing_card_scene: PackedScene) -> void:
 	var suits = []
 	
 	if selected_deck.is_spanish_deck():
-		suits = SpanishSuits
+		suits = PlayingCard.SpanishSuits
 	elif selected_deck.is_french_deck():
-		suits = FrenchSuits
+		suits = PlayingCard.FrenchSuits
 	else:
 		push_error("DeckDatabase: The selected deck type %s has no support on this database " % selected_deck.deck_type)
 		
@@ -97,18 +93,18 @@ static func _add_cards_to_deck(selected_deck: Deck, deck_data: Dictionary, playi
 	
 #region Preloaded decks
 static var kin_french_deck: Dictionary = {
-	Deck.CommonSuits.Joker: [
+	PlayingCard.Suits.Joker: [
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/jokers/Joker_1.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/jokers/Joker_2.png")
 	],
-	Deck.CommonSuits.Back: [
+	PlayingCard.Suits.Back: [
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_2.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_3.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_4.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_5.png")
 	],
-	Deck.FrenchSuits.Diamond: [
+	PlayingCard.Suits.Diamond: [
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/diamonds/Diamonds_1.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/diamonds/Diamonds_2.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/diamonds/Diamonds_3.png"),
@@ -123,7 +119,7 @@ static var kin_french_deck: Dictionary = {
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/diamonds/Diamonds_12.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/diamonds/Diamonds_13.png")
 	],
-	Deck.FrenchSuits.Heart: [
+	PlayingCard.Suits.Heart: [
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/hearts/hearts_1.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/hearts/Hearts_2.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/hearts/Hearts_3.png"),
@@ -138,7 +134,7 @@ static var kin_french_deck: Dictionary = {
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/hearts/Hearts_12.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/hearts/Hearts_13.png")
 	],
-	Deck.FrenchSuits.Club: [
+	PlayingCard.Suits.Club: [
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_1.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_2.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_3.png"),
@@ -153,7 +149,7 @@ static var kin_french_deck: Dictionary = {
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_12.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_13.png")
 	],
-	Deck.FrenchSuits.Spade: [
+	PlayingCard.Suits.Spade: [
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/spades/Spades_1.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/spades/Spades_2.png"),
 		preload("res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/spades/Spades_3.png"),
@@ -171,17 +167,17 @@ static var kin_french_deck: Dictionary = {
 }
 
 static var pixel_spanish_deck: Dictionary = {
-	Deck.CommonSuits.Joker: [
+	PlayingCard.Suits.Joker: [
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/jokers/joker_1.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/jokers/joker_2.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/jokers/joker_3.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/jokers/joker_4.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/jokers/joker_5.png")
 	],
-	Deck.CommonSuits.Back: [
+	PlayingCard.Suits.Back: [
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png")
 	],
-	Deck.SpanishSuits.Sword: [
+	PlayingCard.Suits.Sword: [
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada1.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada2.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada3.png"),
@@ -193,7 +189,7 @@ static var pixel_spanish_deck: Dictionary = {
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada9.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada10.png")
 	],
-	Deck.SpanishSuits.Club: [
+	PlayingCard.Suits.Club: [
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/clubs/basto1.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/clubs/basto2.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/clubs/basto3.png"),
@@ -205,7 +201,7 @@ static var pixel_spanish_deck: Dictionary = {
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/clubs/basto9.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/clubs/basto10.png")
 	],
-	Deck.SpanishSuits.Gold: [
+	PlayingCard.Suits.Gold: [
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro1.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro2.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro3.png"),
@@ -217,7 +213,7 @@ static var pixel_spanish_deck: Dictionary = {
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro9.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro10.png")
 	],
-	Deck.SpanishSuits.Cup: [
+	PlayingCard.Suits.Cup: [
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/hearts/copa1.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/hearts/copa2.png"),
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/hearts/copa3.png"),

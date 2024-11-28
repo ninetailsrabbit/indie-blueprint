@@ -1,4 +1,5 @@
-class_name DeckPile extends Node2D
+@icon("res://components/cards/2D/deck_pile.svg")
+class_name DeckPile extends Control
 
 const GroupName: StringName = &"deck-piles"
 
@@ -16,23 +17,22 @@ signal filled
 			change_detection_area_size(detection_area_size)
 ## Set to zero to allow an infinite amount of cards
 @export var maximum_cards_in_pile: int = 0
-@export var allowed_spanish_suits: Array[Deck.SpanishSuits] = [
-	Deck.SpanishSuits.Cup,
-	Deck.SpanishSuits.Gold,
-	Deck.SpanishSuits.Club,
-	Deck.SpanishSuits.Sword,
+@export var allowed_spanish_suits: Array[PlayingCard.Suits] = [
+	PlayingCard.Suits.Cup,
+	PlayingCard.Suits.Gold,
+	PlayingCard.Suits.Club,
+	PlayingCard.Suits.Sword,
 ]
-@export var allowed_french_suits: Array[Deck.FrenchSuits] = [
-	Deck.FrenchSuits.Diamond,
-	Deck.FrenchSuits.Heart,
-	Deck.FrenchSuits.Club,
-	Deck.FrenchSuits.Spade,
+@export var allowed_french_suits: Array[PlayingCard.Suits] = [
+	PlayingCard.Suits.Diamond,
+	PlayingCard.Suits.Heart,
+	PlayingCard.Suits.Club,
+	PlayingCard.Suits.Spade,
 ]
 
 
 @onready var detection_card_area: Area2D = $DetectionCardArea
 @onready var collision_shape_2d: CollisionShape2D = $DetectionCardArea/CollisionShape2D
-@onready var cards_zone: Node2D = $CardsZone
 
 
 var current_cards: Array[PlayingCard] = []
@@ -48,22 +48,22 @@ func _ready() -> void:
 	detection_card_area.monitoring = true
 	detection_card_area.collision_layer = 0
 	detection_card_area.collision_mask = GameGlobals.playing_cards_collision_layer
-	detection_card_area.priority = 3
+	detection_card_area.priority = 2
 	change_detection_area_size(detection_area_size)
 	
 	detection_card_area.area_entered.connect(on_card_entered)
 	detection_card_area.area_exited.connect(on_card_exited)
 
 
-func change_detection_area_size(new_size: Vector2) -> void:
+func change_detection_area_size(new_size: Vector2 = detection_area_size) -> void:
+	detection_card_area.position = new_size / 2.0
 	collision_shape_2d.shape.size = new_size
 
 
 func add_card(card: PlayingCard) -> void:
 	if _card_can_be_added_to_pile(card):
-		
 		current_cards.append(card)
-		card.reparent(cards_zone)
+		card.reparent(self)
 		card.position = Vector2.ZERO
 		card.lock()
 		
@@ -123,7 +123,6 @@ func _card_can_be_added_to_pile(card: PlayingCard) -> bool:
 		and (is_allowed_spanish_card or is_allowed_french_card)
 	
 	
-
 #region Signal callbacks
 func on_card_entered(other_area: Area2D) -> void:
 	var card: PlayingCard = other_area.get_parent() as PlayingCard

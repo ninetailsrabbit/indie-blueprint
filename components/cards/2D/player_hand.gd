@@ -1,4 +1,4 @@
-class_name PlayerHand extends Node2D
+class_name PlayerHand extends Control
 
 signal added_card(card: PlayingCard)
 signal added_cards(cards: Array[PlayingCard])

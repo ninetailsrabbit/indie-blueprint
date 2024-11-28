@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgt75xnnihvqa"]
+
+[ext_resource type="Script" path="res://components/cards/2D/playing_card.gd" id="1_58go7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uanip"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8lfht"]
+
+[node name="PlayingCard" type="Control" node_paths=PackedStringArray("front_sprite", "back_sprite", "shadow_sprite", "card_area", "card_detection_area")]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_58go7")
+front_sprite = NodePath("FrontTexture")
+back_sprite = NodePath("BackTexture")
+shadow_sprite = NodePath("Shadow")
+card_area = NodePath("CardArea")
+card_detection_area = NodePath("CardDetectionArea")
+
+[node name="Shadow" type="TextureRect" parent="."]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="FrontTexture" type="TextureRect" parent="."]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MouseDragRegion" type="Button" parent="FrontTexture"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackTexture" type="TextureRect" parent="."]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="CardArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea"]
+shape = SubResource("RectangleShape2D_uanip")
+
+[node name="CardDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDetectionArea"]
+shape = SubResource("RectangleShape2D_8lfht")
+debug_color = Color(0.835293, 0.384534, 0.142036, 0.42)

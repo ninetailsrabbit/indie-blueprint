@@ -1,29 +1,43 @@
-class_name PlayingCard extends Node2D
+@icon("res://components/cards/2D/playing_card.svg")
+class_name PlayingCard extends Control
 
 const GroupName: StringName = &"playing-cards"
+
+const SpanishSuits: Array[Suits] = [
+	Suits.Cup,
+	Suits.Gold,
+	Suits.Club,
+	Suits.Sword,
+]
+
+const FrenchSuits: Array[Suits] = [
+	Suits.Heart,
+	Suits.Diamond,
+	Suits.Club,
+	Suits.Spade
+]
 
 signal faced_up
 signal faced_down
 signal holded
 signal released
 signal hovered
-signal mouse_entered
-signal mouse_exited
-signal focus_entered
-signal focus_exited
 signal locked
 signal unlocked
 
-@export var sprite: Sprite2D
-@export var shadow_sprite: Sprite2D
+@export var front_sprite: TextureRect
+@export var back_sprite: TextureRect
+@export var shadow_sprite: TextureRect
 @export var card_area: Area2D
 @export var card_detection_area: Area2D
 @export var id: StringName
 @export var display_name: String
 @export_multiline var description: String
-@export var size: Vector2 = Vector2.ZERO
+@export var texture_size: Vector2 = Vector2.ZERO
 @export var front_texture: Texture2D
 @export var back_texture: Texture2D
+@export var suit: Suits
+
 ## The meta value from the card
 @export var value: float = 1.0
 ## The value that this card have in the table, can differ from the meta value
@@ -32,6 +46,22 @@ signal unlocked
 @export_group("Drag")
 @export var reset_position_on_release: bool = true
 @export var smooth_factor: float = 20.0
+
+@onready var mouse_drag_region: Button = %MouseDragRegion
+
+
+enum Suits {
+	Cup,
+	Gold,
+	Sword,
+	Club,
+	Heart,
+	Diamond,
+	Spade,
+	Joker,
+	Back
+}
+
 
 enum Orientation {
 	FaceUp,
@@ -67,7 +97,6 @@ var is_holded: bool = false:
 			set_process(is_holded and not is_locked)
 			_enable_areas_based_on_drag()
 			
-var mouse_region: Button
 var is_locked: bool = false:
 	set(value):
 		if value != is_locked:
@@ -96,12 +125,12 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	assert(sprite is Sprite2D, "PlayingCard: The playing card %s needs a Sprite2D node to display the card texture" % id)
+	assert(front_sprite is TextureRect, "PlayingCard: The playing card %s needs a TextureRect node to display the card texture" % id)
 	
 	set_process(false)
 
 	_prepare_sprite()
-	_prepare_mouse_region_button()
+	_prepare_mouse_drag_region_button()
 	_prepare_areas()
 	_enable_areas_based_on_drag()
 	
@@ -149,11 +178,11 @@ func unlock() -> void:
 	
 #region Values
 func is_spanish() -> bool:
-	return false
+	return suit in SpanishSuits
 	
 
 func is_french() -> bool:
-	return false
+	return suit in FrenchSuits
 
 
 func is_joker() -> bool:
@@ -167,77 +196,76 @@ func is_ace() -> bool:
 
 #region Overridables
 func is_number() -> bool:
-	return false
+	return value > 1 and value < 11 if is_french() else value > 1 and value < 8
 
 
 func is_jack() -> bool:
-	return false
+	return value == 11 if is_french() else value == 10
 	
 	
 func is_queen() -> bool:
-	return false
-	
+	return value == 12 if is_french() else value == 11
+
 
 func is_knight() -> bool:
-	return false
+	return value == 12 if is_french() else value == 11
 	
 	
 func is_king() -> bool:
-	return false
-
+	return value == 13 if is_french() else value == 12
 #endregion
 
 
 #region Private
 func _prepare_sprite() -> void:
-	sprite.texture = front_texture
+	front_sprite.texture = front_texture
 	
 	if size.is_zero_approx():
-		size = sprite.texture.get_size()
+		size = front_sprite.texture.get_size()
 		
-	var texture_size: Vector2 = sprite.texture.get_size()
-	sprite.scale = Vector2(size.x / texture_size.x, size.y / texture_size.y)
+	var current_texture_size: Vector2 = front_sprite.texture.get_size()
+	front_sprite.scale = Vector2(size.x / current_texture_size.x, size.y / current_texture_size.y)
 	
-	shadow_sprite.texture = sprite.texture
-	shadow_sprite.scale = sprite.scale
+	shadow_sprite.texture = front_sprite.texture
+	shadow_sprite.scale = front_sprite.scale
 	shadow_sprite.show_behind_parent = true
 	shadow_sprite.self_modulate = Color("1616166f")
-	shadow_sprite.position.y = sprite.position.y + 2
+	shadow_sprite.position.y = front_sprite.position.y + 2
+	shadow_sprite.hide()
 	
+	pivot_offset = size / 2.0
 
-func _prepare_mouse_region_button() -> void:
-	if mouse_region == null:
-		mouse_region = Button.new()
-		mouse_region.self_modulate.a8 = 0 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
-	
-	if sprite is Sprite2D:
-		sprite.add_child(mouse_region)
-		
-	mouse_region.position = Vector2.ZERO
-	mouse_region.anchors_preset = Control.PRESET_FULL_RECT
-	mouse_region.pressed.connect(on_mouse_region_pressed)
-	mouse_region.button_down.connect(on_mouse_region_holded)
-	mouse_region.button_up.connect(on_mouse_region_released)
-	mouse_region.mouse_entered.connect(on_mouse_region_mouse_entered)
-	mouse_region.mouse_exited.connect(on_mouse_region_mouse_exited)
-	mouse_region.focus_entered.connect(on_mouse_region_focus_entered)
-	mouse_region.focus_exited.connect(on_mouse_region_focus_exited)
+
+func _prepare_mouse_drag_region_button() -> void:
+	mouse_drag_region.name = "MouseDragRegion"
+	mouse_drag_region.position = Vector2.ZERO
+	mouse_drag_region.self_modulate.a8 = 0 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
+	mouse_drag_region.anchors_preset = Control.PRESET_FULL_RECT
+	mouse_drag_region.pressed.connect(on_mouse_drag_region_pressed)
+	mouse_drag_region.button_down.connect(on_mouse_drag_region_holded)
+	mouse_drag_region.button_up.connect(on_mouse_drag_region_released)
+	mouse_drag_region.mouse_entered.connect(on_mouse_drag_region_mouse_entered)
+	mouse_drag_region.mouse_exited.connect(on_mouse_drag_region_mouse_exited)
+	mouse_drag_region.focus_entered.connect(on_mouse_drag_region_focus_entered)
+	mouse_drag_region.focus_exited.connect(on_mouse_drag_region_focus_exited)
 	
 
 func _prepare_areas() -> void:
+	card_area.position = mouse_drag_region.size / 2.0
 	card_area.collision_layer = GameGlobals.playing_cards_collision_layer
 	card_area.collision_mask = 0
 	card_area.monitorable = true
 	card_area.monitoring = false
 	card_detection_area.priority = 1
-	card_area.get_child(0).shape.size = mouse_region.size * sprite.scale
+	card_area.get_child(0).shape.size = mouse_drag_region.size * front_sprite.scale
 	
+	card_detection_area.position = mouse_drag_region.size / 2.0
 	card_detection_area.collision_layer = 0
 	card_detection_area.collision_mask = GameGlobals.playing_cards_collision_layer
 	card_detection_area.monitorable = false
 	card_detection_area.monitoring = true
 	card_detection_area.priority = 2
-	card_detection_area.get_child(0).shape.size = mouse_region.size * 0.85 * sprite.scale
+	card_detection_area.get_child(0).shape.size = mouse_drag_region.size * 0.85 * front_sprite.scale
 	
 	card_detection_area.area_entered.connect(on_detected_card)
 	
@@ -248,11 +276,13 @@ func _enable_areas_based_on_drag() -> void:
 
 #region Signal callbacks
 func on_faced_up() -> void:
-	sprite.texture = front_texture
+	front_sprite.show()
+	back_sprite.hide()
 	
 	
 func on_faced_down() -> void:
-	sprite.texture = back_texture
+	front_sprite.hide()
+	back_sprite.show()
 	
 	
 func on_detected_card(other_area: Area2D) -> void:
@@ -261,20 +291,23 @@ func on_detected_card(other_area: Area2D) -> void:
 	if detected_card != self:
 		pass
 
-func on_mouse_region_pressed() -> void:
+
+func on_mouse_drag_region_pressed() -> void:
 	pass
 		
 
-func on_mouse_region_holded() -> void:
+func on_mouse_drag_region_holded() -> void:
 	if not is_holded and not is_locked:
-		m_offset = transform.origin - get_global_mouse_position()
+		shadow_sprite.show()
+		m_offset = global_position - get_global_mouse_position()
 		is_holded = true
 		z_index = original_z_index + 100
 		z_as_relative = false
 
 			
-func on_mouse_region_released() -> void:
+func on_mouse_drag_region_released() -> void:
 	reset_position()
+	shadow_sprite.hide()
 	is_holded = false
 	z_index = original_z_index
 	z_as_relative = true
@@ -285,18 +318,17 @@ func reset_position() -> void:
 		global_position = original_position
 
 
-func on_mouse_region_mouse_entered() -> void:
+func on_mouse_drag_region_mouse_entered() -> void:
 	mouse_entered.emit()
 	
-	
-func on_mouse_region_mouse_exited() -> void:
+func on_mouse_drag_region_mouse_exited() -> void:
 	mouse_exited.emit()
 	
 
-func on_mouse_region_focus_entered() -> void:
+func on_mouse_drag_region_focus_entered() -> void:
 	focus_entered.emit()
 	
 	
-func on_mouse_region_focus_exited() -> void:
+func on_mouse_drag_region_focus_exited() -> void:
 	focus_exited.emit()
 #endregion

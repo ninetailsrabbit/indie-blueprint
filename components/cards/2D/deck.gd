@@ -1,4 +1,5 @@
-class_name Deck extends Node2D
+@icon("res://components/cards/2D/deck.svg")
+class_name Deck extends Control
 
 signal added_card(card: PlayingCard)
 signal added_cards(card: Array[PlayingCard])
@@ -20,29 +21,6 @@ enum CommonSuits {
 	Back = 6
 }
 
-enum AllSuits {
-	Cup = 7,
-	Gold = 8,
-	Sword = 9,
-	Club = 10,
-	Heart = 11,
-	Diamond = 12,
-	Spade = 13,
-}
-
-enum SpanishSuits {
-	Cup,
-	Gold,
-	Sword,
-	Club
-}
-
-enum FrenchSuits {
-	Heart,
-	Diamond,
-	Spade,
-	Club
-}
 
 var deck_type: DeckTypes
 #region Card templates
@@ -62,7 +40,9 @@ var jokers_count_for_empty_deck: bool = false
 
 var visual_pile_node: Node2D
 var start_visual_pile_with_amount: int
-var visual_pile_counter: int
+var visual_pile_counter: int:
+	set(value):
+		visual_pile_counter = clampi(value, 0, ceili(cards.size() / start_visual_pile_with_amount))
 
 #region Preparation 
 func _enter_tree() -> void:
@@ -70,7 +50,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	if current_back_texture == null:
+	if current_back_texture == null and backs.size() > 0:
 		current_back_texture = backs.pick_random()
 	
 
@@ -79,20 +59,16 @@ func draw_visual_pile(amount: int = 5, distance: float = 1.5) -> void:
 	
 	visual_pile_counter = ceili(cards.size() / start_visual_pile_with_amount)
 	
-	if visual_pile_node == null:
-		visual_pile_node = Node2D.new()
-		add_child(visual_pile_node)
-		
 	for i in amount:
-		var sprite = Sprite2D.new()
-		sprite.texture = current_back_texture
-		sprite.position = Vector2(i * distance, -i * distance)
-		visual_pile_node.add_child(sprite)
+		var visual_sprite = TextureRect.new()
+		visual_sprite.texture = current_back_texture
+		visual_sprite.position = Vector2(i * distance, -i * distance)
+		add_child(visual_sprite)
 		
 		if i == 0:
-			sprite.position.y += 1
-			sprite.show_behind_parent = true
-			sprite.self_modulate = Color("1616166f")
+			visual_sprite.position.y += 1
+			visual_sprite.show_behind_parent = true
+			visual_sprite.self_modulate = Color("1616166f")
 	
 
 func fill() -> Deck:
@@ -401,6 +377,10 @@ func is_french_deck() -> bool:
 
 
 #region Signal callbacks
+func on_added_card(_card: PlayingCard) -> void:
+	visual_pile_counter += 1
+	
+
 func on_removed_card(_card: PlayingCard) -> void:
 	visual_pile_counter -= 1
 	
