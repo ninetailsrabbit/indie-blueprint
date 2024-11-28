@@ -1,3 +1,4 @@
+@icon("res://components/cards/2D/icons/player_hand.svg")
 class_name PlayerHand extends Control
 
 signal added_card(card: PlayingCard)
@@ -31,7 +32,7 @@ func draw_from_deck(deck: Deck, amount: int):
 	var selected_cards = deck.pick_random_cards(amount)
 	
 	await draw_animation_from_deck(deck, selected_cards)
-	
+
 	unlock_cards()
 
 

@@ -1,4 +1,4 @@
-@icon("res://components/cards/2D/playing_card.svg")
+@icon("res://components/cards/2D/icons/playing_card.svg")
 class_name PlayingCard extends Control
 
 const GroupName: StringName = &"playing-cards"
@@ -243,17 +243,29 @@ func is_king() -> bool:
 func _prepare_sprite() -> void:
 	front_sprite.texture = front_texture
 	
-	if size.is_zero_approx():
-		size = front_sprite.texture.get_size()
-		
 	var current_texture_size: Vector2 = front_sprite.texture.get_size()
-	front_sprite.scale = Vector2(size.x / current_texture_size.x, size.y / current_texture_size.y)
-	front_sprite.position = -size / 2.0
 	
-	back_sprite.position = -size / 2.0
+	if not texture_size.is_zero_approx():
+		current_texture_size = texture_size
+		
+		front_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		shadow_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		back_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		
+		front_sprite.custom_minimum_size = current_texture_size
+		shadow_sprite.custom_minimum_size = current_texture_size
+		back_sprite.custom_minimum_size = current_texture_size
+		front_sprite.size = current_texture_size
+		shadow_sprite.size = current_texture_size
+		back_sprite.size = current_texture_size
+		
+	front_sprite.position = -current_texture_size / 2.0
+	
+	back_sprite.scale = front_sprite.scale
+	back_sprite.position = -current_texture_size / 2.0
 	back_sprite.hide()
 	
-	shadow_sprite.position = -size / 2.0
+	shadow_sprite.position = -current_texture_size / 2.0
 	shadow_sprite.texture = front_sprite.texture
 	shadow_sprite.scale = front_sprite.scale
 	shadow_sprite.show_behind_parent = true
@@ -261,7 +273,7 @@ func _prepare_sprite() -> void:
 	shadow_sprite.position.y = front_sprite.position.y + 2
 	shadow_sprite.hide()
 	
-	pivot_offset = -size / 2.0
+	pivot_offset = -current_texture_size / 2.0
 
 
 func _prepare_mouse_drag_region_button() -> void:

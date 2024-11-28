@@ -4,6 +4,10 @@ const PlayingCardScene: PackedScene = preload("res://components/cards/2D/playing
 
 const PixelSpanishDeck: StringName = &"pixel_spanish_deck"
 const KinFrenchPlayingCardsDeck: StringName = &"kin_french_deck"
+const ModernPixelDeck: StringName = &"modern_pixel_deck"
+const InscryptionInspiredDeck: StringName = &"inscryption_inspired_deck"
+const MinimalistPixelDeck: StringName = &"minimalist_pixel_deck"
+const LazySpacePixelArtDeck: StringName = &"lazy_space_pixel_art_deck"
 
 class DeckRawData:
 	var type: Deck.DeckTypes
@@ -169,15 +173,307 @@ static var pixel_spanish_deck: Dictionary = {
 		preload("res://components/cards/2D/database/spanish_decks/pixel_deck/hearts/copa10.png")
 	]
 }
+
+static var modern_pixel_deck: Dictionary = {
+	PlayingCard.Suits.Joker: [
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/jokers/j.png")
+	],
+	PlayingCard.Suits.Back: [
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/backs/back.png")
+	],
+	PlayingCard.Suits.Spade: [
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s1.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s2.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s3.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s4.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s5.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s6.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s7.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s8.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s9.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s10.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s11.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s12.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/spades/s13.png")
+	],
+	PlayingCard.Suits.Club: [
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c1.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c2.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c3.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c4.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c5.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c6.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c7.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c8.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c9.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c10.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c11.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c12.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/clubs/c13.png")
+	],
+	PlayingCard.Suits.Diamond: [
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d1.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d2.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d3.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d4.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d5.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d6.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d7.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d8.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d9.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d10.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d11.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d12.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/diamonds/d13.png")
+	],
+	PlayingCard.Suits.Heart: [
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h1.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h2.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h3.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h4.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h5.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h6.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h7.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h8.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h9.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h10.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h11.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h12.png"),
+		preload("res://components/cards/2D/database/french_decks/Modern_Pixel/hearts/h13.png")
+	]
+}
+
+static var inscryption_inspired_deck: Dictionary = {
+	PlayingCard.Suits.Joker: [
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/jokers/joker_black.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/jokers/joker_red.png")
+	],
+	PlayingCard.Suits.Back: [
+ 		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/backs/back.png")
+	],
+	PlayingCard.Suits.Spade: [
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/1_ace_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/2_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/3_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/4_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/5_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/6_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/7_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/8_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/9_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/10_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/11_jack_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/12_queen_of_spades.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/spades/13_king_of_spades.png")
+	],
+	PlayingCard.Suits.Club: [
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/1_ace_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/2_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/3_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/4_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/5_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/6_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/7_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/8_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/9_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/10_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/11_jack_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/12_queen_of_clubs.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/13_king_of_clubs.png")
+	],
+	PlayingCard.Suits.Diamond: [
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/1_ace_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/2_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/3_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/4_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/5_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/6_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/7_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/8_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/9_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/10_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/11_jack_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/12_queen_of_diamonds.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/diamonds/13_king_of_diamonds.png")
+	],
+	PlayingCard.Suits.Heart: [
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/1_ace_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/2_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/3_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/4_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/5_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/6_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/7_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/8_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/9_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/10_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/11_jack_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/12_queen_of_hearts.png"),
+		preload("res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/hearts/13_king_of_hearts.png")
+	]
+}
+
+
+static var minimalist_pixel_deck: Dictionary = {
+	PlayingCard.Suits.Joker: [
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/jokers/joker_white.png")
+	],
+	PlayingCard.Suits.Back: [
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/backs/back_black_basic.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/backs/back_black_basic_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/backs/back_blue_basic.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/backs/back_blue_basic_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/backs/back_red_basic.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/backs/back_red_basic_white.png")
+	],
+	PlayingCard.Suits.Spade: [
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/1_ace_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/2_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/3_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/4_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/5_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/6_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/7_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/8_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/9_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/10_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/11_jack_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/12_queen_spades_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/spades/13_king_spades_white.png")
+	],
+	PlayingCard.Suits.Club: [
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/1_ace_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/2_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/3_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/4_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/5_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/6_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/7_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/8_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/9_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/10_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/11_jack_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/12_queen_clubs_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/clubs/13_king_clubs_white.png")
+	],
+	PlayingCard.Suits.Diamond: [
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/1_ace_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/2_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/3_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/4_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/5_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/6_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/7_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/8_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/9_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/10_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/11_jack_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/12_queen_diamonds_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/diamonds/13_king_diamonds_white.png")
+	],
+	PlayingCard.Suits.Heart: [
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/1_ace_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/2_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/3_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/4_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/5_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/6_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/7_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/8_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/9_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/10_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/11_jack_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/12_queen_hearts_white.png"),
+		preload("res://components/cards/2D/database/french_decks/Minimalist_Pixel_Cards/hearts/13_king_hearts_white.png")
+	]
+}
+
+
+static var lazyspace_pixel_art_deck: Dictionary = {
+	PlayingCard.Suits.Joker: [
+	],
+	PlayingCard.Suits.Back: [
+	],
+	PlayingCard.Suits.Spade: [
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_27.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_28.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_29.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_30.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_31.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_32.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_33.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_34.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_35.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_36.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_37.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_38.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/spades/card_39.png")
+	],
+	PlayingCard.Suits.Club: [
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_40.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_41.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_42.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_43.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_44.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_45.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_46.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_47.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_48.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_49.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_50.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_51.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_52.png")
+	],
+	PlayingCard.Suits.Diamond: [
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_14.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_15.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_16.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_17.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_18.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_19.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_20.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_21.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_22.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_23.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_24.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_25.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/diamonds/card_26.png")
+	],
+	PlayingCard.Suits.Heart: [
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_01.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_02.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_03.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_04.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_05.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_06.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_07.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_08.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_09.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_10.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_11.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_12.png"),
+		preload("res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/hearts/card_13.png")
+	]
+}
 #endregion
+
+
 static var available_raw_decks: Dictionary = {
 	PixelSpanishDeck: DeckRawData.new(Deck.DeckTypes.Spanish, pixel_spanish_deck),
-	KinFrenchPlayingCardsDeck: DeckRawData.new(Deck.DeckTypes.French, kin_french_deck)
+	KinFrenchPlayingCardsDeck: DeckRawData.new(Deck.DeckTypes.French, kin_french_deck),
+	ModernPixelDeck: DeckRawData.new(Deck.DeckTypes.French, modern_pixel_deck),
+	InscryptionInspiredDeck: DeckRawData.new(Deck.DeckTypes.French, inscryption_inspired_deck),
+	MinimalistPixelDeck: DeckRawData.new(Deck.DeckTypes.French, minimalist_pixel_deck),
+	LazySpacePixelArtDeck: DeckRawData.new(Deck.DeckTypes.French, lazyspace_pixel_art_deck),
 }
 
 static var available_decks: Dictionary = {
 	PixelSpanishDeck: create_deck(available_raw_decks[PixelSpanishDeck]),
-	KinFrenchPlayingCardsDeck: create_deck(available_raw_decks[KinFrenchPlayingCardsDeck])
+	KinFrenchPlayingCardsDeck: create_deck(available_raw_decks[KinFrenchPlayingCardsDeck]),
+	ModernPixelDeck: create_deck(available_raw_decks[ModernPixelDeck]),
+	InscryptionInspiredDeck: create_deck(available_raw_decks[InscryptionInspiredDeck]),
+	MinimalistPixelDeck: create_deck(available_raw_decks[MinimalistPixelDeck]),
+	LazySpacePixelArtDeck: create_deck(available_raw_decks[LazySpacePixelArtDeck]),
 }
 
 static var spanish_decks: Dictionary = {
@@ -185,5 +481,46 @@ static var spanish_decks: Dictionary = {
 }
 
 static var french_decks: Dictionary = {
-	KinFrenchPlayingCardsDeck: available_decks[KinFrenchPlayingCardsDeck]
+	KinFrenchPlayingCardsDeck: available_decks[KinFrenchPlayingCardsDeck],
+	ModernPixelDeck: available_decks[ModernPixelDeck],
+	InscryptionInspiredDeck: available_decks[InscryptionInspiredDeck],
+	MinimalistPixelDeck: available_decks[MinimalistPixelDeck],
+	LazySpacePixelArtDeck: available_decks[LazySpacePixelArtDeck]
 }
+
+
+
+
+#region New deck template
+## Only use this to preload new decks
+static var spanish_deck_template: Dictionary = {
+	PlayingCard.Suits.Joker: [
+	],
+	PlayingCard.Suits.Back: [
+	],
+	PlayingCard.Suits.Sword: [
+	],
+	PlayingCard.Suits.Club: [
+	],
+	PlayingCard.Suits.Gold: [
+	],
+	PlayingCard.Suits.Cup: [
+	]
+}
+
+static var french_deck_template: Dictionary = {
+	PlayingCard.Suits.Joker: [
+	],
+	PlayingCard.Suits.Back: [
+	],
+	PlayingCard.Suits.Spade: [
+	],
+	PlayingCard.Suits.Club: [
+	],
+	PlayingCard.Suits.Diamond: [
+	],
+	PlayingCard.Suits.Heart: [
+	]
+}
+
+#endregion

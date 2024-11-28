@@ -1,4 +1,4 @@
-@icon("res://components/cards/2D/deck.svg")
+@icon("res://components/cards/2D/icons/deck.svg")
 class_name Deck extends Control
 
 signal loaded_new_deck
@@ -40,7 +40,7 @@ var discard_pile: Array[PlayingCard] = []
 var jokers_count_for_empty_deck: bool = false
 
 var visual_pile_node: Node2D
-var start_visual_pile_with_amount: int
+var start_visual_pile_with_amount: int = 5
 var visual_pile_counter: int:
 	set(value):
 		visual_pile_counter = clampi(value, 0, ceili(cards.size() / start_visual_pile_with_amount))
@@ -75,8 +75,12 @@ func draw_visual_pile(amount: int = 5, distance: float = 1.5) -> void:
 	
 	visual_pile_counter = ceili(cards.size() / start_visual_pile_with_amount)
 	
+	var reference_card: PlayingCard = cards[0]
+	
 	for i in amount:
 		var visual_sprite = TextureRect.new()
+		visual_sprite.size = reference_card.front_texture.get_size() if reference_card.texture_size.is_zero_approx() else reference_card.texture_size
+		visual_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		visual_sprite.texture = current_back_texture
 		visual_sprite.position = Vector2(i * distance, -i * distance)
 		add_child(visual_sprite)
@@ -454,8 +458,8 @@ func on_added_card(_card: PlayingCard) -> void:
 func on_removed_card(_card: PlayingCard) -> void:
 	visual_pile_counter -= 1
 	
-	if visual_pile_counter == 0 and visual_pile_node.get_child_count() > 0:
-		NodeTraversal.get_last_child(visual_pile_node).queue_free()
+	if visual_pile_counter == 0 and get_child_count() > 0:
+		NodeTraversal.get_last_child(self).queue_free()
 		visual_pile_counter = ceili(cards.size() / start_visual_pile_with_amount)
 
 #endregion

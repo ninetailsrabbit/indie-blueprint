@@ -1,4 +1,4 @@
-@icon("res://components/cards/2D/deck_pile.svg")
+@icon("res://components/cards/2D/icons/deck_pile.svg")
 class_name DeckPile extends Control
 
 const GroupName: StringName = &"deck-piles"
@@ -67,6 +67,10 @@ func add_card(card: PlayingCard) -> void:
 		card.reparent(self)
 		card.disable_detection_areas()
 		card.position = detection_card_area.position
+		card.hide()
+		
+		if not detection_area_size.is_equal_approx(card.front_sprite.size):
+			change_detection_area_size(card.front_sprite.size)
 		
 		last_detected_card = null
 		
