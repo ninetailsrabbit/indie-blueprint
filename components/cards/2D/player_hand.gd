@@ -54,18 +54,17 @@ func draw_animation_from_deck(deck: Deck, cards: Array[PlayingCard], duration: f
 func adjust_hand_position(except: Array[PlayingCard] = []) -> void:
 	var target_cards: Array[PlayingCard] = current_cards.filter(func(card): return not card in except and not card.is_holded)
 	
+	var tween = create_tween().set_parallel(true)
+	
 	for card: PlayingCard in target_cards:
 		var index: int = target_cards.find(card)
 		var offset = (target_cards.size() / 2.0 - index) * (card.front_sprite.size.x + distance_between_cards)
 		var target_position = position.x - offset
 		
-		
-		var tween = create_tween()
 		tween.tween_property(card, "position:x", target_position, 0.06)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		
-		await tween.finished
-		card.original_position = card.global_position
+	await tween.finished
 
 
 func add_card(card: PlayingCard) -> void:
@@ -146,7 +145,7 @@ func unlock_cards() -> void:
 
 
 #region Signal callbacks
-func on_card_holded(card: PlayingCard):
+func on_card_holded(_card: PlayingCard):
 	adjust_hand_position()
 	
 

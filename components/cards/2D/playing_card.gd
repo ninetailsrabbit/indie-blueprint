@@ -43,11 +43,28 @@ signal unlocked
 ## The value that this card have in the table, can differ from the meta value
 @export var table_value: float = 1.0
 @export var bypass_deck_pile_conditions: bool = false
-@export_group("Drag")
-@export var reset_position_on_release: bool = true
-@export var smooth_factor: float = 20.0
+@export_category("Shadow")
+@export var shadow_vertical_depth: float = 5.0:
+	set(value):
+		if shadow_vertical_depth != value:
+			shadow_vertical_depth = maxf(0.01, value)
+		
+		if is_inside_tree() and shadow_sprite:
+			shadow_sprite.position.y = front_sprite.position.y + shadow_vertical_depth
+		
+@export var shadow_horizontal_depth: float = 5.0:
+	set(value):
+		if shadow_horizontal_depth != value:
+			shadow_horizontal_depth = maxf(0.01, value)
+			
+			if is_inside_tree() and shadow_sprite:
+				shadow_sprite.position.y = front_sprite.position.x + shadow_horizontal_depth
 
-@onready var mouse_drag_region: Button = %MouseDragRegion
+@export var max_offset_shadow: float = 50.0
+
+
+
+@onready var mouse_drag_region: DragDropRegion = %MouseDragRegion
 
 
 enum Suits {
@@ -80,10 +97,6 @@ var card_orientation: PlayingCard.Orientation = Orientation.FaceDown:
 				faced_down.emit()
 				
 				
-var original_z_index: int = 0
-var original_position: Vector2 = Vector2.ZERO
-var current_position: Vector2 = Vector2.ZERO
-var m_offset: Vector2 = Vector2.ZERO
 var is_holded: bool = false:
 	set(value):
 		if value != is_holded:
@@ -110,6 +123,7 @@ var is_locked: bool = false:
 				unlocked.emit()
 
 
+
 func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
@@ -134,14 +148,10 @@ func _ready() -> void:
 	_prepare_areas()
 	_enable_areas_based_on_drag()
 	
-	original_position = global_position
-	original_z_index = z_index
-
 
 func _process(delta: float) -> void:
 	if not is_locked:
-		global_position = global_position.lerp(get_global_mouse_position(), smooth_factor * delta) if smooth_factor > 0 else get_global_mouse_position()
-		current_position = global_position + m_offset
+		handle_shadow(delta)
 		
 #region Card orientation
 func is_face_up() -> bool:
@@ -183,19 +193,23 @@ func disable_detection_areas() -> void:
 func hold_card() -> void:
 	if not is_holded and not is_locked:
 		shadow_sprite.show()
-		m_offset = global_position - get_global_mouse_position()
 		is_holded = true
-		z_index = original_z_index + 100
-		z_as_relative = false
 
 
 func release_card_from_drag() -> void:
 	if not is_locked:
-		reset_position()
 		shadow_sprite.hide()
 		is_holded = false
-		z_index = original_z_index
-		z_as_relative = true
+		
+	
+func handle_shadow(_delta: float) -> void:
+	# Y position is never changed.
+	# Only x changes depending on how far we are from the center of the screen
+	var center: Vector2 = get_viewport_rect().size / 2.0
+	var distance: float = global_position.x - center.x
+	
+	shadow_sprite.position.x = lerp(0.0, -sign(distance) * max_offset_shadow, abs(distance / (center.x)))
+
 #endregion
 	
 	
@@ -270,17 +284,14 @@ func _prepare_sprite() -> void:
 	shadow_sprite.scale = front_sprite.scale
 	shadow_sprite.show_behind_parent = true
 	shadow_sprite.self_modulate = Color("1616166f")
-	shadow_sprite.position.y = front_sprite.position.y + 2
+	shadow_sprite.position.x = front_sprite.position.x + shadow_horizontal_depth
+	shadow_sprite.position.y = front_sprite.position.y + shadow_vertical_depth
 	shadow_sprite.hide()
 	
 	pivot_offset = -current_texture_size / 2.0
 
 
 func _prepare_mouse_drag_region_button() -> void:
-	mouse_drag_region.name = "MouseDragRegion"
-	mouse_drag_region.position = Vector2.ZERO
-	mouse_drag_region.self_modulate.a8 = 100 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
-	mouse_drag_region.anchors_preset = Control.PRESET_FULL_RECT
 	mouse_drag_region.pressed.connect(on_mouse_drag_region_pressed)
 	mouse_drag_region.button_down.connect(on_mouse_drag_region_holded)
 	mouse_drag_region.button_up.connect(on_mouse_drag_region_released)
@@ -342,11 +353,6 @@ func on_mouse_drag_region_holded() -> void:
 
 func on_mouse_drag_region_released() -> void:
 	release_card_from_drag()
-
-
-func reset_position() -> void:
-	if reset_position_on_release:
-		global_position = original_position
 
 
 func on_mouse_drag_region_mouse_entered() -> void:

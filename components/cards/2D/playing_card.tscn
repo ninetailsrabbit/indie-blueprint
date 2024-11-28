@@ -1,6 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgt75xnnihvqa"]
+[gd_scene load_steps=8 format=3 uid="uid://cgt75xnnihvqa"]
 
 [ext_resource type="Script" path="res://components/cards/2D/playing_card.gd" id="1_58go7"]
+[ext_resource type="Shader" path="res://shaders/perspective/2d_perspective.gdshader" id="2_800f0"]
+[ext_resource type="Texture2D" uid="uid://t4o3f6cwutda" path="res://components/cards/2D/database/french_decks/LazySpace_Pixel_Cards/clubs/card_40.png" id="3_xu1kn"]
+[ext_resource type="Script" path="res://components/drag_drop/2D/drag_drop_region.gd" id="4_844hs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ywma"]
+shader = ExtResource("2_800f0")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/same_texture_size = true
+shader_parameter/rect_size = Vector2(0, 0)
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uanip"]
 
@@ -16,6 +29,7 @@ back_sprite = NodePath("BackTexture")
 shadow_sprite = NodePath("Shadow")
 card_area = NodePath("CardArea")
 card_detection_area = NodePath("CardDetectionArea")
+max_offset_shadow = 10.0
 
 [node name="Shadow" type="TextureRect" parent="."]
 layout_mode = 1
@@ -23,15 +37,19 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="FrontTexture" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_3ywma")
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 52.0
+texture = ExtResource("3_xu1kn")
 
-[node name="MouseDragRegion" type="Button" parent="FrontTexture"]
+[node name="MouseDragRegion" type="Button" parent="FrontTexture" node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
 layout_mode = 1
 offset_right = 8.0
 offset_bottom = 8.0
+script = ExtResource("4_844hs")
+target = NodePath("../..")
 
 [node name="BackTexture" type="TextureRect" parent="."]
 layout_mode = 1
