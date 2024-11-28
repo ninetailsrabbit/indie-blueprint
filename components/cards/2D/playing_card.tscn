@@ -26,16 +26,13 @@ mouse_filter = 2
 [node name="FrontTexture" type="TextureRect" parent="."]
 layout_mode = 1
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 52.0
 
 [node name="MouseDragRegion" type="Button" parent="FrontTexture"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="BackTexture" type="TextureRect" parent="."]
 layout_mode = 1

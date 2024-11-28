@@ -142,7 +142,7 @@ func _process(delta: float) -> void:
 	if not is_locked:
 		global_position = global_position.lerp(get_global_mouse_position(), smooth_factor * delta) if smooth_factor > 0 else get_global_mouse_position()
 		current_position = global_position + m_offset
-
+		
 #region Card orientation
 func is_face_up() -> bool:
 	return card_orientation == Orientation.FaceUp
@@ -225,7 +225,12 @@ func _prepare_sprite() -> void:
 		
 	var current_texture_size: Vector2 = front_sprite.texture.get_size()
 	front_sprite.scale = Vector2(size.x / current_texture_size.x, size.y / current_texture_size.y)
+	front_sprite.position = -size / 2.0
 	
+	back_sprite.position = -size / 2.0
+	back_sprite.hide()
+	
+	shadow_sprite.position = -size / 2.0
 	shadow_sprite.texture = front_sprite.texture
 	shadow_sprite.scale = front_sprite.scale
 	shadow_sprite.show_behind_parent = true
@@ -233,7 +238,7 @@ func _prepare_sprite() -> void:
 	shadow_sprite.position.y = front_sprite.position.y + 2
 	shadow_sprite.hide()
 	
-	pivot_offset = size / 2.0
+	pivot_offset = -size / 2.0
 
 
 func _prepare_mouse_drag_region_button() -> void:
@@ -251,7 +256,7 @@ func _prepare_mouse_drag_region_button() -> void:
 	
 
 func _prepare_areas() -> void:
-	card_area.position = mouse_drag_region.size / 2.0
+	#card_area.position = mouse_drag_region.size / 2.0
 	card_area.collision_layer = GameGlobals.playing_cards_collision_layer
 	card_area.collision_mask = 0
 	card_area.monitorable = true
@@ -259,7 +264,7 @@ func _prepare_areas() -> void:
 	card_detection_area.priority = 1
 	card_area.get_child(0).shape.size = mouse_drag_region.size * front_sprite.scale
 	
-	card_detection_area.position = mouse_drag_region.size / 2.0
+	#card_detection_area.position = mouse_drag_region.size / 2.0
 	card_detection_area.collision_layer = 0
 	card_detection_area.collision_mask = GameGlobals.playing_cards_collision_layer
 	card_detection_area.monitorable = false
@@ -298,6 +303,8 @@ func on_mouse_drag_region_pressed() -> void:
 
 func on_mouse_drag_region_holded() -> void:
 	if not is_holded and not is_locked:
+		print("holded")
+		
 		shadow_sprite.show()
 		m_offset = global_position - get_global_mouse_position()
 		is_holded = true
