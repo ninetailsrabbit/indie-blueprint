@@ -52,11 +52,11 @@ func draw_animation_from_deck(deck: Deck, cards: Array[PlayingCard], duration: f
 
 
 func adjust_hand_position(except: Array[PlayingCard] = []) -> void:
-	var target_cards: Array[PlayingCard] = current_cards.filter(func(card): return not card in except)
+	var target_cards: Array[PlayingCard] = current_cards.filter(func(card): return not card in except and not card.is_holded)
 	
 	for card: PlayingCard in target_cards:
 		var index: int = target_cards.find(card)
-		var offset = (target_cards.size() / 2.0 - index) * (card.size.x + distance_between_cards)
+		var offset = (target_cards.size() / 2.0 - index) * (card.front_sprite.size.x + distance_between_cards)
 		var target_position = position.x - offset
 		
 		
@@ -147,7 +147,7 @@ func unlock_cards() -> void:
 
 #region Signal callbacks
 func on_card_holded(card: PlayingCard):
-	adjust_hand_position([card])
+	adjust_hand_position()
 	
 
 func on_card_released(card: PlayingCard):

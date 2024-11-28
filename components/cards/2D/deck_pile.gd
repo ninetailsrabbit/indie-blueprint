@@ -56,7 +56,6 @@ func _ready() -> void:
 
 
 func change_detection_area_size(new_size: Vector2 = detection_area_size) -> void:
-	detection_card_area.position = new_size / 2.0
 	collision_shape_2d.shape.size = new_size
 
 
@@ -67,7 +66,6 @@ func add_card(card: PlayingCard) -> void:
 		card.reparent(self)
 		card.disable_detection_areas()
 		card.position = detection_card_area.position
-		card.hide()
 		
 		if not detection_area_size.is_equal_approx(card.front_sprite.size):
 			change_detection_area_size(card.front_sprite.size)
