@@ -32,7 +32,9 @@ func draw_from_deck(deck: Deck, amount: int):
 	
 	await draw_animation_from_deck(deck, selected_cards)
 	
-	
+	unlock_cards()
+
+
 func draw_animation_from_deck(deck: Deck, cards: Array[PlayingCard], duration: float = 0.3) -> void:
 	for card: PlayingCard in filter_cards_by_maximum_hand_size(cards):
 		add_card(card)

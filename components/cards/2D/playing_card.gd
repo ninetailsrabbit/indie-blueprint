@@ -267,7 +267,7 @@ func _prepare_sprite() -> void:
 func _prepare_mouse_drag_region_button() -> void:
 	mouse_drag_region.name = "MouseDragRegion"
 	mouse_drag_region.position = Vector2.ZERO
-	mouse_drag_region.self_modulate.a8 = 0 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
+	mouse_drag_region.self_modulate.a8 = 100 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
 	mouse_drag_region.anchors_preset = Control.PRESET_FULL_RECT
 	mouse_drag_region.pressed.connect(on_mouse_drag_region_pressed)
 	mouse_drag_region.button_down.connect(on_mouse_drag_region_holded)

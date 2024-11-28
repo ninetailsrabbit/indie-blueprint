@@ -1,6 +1,7 @@
 @icon("res://components/cards/2D/deck.svg")
 class_name Deck extends Control
 
+signal loaded_new_deck
 signal added_card(card: PlayingCard)
 signal added_cards(card: Array[PlayingCard])
 signal picked_card(card: PlayingCard)
@@ -52,6 +53,21 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if current_back_texture == null and backs.size() > 0:
 		current_back_texture = backs.pick_random()
+
+
+func load_deck_data(raw_data: DeckDatabase.DeckRawData, playing_card_scene: PackedScene = DeckDatabase.PlayingCardScene) -> Deck:
+	deck_type = raw_data.type
+	backs.append_array(raw_data.deck[PlayingCard.Suits.Back])
+	
+	_add_jokers_to_deck(raw_data, playing_card_scene)
+	_add_cards_to_deck(raw_data, playing_card_scene)
+	
+	if current_back_texture == null and backs.size() > 0:
+		current_back_texture = backs.pick_random()
+		
+	loaded_new_deck.emit()
+	
+	return self
 	
 
 func draw_visual_pile(amount: int = 5, distance: float = 1.5) -> void:
@@ -375,6 +391,60 @@ func is_french_deck() -> bool:
 	return deck_type == DeckTypes.French
 #endregion
 
+#region Private
+func _add_jokers_to_deck(deck_data: DeckDatabase.DeckRawData, playing_card_scene: PackedScene) -> void:
+	for card_texture: CompressedTexture2D in deck_data.deck[PlayingCard.Suits.Joker]:
+		var joker_card: PlayingCard = playing_card_scene.instantiate()
+		joker_card.id = "joker_%d" % jokers.size() 
+		joker_card.display_name = "Joker"
+		joker_card.front_texture = card_texture
+		joker_card.value = 0
+		joker_card.table_value = 0
+		jokers.append(joker_card)
+		
+		if cards_by_suit.has(PlayingCard.Suits.Joker):
+			cards_by_suit[PlayingCard.Suits.Joker].append(joker_card)
+		else:
+			cards_by_suit[PlayingCard.Suits.Joker] = [joker_card]
+
+
+func _add_cards_to_deck(deck_data: DeckDatabase.DeckRawData, playing_card_scene: PackedScene) -> void:
+	var suits = []
+	
+	if is_spanish_deck():
+		suits = PlayingCard.SpanishSuits
+	elif is_french_deck():
+		suits = PlayingCard.FrenchSuits
+	else:
+		return
+		
+	for suit in suits:
+		var card_value: int = 1
+		
+		for card_texture: CompressedTexture2D in deck_data.deck[suit]:
+			var playing_card: PlayingCard = playing_card_scene.instantiate()
+			playing_card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
+			playing_card.display_name = playing_card.id.to_pascal_case()
+			playing_card.front_texture = card_texture
+			playing_card.value = card_value
+			playing_card.table_value = card_value
+			playing_card.suit = suit
+			cards.append(playing_card)
+			
+			if cards_by_suit.has(suit):
+				cards_by_suit[suit].append(playing_card)
+			else:
+				cards_by_suit[suit] = [playing_card]
+				
+			if is_spanish_deck():
+				## In the spanish deck after the 7 the next one is the jack so we change the card value that allows to be 10 in the next iteration
+				if card_value == 7:
+					card_value = 10
+				else:
+					card_value += 1
+			else:
+				card_value += 1
+#endregion
 
 #region Signal callbacks
 func on_added_card(_card: PlayingCard) -> void:
