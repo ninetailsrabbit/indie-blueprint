@@ -43,6 +43,7 @@ var visual_pile_node: Node2D
 var start_visual_pile_with_amount: int = 5
 var visual_pile_counter: int:
 	set(value):
+		@warning_ignore("integer_division")
 		visual_pile_counter = clampi(value, 0, ceili(cards.size() / start_visual_pile_with_amount))
 
 #region Preparation 
@@ -73,6 +74,7 @@ func load_deck_data(raw_data: DeckDatabase.DeckRawData, playing_card_scene: Pack
 func draw_visual_pile(amount: int = 5, distance: float = 1.5) -> void:
 	start_visual_pile_with_amount = amount
 	
+	@warning_ignore("integer_division")
 	visual_pile_counter = ceili(cards.size() / start_visual_pile_with_amount)
 	
 	var reference_card: PlayingCard = cards[0]
@@ -460,6 +462,7 @@ func on_removed_card(_card: PlayingCard) -> void:
 	
 	if visual_pile_counter == 0 and get_child_count() > 0:
 		NodeTraversal.get_last_child(self).queue_free()
+		@warning_ignore("integer_division")
 		visual_pile_counter = ceili(cards.size() / start_visual_pile_with_amount)
 
 #endregion

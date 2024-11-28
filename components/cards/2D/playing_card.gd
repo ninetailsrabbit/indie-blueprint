@@ -351,6 +351,7 @@ func reset_position() -> void:
 
 func on_mouse_drag_region_mouse_entered() -> void:
 	mouse_entered.emit()
+	hovered.emit()
 	
 func on_mouse_drag_region_mouse_exited() -> void:
 	mouse_exited.emit()
