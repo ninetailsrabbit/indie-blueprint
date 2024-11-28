@@ -12,7 +12,7 @@ signal sorted_cards(previous: Array[PlayingCard], current: Array[PlayingCard])
 @export var maximum_cards: int = 4:
 	set(value):
 		maximum_cards = maxi(1, value)
-@export var distance_between_cards: float = 1.5
+@export var distance_between_cards: float = 3.5
 @export var fanning: bool = true
 
 
@@ -21,6 +21,7 @@ var current_cards: Array[PlayingCard] = []
 
 func _enter_tree() -> void:
 	name  = "PlayerHand"
+	mouse_filter = MOUSE_FILTER_PASS
 
 
 func draw_from_deck(deck: Deck, amount: int):
@@ -149,6 +150,6 @@ func on_card_holded(card: PlayingCard):
 func on_card_released(card: PlayingCard):
 	await GameGlobals.wait(0.1)
 	
-	if has_card(card):
+	if has_card(card) and card.get_parent() is PlayerHand:
 		adjust_hand_position()
 #endregion

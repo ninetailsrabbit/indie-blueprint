@@ -21,7 +21,6 @@ card_detection_area = NodePath("CardDetectionArea")
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
-mouse_filter = 2
 
 [node name="FrontTexture" type="TextureRect" parent="."]
 layout_mode = 1
@@ -38,7 +37,6 @@ offset_bottom = 8.0
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
-mouse_filter = 2
 
 [node name="CardArea" type="Area2D" parent="."]
 

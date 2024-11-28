@@ -62,10 +62,11 @@ func change_detection_area_size(new_size: Vector2 = detection_area_size) -> void
 
 func add_card(card: PlayingCard) -> void:
 	if _card_can_be_added_to_pile(card):
+		card.lock()
 		current_cards.append(card)
 		card.reparent(self)
-		card.position = Vector2.ZERO
-		card.lock()
+		card.disable_detection_areas()
+		card.position = detection_card_area.position
 		
 		last_detected_card = null
 		
@@ -142,7 +143,8 @@ func on_card_exited(_other_area: Area2D) -> void:
 func on_card_detected(card: PlayingCard) -> void:
 	var parent =  card.get_parent()
 	
-	if parent is PlayerHand:
+	if parent.has_method("remove_card"):
 		parent.remove_card(card)
-		add_card(card)
+		
+	add_card(card)
 #endregion

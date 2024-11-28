@@ -173,6 +173,29 @@ func lock() -> void:
 
 func unlock() -> void:
 	is_locked = false
+	
+	
+func disable_detection_areas() -> void:
+	card_area.set_deferred("monitorable", false)
+	card_detection_area.set_deferred("monitoring", false)
+
+
+func hold_card() -> void:
+	if not is_holded and not is_locked:
+		shadow_sprite.show()
+		m_offset = global_position - get_global_mouse_position()
+		is_holded = true
+		z_index = original_z_index + 100
+		z_as_relative = false
+
+
+func release_card_from_drag() -> void:
+	if not is_locked:
+		reset_position()
+		shadow_sprite.hide()
+		is_holded = false
+		z_index = original_z_index
+		z_as_relative = true
 #endregion
 	
 	
@@ -299,25 +322,14 @@ func on_detected_card(other_area: Area2D) -> void:
 
 func on_mouse_drag_region_pressed() -> void:
 	pass
-		
+
 
 func on_mouse_drag_region_holded() -> void:
-	if not is_holded and not is_locked:
-		print("holded")
-		
-		shadow_sprite.show()
-		m_offset = global_position - get_global_mouse_position()
-		is_holded = true
-		z_index = original_z_index + 100
-		z_as_relative = false
-
+	hold_card()
 			
+
 func on_mouse_drag_region_released() -> void:
-	reset_position()
-	shadow_sprite.hide()
-	is_holded = false
-	z_index = original_z_index
-	z_as_relative = true
+	release_card_from_drag()
 
 
 func reset_position() -> void:
