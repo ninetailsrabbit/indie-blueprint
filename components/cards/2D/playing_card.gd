@@ -118,8 +118,10 @@ var is_locked: bool = false:
 			set_process(is_holded and not is_locked)
 			
 			if is_locked:
+				mouse_drag_region.lock()
 				locked.emit()
 			else:
+				mouse_drag_region.unlock()
 				unlocked.emit()
 
 
@@ -276,10 +278,10 @@ func _prepare_sprite() -> void:
 	front_sprite.position = -current_texture_size / 2.0
 	
 	back_sprite.scale = front_sprite.scale
-	back_sprite.position = -current_texture_size / 2.0
+	back_sprite.position = front_sprite.position
 	back_sprite.hide()
 	
-	shadow_sprite.position = -current_texture_size / 2.0
+	shadow_sprite.position = front_sprite.position
 	shadow_sprite.texture = front_sprite.texture
 	shadow_sprite.scale = front_sprite.scale
 	shadow_sprite.show_behind_parent = true

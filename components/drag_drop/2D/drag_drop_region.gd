@@ -12,15 +12,19 @@ signal unlocked
 @export var reset_position_smooth: bool = true
 @export var reset_position_smooth_duration: float = 0.25
 @export var smooth_lerp_factor: float = 20.0
+@export var screen_limit: bool = true
 @export_group("Effects")
 @export_category("Oscillator")
+@export var enable_oscillator: bool = true
 @export var spring: float = 200.0
 @export var damp: float = 15.0
 @export var velocity_multiplier: float = 2.0
 @export_category("2D perspective")
+@export var enable_fake_3d: bool = true
 @export_range(0, 360.0, 0.01, "degrees") var angle_x_max: float = 5.0
 @export_range(0, 360.0, 0.01, "degrees") var angle_y_max: float = 5.0
 @export_category("Punchy hover effect")
+@export var enable_punchy_hover: bool = true
 @export var punchy_hover_scale: Vector2 = Vector2(1.2, 1.2)
 @export var punchy_hover_normal_scale: Vector2 = Vector2.ONE
 @export var punchy_hover_duration_enter: float = 0.5
@@ -70,11 +74,17 @@ var current_angle_x_max: float
 
 
 func _process(delta: float) -> void:
-	if not is_locked:
+	if not is_locked and is_dragging:
 		last_mouse_position = target.global_position
 		
 		target.global_position = target.global_position.lerp(get_global_mouse_position(), smooth_lerp_factor * delta) if smooth_lerp_factor > 0 else get_global_mouse_position()
 		current_position = target.global_position + m_offset
+		
+		if screen_limit:
+			target.global_position = Vector2(
+				clampf(target.global_position.x, 0 + target.size.x, get_viewport_rect().size.x), 
+				clampf(target.global_position.y, 0 + target.size.y, get_viewport_rect().size.y)
+			)
 		
 		rotate_velocity(delta)
 
@@ -113,7 +123,7 @@ func unlock() -> void:
 	
 
 func rotate_velocity(delta: float) -> void:
-	if not is_locked and not is_dragging: 
+	if is_locked or (not is_dragging and not enable_oscillator): 
 		return
 		
 	# Compute the velocity
@@ -131,7 +141,7 @@ func rotate_velocity(delta: float) -> void:
 	
 	
 func punchy_hover() -> void:
-	if not is_locked:
+	if not is_locked and not is_dragging and enable_punchy_hover:
 		if tween_hover and tween_hover.is_running():
 			tween_hover.kill()
 		
@@ -140,7 +150,7 @@ func punchy_hover() -> void:
 
 
 func punchy_hover_reset() -> void:
-	if not is_locked and not is_dragging:
+	if not is_locked and not is_dragging and enable_punchy_hover:
 		if tween_hover and tween_hover.is_running():
 			tween_hover.kill()
 			
@@ -179,6 +189,7 @@ func reset_rotation() -> void:
 
 #region Signal callbacks
 func on_mouse_drag_region_dragged() -> void:
+	print("dragged ", is_locked)
 	is_dragging = true
 	target.z_index = original_z_index + 100
 	target.z_as_relative = false
@@ -196,8 +207,7 @@ func on_mouse_drag_region_released() -> void:
 
 
 func on_mouse_entered() -> void:
-	if not is_dragging and not is_locked:
-		punchy_hover()
+	punchy_hover()
 
 
 func on_mouse_exited() -> void:
