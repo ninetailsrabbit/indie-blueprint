@@ -12,6 +12,8 @@ signal emptied_deck
 signal filled
 signal shuffled
 
+@export var playing_cards_size: Vector2 = Vector2.ZERO
+
 enum DeckTypes {
 	French,
 	Spanish
@@ -406,6 +408,10 @@ func _add_jokers_to_deck(deck_data: DeckDatabase.DeckRawData, playing_card_scene
 		joker_card.front_texture = card_texture
 		joker_card.value = 0
 		joker_card.table_value = 0
+		
+		if not playing_cards_size.is_zero_approx():
+			joker_card.texture_size = playing_cards_size
+		
 		jokers.append(joker_card)
 		
 		if cards_by_suit.has(PlayingCard.Suits.Joker):
@@ -435,6 +441,10 @@ func _add_cards_to_deck(deck_data: DeckDatabase.DeckRawData, playing_card_scene:
 			playing_card.value = card_value
 			playing_card.table_value = card_value
 			playing_card.suit = suit
+			
+			if not playing_cards_size.is_zero_approx():
+				playing_card.texture_size = playing_cards_size
+				
 			cards.append(playing_card)
 			
 			if cards_by_suit.has(suit):

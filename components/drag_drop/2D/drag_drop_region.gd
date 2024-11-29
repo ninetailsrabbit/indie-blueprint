@@ -99,7 +99,7 @@ func _ready() -> void:
 	
 	name = "MouseDragRegion"
 	position = Vector2.ZERO
-	self_modulate.a8 = 100 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
+	self_modulate.a8 = 0 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
 	anchors_preset = Control.PRESET_FULL_RECT
 	
 	current_angle_x_max = deg_to_rad(angle_x_max)

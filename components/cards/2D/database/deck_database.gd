@@ -8,6 +8,7 @@ const ModernPixelDeck: StringName = &"modern_pixel_deck"
 const InscryptionInspiredDeck: StringName = &"inscryption_inspired_deck"
 const MinimalistPixelDeck: StringName = &"minimalist_pixel_deck"
 const LazySpacePixelArtDeck: StringName = &"lazy_space_pixel_art_deck"
+const HandDrawDeck: StringName = &"hand_draw_deck"
 
 class DeckRawData:
 	var type: Deck.DeckTypes
@@ -457,6 +458,74 @@ static var lazyspace_pixel_art_deck: Dictionary = {
 }
 #endregion
 
+static var hand_draw_deck: Dictionary = {
+	PlayingCard.Suits.Joker: [
+	],
+	PlayingCard.Suits.Back: [
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/backs/back_blue.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/backs/back_red.png")
+	],
+	PlayingCard.Suits.Spade: [
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/1s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/2s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/3s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/4s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/5s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/6s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/7s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/8s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/9s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/10s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/11s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/12s.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/spades/13s.png")
+	],
+	PlayingCard.Suits.Club: [
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/1c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/2c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/3c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/4c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/5c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/6c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/7c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/8c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/9c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/10c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/11c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/12c.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/clubs/13c.png")
+	],
+	PlayingCard.Suits.Diamond: [
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/1d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/2d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/3d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/4d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/5d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/6d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/7d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/8d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/9d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/10d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/11d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/12d.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/diamonds/13d.png")
+	],
+	PlayingCard.Suits.Heart: [
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/1h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/2h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/3h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/4h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/5h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/6h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/7h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/8h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/9h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/10h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/11h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/12h.png"),
+		preload("res://components/cards/2D/database/french_decks/HandDrawCards/hearts/13h.png")
+	]
+}
 
 static var available_raw_decks: Dictionary = {
 	PixelSpanishDeck: DeckRawData.new(Deck.DeckTypes.Spanish, pixel_spanish_deck),
@@ -465,6 +534,7 @@ static var available_raw_decks: Dictionary = {
 	InscryptionInspiredDeck: DeckRawData.new(Deck.DeckTypes.French, inscryption_inspired_deck),
 	MinimalistPixelDeck: DeckRawData.new(Deck.DeckTypes.French, minimalist_pixel_deck),
 	LazySpacePixelArtDeck: DeckRawData.new(Deck.DeckTypes.French, lazyspace_pixel_art_deck),
+	HandDrawDeck: DeckRawData.new(Deck.DeckTypes.French, hand_draw_deck),
 }
 
 static var available_decks: Dictionary = {
@@ -474,6 +544,8 @@ static var available_decks: Dictionary = {
 	InscryptionInspiredDeck: create_deck(available_raw_decks[InscryptionInspiredDeck]),
 	MinimalistPixelDeck: create_deck(available_raw_decks[MinimalistPixelDeck]),
 	LazySpacePixelArtDeck: create_deck(available_raw_decks[LazySpacePixelArtDeck]),
+	HandDrawDeck: create_deck(available_raw_decks[HandDrawDeck])
+	
 }
 
 static var spanish_decks: Dictionary = {
@@ -485,10 +557,9 @@ static var french_decks: Dictionary = {
 	ModernPixelDeck: available_decks[ModernPixelDeck],
 	InscryptionInspiredDeck: available_decks[InscryptionInspiredDeck],
 	MinimalistPixelDeck: available_decks[MinimalistPixelDeck],
-	LazySpacePixelArtDeck: available_decks[LazySpacePixelArtDeck]
+	LazySpacePixelArtDeck: available_decks[LazySpacePixelArtDeck],
+	HandDrawDeck: available_decks[HandDrawDeck]
 }
-
-
 
 
 #region New deck template
