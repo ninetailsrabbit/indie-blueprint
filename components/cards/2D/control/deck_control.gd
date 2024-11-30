@@ -44,7 +44,8 @@ var discard_pile: Array[PlayingCardControl] = []
 
 var jokers_count_for_empty_deck: bool = false
 
-var visual_pile_cards_amount: int = 5
+var default_visual_pile_cards_amount: int = 5
+var visual_pile_cards_amount: int = default_visual_pile_cards_amount
 var visual_pile_counter: int:
 	set(value):
 		@warning_ignore("integer_division")
@@ -60,6 +61,7 @@ func _ready() -> void:
 		current_back_texture = backs.pick_random()
 
 
+#region Deck record loader
 func load_deck_by_record_id(id: StringName) -> DeckControl:
 	return load_deck_record(DeckDatabase.get_deck(id))
 	
@@ -72,65 +74,49 @@ func load_deck_record(deck_record: DeckDatabase.DeckRecord) -> DeckControl:
 	current_back_texture = deck_record.clubs[0].back_texture
 	
 	for joker: PlayingCard in deck_record.jokers:
-		var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-		playing_card.card = joker
-		
-		cards.append(playing_card)
-		cards_by_suit[PlayingCard.Suits.Joker].append(playing_card)
-	
+		load_card_into_deck(joker)
 	
 	for club: PlayingCard in deck_record.clubs:
-		var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-		playing_card.card = club
-		cards.append(playing_card)
-		cards_by_suit[PlayingCard.Suits.Club].append(playing_card)
+		load_card_into_deck(club)
 		
 	if deck_record.is_spanish():
 		for gold: PlayingCard in deck_record.golds:
-			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-			playing_card.card = gold
-			cards.append(playing_card)
-			cards_by_suit[PlayingCard.Suits.Gold].append(playing_card)
+			load_card_into_deck(gold)
 			
 		for cup: PlayingCard in deck_record.cups:
-			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-			playing_card.card = cup
-			cards.append(playing_card)
-			cards_by_suit[PlayingCard.Suits.Cup].append(playing_card)
+			load_card_into_deck(cup)
 			
 		for sword: PlayingCard in deck_record.swords:
-			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-			playing_card.card = sword
-			cards.append(playing_card)
-			cards_by_suit[PlayingCard.Suits.Sword].append(playing_card)
+			load_card_into_deck(sword)
 			
 	elif deck_record.is_french():
 		for heart: PlayingCard in deck_record.hearts:
-			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-			playing_card.card = heart
-			cards.append(playing_card)
-			cards_by_suit[PlayingCard.Suits.Heart].append(playing_card)
+			load_card_into_deck(heart)
 			
 		for diamond: PlayingCard in deck_record.diamonds:
-			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-			playing_card.card = diamond
-			cards.append(playing_card)
-			cards_by_suit[PlayingCard.Suits.Diamond].append(playing_card)
+			load_card_into_deck(diamond)
 			
 		for spade: PlayingCard in deck_record.spades:
-			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-			playing_card.card = spade
-			cards.append(playing_card)
-			cards_by_suit[PlayingCard.Suits.Spade].append(playing_card)
+			load_card_into_deck(spade)
 			
 	loaded_new_deck.emit()
 	
 	return self
 	
 
-func draw_visual_pile(amount: int = visual_pile_cards_amount, position_offset: Vector2 = visual_pile_position_offset) -> void:
+func load_card_into_deck(card: PlayingCard) -> void:
+	var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+	playing_card.card = card
+	
+	cards.append(playing_card)
+	cards_by_suit[card.suit].append(playing_card)
+	
+#endregion
+
+func draw_visual_pile(amount: int = default_visual_pile_cards_amount, position_offset: Vector2 = visual_pile_position_offset) -> DeckControl:
 	@warning_ignore("integer_division")
 	visual_pile_counter = _calculate_visual_pile_counter()
+	visual_pile_cards_amount = amount
 	
 	var reference_card: PlayingCardControl = cards[0]
 	
@@ -150,6 +136,8 @@ func draw_visual_pile(amount: int = visual_pile_cards_amount, position_offset: V
 			visual_sprite.show_behind_parent = true
 			visual_sprite.self_modulate = reference_card.shadow_color
 	
+	return self
+
 
 func fill() -> DeckControl:
 	current_cards = cards.duplicate()
@@ -195,7 +183,7 @@ func pick_random_number_card() -> PlayingCardControl:
 
 
 ## The function parameter "suit" is not typed as the suits are separated into different enums
-func pick_random_card_from_suit(suit) -> PlayingCardControl:
+func pick_random_card_from_suit(suit: PlayingCard.Suits) -> PlayingCardControl:
 	if current_cards_by_suit.has(suit) and current_cards_by_suit[suit].size() > 0:
 		return pick_card(current_cards_by_suit[suit].pick_random())
 	
@@ -213,7 +201,7 @@ func pick_random_card_of_value(value: int) -> PlayingCardControl:
 	return null
 
 
-func pick_random_card_of_suit_and_value(suit, value: int) -> PlayingCardControl:
+func pick_random_card_of_suit_and_value(suit: PlayingCard.Suits, value: int) -> PlayingCardControl:
 	var selected_cards: Array[PlayingCardControl] = cards_from_suit(suit).filter(
 		func(playing_card: PlayingCardControl): return playing_card.card.value == value
 		)
@@ -233,6 +221,17 @@ func pick_random_ace() -> PlayingCardControl:
 		return null
 		
 	return pick_card(aces.pick_random())
+
+
+func pick_random_figure() -> PlayingCardControl:
+	var figures: Array[PlayingCardControl] = current_cards.filter(
+		func(playing_card: PlayingCardControl): return playing_card.card.is_figure()
+		)
+	
+	if figures.is_empty():
+		return null
+		
+	return pick_card(figures.pick_random())
 
 
 func pick_random_jack() -> PlayingCardControl:
@@ -310,7 +309,7 @@ func number_cards() -> Array[PlayingCardControl]:
 	return extract_number_cards(current_cards)
 	
 
-func number_cards_from_suit(suit) -> Array[PlayingCardControl]:
+func number_cards_from_suit(suit: PlayingCard.Suits) -> Array[PlayingCardControl]:
 	return extract_number_cards(cards_from_suit(suit))
 
 
@@ -318,7 +317,7 @@ func figure_cards() -> Array[PlayingCardControl]:
 	return extract_figure_cards(current_cards)
 	
 
-func figure_cards_from_suit(suit) -> Array[PlayingCardControl]:
+func figure_cards_from_suit(suit: PlayingCard.Suits) -> Array[PlayingCardControl]:
 	return extract_figure_cards(cards_from_suit(suit))
 
 
@@ -330,7 +329,7 @@ func extract_figure_cards(selected_cards: Array[PlayingCardControl]) -> Array[Pl
 	return selected_cards.filter(func(playing_card: PlayingCardControl): return playing_card.card.is_figure())
 	
 
-func cards_from_suit(suit) -> Array[PlayingCardControl]:
+func cards_from_suit(suit: PlayingCard.Suits) -> Array[PlayingCardControl]:
 	if current_cards_by_suit.has(suit):
 		return current_cards_by_suit[suit]
 	
@@ -423,6 +422,10 @@ func has_only_jokers() -> bool:
 	return current_cards.all(func(playing_card: PlayingCardControl): return playing_card.card.is_joker())
 	
 	
+func has_figures() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_figure())
+	
+
 func has_jacks() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_jack())
 	
@@ -443,31 +446,31 @@ func has_number_cards() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_number())
 	
 	
-func has_club_cards() -> bool:
+func has_clubs() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_club())
 	
 	
-func has_heart_cards() -> bool:
+func has_hearts() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_heart())
 
 
-func has_diamond_cards() -> bool:
+func has_diamonds() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_diamond())
 
 
-func has_spade_cards() -> bool:
+func has_spades() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_spade())
 
 
-func has_cup_cards() -> bool:
+func has_cups() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_cup())
 
 
-func has_gold_cards() -> bool:
+func has_golds() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_gold())
 
 
-func has_sword_cards() -> bool:
+func has_swords() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_sword())
 
 
@@ -488,7 +491,7 @@ func change_back_texture(idx: int) -> DeckControl:
 		
 		for playing_card: PlayingCardControl in current_cards:
 			playing_card.card.back_texture = current_back_texture
-	
+
 	
 	return self
 
@@ -526,7 +529,7 @@ func clear_deck() -> void:
 #region Private
 @warning_ignore("integer_division")
 func _calculate_visual_pile_counter() -> int:
-	return ceili(cards.size() / visual_pile_cards_amount)
+	return ceili(cards.size() / maxi(1, visual_pile_cards_amount))
 
 #endregion
 
