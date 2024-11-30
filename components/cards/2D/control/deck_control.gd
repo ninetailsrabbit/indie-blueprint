@@ -69,13 +69,16 @@ func load_deck_record(deck_record: DeckDatabase.DeckRecord) -> DeckControl:
 	
 	backs.append_array(deck_record.backs)
 	
+	current_back_texture = deck_record.clubs[0].back_texture
+	
 	for joker: PlayingCard in deck_record.jokers:
 		var playing_card: PlayingCardControl = playing_card_scene.instantiate()
 		playing_card.card = joker
 		
 		cards.append(playing_card)
 		cards_by_suit[PlayingCard.Suits.Joker].append(playing_card)
-		
+	
+	
 	for club: PlayingCard in deck_record.clubs:
 		var playing_card: PlayingCardControl = playing_card_scene.instantiate()
 		playing_card.card = club
@@ -439,6 +442,34 @@ func has_kings() -> bool:
 func has_number_cards() -> bool:
 	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_number())
 	
+	
+func has_club_cards() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_club())
+	
+	
+func has_heart_cards() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_heart())
+
+
+func has_diamond_cards() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_diamond())
+
+
+func has_spade_cards() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_spade())
+
+
+func has_cup_cards() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_cup())
+
+
+func has_gold_cards() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_gold())
+
+
+func has_sword_cards() -> bool:
+	return current_cards.any(func(playing_card: PlayingCardControl): return playing_card.card.is_sword())
+
 
 func is_empty() -> bool:
 	return (has_only_jokers() and not jokers_count_for_empty_deck) or current_cards.is_empty()
@@ -446,6 +477,20 @@ func is_empty() -> bool:
 
 func deck_size() -> int:
 	return current_cards.size()
+#endregion
+
+
+func change_back_texture(idx: int) -> DeckControl:
+	var back_index: int = backs.find(idx)
+	
+	if back_index != -1:
+		current_back_texture = backs[back_index]
+		
+		for playing_card: PlayingCardControl in current_cards:
+			playing_card.card.back_texture = current_back_texture
+	
+	
+	return self
 
 
 func clear_deck() -> void:
@@ -477,8 +522,6 @@ func clear_deck() -> void:
 	}
 	
 	cleared_deck.emit()
-
-#endregion
 
 #region Private
 @warning_ignore("integer_division")
