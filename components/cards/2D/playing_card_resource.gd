@@ -63,6 +63,18 @@ func is_joker() -> bool:
 	return value == 0 or suit == Suits.Joker
 	
 	
+func is_ace() -> bool:
+	return value == 1
+	
+	
+func is_number() -> bool:
+	return value > 1 and value < 11 if is_french() else value > 1 and value < 8
+
+
+func is_figure() -> bool:
+	return is_jack() or is_queen() or is_knight() or is_king()
+
+
 func is_cup() -> bool:
 	return is_spanish() and suit == Suits.Cup
 	
@@ -89,18 +101,6 @@ func is_spade() -> bool:
 
 func is_club() -> bool:
 	return suit == Suits.Club
-	
-	
-func is_ace() -> bool:
-	return value == 1
-	
-	
-func is_number() -> bool:
-	return value > 1 and value < 11 if is_french() else value > 1 and value < 8
-
-
-func is_figure() -> bool:
-	return is_jack() or is_queen() or is_knight() or is_king()
 
 
 func is_jack() -> bool:

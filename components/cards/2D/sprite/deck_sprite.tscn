@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://3enudb57c36u"]
+
+[ext_resource type="Script" path="res://components/cards/2D/sprite/deck_sprite.gd" id="1_wfvve"]
+
+[node name="Deck" type="Node2D"]
+script = ExtResource("1_wfvve")

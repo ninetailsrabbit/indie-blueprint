@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmpplj0kjgjnh"]
+
+[ext_resource type="Script" path="res://components/cards/2D/sprite/deck_pile_sprite.gd" id="1_c7vsm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vp1i"]
+
+[node name="DeckPileSprite" type="Node2D"]
+script = ExtResource("1_c7vsm")
+
+[node name="DetectionCardArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionCardArea"]
+shape = SubResource("RectangleShape2D_4vp1i")

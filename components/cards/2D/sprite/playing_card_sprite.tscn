@@ -19,7 +19,7 @@ script = ExtResource("1_qcaim")
 offset_right = 8.0
 offset_bottom = 8.0
 script = ExtResource("3_x7ju1")
-draggable = NodePath("../..")
+draggable = NodePath("")
 enable_oscillator = true
 
 [node name="CardArea" type="Area2D" parent="."]

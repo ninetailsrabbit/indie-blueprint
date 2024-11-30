@@ -1,7 +1,6 @@
 class_name DeckDatabase
 
-#const PlayingCardScene: PackedScene = preload("res://components/cards/2D/playing_card.tscn")
-#
+
 const PixelSpanishDeck: StringName = &"pixel_spanish_deck"
 const KinFrenchPlayingCardsDeck: StringName = &"kin_french_playing_cards_deck"
 

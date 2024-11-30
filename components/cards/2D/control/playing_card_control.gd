@@ -62,6 +62,28 @@ func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
 
+#func _ready() -> void:
+	#current_angle_x_max = deg_to_rad(angle_x_max)
+	#current_angle_y_max = deg_to_rad(angle_y_max)
+	#
+	#if not card.texture_size.is_zero_approx():
+		#var original_texture_size = card.front_texture.get_size()
+		#var new_scale = Vector2(card.texture_size.x / original_texture_size.x, card.texture_size.y  / original_texture_size.y)
+		#
+		#scale = new_scale
+	#
+	#if enable_fake_3d:
+		#drag_drop_region.gui_input.connect(on_gui_input)
+		#shader_material = ShaderMaterial.new()
+		#shader_material.shader = perspective_shader
+		#front_sprite.material = shader_material
+		#
+	#_connect_to_drag_drop_signals()
+	#_prepare_shadow()
+	#_prepare_areas()
+	#
+	#face_down()
+	
 func _ready() -> void:
 	current_angle_x_max = deg_to_rad(angle_x_max)
 	current_angle_y_max = deg_to_rad(angle_y_max)

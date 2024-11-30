@@ -26,14 +26,13 @@ signal faced_down
 			if is_inside_tree() and shadow_sprite:
 				shadow_sprite.position.y = front_sprite.position.x + shadow_horizontal_depth
 
-@export var max_offset_shadow: float = 5.0
+@export var max_offset_shadow: float = 1.0
 @export_category("2D perspective")
 @export var enable_fake_3d: bool = false
 @export var perspective_shader: Shader = preload("res://shaders/perspective/2d_perspective.gdshader")
 @export_range(0, 360.0, 0.01, "degrees") var angle_x_max: float = 15.0
 @export_range(0, 360.0, 0.01, "degrees") var angle_y_max: float = 15.0
 @export var reset_fake_3d_duration: float = 0.5
-
 
 @onready var shadow_sprite: Sprite2D = $ShadowSprite
 @onready var front_sprite: Sprite2D = $FrontSprite
@@ -112,7 +111,7 @@ func is_locked() -> bool:
 
 #region Card Effects
 func fake_3d_perspective() -> void:
-	if enable_fake_3d and front_sprite.material and not drag_drop_region.is_dragging :
+	if enable_fake_3d and front_sprite.material and not is_being_dragged() and not is_locked():
 		var mouse_pos: Vector2 = drag_drop_region.get_local_mouse_position()
 
 		var lerp_val_x: float = remap(mouse_pos.x, 0.0, drag_drop_region.size.x, 0, 1)
