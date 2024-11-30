@@ -7,7 +7,7 @@ signal released
 signal locked
 signal unlocked
 
-@export var target: Node
+@export var draggable: Node
 @export var reset_position_on_release: bool = true
 @export var reset_position_smooth: bool = true
 @export var reset_position_smooth_duration: float = 0.25
@@ -15,21 +15,20 @@ signal unlocked
 @export var screen_limit: bool = true
 @export_group("Effects")
 @export_category("Oscillator")
-@export var enable_oscillator: bool = true
+@export var enable_oscillator: bool = false
 @export var spring: float = 200.0
 @export var damp: float = 15.0
 @export var velocity_multiplier: float = 2.0
-@export_category("2D perspective")
-@export var enable_fake_3d: bool = true
-@export_range(0, 360.0, 0.01, "degrees") var angle_x_max: float = 5.0
-@export_range(0, 360.0, 0.01, "degrees") var angle_y_max: float = 5.0
+
 @export_category("Punchy hover effect")
-@export var enable_punchy_hover: bool = true
+@export var enable_punchy_hover: bool = false
 @export var punchy_hover_scale: Vector2 = Vector2(1.2, 1.2)
 @export var punchy_hover_normal_scale: Vector2 = Vector2.ONE
 @export var punchy_hover_duration_enter: float = 0.5
 @export var punchy_hover_duration_exit: float = 0.55
 
+
+var shader_material: ShaderMaterial
 var tween_hover: Tween
 var tween_rotation: Tween
 var tween_position: Tween
@@ -75,37 +74,34 @@ var current_angle_x_max: float
 
 func _process(delta: float) -> void:
 	if not is_locked and is_dragging:
-		last_mouse_position = target.global_position
+		last_mouse_position = draggable.global_position
 		
-		target.global_position = target.global_position.lerp(get_global_mouse_position(), smooth_lerp_factor * delta) if smooth_lerp_factor > 0 else get_global_mouse_position()
-		current_position = target.global_position + m_offset
+		draggable.global_position = draggable.global_position.lerp(get_global_mouse_position(), smooth_lerp_factor * delta) if smooth_lerp_factor > 0 else get_global_mouse_position()
+		current_position = draggable.global_position + m_offset
 		
 		if screen_limit:
-			target.global_position = Vector2(
-				clampf(target.global_position.x, 0 + target.size.x, get_viewport_rect().size.x), 
-				clampf(target.global_position.y, 0 + target.size.y, get_viewport_rect().size.y)
+			
+			draggable.global_position = Vector2(
+				clampf(draggable.global_position.x, 0 ,get_viewport_rect().size.x), 
+				clampf(draggable.global_position.y, 0 ,get_viewport_rect().size.y)
 			)
 		
 		rotate_velocity(delta)
-
+		
 
 func _ready() -> void:
-	if target == null:
-		target = get_parent()
+	if draggable == null:
+		draggable = get_parent()
 		
-	assert(is_instance_valid(target) and (target is Node2D or target is CanvasItem), "MouseDragRegion: This mouse drag region needs a valid Ndoe2D or CanvasItem to works properly")
+	assert(is_instance_valid(draggable) and (draggable is Node2D or draggable is Control), "MouseDragRegion: This mouse drag region needs a valid Node2D or Control to works properly")
 	
 	set_process(false)
 	
-	name = "MouseDragRegion"
+	name = "DragDropRegion"
 	position = Vector2.ZERO
-	self_modulate.a8 = 0 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
-	anchors_preset = Control.PRESET_FULL_RECT
+	self_modulate.a8 = 100 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
 	
-	current_angle_x_max = deg_to_rad(angle_x_max)
-	current_angle_y_max = deg_to_rad(angle_y_max)
-	
-	original_position = target.global_position
+	original_position = draggable.global_position
 	original_z_index = z_index
 	
 	button_down.connect(on_mouse_drag_region_dragged)
@@ -113,22 +109,26 @@ func _ready() -> void:
 	mouse_entered.connect(on_mouse_entered)
 	mouse_exited.connect(on_mouse_exited)
 	
+	await get_tree().physics_frame
+	anchors_preset = Control.PRESET_FULL_RECT
+	
 	
 func lock() -> void:
 	is_locked = true
+	reset_rotation()
 
 
 func unlock() -> void:
 	is_locked = false
-	
+
 
 func rotate_velocity(delta: float) -> void:
-	if is_locked or (not is_dragging and not enable_oscillator): 
+	if is_locked or not is_dragging or not enable_oscillator: 
 		return
 		
 	# Compute the velocity
-	velocity = (target.position - last_position) / delta
-	last_position = target.position
+	velocity = (draggable.position - last_position) / delta
+	last_position = draggable.position
 	
 	oscillator_velocity += velocity.normalized().x * velocity_multiplier
 	
@@ -137,7 +137,7 @@ func rotate_velocity(delta: float) -> void:
 	oscillator_velocity += force * delta
 	displacement += oscillator_velocity * delta
 	
-	target.rotation = displacement
+	draggable.rotation = displacement
 	
 	
 func punchy_hover() -> void:
@@ -146,7 +146,7 @@ func punchy_hover() -> void:
 			tween_hover.kill()
 		
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-		tween_hover.tween_property(target, "scale", punchy_hover_scale, punchy_hover_duration_enter)
+		tween_hover.tween_property(draggable, "scale", punchy_hover_scale, punchy_hover_duration_enter)
 
 
 func punchy_hover_reset() -> void:
@@ -155,7 +155,7 @@ func punchy_hover_reset() -> void:
 			tween_hover.kill()
 			
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-		tween_hover.tween_property(target, "scale", punchy_hover_normal_scale, punchy_hover_duration_exit)
+		tween_hover.tween_property(draggable, "scale", punchy_hover_normal_scale, punchy_hover_duration_exit)
 
 
 func reset_position() -> void:
@@ -167,7 +167,7 @@ func reset_position() -> void:
 				tween_position.kill()
 				
 			tween_position = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-			tween_position.tween_property(target, "global_position", original_position, reset_position_smooth_duration)
+			tween_position.tween_property(draggable, "global_position", original_position, reset_position_smooth_duration)
 			
 			await tween_position.finished
 		else:
@@ -175,35 +175,34 @@ func reset_position() -> void:
 		
 		unlock()
 
+
 func reset_rotation() -> void:
 	if tween_rotation and tween_rotation.is_running():
 		tween_rotation.kill()
 	
-	lock()
-	
 	tween_rotation = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	tween_rotation.tween_property(target, "rotation", 0.0, reset_position_smooth_duration)
-	await tween_position.finished
+	tween_rotation.tween_property(draggable, "rotation", 0.0, reset_position_smooth_duration)
+	await tween_rotation.finished
 	
-	unlock()
 
 #region Signal callbacks
 func on_mouse_drag_region_dragged() -> void:
-	print("dragged ", is_locked)
-	is_dragging = true
-	target.z_index = original_z_index + 100
-	target.z_as_relative = false
-	m_offset = target.global_position - get_global_mouse_position()
+	if not is_locked:
+		is_dragging = true
+		draggable.z_index = original_z_index + 100
+		draggable.z_as_relative = false
+		m_offset = draggable.global_position - get_global_mouse_position()
 
 
 func on_mouse_drag_region_released() -> void:
-	is_dragging = false
-	target.z_index = original_z_index
-	target.z_as_relative = true
-	
-	punchy_hover_reset()
-	reset_position()
-	reset_rotation()
+	if not is_locked:
+		is_dragging = false
+		draggable.z_index = original_z_index
+		draggable.z_as_relative = true
+		
+		punchy_hover_reset()
+		reset_position()
+		reset_rotation()
 
 
 func on_mouse_entered() -> void:

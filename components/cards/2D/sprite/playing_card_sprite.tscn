@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://cg8vhbxn65jtu"]
+
+[ext_resource type="Script" path="res://components/cards/2D/sprite/playing_card_sprite.gd" id="1_qcaim"]
+[ext_resource type="Texture2D" uid="uid://83by27uuc8dx" path="res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/backs/back.png" id="2_35qnw"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="2_rsebv"]
+[ext_resource type="Script" path="res://components/drag_drop/2D/drag_drop_region.gd" id="3_x7ju1"]
+[ext_resource type="Texture2D" uid="uid://q7t2svdrgwnp" path="res://components/cards/2D/database/french_decks/InscryptionInspiredDeck/clubs/1_ace_of_clubs.png" id="5_6lf6s"]
+
+[sub_resource type="Resource" id="Resource_trjov"]
+script = ExtResource("2_rsebv")
+id = &""
+display_name = ""
+description = ""
+texture_size = Vector2(101, 154)
+front_texture = ExtResource("5_6lf6s")
+back_texture = ExtResource("2_35qnw")
+suit = 0
+value = 1.0
+table_value = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s205k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4iwd7"]
+
+[node name="PlayingCardSprite" type="Node2D"]
+scale = Vector2(0.462, 0.54)
+script = ExtResource("1_qcaim")
+card = SubResource("Resource_trjov")
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+
+[node name="FrontSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_35qnw")
+
+[node name="DragDropRegion" type="Button" parent="FrontSprite" node_paths=PackedStringArray("draggable")]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("3_x7ju1")
+draggable = NodePath("../..")
+enable_oscillator = true
+
+[node name="CardArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea"]
+shape = SubResource("RectangleShape2D_s205k")
+
+[node name="CardDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDetectionArea"]
+shape = SubResource("RectangleShape2D_4iwd7")
+debug_color = Color(0.795222, 0.424355, 0.0336576, 0.42)

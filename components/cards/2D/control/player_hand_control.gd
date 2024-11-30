@@ -1,12 +1,12 @@
 @icon("res://components/cards/2D/icons/player_hand.svg")
-class_name PlayerHand extends Control
+class_name PlayerHandControl extends Control
 
-signal added_card(card: PlayingCard)
-signal added_cards(cards: Array[PlayingCard])
-signal removed_card(card: PlayingCard)
-signal add_card_request_denied(card: PlayingCard)
-signal add_cards_request_denied(card: Array[PlayingCard])
-signal sorted_cards(previous: Array[PlayingCard], current: Array[PlayingCard])
+signal added_card(card: PlayingCardControl)
+signal added_cards(cards: Array[PlayingCardControl])
+signal removed_card(card: PlayingCardControl)
+signal add_card_request_denied(card: PlayingCardControl)
+signal add_cards_request_denied(card: Array[PlayingCardControl])
+signal sorted_cards(previous: Array[PlayingCardControl], current: Array[PlayingCardControl])
 
 
 @export var id: StringName
@@ -17,7 +17,7 @@ signal sorted_cards(previous: Array[PlayingCard], current: Array[PlayingCard])
 @export var fanning: bool = true
 
 
-var current_cards: Array[PlayingCard] = []
+var current_cards: Array[PlayingCardControl] = []
 
 
 func _enter_tree() -> void:
@@ -25,7 +25,7 @@ func _enter_tree() -> void:
 	mouse_filter = MOUSE_FILTER_PASS
 
 
-func draw_from_deck(deck: Deck, amount: int):
+func draw_from_deck(deck: DeckControl, amount: int):
 	if deck.is_empty():
 		return
 		
@@ -36,8 +36,8 @@ func draw_from_deck(deck: Deck, amount: int):
 	unlock_cards()
 
 
-func draw_animation_from_deck(deck: Deck, cards: Array[PlayingCard], duration: float = 0.3) -> void:
-	for card: PlayingCard in filter_cards_by_maximum_hand_size(cards):
+func draw_animation_from_deck(deck: DeckControl, cards: Array[PlayingCardControl], duration: float = 0.3) -> void:
+	for card: PlayingCardControl in filter_cards_by_maximum_hand_size(cards):
 		add_card(card)
 		card.lock()
 		card.global_position = deck.global_position
@@ -51,11 +51,11 @@ func draw_animation_from_deck(deck: Deck, cards: Array[PlayingCard], duration: f
 		adjust_hand_position()
 
 
-func adjust_hand_position(except: Array[PlayingCard] = []) -> void:
-	var target_cards: Array[PlayingCard] = current_cards.filter(func(card): return not card in except and not card.is_holded)
+func adjust_hand_position(except: Array[PlayingCardControl] = []) -> void:
+	var target_cards: Array[PlayingCardControl] = current_cards.filter(func(card): return not card in except and not card.is_holded)
 	
 	
-	for card: PlayingCard in target_cards:
+	for card: PlayingCardControl in target_cards:
 		var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		
 		var index: int = target_cards.find(card)
@@ -67,7 +67,7 @@ func adjust_hand_position(except: Array[PlayingCard] = []) -> void:
 		await tween.finished
 
 
-func add_card(card: PlayingCard) -> void:
+func add_card(card: PlayingCardControl) -> void:
 	if current_cards.size() == maximum_cards:
 		add_card_request_denied.emit(card)
 	else:
@@ -81,19 +81,19 @@ func add_card(card: PlayingCard) -> void:
 		added_card.emit(card)
 	
 
-func add_cards(cards: Array[PlayingCard] = []) -> void:
+func add_cards(cards: Array[PlayingCardControl] = []) -> void:
 	if current_cards.size() == maximum_cards:
 		add_cards_request_denied.emit(cards)
 	else:
 		var selected_cards = filter_cards_by_maximum_hand_size(cards)
 		
-		for card: PlayingCard in selected_cards:
+		for card: PlayingCardControl in selected_cards:
 			add_card(card)
 		
 		added_cards.emit(selected_cards)
 
 
-func remove_card(card: PlayingCard):
+func remove_card(card: PlayingCardControl):
 	if has_card(card):
 		if card.holded.is_connected(on_card_holded.bind(card)):
 			card.holded.disconnect(on_card_holded.bind(card))
@@ -106,7 +106,7 @@ func remove_card(card: PlayingCard):
 		adjust_hand_position([card])
 		
 	
-func has_card(card: PlayingCard) -> bool:
+func has_card(card: PlayingCardControl) -> bool:
 	return current_cards.has(card)
 	
 
@@ -116,42 +116,42 @@ func is_empty() -> bool:
 
 func sort_cards_by_value_asc() -> void:
 	if current_cards.size() > 1:
-		var previous_sortered_cards: Array[PlayingCard] = current_cards.duplicate()
+		var previous_sortered_cards: Array[PlayingCardControl] = current_cards.duplicate()
 		
-		current_cards.sort_custom(func(a: PlayingCard, b: PlayingCard): return a.value < b.value)
+		current_cards.sort_custom(func(a: PlayingCardControl, b: PlayingCardControl): return a.value < b.value)
 		sorted_cards.emit(previous_sortered_cards, current_cards)
 		
 		
 func sort_cards_by_value_desc() -> void:
 	if current_cards.size() > 1:
-		var previous_sortered_cards: Array[PlayingCard] = current_cards.duplicate()
+		var previous_sortered_cards: Array[PlayingCardControl] = current_cards.duplicate()
 		
-		current_cards.sort_custom(func(a: PlayingCard, b: PlayingCard): return a.value > b.value)
+		current_cards.sort_custom(func(a: PlayingCardControl, b: PlayingCardControl): return a.value > b.value)
 		sorted_cards.emit(previous_sortered_cards, current_cards)
 
 
-func filter_cards_by_maximum_hand_size(cards: Array[PlayingCard]) -> Array[PlayingCard]:
+func filter_cards_by_maximum_hand_size(cards: Array[PlayingCardControl]) -> Array[PlayingCardControl]:
 	return cards.slice(0, maximum_cards - current_cards.size())
 
 
 func lock_cards() -> void:
-	for card: PlayingCard in current_cards:
+	for card: PlayingCardControl in current_cards:
 		card.lock()
 
 
 func unlock_cards() -> void:
-	for card: PlayingCard in current_cards:
+	for card: PlayingCardControl in current_cards:
 		card.unlock()
 
 
 #region Signal callbacks
-func on_card_holded(_card: PlayingCard):
+func on_card_holded(_card: PlayingCardControl):
 	adjust_hand_position()
 	
 
-func on_card_released(card: PlayingCard):
+func on_card_released(card: PlayingCardControl):
 	await GameGlobals.wait(0.1)
 	
-	if has_card(card) and card.get_parent() is PlayerHand:
+	if has_card(card) and card.get_parent() is PlayerHandControl:
 		adjust_hand_position()
 #endregion

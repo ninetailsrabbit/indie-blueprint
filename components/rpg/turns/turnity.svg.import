@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://51d46ao3nwcs"
-path="res://.godot/imported/trauma_detector.svg-1b51a3beea48dc5d1949728bc391ce97.ctex"
+uid="uid://d0xirnmeaddcp"
+path="res://.godot/imported/turnity.svg-db6c06c473cdb05680b56dbebbb8416e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/camera/2D/shake/trauma_detector.svg"
-dest_files=["res://.godot/imported/trauma_detector.svg-1b51a3beea48dc5d1949728bc391ce97.ctex"]
+source_file="res://components/rpg/turns/turnity.svg"
+dest_files=["res://.godot/imported/turnity.svg-db6c06c473cdb05680b56dbebbb8416e.ctex"]
 
 [params]
 

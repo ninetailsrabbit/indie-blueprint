@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df37odhldu56g"
-path="res://.godot/imported/trauma_causer.svg-eea1922e9473b9ec03c2d767d9e149d7.ctex"
+uid="uid://x1vcucg5jd5d"
+path="res://.godot/imported/camera_shake_3d.svg-b6d948bc0fca7bc659e5fea9e07095a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/camera/3D/shake/trauma_causer.svg"
-dest_files=["res://.godot/imported/trauma_causer.svg-eea1922e9473b9ec03c2d767d9e149d7.ctex"]
+source_file="res://components/cards/camera/3D/shake/camera_shake_3d.svg"
+dest_files=["res://.godot/imported/camera_shake_3d.svg-b6d948bc0fca7bc659e5fea9e07095a1.ctex"]
 
 [params]
 

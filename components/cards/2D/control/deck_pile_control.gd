@@ -1,13 +1,13 @@
 @icon("res://components/cards/2D/icons/deck_pile.svg")
-class_name DeckPile extends Control
+class_name DeckPileControl extends Control
 
 const GroupName: StringName = &"deck-piles"
 
-signal added_card(card: PlayingCard)
-signal removed_card(card: PlayingCard)
-signal removed_cards(cards: Array[PlayingCard])
-signal add_card_request_denied(card: PlayingCard)
-signal emptied(cards: Array[PlayingCard])
+signal added_card(card: PlayingCardControl)
+signal removed_card(card: PlayingCardControl)
+signal removed_cards(cards: Array[PlayingCardControl])
+signal add_card_request_denied(card: PlayingCardControl)
+signal emptied(cards: Array[PlayingCardControl])
 signal filled
 
 @export var detection_area_size: Vector2 = Vector2(60, 96):
@@ -32,11 +32,11 @@ signal filled
 
 
 @onready var detection_card_area: Area2D = $DetectionCardArea
-@onready var collision_shape_2d: CollisionShape2D = $DetectionCardArea/CollisionShape2D
+@onready var detection_card_area_collision: CollisionShape2D = $DetectionCardArea/CollisionShape2D
 
 
-var current_cards: Array[PlayingCard] = []
-var last_detected_card: PlayingCard
+var current_cards: Array[PlayingCardControl] = []
+var last_detected_card: PlayingCardControl
 
 
 func _enter_tree() -> void:
@@ -56,15 +56,14 @@ func _ready() -> void:
 
 
 func change_detection_area_size(new_size: Vector2 = detection_area_size) -> void:
-	collision_shape_2d.shape.size = new_size
+	detection_card_area_collision.shape.size = new_size
 
 
-func add_card(card: PlayingCard) -> void:
+func add_card(card: PlayingCardControl) -> void:
 	if _card_can_be_added_to_pile(card):
 		card.lock()
 		current_cards.append(card)
 		card.reparent(self)
-		card.disable_detection_areas()
 		card.position = detection_card_area.position
 		
 		if not detection_area_size.is_equal_approx(card.front_sprite.size):
@@ -86,20 +85,20 @@ func clear() -> void:
 		remove_cards(current_cards)
 		
 	
-func remove_cards(cards: Array[PlayingCard] = current_cards):
-	for card: PlayingCard in cards:
+func remove_cards(cards: Array[PlayingCardControl] = current_cards):
+	for card: PlayingCardControl in cards:
 		remove_card(card)
 
 	removed_cards.emit(cards)
 
 
-func remove_card(card: PlayingCard):
+func remove_card(card: PlayingCardControl):
 	if has_card(card):
 		current_cards.erase(card)
 		removed_card.emit(card)
 
 
-func has_card(card: PlayingCard) -> bool:
+func has_card(card: PlayingCardControl) -> bool:
 	return current_cards.has(card)
 
 
@@ -108,19 +107,16 @@ func is_empty() -> bool:
 
 
 func total_card_value() -> float:
-	return current_cards.reduce(func(accum: float, card: PlayingCard): return card.value + accum, 0.0)
+	return current_cards.reduce(func(accum: float, playing_card: PlayingCardControl): return playing_card.card.value + accum, 0.0)
 
 
 func total_card_table_value() -> float:
-	return current_cards.reduce(func(accum: float, card: PlayingCard): return card.table_value + accum, 0.0)
+	return current_cards.reduce(func(accum: float, playing_card: PlayingCardControl): return playing_card.card.table_value + accum, 0.0)
 
 
-func _card_can_be_added_to_pile(card: PlayingCard) -> bool:
-	if card.bypass_deck_pile_conditions:
-		return true
-		
-	var is_allowed_spanish_card: bool = card.is_spanish() and card.suit in allowed_spanish_suits
-	var is_allowed_french_card: bool = card.is_french() and card.suit in allowed_french_suits
+func _card_can_be_added_to_pile(playing_card: PlayingCardControl) -> bool:
+	var is_allowed_spanish_card: bool = playing_card.card.is_spanish() and playing_card.card.suit in allowed_spanish_suits
+	var is_allowed_french_card: bool = playing_card.card.is_french() and playing_card.card.suit in allowed_french_suits
 	
 	return (maximum_cards_in_pile == 0 or (maximum_cards_in_pile > 0 and current_cards.size() < maximum_cards_in_pile)) \
 		and (is_allowed_spanish_card or is_allowed_french_card)
@@ -128,21 +124,21 @@ func _card_can_be_added_to_pile(card: PlayingCard) -> bool:
 	
 #region Signal callbacks
 func on_card_entered(other_area: Area2D) -> void:
-	var card: PlayingCard = other_area.get_parent() as PlayingCard
+	var card: PlayingCardControl = other_area.get_parent() as PlayingCardControl
 	
-	if card.is_holded:
+	if card.is_being_dragged():
 		last_detected_card = card
-		last_detected_card.released.connect(on_card_detected.bind(last_detected_card), CONNECT_ONE_SHOT)
+		last_detected_card.drag_drop_region.released.connect(on_card_detected.bind(last_detected_card), CONNECT_ONE_SHOT)
 		
 
 func on_card_exited(_other_area: Area2D) -> void:
-	if last_detected_card != null and last_detected_card.released.is_connected(on_card_detected):
-		last_detected_card.released.disconnect(on_card_detected.bind(last_detected_card))
+	if last_detected_card != null and last_detected_card.drag_drop_region.released.is_connected(on_card_detected):
+		last_detected_card.drag_drop_region.released.disconnect(on_card_detected.bind(last_detected_card))
 		
 	last_detected_card = null
 	
 
-func on_card_detected(card: PlayingCard) -> void:
+func on_card_detected(card: PlayingCardControl) -> void:
 	var parent =  card.get_parent()
 	
 	if parent.has_method("remove_card"):

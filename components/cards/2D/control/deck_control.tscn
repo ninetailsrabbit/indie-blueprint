@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bx5mkrmp5u1j6"]
 
-[ext_resource type="Script" path="res://components/cards/2D/deck.gd" id="1_4sbul"]
+[ext_resource type="Script" path="res://components/cards/2D/control/deck_control.gd" id="1_4sbul"]
 
 [node name="Deck" type="Control"]
 layout_mode = 3

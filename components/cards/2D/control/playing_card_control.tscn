@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://bp6vtdoqcr8uo"]
+
+[ext_resource type="Script" path="res://components/cards/2D/control/playing_card_control.gd" id="1_ffysc"]
+[ext_resource type="Script" path="res://components/drag_drop/2D/drag_drop_region.gd" id="2_6dw3w"]
+[ext_resource type="Texture2D" uid="uid://3rt10yyetr24" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png" id="2_n57h4"]
+[ext_resource type="Texture2D" uid="uid://6vyu7rmdjihr" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_1.png" id="3_xgsu2"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="4_06mc6"]
+[ext_resource type="Texture2D" uid="uid://bqp7fqbiotofd" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_3.png" id="6_nwa43"]
+
+[sub_resource type="Resource" id="Resource_0krj7"]
+script = ExtResource("4_06mc6")
+id = &""
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("3_xgsu2")
+back_texture = ExtResource("2_n57h4")
+suit = 3
+value = 1.0
+table_value = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hosqw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wcjw"]
+
+[node name="PlayingCardControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_ffysc")
+card = SubResource("Resource_0krj7")
+enable_fake_3d = true
+
+[node name="ShadowSprite" type="TextureRect" parent="."]
+layout_mode = 1
+
+[node name="FrontSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_nwa43")
+
+[node name="DragDropRegion" type="Button" parent="FrontSprite" node_paths=PackedStringArray("draggable")]
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("2_6dw3w")
+draggable = NodePath("../..")
+reset_position_on_release = false
+enable_oscillator = true
+
+[node name="CardArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea"]
+shape = SubResource("RectangleShape2D_hosqw")
+
+[node name="CardDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDetectionArea"]
+shape = SubResource("RectangleShape2D_7wcjw")
+debug_color = Color(0.795222, 0.424355, 0.0336576, 0.42)
