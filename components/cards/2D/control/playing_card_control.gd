@@ -118,7 +118,7 @@ func is_locked() -> bool:
 
 #region Card Effects
 func fake_3d_perspective() -> void:
-	if enable_fake_3d and front_sprite.material and not drag_drop_region.is_dragging :
+	if enable_fake_3d and front_sprite.material and not is_being_dragged() and not is_locked():
 		var mouse_pos: Vector2 = drag_drop_region.get_local_mouse_position()
 
 		var lerp_val_x: float = remap(mouse_pos.x, 0.0, drag_drop_region.size.x, 0, 1)

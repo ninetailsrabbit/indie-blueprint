@@ -17,6 +17,8 @@ signal filled
 			change_detection_area_size(detection_area_size)
 ## Set to zero to allow an infinite amount of cards
 @export var maximum_cards_in_pile: int = 0
+@export var draw_visual_pile_each_n_cards: int = 1
+@export var visual_pile_position_offset: Vector2 = Vector2(1, 1)
 @export var allowed_spanish_suits: Array[PlayingCard.Suits] = [
 	PlayingCard.Suits.Cup,
 	PlayingCard.Suits.Gold,
@@ -42,6 +44,7 @@ var last_detected_card: PlayingCardControl
 func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
+	
 
 func _ready() -> void:
 	detection_card_area.monitorable = false
@@ -64,7 +67,8 @@ func add_card(card: PlayingCardControl) -> void:
 		card.lock()
 		current_cards.append(card)
 		card.reparent(self)
-		card.position = detection_card_area.position
+		@warning_ignore("integer_division")
+		card.position = detection_card_area.position + visual_pile_position_offset * ceili(current_cards.size() / draw_visual_pile_each_n_cards)
 		
 		if not detection_area_size.is_equal_approx(card.front_sprite.size):
 			change_detection_area_size(card.front_sprite.size)

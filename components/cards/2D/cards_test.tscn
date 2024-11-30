@@ -31,3 +31,5 @@ offset_left = 436.0
 offset_top = 67.0
 offset_right = 436.0
 offset_bottom = 67.0
+draw_visual_pile_each_n_cards = 5
+visual_pile_position_offset = Vector2(3, 5)

@@ -15,6 +15,7 @@ signal filled
 signal shuffled
 
 @export var playing_cards_size: Vector2 = Vector2.ZERO
+@export var visual_pile_position_offset: Vector2 = Vector2(1.5, 1.5)
 
 
 #region Card templates
@@ -67,7 +68,7 @@ func calculate_visual_pile_counter() -> int:
 	#return self
 	
 
-func draw_visual_pile(amount: int = visual_pile_cards_amount, distance: float = 1.5) -> void:
+func draw_visual_pile(amount: int = visual_pile_cards_amount, position_offset: Vector2 = visual_pile_position_offset) -> void:
 	@warning_ignore("integer_division")
 	visual_pile_counter = calculate_visual_pile_counter()
 	
@@ -81,7 +82,7 @@ func draw_visual_pile(amount: int = visual_pile_cards_amount, distance: float = 
 			visual_sprite.size = reference_card.card.texture_size
 			
 		visual_sprite.texture = current_back_texture
-		visual_sprite.position = Vector2(i * distance, -i * distance)
+		visual_sprite.position = position_offset * i
 		add_child(visual_sprite)
 		
 		if i == 0:
