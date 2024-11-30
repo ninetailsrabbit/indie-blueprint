@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://b2x34typj5l0w"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_208f1"]
+[ext_resource type="Texture2D" uid="uid://1awt5bawvq25" path="res://components/cards/2D/database/spanish_decks/pixel_deck/cups/copa1.png" id="2_0m7vg"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_3jbrf"]
+
+[resource]
+script = ExtResource("3_3jbrf")
+id = &"copa_1"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_0m7vg")
+back_texture = ExtResource("1_208f1")
+suit = 0
+value = 1.0
+table_value = 1.0

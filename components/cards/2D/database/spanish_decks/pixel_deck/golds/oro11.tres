@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://bg84wd8n6vwro"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_kryt2"]
+[ext_resource type="Texture2D" uid="uid://cspu7v6pnvkr6" path="res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro11.png" id="2_can8j"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_gdtlb"]
+
+[resource]
+script = ExtResource("3_gdtlb")
+id = &"oro_11"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_can8j")
+back_texture = ExtResource("1_kryt2")
+suit = 1
+value = 11.0
+table_value = 11.0

@@ -34,7 +34,6 @@ signal faced_down
 @export_range(0, 360.0, 0.01, "degrees") var angle_y_max: float = 15.0
 @export var reset_fake_3d_duration: float = 0.5
 
-
 @onready var shadow_sprite: TextureRect = $ShadowSprite
 @onready var front_sprite: TextureRect = $FrontSprite
 @onready var drag_drop_region: DragDropRegion = $FrontSprite/DragDropRegion

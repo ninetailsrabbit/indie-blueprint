@@ -1,7 +1,6 @@
 @icon("res://components/cards/2D/icons/deck.svg")
 class_name DeckControl extends Control
 
-const PlayingCardScene: PackedScene = preload("res://components/cards/2D/control/playing_card_control.tscn")
 
 signal loaded_new_deck
 signal added_card(card: PlayingCardControl)
@@ -11,15 +10,27 @@ signal removed_card(card: PlayingCardControl)
 signal added_to_discard_pile(card: PlayingCardControl)
 signal recovered_card_from_discard_pile(card: PlayingCardControl)
 signal emptied_deck
+signal cleared_deck
 signal filled
 signal shuffled
 
+
+@export var playing_card_scene: PackedScene = preload("res://components/cards/2D/control/playing_card_control.tscn")
 @export var playing_cards_size: Vector2 = Vector2.ZERO
 @export var visual_pile_position_offset: Vector2 = Vector2(1.5, 1.5)
 
 
 #region Card templates
-var cards_by_suit: Dictionary = {}
+var cards_by_suit: Dictionary = {
+	PlayingCard.Suits.Joker: [],
+	PlayingCard.Suits.Heart: [],
+	PlayingCard.Suits.Diamond: [],
+	PlayingCard.Suits.Spade: [],
+	PlayingCard.Suits.Club: [],
+	PlayingCard.Suits.Gold: [],
+	PlayingCard.Suits.Cup: [],
+	PlayingCard.Suits.Sword: [],
+}
 var cards: Array[PlayingCardControl] = []
 var jokers: Array[PlayingCardControl] = []
 var backs: Array[CompressedTexture2D] = []
@@ -37,7 +48,7 @@ var visual_pile_cards_amount: int = 5
 var visual_pile_counter: int:
 	set(value):
 		@warning_ignore("integer_division")
-		visual_pile_counter = clampi(value, 0, calculate_visual_pile_counter())
+		visual_pile_counter = clampi(value, 0, _calculate_visual_pile_counter())
 
 #region Preparation 
 func _enter_tree() -> void:
@@ -49,28 +60,74 @@ func _ready() -> void:
 		current_back_texture = backs.pick_random()
 
 
-@warning_ignore("integer_division")
-func calculate_visual_pile_counter() -> int:
-	return ceili(cards.size() / visual_pile_cards_amount)
-#
-#func load_deck_data(raw_data: DeckDatabase.DeckRawData, playing_card_scene: PackedScene = PlayingCardScene) -> Deck:
-	#deck_type = raw_data.type
-	#backs.append_array(raw_data.deck[PlayingCard.Suits.Back])
-	#
-	#_add_jokers_to_deck(raw_data, playing_card_scene)
-	#_add_cards_to_deck(raw_data, playing_card_scene)
-	#
-	#if current_back_texture == null and backs.size() > 0:
-		#current_back_texture = backs.pick_random()
-		#
-	#loaded_new_deck.emit()
-	#
-	#return self
+func load_deck_by_record_id(id: StringName) -> DeckControl:
+	return load_deck_record(DeckDatabase.get_deck(id))
+	
+	
+func load_deck_record(deck_record: DeckDatabase.DeckRecord) -> DeckControl:
+	clear_deck()
+	
+	backs.append_array(deck_record.backs)
+	
+	for joker: PlayingCard in deck_record.jokers:
+		var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+		playing_card.card = joker
+		
+		cards.append(playing_card)
+		cards_by_suit[PlayingCard.Suits.Joker].append(playing_card)
+		
+	for club: PlayingCard in deck_record.clubs:
+		var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+		playing_card.card = club
+		cards.append(playing_card)
+		cards_by_suit[PlayingCard.Suits.Club].append(playing_card)
+		
+	if deck_record.is_spanish():
+		for gold: PlayingCard in deck_record.golds:
+			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+			playing_card.card = gold
+			cards.append(playing_card)
+			cards_by_suit[PlayingCard.Suits.Gold].append(playing_card)
+			
+		for cup: PlayingCard in deck_record.cups:
+			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+			playing_card.card = cup
+			cards.append(playing_card)
+			cards_by_suit[PlayingCard.Suits.Cup].append(playing_card)
+			
+		for sword: PlayingCard in deck_record.swords:
+			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+			playing_card.card = sword
+			cards.append(playing_card)
+			cards_by_suit[PlayingCard.Suits.Sword].append(playing_card)
+			
+	elif deck_record.is_french():
+		for heart: PlayingCard in deck_record.hearts:
+			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+			playing_card.card = heart
+			cards.append(playing_card)
+			cards_by_suit[PlayingCard.Suits.Heart].append(playing_card)
+			
+		for diamond: PlayingCard in deck_record.diamonds:
+			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+			playing_card.card = diamond
+			cards.append(playing_card)
+			cards_by_suit[PlayingCard.Suits.Diamond].append(playing_card)
+			
+		for spade: PlayingCard in deck_record.spades:
+			var playing_card: PlayingCardControl = playing_card_scene.instantiate()
+			playing_card.card = spade
+			cards.append(playing_card)
+			cards_by_suit[PlayingCard.Suits.Spade].append(playing_card)
+			
+	loaded_new_deck.emit()
+	
+	return self
 	
 
 func draw_visual_pile(amount: int = visual_pile_cards_amount, position_offset: Vector2 = visual_pile_position_offset) -> void:
 	@warning_ignore("integer_division")
-	visual_pile_counter = calculate_visual_pile_counter()
+	visual_pile_counter = _calculate_visual_pile_counter()
 	
 	var reference_card: PlayingCardControl = cards[0]
 	
@@ -387,72 +444,47 @@ func is_empty() -> bool:
 	return (has_only_jokers() and not jokers_count_for_empty_deck) or current_cards.is_empty()
 
 
-func size() -> int:
+func deck_size() -> int:
 	return current_cards.size()
+
+
+func clear_deck() -> void:
+	backs.clear()
+	jokers.clear()
+	discard_pile.clear()
+	cards.clear()
+	current_cards.clear()
+	
+	current_cards_by_suit = {
+		PlayingCard.Suits.Joker: [],
+		PlayingCard.Suits.Heart: [],
+		PlayingCard.Suits.Diamond: [],
+		PlayingCard.Suits.Spade: [],
+		PlayingCard.Suits.Club: [],
+		PlayingCard.Suits.Gold: [],
+		PlayingCard.Suits.Cup: [],
+		PlayingCard.Suits.Sword: [],
+	}
+	cards_by_suit = {
+		PlayingCard.Suits.Joker: [],
+		PlayingCard.Suits.Heart: [],
+		PlayingCard.Suits.Diamond: [],
+		PlayingCard.Suits.Spade: [],
+		PlayingCard.Suits.Club: [],
+		PlayingCard.Suits.Gold: [],
+		PlayingCard.Suits.Cup: [],
+		PlayingCard.Suits.Sword: [],
+	}
+	
+	cleared_deck.emit()
 
 #endregion
 
 #region Private
-#func _add_jokers_to_deck(deck_data: DeckDatabase.DeckRawData, playing_card_scene: PackedScene) -> void:
-	#for card_texture: CompressedTexture2D in deck_data.deck[PlayingCard.Suits.Joker]:
-		#var joker_card: PlayingCardControl = playing_card_scene.instantiate()
-		#joker_card.card.id = "joker_%d" % jokers.size() 
-		#joker_card.card.display_name = "Joker"
-		#joker_card.card.front_texture = card_texture
-		#joker_card.card.value = 0
-		#joker_card.card.table_value = 0
-		#
-		#if not playing_cards_size.is_zero_approx():
-			#joker_card.card.texture_size = playing_cards_size
-		#
-		#jokers.append(joker_card)
-		#
-		#if cards_by_suit.has(PlayingCard.Suits.Joker):
-			#cards_by_suit[PlayingCard.Suits.Joker].append(joker_card)
-		#else:
-			#cards_by_suit[PlayingCard.Suits.Joker] = [joker_card]
-#
-#
-#func _add_cards_to_deck(deck_data: DeckDatabase.DeckRawData, playing_card_scene: PackedScene) -> void:
-	#var suits = []
-	#
-	#if is_spanish_deck():
-		#suits = PlayingCard.SpanishSuits
-	#elif is_french_deck():
-		#suits = PlayingCard.FrenchSuits
-	#else:
-		#return
-		#
-	#for suit in suits:
-		#var card_value: int = 1
-		#
-		#for card_texture: CompressedTexture2D in deck_data.deck[suit]:
-			#var playing_card: PlayingCardControl = playing_card_scene.instantiate()
-			#playing_card.card.id = card_texture.resource_path.get_file().get_basename().strip_edges().to_camel_case()
-			#playing_card.card.display_name = playing_card.card.id.to_pascal_case()
-			#playing_card.card.front_texture = card_texture
-			#playing_card.card.value = card_value
-			#playing_card.card.table_value = card_value
-			#playing_card.card.suit = suit
-			#
-			#if not playing_cards_size.is_zero_approx():
-				#playing_card.card.texture_size = playing_cards_size
-				#
-			#cards.append(playing_card)
-			#
-			#if cards_by_suit.has(suit):
-				#cards_by_suit[suit].append(playing_card)
-			#else:
-				#cards_by_suit[suit] = [playing_card]
-				#
-			#if is_spanish_deck():
-				### In the spanish deck after the 7 the next one is the jack so we change the card value that allows to be 10 in the next iteration
-				#if card_value == 7:
-					#card_value = 10
-				#else:
-					#card_value += 1
-			#else:
-				#card_value += 1
+@warning_ignore("integer_division")
+func _calculate_visual_pile_counter() -> int:
+	return ceili(cards.size() / visual_pile_cards_amount)
+
 #endregion
 
 #region Signal callbacks
@@ -466,6 +498,6 @@ func on_removed_card(_card: PlayingCardControl) -> void:
 	if visual_pile_counter == 0 and get_child_count() > 0:
 		NodeTraversal.get_last_child(self).queue_free()
 		@warning_ignore("integer_division")
-		visual_pile_counter = calculate_visual_pile_counter()
+		visual_pile_counter = _calculate_visual_pile_counter()
 
 #endregion

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://dcaxml02dd5j"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_0jaur"]
+[ext_resource type="Texture2D" uid="uid://ct5lpyo8ygu52" path="res://components/cards/2D/database/spanish_decks/pixel_deck/cups/copa10.png" id="2_85qtb"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_steia"]
+
+[resource]
+script = ExtResource("3_steia")
+id = &"copa_10"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_85qtb")
+back_texture = ExtResource("1_0jaur")
+suit = 0
+value = 10.0
+table_value = 10.0

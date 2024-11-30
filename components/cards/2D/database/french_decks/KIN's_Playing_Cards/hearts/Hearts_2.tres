@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://dydg0norncyl3"]
+
+[ext_resource type="Texture2D" uid="uid://3rt10yyetr24" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png" id="1_lo12j"]
+[ext_resource type="Texture2D" uid="uid://2my8cu7tjli3" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/hearts/Hearts_2.png" id="2_kfueh"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_1h3r7"]
+
+[resource]
+script = ExtResource("3_1h3r7")
+id = &"hearts_2"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_kfueh")
+back_texture = ExtResource("1_lo12j")
+suit = 4
+value = 2.0
+table_value = 2.0

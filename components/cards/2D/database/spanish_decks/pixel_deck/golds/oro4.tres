@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://c1d51soiq0j5k"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_4ilby"]
+[ext_resource type="Texture2D" uid="uid://daya4diaddeta" path="res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro4.png" id="2_ijrfc"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_f3bxd"]
+
+[resource]
+script = ExtResource("3_f3bxd")
+id = &"oro_4"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_ijrfc")
+back_texture = ExtResource("1_4ilby")
+suit = 1
+value = 4.0
+table_value = 4.0

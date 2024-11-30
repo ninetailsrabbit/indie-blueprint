@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://qtf63lcuim2u"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_udvrh"]
+[ext_resource type="Texture2D" uid="uid://bx3g6ee0mgga0" path="res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada2.png" id="2_ojxdr"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_m7n8r"]
+
+[resource]
+script = ExtResource("3_m7n8r")
+id = &"espada_2"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_ojxdr")
+back_texture = ExtResource("1_udvrh")
+suit = 2
+value = 2.0
+table_value = 2.0

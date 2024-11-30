@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dks05k5q4mf1u"]
+[gd_scene load_steps=3 format=3 uid="uid://dks05k5q4mf1u"]
 
 [ext_resource type="Script" path="res://components/cards/2D/cards_test.gd" id="1_avp50"]
-[ext_resource type="PackedScene" uid="uid://bp6vtdoqcr8uo" path="res://components/cards/2D/control/playing_card_control.tscn" id="2_xg1jr"]
-[ext_resource type="PackedScene" uid="uid://gfjggii0tf5r" path="res://components/cards/2D/control/deck_pile_control.tscn" id="4_qceuj"]
+[ext_resource type="PackedScene" uid="uid://bx5mkrmp5u1j6" path="res://components/cards/2D/control/deck_control.tscn" id="3_iirt2"]
 
 [node name="CardsTest" type="Control"]
 layout_mode = 3
@@ -14,22 +13,4 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_avp50")
 
-[node name="PlayingCardTextureRect" parent="." instance=ExtResource("2_xg1jr")]
-offset_left = 372.0
-offset_top = 241.0
-offset_right = 372.0
-offset_bottom = 241.0
-
-[node name="PlayingCardTextureRect2" parent="." instance=ExtResource("2_xg1jr")]
-offset_left = 494.0
-offset_top = 305.0
-offset_right = 494.0
-offset_bottom = 305.0
-
-[node name="DeckPileControl" parent="." instance=ExtResource("4_qceuj")]
-offset_left = 436.0
-offset_top = 67.0
-offset_right = 436.0
-offset_bottom = 67.0
-draw_visual_pile_each_n_cards = 5
-visual_pile_position_offset = Vector2(3, 5)
+[node name="Deck" parent="." instance=ExtResource("3_iirt2")]

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://b7ghcyx8e60e"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_68e05"]
+[ext_resource type="Texture2D" uid="uid://dutgc72nmyi63" path="res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro7.png" id="2_t8boe"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_5kfry"]
+
+[resource]
+script = ExtResource("3_5kfry")
+id = &"oro_7"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_t8boe")
+back_texture = ExtResource("1_68e05")
+suit = 1
+value = 7.0
+table_value = 7.0

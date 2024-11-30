@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://cnq82sf18r5q5"]
+
+[ext_resource type="Texture2D" uid="uid://3rt10yyetr24" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png" id="1_4yqfv"]
+[ext_resource type="Texture2D" uid="uid://ckinjd0b28ank" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/spades/Spades_9.png" id="2_4tllp"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_klt4d"]
+
+[resource]
+script = ExtResource("3_klt4d")
+id = &"spades_9"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_4tllp")
+back_texture = ExtResource("1_4yqfv")
+suit = 6
+value = 9.0
+table_value = 9.0

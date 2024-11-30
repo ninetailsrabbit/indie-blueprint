@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://dhswy6d5gquj1"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_kjq1h"]
+[ext_resource type="Texture2D" uid="uid://3ui2gtgyh2ef" path="res://components/cards/2D/database/spanish_decks/pixel_deck/clubs/basto7.png" id="2_06x75"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_cdohf"]
+
+[resource]
+script = ExtResource("3_cdohf")
+id = &"basto_7"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_06x75")
+back_texture = ExtResource("1_kjq1h")
+suit = 3
+value = 7.0
+table_value = 7.0

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://c75uedhbi08iu"]
+
+[ext_resource type="Texture2D" uid="uid://3rt10yyetr24" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png" id="1_bkxdf"]
+[ext_resource type="Texture2D" uid="uid://cct3ol22hrqv7" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/clubs/Clubs_10.png" id="2_tluhk"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_wxfiq"]
+
+[resource]
+script = ExtResource("3_wxfiq")
+id = &"clubs_10"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_tluhk")
+back_texture = ExtResource("1_bkxdf")
+suit = 3
+value = 10.0
+table_value = 10.0

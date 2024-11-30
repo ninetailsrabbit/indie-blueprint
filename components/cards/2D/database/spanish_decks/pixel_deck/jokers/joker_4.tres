@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://cfyh57se4pjvb"]
+
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_pr12w"]
+[ext_resource type="Texture2D" uid="uid://b33au303o4hmy" path="res://components/cards/2D/database/spanish_decks/pixel_deck/jokers/joker_4.png" id="2_n7t81"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_uj1g7"]
+
+[resource]
+script = ExtResource("3_uj1g7")
+id = &"joker_4"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_n7t81")
+back_texture = ExtResource("1_pr12w")
+suit = 7
+value = 0.0
+table_value = 0.0

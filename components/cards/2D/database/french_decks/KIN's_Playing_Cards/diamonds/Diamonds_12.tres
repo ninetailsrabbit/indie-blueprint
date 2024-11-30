@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=4 format=3 uid="uid://bqooh6yb7f0ty"]
+
+[ext_resource type="Texture2D" uid="uid://3rt10yyetr24" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png" id="1_yyc03"]
+[ext_resource type="Texture2D" uid="uid://dq3rfwvkgcbxv" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/diamonds/Diamonds_12.png" id="2_vdvbk"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_m3v4l"]
+
+[resource]
+script = ExtResource("3_m3v4l")
+id = &"diamonds_12"
+display_name = ""
+description = ""
+texture_size = Vector2(0, 0)
+front_texture = ExtResource("2_vdvbk")
+back_texture = ExtResource("1_yyc03")
+suit = 5
+value = 12.0
+table_value = 12.0
