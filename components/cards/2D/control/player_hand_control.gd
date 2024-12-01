@@ -13,76 +13,63 @@ signal sorted_cards(previous: Array[PlayingCardControl], current: Array[PlayingC
 @export var maximum_cards: int = 4:
 	set(value):
 		maximum_cards = maxi(1, value)
-@export var distance_between_cards: float = 1.5
-@export var fanning: bool = true
+@export var distance_between_cards: float = 2.0
+@export var time_to_adjust: float = 0.06
+@export var display_layout_mode: Layouts = Layouts.Horizontal
 
+
+enum Layouts {
+	Horizontal,
+	Fan
+}
 
 var current_cards: Array[PlayingCardControl] = []
 
 
 func _enter_tree() -> void:
 	mouse_filter = MOUSE_FILTER_PASS
-
-
-func draw_from_deck(deck: DeckControl, amount: int):
-	if deck.is_empty():
-		return
-		
-	var selected_cards = deck.pick_random_cards(amount)
 	
-	await draw_animation_from_deck(deck, selected_cards)
-	
-	unlock_cards()
-
-
-func draw_animation_from_deck(deck: DeckControl, cards: Array[PlayingCardControl], duration: float = 0.3) -> void:
-	for card: PlayingCardControl in filter_cards_by_maximum_hand_size(cards):
-		add_card(card)
-		card.lock()
-		card.global_position = deck.global_position
-		
-		var tween: Tween = create_tween()
-		tween.tween_property(card, "global_position", global_position, duration).from(deck.global_position)\
-			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		
-		await tween.finished
-		
-		adjust_hand_position()
+	added_card.connect(on_added_card)
+	removed_card.connect(on_removed_card)
 
 
 func adjust_hand_position(except: Array[PlayingCardControl] = []) -> void:
 	var target_cards: Array[PlayingCardControl] = current_cards.filter(
-		func(card: PlayingCardControl): return not card in except and not card.is_being_dragged()
-		)
+		func(card: PlayingCardControl): 
+			return not card in except and not card.is_being_dragged()
+			)
 	
-	
-	for card: PlayingCardControl in target_cards:
-		var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	if display_layout_mode == Layouts.Horizontal:
+		for card: PlayingCardControl in target_cards:
+			var index: int = target_cards.find(card)
+			var new_position: Vector2 = Vector2(index * (card.front_sprite.size.x + distance_between_cards), 0)
+			
+			if card.drag_drop_region.tween_position_is_running():
+				card.position = new_position
+				card.drag_drop_region.original_position = card.global_position
+			else:
+				var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+				tween.tween_property(card, "position", new_position, time_to_adjust)
+				tween.finished.connect(func(): 
+					card.drag_drop_region.original_position = card.global_position, 
+					CONNECT_ONE_SHOT
+				)
+			
 		
-		var index: int = target_cards.find(card)
-		var offset = (target_cards.size() / 2.0 - index) * (card.front_sprite.size.x + distance_between_cards)
-		var target_position = position.x - offset
-		
-		tween.tween_property(card, "position:x", target_position, 0.06)
-	
-		await tween.finished
-
-
 func add_card(card: PlayingCardControl) -> void:
-	if current_cards.size() == maximum_cards:
+	if current_cards.size() == maximum_cards or current_cards.has(card):
 		add_card_request_denied.emit(card)
 	else:
 		if not card.is_inside_tree():
 			add_child(card)
 		
-			card.position = Vector2.ZERO
-			
+		await get_tree().process_frame
+		
 		card.drag_drop_region.dragged.connect(on_card_dragged.bind(card))
 		card.drag_drop_region.released.connect(on_card_released.bind(card))
 		
 		current_cards.append(card)
 		added_card.emit(card)
-		adjust_hand_position()
 		
 
 func add_cards(cards: Array[PlayingCardControl] = []) -> void:
@@ -107,7 +94,6 @@ func remove_card(card: PlayingCardControl):
 		
 		current_cards.erase(card)
 		removed_card.emit(card)
-		adjust_hand_position([card])
 		
 	
 func has_card(card: PlayingCardControl) -> bool:
@@ -149,13 +135,23 @@ func unlock_cards() -> void:
 
 
 #region Signal callbacks
-func on_card_dragged(_card: PlayingCardControl):
-	adjust_hand_position()
+func on_card_dragged(card: PlayingCardControl):
+	if has_card(card):
+		adjust_hand_position()
 	
 
 func on_card_released(card: PlayingCardControl):
 	await GameGlobals.wait(0.1)
 	
+	## Check if the card released it's still on the hand to readjust the position
 	if has_card(card) and card.get_parent() is PlayerHandControl:
 		adjust_hand_position()
+		
+		
+func on_added_card(_card: PlayingCardControl) -> void:
+	adjust_hand_position()
+	
+
+func on_removed_card(card: PlayingCardControl) -> void:
+	adjust_hand_position([card])
 #endregion

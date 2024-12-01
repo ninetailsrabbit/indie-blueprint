@@ -61,6 +61,7 @@ var current_angle_y_max: float = PI / 8
 func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
+	name = "PlayingCardControl"
 
 	
 func _ready() -> void:
@@ -165,6 +166,7 @@ func face_down() -> void:
 		card_orientation = PlayingCard.Orientation.FaceDown 
 		front_sprite.texture = card.back_texture
 #endregion
+
 
 
 #region Preparation

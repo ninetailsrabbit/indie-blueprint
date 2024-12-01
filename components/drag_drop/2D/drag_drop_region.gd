@@ -142,7 +142,7 @@ func rotate_velocity(delta: float) -> void:
 	
 func punchy_hover() -> void:
 	if not is_locked and not is_dragging and enable_punchy_hover:
-		if tween_hover and tween_hover.is_running():
+		if tween_hover_is_running():
 			tween_hover.kill()
 		
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -151,7 +151,7 @@ func punchy_hover() -> void:
 
 func punchy_hover_reset() -> void:
 	if not is_locked and not is_dragging and enable_punchy_hover:
-		if tween_hover and tween_hover.is_running():
+		if tween_hover_is_running():
 			tween_hover.kill()
 			
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -163,7 +163,7 @@ func reset_position() -> void:
 		lock()
 		
 		if reset_position_smooth:
-			if tween_position and tween_position.is_running():
+			if tween_position_is_running():
 				tween_position.kill()
 				
 			tween_position = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
@@ -177,13 +177,27 @@ func reset_position() -> void:
 
 
 func reset_rotation() -> void:
-	if tween_rotation and tween_rotation.is_running():
+	if tween_rotation_is_running():
 		tween_rotation.kill()
 	
 	tween_rotation = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	tween_rotation.tween_property(draggable, "rotation", 0.0, reset_position_smooth_duration)
 	await tween_rotation.finished
 	
+	
+#region Detection
+func tween_position_is_running() -> bool:
+	return tween_position and tween_position.is_running()
+
+
+func tween_rotation_is_running() -> bool:
+	return tween_rotation and tween_rotation.is_running()
+
+
+func tween_hover_is_running() -> bool:
+	return tween_hover and tween_hover.is_running()
+
+#endregion
 
 #region Signal callbacks
 func on_mouse_drag_region_dragged() -> void:
