@@ -64,7 +64,7 @@ func is_joker() -> bool:
 	
 	
 func is_ace() -> bool:
-	return value == 1
+	return value == 1 and not is_joker()
 	
 	
 func is_number() -> bool:

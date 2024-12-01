@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp6aqjbjtmmdx"]
+
+[ext_resource type="PackedScene" uid="uid://bx5mkrmp5u1j6" path="res://components/cards/2D/control/deck_control.tscn" id="1_j3gpp"]
+[ext_resource type="Script" path="res://components/cards/2D/card_test.gd" id="1_ra1ys"]
+[ext_resource type="PackedScene" uid="uid://mmum7glimehm" path="res://components/cards/2D/control/player_hand_control.tscn" id="2_g4m0m"]
+
+[node name="CardTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ra1ys")
+
+[node name="Deck" parent="." instance=ExtResource("1_j3gpp")]
+offset_left = 235.0
+offset_top = 223.0
+offset_right = 235.0
+offset_bottom = 223.0
+visual_pile_position_offset = Vector2(1, -1.5)
+
+[node name="PlayerHandControl" parent="." instance=ExtResource("2_g4m0m")]
+layout_mode = 1
+offset_left = 382.0
+offset_top = 397.0
+offset_right = 382.0
+offset_bottom = 397.0

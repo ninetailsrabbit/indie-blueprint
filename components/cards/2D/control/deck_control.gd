@@ -71,7 +71,7 @@ func load_deck_record(deck_record: DeckDatabase.DeckRecord) -> DeckControl:
 	
 	backs.append_array(deck_record.backs)
 	
-	current_back_texture = deck_record.clubs[0].back_texture
+	current_back_texture = deck_record.backs[0]
 	
 	for joker: PlayingCard in deck_record.jokers:
 		load_card_into_deck(joker)
@@ -122,19 +122,17 @@ func draw_visual_pile(amount: int = default_visual_pile_cards_amount, position_o
 	
 	for i in amount:
 		var visual_sprite = TextureRect.new()
+		visual_sprite.name = "DeckVisualCard"
 		
-		if reference_card.card.texture_size != reference_card.card.back_texture.get_size():
+		if not reference_card.card.texture_size.is_zero_approx() \
+			and reference_card.card.texture_size != reference_card.card.back_texture.get_size():
 			visual_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			visual_sprite.custom_minimum_size = reference_card.card.texture_size
 			visual_sprite.size = reference_card.card.texture_size
 			
 		visual_sprite.texture = current_back_texture
 		visual_sprite.position = position_offset * i
 		add_child(visual_sprite)
-		
-		if i == 0:
-			visual_sprite.position.y += 1
-			visual_sprite.show_behind_parent = true
-			visual_sprite.self_modulate = reference_card.shadow_color
 	
 	return self
 

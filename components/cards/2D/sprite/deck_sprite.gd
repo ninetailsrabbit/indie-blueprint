@@ -15,7 +15,7 @@ signal filled
 signal shuffled
 
 
-@export var playing_card_scene: PackedScene = preload("res://components/cards/2D/control/playing_card_control.tscn")
+@export var playing_card_scene: PackedScene = preload("res://components/cards/2D/sprite/playing_card_sprite.tscn")
 @export var playing_cards_size: Vector2 = Vector2.ZERO
 @export var visual_pile_position_offset: Vector2 = Vector2(1.5, 1.5)
 
@@ -122,20 +122,22 @@ func draw_visual_pile(amount: int = default_visual_pile_cards_amount, position_o
 	
 	for i in amount:
 		var visual_sprite = TextureRect.new()
+		visual_sprite.name = "DeckVisualCard"
+
+		if not reference_card.card.texture_size.is_zero_approx() \
+			and reference_card.card.texture_size != reference_card.card.back_texture.get_size():
+			var original_texture_size = reference_card.card.back_texture.get_size()
+			var new_scale = Vector2(
+				reference_card.card.texture_size.x / original_texture_size.x, 
+				reference_card.card.texture_size.y  / original_texture_size.y
+				)
 		
-		if reference_card.card.texture_size != reference_card.card.back_texture.get_size():
-			visual_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			visual_sprite.size = reference_card.card.texture_size
+			visual_sprite.scale = new_scale
 			
 		visual_sprite.texture = current_back_texture
 		visual_sprite.position = position_offset * i
 		add_child(visual_sprite)
-		
-		if i == 0:
-			visual_sprite.position.y += 1
-			visual_sprite.show_behind_parent = true
-			visual_sprite.self_modulate = reference_card.shadow_color
-	
+
 	return self
 
 

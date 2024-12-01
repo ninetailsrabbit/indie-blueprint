@@ -13,7 +13,7 @@ signal sorted_cards(previous: Array[PlayingCardControl], current: Array[PlayingC
 @export var maximum_cards: int = 4:
 	set(value):
 		maximum_cards = maxi(1, value)
-@export var distance_between_cards: float = 3.5
+@export var distance_between_cards: float = 1.5
 @export var fanning: bool = true
 
 
@@ -21,7 +21,6 @@ var current_cards: Array[PlayingCardControl] = []
 
 
 func _enter_tree() -> void:
-	name  = "PlayerHand"
 	mouse_filter = MOUSE_FILTER_PASS
 
 
@@ -52,7 +51,9 @@ func draw_animation_from_deck(deck: DeckControl, cards: Array[PlayingCardControl
 
 
 func adjust_hand_position(except: Array[PlayingCardControl] = []) -> void:
-	var target_cards: Array[PlayingCardControl] = current_cards.filter(func(card): return not card in except and not card.is_holded)
+	var target_cards: Array[PlayingCardControl] = current_cards.filter(
+		func(card: PlayingCardControl): return not card in except and not card.is_being_dragged()
+		)
 	
 	
 	for card: PlayingCardControl in target_cards:
@@ -74,12 +75,15 @@ func add_card(card: PlayingCardControl) -> void:
 		if not card.is_inside_tree():
 			add_child(card)
 		
-		card.holded.connect(on_card_holded.bind(card))
-		card.released.connect(on_card_released.bind(card))
+			card.position = Vector2.ZERO
+			
+		card.drag_drop_region.dragged.connect(on_card_dragged.bind(card))
+		card.drag_drop_region.released.connect(on_card_released.bind(card))
 		
 		current_cards.append(card)
 		added_card.emit(card)
-	
+		adjust_hand_position()
+		
 
 func add_cards(cards: Array[PlayingCardControl] = []) -> void:
 	if current_cards.size() == maximum_cards:
@@ -95,11 +99,11 @@ func add_cards(cards: Array[PlayingCardControl] = []) -> void:
 
 func remove_card(card: PlayingCardControl):
 	if has_card(card):
-		if card.holded.is_connected(on_card_holded.bind(card)):
-			card.holded.disconnect(on_card_holded.bind(card))
+		if card.drag_drop_region.dragged.is_connected(on_card_dragged.bind(card)):
+			card.drag_drop_region.dragged.disconnect(on_card_dragged.bind(card))
 			
-		if card.released.is_connected(on_card_released.bind(card)):
-			card.released.disconnect(on_card_released.bind(card))
+		if card.drag_drop_region.released.is_connected(on_card_released.bind(card)):
+			card.drag_drop_region.released.disconnect(on_card_released.bind(card))
 		
 		current_cards.erase(card)
 		removed_card.emit(card)
@@ -145,7 +149,7 @@ func unlock_cards() -> void:
 
 
 #region Signal callbacks
-func on_card_holded(_card: PlayingCardControl):
+func on_card_dragged(_card: PlayingCardControl):
 	adjust_hand_position()
 	
 
