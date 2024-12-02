@@ -60,6 +60,7 @@ var is_dragging: bool = false:
 
 var original_z_index: int = 0
 var original_position: Vector2 = Vector2.ZERO
+var original_rotation: float = 0.0
 var current_position: Vector2 = Vector2.ZERO
 var m_offset: Vector2 = Vector2.ZERO
 
@@ -102,6 +103,7 @@ func _ready() -> void:
 	self_modulate.a8 = 100 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
 	
 	original_position = draggable.global_position
+	original_rotation = draggable.rotation
 	original_z_index = z_index
 	
 	button_down.connect(on_mouse_drag_region_dragged)
@@ -181,7 +183,7 @@ func reset_rotation() -> void:
 		tween_rotation.kill()
 	
 	tween_rotation = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	tween_rotation.tween_property(draggable, "rotation", 0.0, reset_position_smooth_duration)
+	tween_rotation.tween_property(draggable, "rotation", original_rotation, reset_position_smooth_duration)
 	await tween_rotation.finished
 	
 	

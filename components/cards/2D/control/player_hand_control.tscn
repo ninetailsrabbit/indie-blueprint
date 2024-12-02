@@ -7,3 +7,4 @@ layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
 script = ExtResource("1_6t6ui")
+display_layout_mode = 1

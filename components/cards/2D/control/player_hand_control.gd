@@ -13,10 +13,13 @@ signal sorted_cards(previous: Array[PlayingCardControl], current: Array[PlayingC
 @export var maximum_cards: int = 4:
 	set(value):
 		maximum_cards = maxi(1, value)
+@export var display_layout_mode: Layouts = Layouts.Horizontal
+@export_category("Horizontal layout")
 @export var distance_between_cards: float = 2.0
 @export var time_to_adjust: float = 0.06
-@export var display_layout_mode: Layouts = Layouts.Horizontal
-
+@export_category("Fan layout")
+@export var fan_card_offset_x: float = 20.0
+@export_range(0, 360.0, 0.01, "degrees") var fan_rotation_max: float = 10.0
 
 enum Layouts {
 	Horizontal,
@@ -24,6 +27,10 @@ enum Layouts {
 }
 
 var current_cards: Array[PlayingCardControl] = []
+
+
+func _ready() -> void:
+	fan_rotation_max = deg_to_rad(fan_rotation_max)
 
 
 func _enter_tree() -> void:
@@ -54,6 +61,20 @@ func adjust_hand_position(except: Array[PlayingCardControl] = []) -> void:
 					card.drag_drop_region.original_position = card.global_position, 
 					CONNECT_ONE_SHOT
 				)
+				
+	elif display_layout_mode == Layouts.Fan:
+		var cards_size: int = target_cards.size() - 1
+		
+		for card: PlayingCardControl in target_cards:
+			var index: int = target_cards.find(card)
+			var final_position: Vector2 = -(card.front_sprite.size / 2.0) - Vector2(fan_card_offset_x * (cards_size - index), 0.0)
+			final_position.x += (fan_card_offset_x * cards_size) / 2.0
+		
+			var final_rotation: float = lerp_angle(-fan_rotation_max, fan_rotation_max, float(index) / float(cards_size))
+			card.position = final_position
+			card.rotation = final_rotation
+			card.drag_drop_region.original_position = card.global_position
+			card.drag_drop_region.original_rotation = card.rotation
 			
 		
 func add_card(card: PlayingCardControl) -> void:
