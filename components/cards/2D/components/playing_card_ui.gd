@@ -1,5 +1,5 @@
 @icon("res://components/cards/2D/icons/playing_card.svg")
-class_name PlayingCardSprite extends Node2D
+class_name PlayingCardUI extends Control
 
 const GroupName: StringName = &"playing-cards"
 
@@ -34,8 +34,8 @@ signal faced_down
 @export_range(0, 360.0, 0.01, "degrees") var angle_y_max: float = 15.0
 @export var reset_fake_3d_duration: float = 0.5
 
-@onready var shadow_sprite: Sprite2D = $ShadowSprite
-@onready var front_sprite: Sprite2D = $FrontSprite
+@onready var shadow_sprite: TextureRect = $ShadowSprite
+@onready var front_sprite: TextureRect = $FrontSprite
 @onready var drag_drop_region: DragDropRegion = $FrontSprite/DragDropRegion
 @onready var card_area: Area2D = $CardArea
 @onready var card_area_collision: CollisionShape2D = $CardArea/CollisionShape2D
@@ -61,16 +61,24 @@ var current_angle_y_max: float = PI / 8
 func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
+	name = "PlayingCardUI"
 
+	
 func _ready() -> void:
 	current_angle_x_max = deg_to_rad(angle_x_max)
 	current_angle_y_max = deg_to_rad(angle_y_max)
 	
+	shadow_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	front_sprite.mouse_filter = Control.MOUSE_FILTER_PASS
+
 	if not card.texture_size.is_zero_approx():
-		var original_texture_size = card.front_texture.get_size()
-		var new_scale = Vector2(card.texture_size.x / original_texture_size.x, card.texture_size.y  / original_texture_size.y)
+		front_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		shadow_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		
-		scale = new_scale
+		front_sprite.custom_minimum_size = card.texture_size
+		shadow_sprite.custom_minimum_size = card.texture_size
+		front_sprite.size = card.texture_size
+		shadow_sprite.size = card.texture_size
 	
 	if enable_fake_3d:
 		drag_drop_region.gui_input.connect(on_gui_input)
@@ -158,6 +166,7 @@ func face_down() -> void:
 		card_orientation = PlayingCard.Orientation.FaceDown 
 		front_sprite.texture = card.back_texture
 #endregion
+
 
 
 #region Preparation

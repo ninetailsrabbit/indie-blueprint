@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://mmum7glimehm"]
+
+[ext_resource type="Script" path="res://components/cards/2D/components/playing_cards_hand.gd" id="1_6t6ui"]
+
+[node name="PlayingCardsHand" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+script = ExtResource("1_6t6ui")
+id = null
+maximum_cards = null
+display_layout_mode = 1
+distance_between_cards = null
+time_to_adjust = null
+fan_card_offset_x = null
+fan_rotation_max = null

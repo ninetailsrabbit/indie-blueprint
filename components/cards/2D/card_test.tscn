@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bp6aqjbjtmmdx"]
 
-[ext_resource type="PackedScene" uid="uid://bx5mkrmp5u1j6" path="res://components/cards/2D/control/deck_control.tscn" id="1_j3gpp"]
+[ext_resource type="PackedScene" uid="uid://bx5mkrmp5u1j6" path="res://components/cards/2D/components/deck.tscn" id="1_j3gpp"]
 [ext_resource type="Script" path="res://components/cards/2D/card_test.gd" id="1_ra1ys"]
-[ext_resource type="PackedScene" uid="uid://mmum7glimehm" path="res://components/cards/2D/control/player_hand_control.tscn" id="2_g4m0m"]
+[ext_resource type="PackedScene" uid="uid://mmum7glimehm" path="res://components/cards/2D/components/playing_cards_hand.tscn" id="2_g4m0m"]
 
 [node name="CardTest" type="Control"]
 layout_mode = 3
@@ -26,3 +26,4 @@ offset_left = 382.0
 offset_top = 397.0
 offset_right = 382.0
 offset_bottom = 397.0
+display_layout_mode = 0

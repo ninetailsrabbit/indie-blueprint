@@ -1,13 +1,13 @@
 @icon("res://components/cards/2D/icons/deck_pile.svg")
-class_name DeckPileSprite extends Node2D
+class_name DeckPile extends Control
 
 const GroupName: StringName = &"deck-piles"
 
-signal added_card(card: PlayingCardSprite)
-signal removed_card(card: PlayingCardSprite)
-signal removed_cards(cards: Array[PlayingCardSprite])
-signal add_card_request_denied(card: PlayingCardSprite)
-signal emptied(cards: Array[PlayingCardSprite])
+signal added_card(card: PlayingCardUI)
+signal removed_card(card: PlayingCardUI)
+signal removed_cards(cards: Array[PlayingCardUI])
+signal add_card_request_denied(card: PlayingCardUI)
+signal emptied(cards: Array[PlayingCardUI])
 signal filled
 
 @export var detection_area_size: Vector2 = Vector2(60, 96):
@@ -24,14 +24,12 @@ signal filled
 	PlayingCard.Suits.Gold,
 	PlayingCard.Suits.Club,
 	PlayingCard.Suits.Sword,
-	PlayingCard.Suits.Joker
 ]
 @export var allowed_french_suits: Array[PlayingCard.Suits] = [
 	PlayingCard.Suits.Diamond,
 	PlayingCard.Suits.Heart,
 	PlayingCard.Suits.Club,
 	PlayingCard.Suits.Spade,
-	PlayingCard.Suits.Joker
 ]
 
 
@@ -39,13 +37,12 @@ signal filled
 @onready var detection_card_area_collision: CollisionShape2D = $DetectionCardArea/CollisionShape2D
 
 
-var current_cards: Array[PlayingCardSprite] = []
-var last_detected_card: PlayingCardSprite
+var current_cards: Array[PlayingCardUI] = []
+var last_detected_card: PlayingCardUI
 
 
 func _enter_tree() -> void:
 	add_to_group(GroupName)
-	
 	
 
 func _ready() -> void:
@@ -64,7 +61,7 @@ func change_detection_area_size(new_size: Vector2 = detection_area_size) -> void
 	detection_card_area_collision.shape.size = new_size
 
 
-func add_card(card: PlayingCardSprite) -> void:
+func add_card(card: PlayingCardUI) -> void:
 	if _card_can_be_added_to_pile(card):
 		card.lock()
 		current_cards.append(card)
@@ -91,20 +88,20 @@ func clear() -> void:
 		remove_cards(current_cards)
 		
 	
-func remove_cards(cards: Array[PlayingCardSprite] = current_cards):
-	for card: PlayingCardSprite in cards:
+func remove_cards(cards: Array[PlayingCardUI] = current_cards):
+	for card: PlayingCardUI in cards:
 		remove_card(card)
 
 	removed_cards.emit(cards)
 
 
-func remove_card(card: PlayingCardSprite):
+func remove_card(card: PlayingCardUI):
 	if has_card(card):
 		current_cards.erase(card)
 		removed_card.emit(card)
 
 
-func has_card(card: PlayingCardSprite) -> bool:
+func has_card(card: PlayingCardUI) -> bool:
 	return current_cards.has(card)
 
 
@@ -113,14 +110,14 @@ func is_empty() -> bool:
 
 
 func total_card_value() -> float:
-	return current_cards.reduce(func(accum: float, playing_card: PlayingCardSprite): return playing_card.card.value + accum, 0.0)
+	return current_cards.reduce(func(accum: float, playing_card: PlayingCardUI): return playing_card.card.value + accum, 0.0)
 
 
 func total_card_table_value() -> float:
-	return current_cards.reduce(func(accum: float, playing_card: PlayingCardSprite): return playing_card.card.table_value + accum, 0.0)
+	return current_cards.reduce(func(accum: float, playing_card: PlayingCardUI): return playing_card.card.table_value + accum, 0.0)
 
 
-func _card_can_be_added_to_pile(playing_card: PlayingCardSprite) -> bool:
+func _card_can_be_added_to_pile(playing_card: PlayingCardUI) -> bool:
 	var is_allowed_spanish_card: bool = playing_card.card.is_spanish() and playing_card.card.suit in allowed_spanish_suits
 	var is_allowed_french_card: bool = playing_card.card.is_french() and playing_card.card.suit in allowed_french_suits
 	
@@ -130,7 +127,7 @@ func _card_can_be_added_to_pile(playing_card: PlayingCardSprite) -> bool:
 	
 #region Signal callbacks
 func on_card_entered(other_area: Area2D) -> void:
-	var card: PlayingCardSprite = other_area.get_parent() as PlayingCardSprite
+	var card: PlayingCardUI = other_area.get_parent() as PlayingCardUI
 	
 	if card.is_being_dragged():
 		last_detected_card = card
@@ -144,7 +141,7 @@ func on_card_exited(_other_area: Area2D) -> void:
 	last_detected_card = null
 	
 
-func on_card_detected(card: PlayingCardSprite) -> void:
+func on_card_detected(card: PlayingCardUI) -> void:
 	var parent =  card.get_parent()
 	
 	if parent.has_method("remove_card"):

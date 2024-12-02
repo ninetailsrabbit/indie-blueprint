@@ -1,7 +1,7 @@
 extends Control
 
-@onready var deck: DeckControl = $Deck
-@onready var player_hand_control: PlayerHandControl = $PlayerHandControl
+@onready var deck: Deck = $Deck
+@onready var player_hand_control: PlayingCardsHand = $PlayerHandControl
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
