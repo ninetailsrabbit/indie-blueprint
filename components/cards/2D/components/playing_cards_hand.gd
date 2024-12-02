@@ -33,9 +33,9 @@ signal sorted_cards(previous: Array[PlayingCardUI], current: Array[PlayingCardUI
 @export_range(0, 360.0, 0.01, "degrees") var fan_rotation_max: float = 10.0
 @export_category("Perfect Arc Fan layout")
 ## The distance of the cards aligned, more the radius, more the arc range
-@export var hand_radius: float = 250.0
-@export_range(0, 360.0, 0.01, "degrees") var angle_limit: float = 45.0
-@export_range(0, 360.0, 0.01, "degrees")var max_card_spread_angle: float = 15.0
+@export var perfect_arc_hand_radius: float = 250.0
+@export_range(0, 360.0, 0.01, "degrees") var perfect_arc_angle_limit: float = 45.0
+@export_range(0, 360.0, 0.01, "degrees")var perfect_arc_max_card_spread_angle: float = 15.0
 
 enum Layouts {
 	Horizontal,
@@ -193,7 +193,7 @@ func _irregular_fan_layout(cards: Array[PlayingCardUI]) -> void:
 		
 
 func _perfect_arc_layout(cards: Array[PlayingCardUI]):
-	var card_spread = min(angle_limit / cards.size(), max_card_spread_angle)
+	var card_spread = min(perfect_arc_angle_limit / cards.size(), perfect_arc_max_card_spread_angle)
 	var current_angle = -(card_spread * (cards.size() - 1)) / 2 - 90
 	
 	for card in cards:
@@ -205,15 +205,15 @@ func _perfect_arc_layout(cards: Array[PlayingCardUI]):
 
 func _update_card_transform(card: PlayingCardUI, angle_in_drag: float):
 	card.position = Vector2(
-		hand_radius * cos(deg_to_rad(angle_in_drag)), 
-		hand_radius * sin(deg_to_rad(angle_in_drag))
+		perfect_arc_hand_radius * cos(deg_to_rad(angle_in_drag)), 
+		perfect_arc_hand_radius * sin(deg_to_rad(angle_in_drag))
 	)
 	
-	## This sum keeps the player hand in the same place
-	card.position.y += hand_radius
+	## This sum keeps the player hand control node in the same place
+	card.position.y += perfect_arc_hand_radius
 	card.rotation = deg_to_rad(angle_in_drag + 90.0)
 
-	card.drag_drop_region.original_position = card.global_position
+	card.drag_drop_region.original_position = card.global_position 
 	card.drag_drop_region.original_rotation = card.rotation
 #endregion
 
