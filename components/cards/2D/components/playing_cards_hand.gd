@@ -10,6 +10,7 @@ signal sorted_cards(previous: Array[PlayingCardUI], current: Array[PlayingCardUI
 
 
 @export var id: StringName
+@export var default_card_orientation: PlayingCard.Orientation = PlayingCard.Orientation.FaceUp
 @export var maximum_cards: int = 4:
 	set(value):
 		maximum_cards = maxi(1, value)
@@ -79,8 +80,15 @@ func add_card(card: PlayingCardUI) -> void:
 	else:
 		if not card.is_inside_tree():
 			add_child(card)
+			card.card.default_orientation = default_card_orientation
+			
+			if default_card_orientation == PlayingCard.Orientation.FaceUp:
+				card.face_up()
+			else:
+				card.face_down()
 		
-		await get_tree().process_frame
+		await get_tree().physics_frame
+		await get_tree().physics_frame
 		
 		card.drag_drop_region.dragged.connect(on_card_dragged.bind(card))
 		card.drag_drop_region.released.connect(on_card_released.bind(card))

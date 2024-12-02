@@ -2,6 +2,7 @@ extends Control
 
 @onready var deck: Deck = $Deck
 @onready var playing_cards_hand: PlayingCardsHand = $PlayingCardsHand
+@onready var deck_pile: DeckPile = $DeckPile
 
 
 # Called when the node enters the scene tree for the first time.

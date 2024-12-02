@@ -19,6 +19,10 @@ signal filled
 @export var maximum_cards_in_pile: int = 0
 @export var draw_visual_pile_each_n_cards: int = 1
 @export var visual_pile_position_offset: Vector2 = Vector2(1, 1)
+## When this is enabled, the rotation that have the card when entered the pile it's saved when dropped
+@export var reset_card_rotation_when_dropped: bool = true
+@export var min_rotation_on_card_dropped: float = -5.0
+@export var max_rotation_on_card_dropped: float = 5.0
 @export var allowed_spanish_suits: Array[PlayingCard.Suits] = [
 	PlayingCard.Suits.Cup,
 	PlayingCard.Suits.Gold,
@@ -46,6 +50,9 @@ func _enter_tree() -> void:
 	
 
 func _ready() -> void:
+	min_rotation_on_card_dropped = deg_to_rad(min_rotation_on_card_dropped)
+	max_rotation_on_card_dropped = deg_to_rad(max_rotation_on_card_dropped)
+	
 	detection_card_area.monitorable = false
 	detection_card_area.monitoring = true
 	detection_card_area.collision_layer = 0
@@ -68,6 +75,14 @@ func add_card(card: PlayingCardUI) -> void:
 		card.reparent(self)
 		@warning_ignore("integer_division")
 		card.position = detection_card_area.position + visual_pile_position_offset * ceili(current_cards.size() / draw_visual_pile_each_n_cards)
+		
+		if reset_card_rotation_when_dropped:
+			var tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT_IN)
+			tween.tween_property(card, "rotation", 0.0, 0.06)
+		else:
+			var tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT_IN)
+			tween.tween_property(card, "rotation", randf_range(min_rotation_on_card_dropped, max_rotation_on_card_dropped), 0.06)
+		
 		
 		if not detection_area_size.is_equal_approx(card.front_sprite.size):
 			change_detection_area_size(card.front_sprite.size)

@@ -65,6 +65,7 @@ func _enter_tree() -> void:
 	 
 	
 func _ready() -> void:
+	assert(is_instance_valid(card) and card is PlayingCard, "PlayingCardUI: This card needs a PlayingCard resource to be used")
 	current_angle_x_max = deg_to_rad(angle_x_max)
 	current_angle_y_max = deg_to_rad(angle_y_max)
 	
@@ -90,7 +91,10 @@ func _ready() -> void:
 	_prepare_shadow()
 	_prepare_areas()
 	
-	face_down()
+	if card.default_orientation_is_face_up():
+		face_up()
+	else:
+		face_down()
 
 
 func enable_detection_areas(enable: bool) -> void:
@@ -191,6 +195,7 @@ func _prepare_shadow() -> void:
 		
 		
 func _prepare_areas() -> void:
+	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
 	card_area.collision_layer = GameGlobals.playing_cards_collision_layer

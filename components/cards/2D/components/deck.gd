@@ -19,7 +19,6 @@ signal shuffled
 @export var playing_cards_size: Vector2 = Vector2.ZERO
 @export var visual_pile_position_offset: Vector2 = Vector2(1.5, 1.5)
 
-
 #region Card templates
 var cards_by_suit: Dictionary = {
 	PlayingCard.Suits.Joker: [],

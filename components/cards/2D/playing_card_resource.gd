@@ -48,7 +48,15 @@ enum Orientation {
 @export var value: float = 1.0
 ## The value that this card have in the table, can differ from the meta value
 @export var table_value: float = 1.0
+## The default orientation of this card when added to the table
+@export var default_orientation:  PlayingCard.Orientation = PlayingCard.Orientation.FaceUp
 
+func default_orientation_is_face_up() -> bool:
+	return default_orientation == PlayingCard.Orientation.FaceUp
+
+
+func default_orientation_is_face_down() -> bool:
+	return default_orientation == PlayingCard.Orientation.FaceDown
 
 #region Suit information
 func is_spanish() -> bool:

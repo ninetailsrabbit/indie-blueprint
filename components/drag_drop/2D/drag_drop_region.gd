@@ -161,7 +161,7 @@ func punchy_hover_reset() -> void:
 
 
 func reset_position() -> void:
-	if reset_position_on_release:
+	if reset_position_on_release and not is_locked:
 		lock()
 		
 		if reset_position_smooth:
@@ -179,13 +179,14 @@ func reset_position() -> void:
 
 
 func reset_rotation() -> void:
-	if tween_rotation_is_running():
-		tween_rotation.kill()
-	
-	tween_rotation = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	tween_rotation.tween_property(draggable, "rotation", original_rotation, reset_position_smooth_duration)
-	await tween_rotation.finished
-	
+	if not is_locked:
+		if tween_rotation_is_running():
+			tween_rotation.kill()
+		
+		tween_rotation = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
+		tween_rotation.tween_property(draggable, "rotation", original_rotation, reset_position_smooth_duration)
+		await tween_rotation.finished
+		
 	
 #region Detection
 func tween_position_is_running() -> bool:
