@@ -25,4 +25,5 @@ offset_left = 280.0
 offset_top = 373.0
 offset_right = 280.0
 offset_bottom = 373.0
-display_layout_mode = 0
+maximum_cards = 8
+display_layout_mode = 2

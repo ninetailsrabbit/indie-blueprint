@@ -62,7 +62,7 @@ func _enter_tree() -> void:
 	add_to_group(GroupName)
 	
 	name = "PlayingCardUI"
-
+	 
 	
 func _ready() -> void:
 	current_angle_x_max = deg_to_rad(angle_x_max)
