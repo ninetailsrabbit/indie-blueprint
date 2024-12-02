@@ -22,8 +22,11 @@ signal sorted_cards(previous: Array[PlayingCardUI], current: Array[PlayingCardUI
 				adjust_hand_position()
 			
 @export_category("Horizontal layout")
-@export var distance_between_cards: float = 2.0
-@export var time_to_adjust: float = 0.06
+@export var horizontal_distance_offset: Vector2 = Vector2(2, 0)
+@export var min_horizontal_y_offset: float = 3.0
+@export var max_horizontal_y_offset: float = 3.0
+@export_range(0, 360.0, 0.01, "degrees") var min_horizontal_rotation: float = 1.5
+@export_range(0, 360.0, 0.01, "degrees") var max_horizontal_rotation: float = 2.0
 @export_category("Fan layout")
 @export var fan_card_offset_x: float = 20.0
 @export_range(0, 360.0, 0.01, "degrees") var fan_rotation_max: float = 10.0
@@ -38,6 +41,8 @@ var current_cards: Array[PlayingCardUI] = []
 
 func _ready() -> void:
 	fan_rotation_max = deg_to_rad(fan_rotation_max)
+	min_horizontal_rotation = deg_to_rad(min_horizontal_rotation)
+	max_horizontal_rotation = deg_to_rad(max_horizontal_rotation)
 
 
 func _enter_tree() -> void:
@@ -140,21 +145,20 @@ func unlock_cards() -> void:
 
 #region Layouts
 func _horizontal_layout(cards: Array[PlayingCardUI]) -> void:
+	var toggle_random_layout: bool = false
+	
 	for card: PlayingCardUI in cards:
 		var index: int = cards.find(card)
-		var new_position: Vector2 = Vector2(index * (card.front_sprite.size.x + distance_between_cards), 0)
+		var new_position: Vector2 = index * (card.front_sprite.size + horizontal_distance_offset)
+		new_position.y = (-1 if toggle_random_layout else 1) *  randf_range(min_horizontal_y_offset, max_horizontal_y_offset)
 		
-		if card.drag_drop_region.tween_position_is_running():
-			card.position = new_position
-			card.drag_drop_region.original_position = card.global_position
-		else:
-			var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-			tween.tween_property(card, "position", new_position, time_to_adjust)
-			tween.finished.connect(func(): 
-				card.drag_drop_region.original_position = card.global_position, 
-				CONNECT_ONE_SHOT
-			)
-
+		card.position = new_position
+		card.rotation = (-1 if toggle_random_layout else 1) * randf_range(min_horizontal_rotation, max_horizontal_rotation)
+		
+		card.drag_drop_region.original_position = card.global_position
+		card.drag_drop_region.original_rotation = card.rotation
+		
+		toggle_random_layout = !toggle_random_layout
 
 func _fan_layout(cards: Array[PlayingCardUI]) -> void:
 	var cards_size: int = cards.size() - 1

@@ -20,10 +20,9 @@ offset_right = 235.0
 offset_bottom = 223.0
 visual_pile_position_offset = Vector2(1, -1.5)
 
-[node name="PlayerHandControl" parent="." instance=ExtResource("2_g4m0m")]
-layout_mode = 1
-offset_left = 382.0
-offset_top = 397.0
-offset_right = 382.0
-offset_bottom = 397.0
+[node name="PlayingCardsHand" parent="." instance=ExtResource("2_g4m0m")]
+offset_left = 280.0
+offset_top = 373.0
+offset_right = 280.0
+offset_bottom = 373.0
 display_layout_mode = 0
