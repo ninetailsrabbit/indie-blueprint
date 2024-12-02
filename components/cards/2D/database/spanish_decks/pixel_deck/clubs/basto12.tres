@@ -15,3 +15,4 @@ back_texture = ExtResource("1_ws8ck")
 suit = 3
 value = 12.0
 table_value = 12.0
+default_orientation = 0

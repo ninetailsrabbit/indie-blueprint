@@ -15,3 +15,4 @@ back_texture = ExtResource("1_4yqfv")
 suit = 6
 value = 9.0
 table_value = 9.0
+default_orientation = 0

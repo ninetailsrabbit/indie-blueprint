@@ -32,10 +32,10 @@ signal sorted_cards(previous: Array[PlayingCardUI], current: Array[PlayingCardUI
 @export var fan_card_offset_x: float = 20.0
 @export_range(0, 360.0, 0.01, "degrees") var fan_rotation_max: float = 10.0
 @export_category("Perfect Arc Fan layout")
-@export var arc_distance_offset: float = -12.0
-@export_range(0, 360.0, 0.01, "degrees") var arc_spread_angle: float = 30.0 
-@export var arc_height: float = 5.0
-
+## The distance of the cards aligned, more the radius, more the arc range
+@export var hand_radius: float = 250.0
+@export_range(0, 360.0, 0.01, "degrees") var angle_limit: float = 45.0
+@export_range(0, 360.0, 0.01, "degrees")var max_card_spread_angle: float = 15.0
 
 enum Layouts {
 	Horizontal,
@@ -192,51 +192,34 @@ func _irregular_fan_layout(cards: Array[PlayingCardUI]) -> void:
 		card.drag_drop_region.original_rotation = card.rotation
 		
 
-func _perfect_arc_layout(cards: Array[PlayingCardUI]) -> void:
-	var cards_size: int = cards.size()
-	var waveform: Array[float] = _generate_waveform(cards_size)
+func _perfect_arc_layout(cards: Array[PlayingCardUI]):
+	var card_spread = min(angle_limit / cards.size(), max_card_spread_angle)
+	var current_angle = -(card_spread * (cards.size() - 1)) / 2 - 90
 	
-	for card: PlayingCardUI in cards:
-		var index: int = cards.find(card)
-		
-		card.position.x = index * (card.front_sprite.size.x + arc_distance_offset)
-		card.position.y = 0
-		
-		var angle_offset: float = 0.0
-		
-		if cards_size > 1:
-			angle_offset = arc_spread_angle * (index - (cards_size / 2.0)) / (cards_size - 1)
-		
-		var y_offset: float = arc_height * waveform[index]
-		
-		card.position.y -= y_offset
-		card.rotation = deg_to_rad(angle_offset)
-		
-		card.drag_drop_region.original_position = card.global_position
-		card.drag_drop_region.original_rotation = card.rotation
-		
-		
-func _generate_waveform(range_length: int) -> Array[float]:
-	var output: Array[float] = []
-	var half_range: float = range_length / 2.0
-	var peak_value: float = floorf(half_range)
+	for card in cards:
+		_update_card_transform(card, current_angle)
+		current_angle += card_spread
 	
-	# Iterate through the range and calculate output based on position
-	for i: int in range(range_length):
-		# Calculate how far the index is from the middle of the range
-		var distance_from_middle: float = absf(i - half_range + 0.5)
-		# Determine the output value (inverse of distance from middle)
-		var value: float = peak_value - distance_from_middle
-		
-		output.append(maxf(0, floorf(value) * 1.5))
+	#position.y = absf(cards.back().position.y)
 
-	return output
+
+func _update_card_transform(card: PlayingCardUI, angle_in_drag: float):
+	card.position = Vector2(
+		hand_radius * cos(deg_to_rad(angle_in_drag)), 
+		hand_radius * sin(deg_to_rad(angle_in_drag))
+	)
+	
+	## This sum keeps the player hand in the same place
+	card.position.y += hand_radius
+	card.rotation = deg_to_rad(angle_in_drag + 90.0)
+
+	card.drag_drop_region.original_position = card.global_position
+	card.drag_drop_region.original_rotation = card.rotation
 #endregion
 
 #region Signal callbacks
-func on_card_dragged(card: PlayingCardUI):
-	if has_card(card):
-		adjust_hand_position()
+func on_card_dragged(_card: PlayingCardUI):
+	pass
 	
 
 func on_card_released(card: PlayingCardUI):

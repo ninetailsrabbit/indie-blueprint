@@ -27,6 +27,7 @@ offset_top = 373.0
 offset_right = 280.0
 offset_bottom = 373.0
 maximum_cards = 8
+display_layout_mode = 2
 
 [node name="DeckPile" parent="." instance=ExtResource("4_h5fab")]
 offset_left = 503.0
