@@ -71,7 +71,8 @@ func load_deck_record(deck_record: DeckDatabase.DeckRecord) -> Deck:
 	
 	backs.append_array(deck_record.backs)
 	
-	current_back_texture = deck_record.backs[0]
+	if backs.size() > 0:
+		current_back_texture = backs[0]
 	
 	for joker: PlayingCard in deck_record.jokers:
 		load_card_into_deck(joker)
@@ -478,6 +479,10 @@ func is_empty() -> bool:
 
 func deck_size() -> int:
 	return current_cards.size()
+
+
+func discard_pile_size() -> int:
+	return discard_pile.size()
 #endregion
 
 
@@ -490,7 +495,6 @@ func change_back_texture(idx: int) -> Deck:
 		for playing_card: PlayingCardUI in current_cards:
 			playing_card.card.back_texture = current_back_texture
 
-	
 	return self
 
 
