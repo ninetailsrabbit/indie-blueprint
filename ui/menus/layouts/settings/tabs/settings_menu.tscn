@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://ui/menus/components/slider/audio_slider.gd" id="1_hou6f"]
 [ext_resource type="Script" path="res://ui/menus/layouts/settings/tabs/settings_menu.gd" id="1_iwgds"]
-[ext_resource type="Script" path="res://ui/menus/components/option_button/screen_mode_option_button.gd" id="2_42cln"]
 [ext_resource type="Script" path="res://ui/menus/components/checkbox/screen_borderless_checkbox.gd" id="3_ifc12"]
+[ext_resource type="Script" path="res://ui/menus/components/option_button/screen_mode_option_button.gd" id="3_ql1bx"]
 [ext_resource type="Script" path="res://ui/menus/components/option_button/screen_resolutions_option_button.gd" id="4_ar00i"]
 [ext_resource type="Script" path="res://ui/menus/components/hbox/fps_limit_hbox_container.gd" id="5_g3xtc"]
 [ext_resource type="Script" path="res://ui/menus/components/checkbox/vsync_checkbox.gd" id="6_bltxp"]
@@ -218,7 +218,7 @@ text = "SETTINGS_WINDOW_MODE"
 [node name="ScreenModeOptionButton" type="OptionButton" parent="MarginContainer/TabContainer/Screen/MarginContainer/VBoxContainer/DisplayModeHbox/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("2_42cln")
+script = ExtResource("3_ql1bx")
 
 [node name="ScreenBorderlessCheckbox" type="CheckBox" parent="MarginContainer/TabContainer/Screen/MarginContainer/VBoxContainer/DisplayModeHbox"]
 layout_mode = 2

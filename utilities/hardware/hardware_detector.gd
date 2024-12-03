@@ -42,12 +42,28 @@ static var usable_threads: int = processor_count * 2 # I assume that each core h
 static var computer_screen_size: Vector2i = DisplayServer.screen_get_size()
 
 
+static func renderer() -> String:
+	return str(ProjectSettings.get_setting_with_override("rendering/renderer/rendering_method"))
+
+
 static func is_multithreading_enabled() -> bool:
 	return ProjectSettings.get_setting("rendering/driver/threads/thread_model") == 2
 
 
 static func is_exported_release() -> bool:
 	return OS.has_feature("template")
+
+
+static func renderer_is_forward() -> bool:
+	return renderer().nocasecmp_to("forward_plus") == 0
+
+
+static func render_is_compatibility() -> bool:
+	return renderer().nocasecmp_to("gl_compatibility") == 0
+
+
+static func renderer_is_mobile() -> bool:
+	return renderer().nocasecmp_to("mobile") == 0
 
 
 static func is_steam_deck() -> bool:
@@ -156,9 +172,6 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("shadow_atlas", "Directional shadow atlas", 4096, "Enabled"),
 			GraphicQualityDisplay.new("shadow_filter", "Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_MEDIUM, "Enabled"),
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail", 2, "Enabled"),
-			
-			
-			
 		]
 	),
 	QualityPreset.High: GraphicQualityPreset.new("For recent PCs with mid-range dedicated graphics, or older PCs with high-end graphics",
@@ -173,7 +186,6 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("shadow_atlas", "Directional shadow atlas", 8192, "Enabled"),
 			GraphicQualityDisplay.new("shadow_filter", "Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_HIGH, "Enabled"),
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail", 1, "Enabled"),
-			
 		]
 	),
 	QualityPreset.Ultra: GraphicQualityPreset.new("For recent PCs with high-end dedicated graphics",

@@ -18,6 +18,8 @@ const WindowDisplaySetting: StringName = &"display"
 const WindowDisplayBorderlessSetting: StringName = &"borderless"
 const WindowResolutionSetting: StringName = &"resolution"
 const VsyncSetting: StringName = &"vsync"
+const Scaling3DMode: StringName = &"scaling_3d_mode"
+const Scaling3DValue: StringName = &"scaling_3d_value"
 const QualityPresetSetting: StringName = &"quality_preset"
 
 const MouseSensivitySetting: StringName = &"mouse_sensitivity"
@@ -51,6 +53,8 @@ static var DefaultSettings: Dictionary = {
 	GameSettings.WindowResolutionSetting: DisplayServer.window_get_size(),
 	GameSettings.WindowDisplayBorderlessSetting: DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS),
 	GameSettings.VsyncSetting:  DisplayServer.window_get_vsync_mode(),
+	GameSettings.Scaling3DMode: Viewport.SCALING_3D_MODE_BILINEAR,
+	GameSettings.Scaling3DValue: 1.0,
 	GameSettings.QualityPresetSetting: HardwareDetector.auto_discover_graphics_quality(),
 	GameSettings.MouseSensivitySetting: 3.0,
 	GameSettings.ReversedMouseSetting: false,

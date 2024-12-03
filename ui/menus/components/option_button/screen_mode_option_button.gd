@@ -8,7 +8,6 @@ var valid_window_modes: Array[DisplayServer.WindowMode] = [
 ]
 
 
-
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED:
 		if not is_node_ready():
@@ -19,7 +18,6 @@ func _notification(what: int) -> void:
 
 func _ready() -> void:
 	prepare_screen_mode_items()
-	select(get_item_index(DisplayServer.window_get_mode()))
 	
 	item_selected.connect(on_screen_mode_selected)
 
@@ -29,6 +27,8 @@ func prepare_screen_mode_items() -> void:
 	
 	for mode in valid_window_modes:
 		add_item(_screen_mode_to_string(mode), mode)
+	
+	select(get_item_index(DisplayServer.window_get_mode()))
 	
 
 func _screen_mode_to_string(mode: DisplayServer.WindowMode) -> String:

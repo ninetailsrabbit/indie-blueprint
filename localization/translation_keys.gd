@@ -32,6 +32,10 @@ static var WindowModeBorderlessTranslationKey: String = "SCREEN_MODE_BORDERLESS"
 static var WindowModeFullScreenTranslationKey: String = "SCREEN_MODE_FULLSCREEN"
 static var WindowModeExclusiveFullScreenTranslationKey: String = "SCREEN_MODE_EXCLUSIVE_FULLSCREEN"
 
+static var Scaling3dModeBilinear: String = "Bilinear"
+static var Scaling3dModeFSR: String = "FSR"
+static var Scaling3dModeFSR2: String = "FSR2"
+
 
 static var DaltonismKeys: Dictionary = {
 	WindowManager.DaltonismTypes.No: NoTranslationKey,
