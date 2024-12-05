@@ -24,7 +24,7 @@ signal faced_down
 			shadow_horizontal_depth = maxf(0.01, value)
 			
 			if is_inside_tree() and shadow_sprite:
-				shadow_sprite.position.y = front_sprite.position.x + shadow_horizontal_depth
+				shadow_sprite.position.x = front_sprite.position.x + shadow_horizontal_depth
 
 @export var max_offset_shadow: float = 1.0
 @export_category("2D perspective")
@@ -86,7 +86,9 @@ func _ready() -> void:
 		shader_material = ShaderMaterial.new()
 		shader_material.shader = perspective_shader
 		front_sprite.material = shader_material
-		
+	
+	await get_tree().process_frame
+
 	_connect_to_drag_drop_signals()
 	_prepare_shadow()
 	_prepare_areas()
