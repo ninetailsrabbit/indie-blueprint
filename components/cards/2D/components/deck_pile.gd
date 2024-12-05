@@ -96,24 +96,56 @@ func add_card(card: PlayingCardUI) -> void:
 	else:
 		add_card_request_denied.emit(card)
 
-
-func clear() -> void:
-	if not is_empty():
-		emptied.emit(current_cards)
-		remove_cards(current_cards)
-		
 	
-func remove_cards(cards: Array[PlayingCardUI] = current_cards):
+func remove_cards(cards: Array[PlayingCardUI] = current_cards) -> void:
 	for card: PlayingCardUI in cards:
 		remove_card(card)
 
 	removed_cards.emit(cards)
 
 
-func remove_card(card: PlayingCardUI):
+func remove_card(card: PlayingCardUI) -> void:
 	if has_card(card):
 		current_cards.erase(card)
 		removed_card.emit(card)
+		
+
+func remove_card_at_position(idx: int) -> void:
+	var card: PlayingCardUI = card_at_position(idx)
+	
+	if card != null:
+		remove_card(card)
+	
+
+func clear() -> void:
+	if is_empty():
+		return
+		
+	emptied.emit(current_cards)
+	remove_cards(current_cards)
+
+
+func bottom_card() -> PlayingCardUI:
+	if is_empty():
+		return null
+	 
+	return current_cards.front()
+
+
+func last_card() -> PlayingCardUI:
+	if is_empty():
+		return null
+	 
+	return current_cards.back()
+
+
+func card_at_position(idx: int) -> PlayingCardUI:
+	var index: int = current_cards.find(idx)
+	
+	if index != -1:
+		return current_cards[index]
+		
+	return null
 
 
 func has_card(card: PlayingCardUI) -> bool:

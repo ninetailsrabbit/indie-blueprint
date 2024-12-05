@@ -236,11 +236,8 @@ func load_graphics() -> void:
 				DisplayServer.window_set_size(config_value)
 			GameSettings.Scaling3DMode:
 				get_viewport().scaling_3d_mode = config_value
-				print("scaling 3d mode set on settings ", config_value)
 			GameSettings.Scaling3DValue:
 				get_viewport().scaling_3d_scale = config_value
-				print("scaling 3d value set on settings ", config_value)
-
 			GameSettings.VsyncSetting:
 				DisplayServer.window_set_vsync_mode(config_value)
 	
