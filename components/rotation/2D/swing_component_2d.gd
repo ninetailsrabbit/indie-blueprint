@@ -24,13 +24,11 @@ var active: bool = true:
 		if value != active:
 			if value:
 				started.emit()
-				set_process(true)
 			else:
 				stopped.emit()
-				set_process(false)
 				
 		active = value
-
+		set_process(active)
 
 func _ready():
 	if target == null:

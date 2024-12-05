@@ -1,14 +1,21 @@
 @icon("res://components/rotation/2D/orbit_component_2d.svg")
-class_name OrbitComponent2D extends Node2D
+class_name OrbitComponent2D extends Node
 
 signal started
 signal stopped
 
-@export var rotation_reference: Node2D
+@export var target: Node2D
 @export var radius: float = 40.0
-@export var angle_in_radians = PI / 4
+@export_range(0, 360, 0.01, "degrees") var angle: float = 45.0:
+	set(value):
+		angle = value
+		current_angle = deg_to_rad(angle)
 @export var angular_velocity = PI / 2
 
+## Current angle in radians
+var current_angle: float = angle:
+	set(value):
+		current_angle = clampf(value, 0.0, TAU)
 
 var active: bool = false:
 	set(value):
@@ -18,26 +25,27 @@ var active: bool = false:
 				set_process(true)
 			else:
 				stopped.emit()
-				set_process(false)
 				
-		active = value
-
+			active = value
+			set_process(active)
+			
 func _ready():
-	if rotation_reference == null:
-		rotation_reference = get_parent() as Node2D
+	if target == null:
+		target = get_parent() as Node2D
 	
-	assert(rotation_reference is Node2D, "OrbitComponent2D: This component needs a Node2D rotation reference to apply the orbit")
+	assert(target is Node2D, "OrbitComponent2D: This component needs a Node2D target to apply the orbit")
 	
-	
-	
+	current_angle = angle
+
+
 func _process(delta):
-	active = true
-	angle_in_radians += delta * angular_velocity
-	angle_in_radians %= TAU
-	
-	var offset: Vector2 = Vector2(cos(angle_in_radians), sin(angle_in_radians)) * radius
-	position = rotation_reference.position + offset
-	
+	if active:
+		current_angle += delta * angular_velocity
+		current_angle = fmod(current_angle, TAU)
+		
+		var offset: Vector2 = Vector2(cos(current_angle), sin(current_angle)) * radius
+		target.position = target.position + offset
+		
 
 func start():
 	active = true

@@ -12,7 +12,7 @@ signal changed_rotation_direction(from: Vector2, to: Vector2)
 ## Change the rotation direction after the seconds provided
 @export var change_rotation_direction_after_seconds: int = 0:
 	set(value):
-		change_rotation_direction_after_seconds = max(0, abs(value))
+		change_rotation_direction_after_seconds = maxi(0, absi(value))
 		
 		if is_node_ready() and change_rotation_direction_after_seconds > 0:
 			_create_turn_direction_timer()
