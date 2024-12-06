@@ -4,7 +4,9 @@ class_name OrbitComponent2D extends Node
 signal started
 signal stopped
 
+@export var orbit_around: Node2D
 @export var target: Node2D
+@export var auto_start: bool = true
 @export var radius: float = 40.0
 @export_range(0, 360, 0.01, "degrees") var angle: float = 45.0:
 	set(value):
@@ -30,12 +32,11 @@ var active: bool = false:
 			set_process(active)
 			
 func _ready():
-	if target == null:
-		target = get_parent() as Node2D
-	
-	assert(target is Node2D, "OrbitComponent2D: This component needs a Node2D target to apply the orbit")
+	assert(target is Node2D and orbit_around is Node2D, "OrbitComponent2D: This component needs a Node2D target and orbit_target to apply the orbit")
 	
 	current_angle = angle
+	
+	active = auto_start
 
 
 func _process(delta):
@@ -44,7 +45,7 @@ func _process(delta):
 		current_angle = fmod(current_angle, TAU)
 		
 		var offset: Vector2 = Vector2(cos(current_angle), sin(current_angle)) * radius
-		target.position = target.position + offset
+		target.position = orbit_around.position + offset
 		
 
 func start():
