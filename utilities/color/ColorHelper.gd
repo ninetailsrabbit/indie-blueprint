@@ -1,16 +1,24 @@
 class_name ColorHelper
 
+const ColorPalettesPath: String = "res://utilities/color/palettes/"
+
 enum ColorGenerationMethod {
 	RandomRGB,
 	GoldenRatioHSV
 }
 
-static var ColorPalettes: Dictionary = {
-	"nyx8": PackedColorArray([
-		Color("01090f"), Color("08141e"), Color("0f2a3f"), Color("20394f"), Color("4e495f"),
-		Color("816271"), Color("997577"), Color("c3a38a"), Color("f6d6bd")
-	])
-}
+
+static func get_palette(id: StringName) -> ColorPalette:
+	var regex = RegEx.new()
+	regex.compile(".tres$")
+	
+	for color_palette_path: String in FileHelper.get_files_recursive(ColorPalettesPath, regex):
+		var color_palette: ColorPalette = ResourceLoader.load(color_palette_path, "", ResourceLoader.CACHE_MODE_REUSE)
+		
+		if color_palette.id == id:
+			return color_palette
+			
+	return null
 
 
 static func generate_random_colors(method: ColorGenerationMethod, number_of_colors: int = 12, saturation: float = 0.5, value: float = 0.95) -> PackedColorArray:
