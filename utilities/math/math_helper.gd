@@ -8,6 +8,7 @@ const δ = 4.6692016091 # FEIGENBAUM CONSTANT, period-doubling bifurcation. This
 const FeigenbaumAlpha = 2.5029078750  # FEIGENBAUM ALPHA, another bifurcation constant
 const AperyConstant = 1.2020569031  # APERY'S CONSTANT, related to zeta function
 const GoldenRatio = 1.6180339887  # GOLDEN RATIO, (1 + sqrt(5)) / 2
+const GoldenRatioConjugate = 0.618033988749895 # Reciprocal of the golden ratio. In other words, it's 1/ϕ.
 const EulerMascheroniConstant = 0.5772156649  # EULER-MASCHERONI CONSTANT, gamma minus harmonic series
 const KhinchinsConstant = 2.6854520010  # KHINCHIN'S CONSTANT, optimal embedding dimension
 const GaussKuzminWirsingConstant = 0.3036630028  # GAUSS-KUZMIN-WIRSING CONSTANT, sphere packing

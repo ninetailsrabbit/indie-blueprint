@@ -224,23 +224,6 @@ static func rotate_vertical_random(origin: Vector3 = Vector3.ONE) -> Vector3:
 	return origin.rotated(arc_direction, randf_range(-PI / 2, PI / 2))
 
 
-## Consider exploring alternative color difference metrics like Delta-E or CIELAB if precise color matching is crucial
-static func colors_are_similar(color_a: Color, color_b: Color, tolerance := 100.0) -> bool:
-	var v1 := Vector4(color_a.r, color_a.g, color_a.b, color_a.a)
-	var v2 := Vector4(color_b.r, color_b.g, color_b.b, color_b.a)
-
-	return v2.distance_to(v1) <= (tolerance / 255.0)
-
-
-static func color_from_vector(vec) -> Color:
-	if vec is Vector3:
-		return Color(vec.x, vec.y, vec.z)
-	elif vec is Vector4:
-		return Color(vec.x, vec.y, vec.z, vec.w)
-	else:
-		return Color.BLACK
-
-
 static func vec3_from_color_rgb(color: Color) -> Vector3:
 	return Vector3(color.r, color.g, color.b)
 	
