@@ -5,6 +5,14 @@ enum ColorGenerationMethod {
 	GoldenRatioHSV
 }
 
+static var ColorPalettes: Dictionary = {
+	"nyx8": PackedColorArray([
+		Color("01090f"), Color("08141e"), Color("0f2a3f"), Color("20394f"), Color("4e495f"),
+		Color("816271"), Color("997577"), Color("c3a38a"), Color("f6d6bd")
+	])
+}
+
+
 static func generate_random_colors(method: ColorGenerationMethod, number_of_colors: int = 12, saturation: float = 0.5, value: float = 0.95) -> PackedColorArray:
 	var colors: PackedColorArray = PackedColorArray()
 	

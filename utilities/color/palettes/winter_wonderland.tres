@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://bdbgepqtir36m"]
+
+[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_gw75i"]
+
+[resource]
+script = ExtResource("1_gw75i")
+id = &"winter_wonderland"
+name = &"Winter Wonderland"
+colors = [Color(0.0666667, 0.0941176, 0.215686, 1), Color(0.12549, 0.156863, 0.305882, 1), Color(0.172549, 0.290196, 0.470588, 1), Color(0.219608, 0.458824, 0.631373, 1), Color(0.545098, 0.792157, 0.866667, 1), Color(0.45098, 0.552941, 0.615686, 1), Color(0.654902, 0.737255, 0.788235, 1), Color(0.839216, 0.882353, 0.913725, 1), Color(1, 1, 1, 1)]

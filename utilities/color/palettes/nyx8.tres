@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://d20l6hm88h112"]
+
+[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_gkcsd"]
+
+[resource]
+script = ExtResource("1_gkcsd")
+id = &"nyx8"
+name = &"Nyx8"
+colors = [Color(0, 0.0392157, 0.0117647, 1), Color(0.0313726, 0.0784314, 0.117647, 1), Color(0.0588235, 0.164706, 0.247059, 1), Color(0.12549, 0.223529, 0.309804, 1), Color(0.305882, 0.286275, 0.372549, 1), Color(0.505882, 0.384314, 0.443137, 1), Color(0.6, 0.458824, 0.466667, 1), Color(0.764706, 0.639216, 0.541176, 1), Color(0.964706, 0.839216, 0.741176, 1)]
