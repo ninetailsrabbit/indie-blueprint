@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce10mbjts0e4r"
-path="res://.godot/imported/swing_component.svg-4ff742c6bb5e362a8c121ff91a48a1c8.ctex"
+uid="uid://ce8fsehxloe1g"
+path="res://.godot/imported/rotator_component_2d.svg-98c7a9fc5b8559e0e48f89f0d960d5b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/rotation/2D/swing_component.svg"
-dest_files=["res://.godot/imported/swing_component.svg-4ff742c6bb5e362a8c121ff91a48a1c8.ctex"]
+source_file="res://components/motion/2D/rotation/rotator_component_2d.svg"
+dest_files=["res://.godot/imported/rotator_component_2d.svg-98c7a9fc5b8559e0e48f89f0d960d5b9.ctex"]
 
 [params]
 

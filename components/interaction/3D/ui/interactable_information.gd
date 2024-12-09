@@ -5,13 +5,14 @@ extends Control
 
 var current_interactable: Interactable3D
 
+
 func _enter_tree() -> void:
+	mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
+	
 	GlobalGameEvents.interactable_focused.connect(on_interactable_focused)
 	GlobalGameEvents.interactable_unfocused.connect(on_interactable_unfocused)
 	GlobalGameEvents.interactable_canceled_interaction.connect(on_interactable_unfocused)
 	
-	mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
-
 
 func _ready() -> void:
 	information_label.text = ""

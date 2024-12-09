@@ -30,12 +30,12 @@ var active: bool = false:
 				
 			active = value
 			set_process(active)
-			
+
+
 func _ready():
-	assert(target is Node2D and orbit_around is Node2D, "OrbitComponent2D: This component needs a Node2D target and orbit_target to apply the orbit")
+	assert(target is Node2D and orbit_around is Node2D, "OrbitComponent2D: This component needs a Node2D target and orbit around to apply the orbit")
 	
 	current_angle = angle
-	
 	active = auto_start
 
 
