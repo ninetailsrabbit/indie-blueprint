@@ -1,6 +1,7 @@
 class_name ColorHelper
 
 const ColorPalettesPath: String = "res://utilities/color/palettes/"
+const GradientsPath: String = "res://utilities/color/gradients/"
 
 enum ColorGenerationMethod {
 	RandomRGB,
@@ -17,6 +18,20 @@ static func get_palette(id: StringName) -> ColorPalette:
 		
 		if color_palette.id == id:
 			return color_palette
+			
+	return null
+
+
+
+static func get_gradient(id: StringName) -> ColorGradient:
+	var regex = RegEx.new()
+	regex.compile(".tres$")
+	
+	for gradient_path: String in FileHelper.get_files_recursive(GradientsPath, regex):
+		var gradient: ColorGradient = ResourceLoader.load(gradient_path, "", ResourceLoader.CACHE_MODE_REUSE)
+		
+		if gradient.id == id:
+			return gradient
 			
 	return null
 
