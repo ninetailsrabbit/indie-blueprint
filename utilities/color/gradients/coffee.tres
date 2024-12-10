@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_k14w7")
+id = &"coffee"
+name = &"Coffee"
 gradient = SubResource("GradientTexture1D_gbm30")

@@ -84,8 +84,8 @@ static func generate_random_rgb_colors(number_of_colors: int = 12, darkened_valu
 
 ## Consider exploring alternative color difference metrics like Delta-E or CIELAB if precise color matching is crucial
 static func colors_are_similar(color_a: Color, color_b: Color, tolerance: float = 100.0) -> bool:
-	var v1 := Vector4(color_a.r, color_a.g, color_a.b, color_a.a)
-	var v2 := Vector4(color_b.r, color_b.g, color_b.b, color_b.a)
+	var v1: Vector4 = Vector4(color_a.r, color_a.g, color_a.b, color_a.a)
+	var v2: Vector4 = Vector4(color_b.r, color_b.g, color_b.b, color_b.a)
 
 	return v2.distance_to(v1) <= (tolerance / 255.0)
 

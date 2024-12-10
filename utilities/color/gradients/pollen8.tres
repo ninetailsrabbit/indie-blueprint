@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_vokey")
+id = &"pollen8"
+name = &"Pollen8"
 gradient = SubResource("GradientTexture1D_dfxr1")

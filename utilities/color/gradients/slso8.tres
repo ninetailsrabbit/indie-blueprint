@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_dtu3o")
+id = &"slso8"
+name = &"Slso8"
 gradient = SubResource("GradientTexture1D_ka5bu")

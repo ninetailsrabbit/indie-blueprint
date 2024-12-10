@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_ex3ev")
+id = &"winter_wonderland"
+name = &"Winter Wonderland"
 gradient = SubResource("GradientTexture1D_7rapr")

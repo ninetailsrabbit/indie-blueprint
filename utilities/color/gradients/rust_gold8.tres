@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_lksrj")
+id = &"rust_gold8"
+name = &"Rust Gold-8"
 gradient = SubResource("GradientTexture1D_k6r6g")

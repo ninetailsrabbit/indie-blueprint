@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_oi1c7")
+id = &"goosebumps_gold"
+name = &"Goosebumps Gold"
 gradient = SubResource("GradientTexture1D_cpvhw")

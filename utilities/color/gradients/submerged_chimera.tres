@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_d10y8")
+id = &"submerged_chimera"
+name = &"Submerged Chimera"
 gradient = SubResource("GradientTexture1D_i3jyk")

@@ -12,4 +12,6 @@ width = 2048
 
 [resource]
 script = ExtResource("1_8ieva")
+id = &"funkyfutures"
+name = &"Funkyfutures"
 gradient = SubResource("GradientTexture1D_r6mvn")
