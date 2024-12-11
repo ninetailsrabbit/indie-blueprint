@@ -163,7 +163,9 @@ func screenshot_to_folder(folder: String = "%s/screenshots" % [OS.get_user_data_
 	if create_dir_error != OK:
 		push_error("WindowManager::screenshot_to_folder: Can't create directory '%s'. Error: %s" % [folder, error_string(create_dir_error)])
 		return create_dir_error
-		
+	
+	await RenderingServer.frame_post_draw
+	
 	var screenshot_image: Image = screenshot(viewport)
 	var screenshot_save_error = screenshot_image.save_png("%s/%s.png" % [folder, Time.get_datetime_string_from_system().replace(":", "_")])
 	
@@ -174,6 +176,8 @@ func screenshot_to_folder(folder: String = "%s/screenshots" % [OS.get_user_data_
 
 ## Recommended to call this method after await RenderingServer.frame_post_draw
 func screenshot_to_texture_rect(viewport: Viewport = get_viewport(), texture_rect: TextureRect = TextureRect.new()) -> TextureRect:
+	await RenderingServer.frame_post_draw
+	
 	var screenshot_image = screenshot(viewport)
 	
 	#img.flip_y()
