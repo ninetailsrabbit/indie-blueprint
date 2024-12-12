@@ -1,4 +1,5 @@
 @icon("res://components/motion/2D/rotation/swing_component.svg")
+@tool
 class_name SwingComponent2D extends Node2D
 
 signal started
@@ -6,6 +7,17 @@ signal stopped
 
 ## The target where the swing will be applied
 @export var target: Node2D
+@export var active: bool = true:
+	set(value):
+		if value != active:
+			active = value
+			
+			if value:
+				started.emit()
+			else:
+				stopped.emit()
+				
+		set_process(active)
 ## The frequency of the swing, greater values, swing faster.
 @export var frequency: float = 1.0
 ## The amplitude of the angle while swinging, more the amplitude more the swing.
@@ -19,22 +31,13 @@ signal stopped
 
 
 var time: float = 0.0
-var active: bool = true:
-	set(value):
-		if value != active:
-			if value:
-				started.emit()
-			else:
-				stopped.emit()
-				
-		active = value
-		set_process(active)
+
 
 func _ready():
 	if target == null:
-		target = get_parent() as Node2D
+		target = get_parent()
 	
-	assert(target is Node2D, "SwingComponent2D: This component needs a Node2D target to apply the swing rotation effect")
+	assert(target != null and target is Node2D, "SwingComponent2D: This component needs a Node2D target to apply the swing rotation effect")
 
 
 func _process(delta):
