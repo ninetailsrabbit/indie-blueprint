@@ -52,16 +52,16 @@ func display_content_warning(content_warning: ContentWarning) -> void:
 	
 	display_tween = create_tween().set_parallel(true)
 	
-	display_tween.tween_property(content_warning_title, "modulate:a", 1.0, content_warning.time_to_display_content_warning)\
+	display_tween.tween_property(content_warning_title, "modulate:a", 1.0, content_warning.time_to_display)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-	display_tween.tween_property(content_warning_subtitle, "modulate:a", 1.0, content_warning.time_to_display_content_warning)\
+	display_tween.tween_property(content_warning_subtitle, "modulate:a", 1.0, content_warning.time_to_display)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 	
 	display_tween.chain()
 	
-	display_tween.tween_property(content_warning_description, "modulate:a", 1.0, content_warning.time_to_display_content_warning / 2)\
+	display_tween.tween_property(content_warning_description, "modulate:a", 1.0, content_warning.time_to_display / 2)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-	display_tween.tween_property(content_warning_secondary_description, "modulate:a", 1.0, content_warning.time_to_display_content_warning)\
+	display_tween.tween_property(content_warning_secondary_description, "modulate:a", 1.0, content_warning.time_to_display)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 	
 	await display_tween.finished
@@ -73,14 +73,14 @@ func display_content_warning(content_warning: ContentWarning) -> void:
 func hide_content_warning(content_warning: ContentWarning) -> void:
 	display_tween = create_tween().set_parallel(true)
 	
-	display_tween.tween_property(content_warning_title, "modulate:a", 0, content_warning.time_to_hide_content_warning)\
+	display_tween.tween_property(content_warning_title, "modulate:a", 0, content_warning.time_to_hide)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-	display_tween.tween_property(content_warning_subtitle, "modulate:a", 0, content_warning.time_to_hide_content_warning)\
+	display_tween.tween_property(content_warning_subtitle, "modulate:a", 0, content_warning.time_to_hide)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 		
-	display_tween.tween_property(content_warning_description, "modulate:a", 0, content_warning.time_to_hide_content_warning)\
+	display_tween.tween_property(content_warning_description, "modulate:a", 0, content_warning.time_to_hide)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-	display_tween.tween_property(content_warning_secondary_description, "modulate:a", 0, content_warning.time_to_hide_content_warning)\
+	display_tween.tween_property(content_warning_secondary_description, "modulate:a", 0, content_warning.time_to_hide)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 		
 	await display_tween.finished

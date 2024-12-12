@@ -4,7 +4,7 @@
 class_name MouseParallax extends Control
 
 
-@export var max_offset := Vector2(12, 10)
+@export var max_offset: Vector2 = Vector2(12, 10)
 @export var lerp_smoothing: float = 2.0
 
 
