@@ -1,4 +1,4 @@
-@icon("res://components/rotation/2D/swing_component.svg")
+@icon("res://components/motion/2D/rotation/swing_component.svg")
 class_name SwingComponent2D extends Node2D
 
 signal started

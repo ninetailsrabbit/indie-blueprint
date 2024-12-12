@@ -1,4 +1,4 @@
-@icon("res://components/rotation/2D/orbit_component_2d.svg")
+@icon("res://components/motion/2D/rotation/orbit_component_2d.svg")
 class_name OrbitComponent2D extends Node
 
 signal started

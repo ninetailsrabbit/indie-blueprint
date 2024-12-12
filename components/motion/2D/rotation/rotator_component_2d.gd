@@ -1,4 +1,5 @@
-@icon("res://components/rotation/2D/rotator_component_2d.svg")
+@icon("res://components/motion/2D/rotation/rotator_component_2d.svg")
+@tool
 class_name RotatorComponent2D extends Node2D
 
 signal started
@@ -6,22 +7,36 @@ signal stopped
 signal changed_rotation_direction(from: Vector2, to: Vector2)
 
 ## The Node2D type to apply the rotation
-@export var target: Node2D
+@export var target: Node2D:
+	set(value):
+		if target != value:
+			target = value
+			set_process(target != null and active)
+@export var active: bool = false:
+	set(value):
+		if value != active:
+			active = value
+			
+			if active:
+				started.emit()
+			else:
+				stopped.emit()
+			
+			_update_turn_direction_timer()
+			set_process(target != null and active)
+			
 ## The initial direction the target will rotate
-@export var initial_direction: RotationDirection = RotationDirection.Clockwise
+@export var rotation_direction: RotationDirection = RotationDirection.Clockwise:
+	set(value):
+		if rotation_direction != value:
+			rotation_direction = value
+			change_rotation_direction()
 ## Change the rotation direction after the seconds provided
 @export var change_rotation_direction_after_seconds: int = 0:
 	set(value):
 		change_rotation_direction_after_seconds = maxi(0, absi(value))
-		
-		if is_node_ready() and change_rotation_direction_after_seconds > 0:
-			_create_turn_direction_timer()
-			if turn_direction_timer.is_stopped():
-				turn_direction_timer.start()
-		else:
-			if is_instance_valid(turn_direction_timer):
-				turn_direction_timer.stop()
-
+		_update_turn_direction_timer()
+			
 ## Reset the rotation speed when the rotation direction changes
 @export var reset_rotation_speed_on_turn: bool = false
 ## The speed when it's rotating on clockwise
@@ -40,24 +55,13 @@ enum RotationDirection {
 	CounterClockwise
 }
 
-var current_rotation_speed := 0.0:
+var original_rotation: float = 0.0
+var current_rotation_speed: float = 0.0:
 	set(value):
-		current_rotation_speed = clamp(value, 0, max_clockwise_rotation_speed if _is_clockwise() else max_counter_clockwise_rotation_speed)
+		current_rotation_speed = clampf(value, 0.0, max_clockwise_rotation_speed if _is_clockwise() else max_counter_clockwise_rotation_speed)
 
-var current_rotation_direction := Vector2.RIGHT
+var current_rotation_direction: Vector2 = Vector2.RIGHT if _is_clockwise() else Vector2.LEFT
 var turn_direction_timer: Timer
-
-var active := false:
-	set(value):
-		if value != active:
-			if value:
-				started.emit()
-				set_process(true)
-			else:
-				stopped.emit()
-				set_process(false)
-				
-		active = value
 
 
 func _ready():
@@ -66,20 +70,21 @@ func _ready():
 	
 	assert(target is Node2D, "RotatorComponent2D: This component needs a Node2D target to apply the rotation")
 	
+	original_rotation = rotation
+	
 	change_rotation_speed()
+	_create_turn_direction_timer()
+	set_process(active)
 	
-	if initial_direction == RotationDirection.CounterClockwise:
-		current_rotation_direction = Vector2.LEFT
+	if change_rotation_direction_after_seconds > 0:
+		turn_direction_timer.start(change_rotation_direction_after_seconds)
 	
-	if change_rotation_direction_after_seconds:
-		_create_turn_direction_timer()
 
-
-func _process(delta):
+func _process(delta: float):
 	current_rotation_speed += increase_step_rotation_speed
 	target.rotation += current_rotation_speed * current_rotation_direction.x * delta
+	
 
-		
 func change_rotation_speed():
 	current_rotation_speed = clockwise_rotation_speed if _is_clockwise() else counter_clockwise_rotation_speed
 	
@@ -92,32 +97,56 @@ func start():
 	active = true
 
 
+func reset_to_original_rotation() -> void:
+	rotation = original_rotation
+
+
+func change_rotation_direction() -> void:
+	var is_clockwise_direction = _is_clockwise()
+	var from = Vector2.LEFT if is_clockwise_direction else Vector2.RIGHT
+	var to = Vector2.RIGHT if is_clockwise_direction else Vector2.LEFT
+	
+	current_rotation_direction = to
+	
+	changed_rotation_direction.emit(from, to)
+	
+	if reset_rotation_speed_on_turn:
+		change_rotation_speed()
+
+
+func _update_turn_direction_timer() -> void:
+	_create_turn_direction_timer()
+	
+	if active and change_rotation_direction_after_seconds > 0 and turn_direction_timer.is_stopped():
+		turn_direction_timer.start(change_rotation_direction_after_seconds)
+	else:
+		turn_direction_timer.stop()
+
+
 func _create_turn_direction_timer():
 	if turn_direction_timer == null:
 		turn_direction_timer = Timer.new()
 		turn_direction_timer.name = "TurnDirectionTimer"
 		turn_direction_timer.process_callback = Timer.TIMER_PROCESS_IDLE
-		turn_direction_timer.wait_time = change_rotation_direction_after_seconds
-		turn_direction_timer.autostart = true
+		turn_direction_timer.wait_time = maxf(0.05, change_rotation_direction_after_seconds)
+		turn_direction_timer.autostart = false
 		turn_direction_timer.one_shot = false
 		
 		add_child(turn_direction_timer)
 		turn_direction_timer.timeout.connect(on_turn_direction_timer_timeout)
 
+		NodeTraversal.set_owner_to_edited_scene_root(turn_direction_timer)
+
 
 func _is_clockwise() -> bool:
-	return sign(current_rotation_direction.x) > 0
+	return rotation_direction == RotationDirection.Clockwise
+
+
+func _is_counter_clockwise() -> bool:
+	return rotation_direction == RotationDirection.CounterClockwise
 
 
 func on_turn_direction_timer_timeout():
-	var is_clockwise_direction = _is_clockwise()
-	var from = Vector2.RIGHT if is_clockwise_direction else Vector2.LEFT
-	var to = Vector2.LEFT if is_clockwise_direction else Vector2.RIGHT
-	
-	changed_rotation_direction.emit(from, to)
-	current_rotation_direction *= sign(to.x)
-	
-	if reset_rotation_speed_on_turn:
-		change_rotation_speed()
+	rotation_direction = RotationDirection.CounterClockwise if _is_clockwise() else RotationDirection.Clockwise
 	
 	
