@@ -2,7 +2,24 @@
 class_name DiceRoller extends Node
 
 signal die_rolled(result: int, sides: int)
+signal die_rolled_detailed(roll_detailed: DiceRollDetailed)
 
+class DiceRollDetailed extends RefCounted:
+	var sides: int
+	var dices: int
+	var sum: int = 0
+	var highest: int = 0
+	var lowest: int = 0
+	var average: int = 0
+	
+	func _init(_sides: int, _dices: int, _sum: int, _highest: int, _lowest: int, _average: int) -> void:
+		sides = _sides
+		dices = _dices
+		sum = _sum
+		highest = _highest
+		lowest = _lowest
+		average = _average
+		
 
 enum RollResultTypes {
 	Sum,
@@ -54,7 +71,7 @@ func roll_dices(amount: int, sides: int, roll_type: RollResultTypes = RollResult
 	return result
 
 
-func roll_dices_detailed(amount: int, sides: int) -> Dictionary:
+func roll_dices_detailed(amount: int, sides: int) -> DiceRollDetailed:
 	var detail_result: Dictionary = {
 		"sides": sides,
 		"dices": [],
@@ -76,7 +93,19 @@ func roll_dices_detailed(amount: int, sides: int) -> Dictionary:
 	detail_result.results.lowest = gathered_dices_result.min()
 	detail_result.results.average = detail_result.results.sum / amount
 	
-	return detail_result
+	
+	var die_result: DiceRollDetailed = DiceRollDetailed.new(
+		sides,
+		amount,
+		detail_result.results.sum,
+		detail_result.results.highest,
+		detail_result.results.lowest,
+		detail_result.results.average,
+	)
+	
+	die_rolled_detailed.emit(die_result)
+	
+	return die_result
 	
 	
 func roll_dices_sum(amount: int, sides: int) -> int:
