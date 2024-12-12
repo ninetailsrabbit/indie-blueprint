@@ -19,7 +19,7 @@ const playing_cards_collision_layer: int = 256
 ## Example with arguments -> Utilities.delay_func(print_text.bind("test"), 2.0)
 func delay_func(callable: Callable, time: float, deferred: bool = true):
 	if callable.is_valid():
-		await get_tree().create_timer(time).timeout
+		await wait(time)
 		
 		if deferred:
 			callable.call_deferred()
@@ -27,7 +27,7 @@ func delay_func(callable: Callable, time: float, deferred: bool = true):
 			callable.call()
 
 ## Example of use: await GameGlobals.wait(1.5)
-func wait(seconds:float = 1.0):
+func wait(seconds: float = 1.0):
 	return get_tree().create_timer(seconds).timeout
 	
 #endregion

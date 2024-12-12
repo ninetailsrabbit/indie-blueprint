@@ -1,16 +1,16 @@
 class_name TimeHelper
 
 enum TimeUnit {
-	SECONDS,
-	MILLISECONDS,
-	MICROSECONDS
+	Seconds,
+	Milliseconds,
+	Microseconds
 }
 
 
 static var conversions_to_seconds: Dictionary = {
-	TimeUnit.SECONDS: 1.0,
-	TimeUnit.MILLISECONDS: 1_000.0,
-	TimeUnit.MICROSECONDS: 1_000_000.0,
+	TimeUnit.Seconds: 1.0,
+	TimeUnit.Milliseconds: 1_000.0,
+	TimeUnit.Microseconds: 1_000_000.0,
 }
 
 """
@@ -33,27 +33,26 @@ Example:
 	# Result: "02:03:45"
 """
 static func format_seconds(time: float, use_milliseconds: bool = false) -> String:
-	var minutes := floori(time / 60)
-	var seconds := fmod(time, 60)
-	var milliseconds := fmod(time, 1) * 100
+	var minutes: int= floori(time / 60)
+	var seconds: int = fmod(time, 60)
+	var milliseconds: int = fmod(time, 1) * 100
 
 	var result: String = "%02d:%02d" % [minutes, seconds]
 	
 	if(use_milliseconds):
 		result += ":%02d" % milliseconds
 		
-		
 	return result
 
 
 # Returns the amount of time passed since the engine started
-static func get_ticks(time_unit: TimeUnit = TimeUnit.SECONDS) -> float:
+static func get_ticks(time_unit: TimeUnit = TimeUnit.Seconds) -> float:
 	match time_unit:
-		TimeUnit.MICROSECONDS:
+		TimeUnit.Microseconds:
 			return Time.get_ticks_usec()
-		TimeUnit.MILLISECONDS:
+		TimeUnit.Milliseconds:
 			return Time.get_ticks_msec()
-		TimeUnit.SECONDS:
+		TimeUnit.Seconds:
 			return get_ticks_seconds()
 		_:
 			return get_ticks_seconds()
@@ -61,7 +60,7 @@ static func get_ticks(time_unit: TimeUnit = TimeUnit.SECONDS) -> float:
 
 ## Returns the conversion of [method Time.get_ticks_usec] to seconds.
 static func get_ticks_seconds() -> float:
-	return Time.get_ticks_usec() / conversions_to_seconds[TimeUnit.MICROSECONDS]
+	return Time.get_ticks_usec() / conversions_to_seconds[TimeUnit.Microseconds]
 
 
 static func convert_to_seconds(time: float, origin_unit: TimeUnit) -> float:

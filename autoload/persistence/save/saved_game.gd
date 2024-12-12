@@ -8,7 +8,7 @@ static var default_path: String = OS.get_user_data_dir()
 @export var engine_version: String = "Godot %s" % Engine.get_version_info().string
 @export var device: String = OS.get_distribution_name()
 @export var platform: String = OS.get_name()
-@export var last_datetime := ""
+@export var last_datetime: String = ""
 @export var timestamp: float
 
 
@@ -39,7 +39,7 @@ func delete():
 		var error = DirAccess.remove_absolute(SavedGame.get_save_path(filename))
 		
 		if error != OK:
-			push_error("An error happened trying to delete the file %s with code %s" % [filename, error_string(error)])
+			push_error("SavedGame: An error happened trying to delete the file %s with code %s" % [filename, error_string(error)])
 
 
 static func save_exists(_filename: String) -> bool:

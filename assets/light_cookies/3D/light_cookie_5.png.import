@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxoclrytilbsk"
-path="res://.godot/imported/light_cookie_5.png-58184a11d34c227acc07d4d63df6fcff.ctex"
+path="res://.godot/imported/light_cookie_5.png-7ad3584853e3fac27ab8a33fe551def3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/light_cookies/light_cookie_5.png"
-dest_files=["res://.godot/imported/light_cookie_5.png-58184a11d34c227acc07d4d63df6fcff.ctex"]
+source_file="res://assets/light_cookies/3D/light_cookie_5.png"
+dest_files=["res://.godot/imported/light_cookie_5.png-7ad3584853e3fac27ab8a33fe551def3.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@ extends Node
 
 signal time_tick(day: int, hour: int, minute: int)
 
-const MinutesPerDay: int = 1440
+const MinutesPerDay: int = 1440 
 const MinutesPerHour: int = 60
 const InGameToRealMinuteDuration := TAU / MinutesPerDay
 
@@ -12,10 +12,10 @@ const InGameToRealMinuteDuration := TAU / MinutesPerDay
 @export var initial_day: int = 0
 @export_range(0, 59, 1) var initial_minute: int = 0:
 	set(minute):
-		initial_minute = clamp(minute, 0, MinutesPerHour)
+		initial_minute = clampi(minute, 0, MinutesPerHour)
 @export_range(0, 23, 1) var initial_hour: int = 12:
 	set(hour):
-		initial_hour = clamp(hour, 0, 23)
+		initial_hour = clampi(hour, 0, 23)
 		time = InGameToRealMinuteDuration * MinutesPerHour * initial_hour
 
 var time: float = 0.0

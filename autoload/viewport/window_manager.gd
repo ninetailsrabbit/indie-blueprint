@@ -179,11 +179,10 @@ func screenshot_to_texture_rect(viewport: Viewport = get_viewport(), texture_rec
 	await RenderingServer.frame_post_draw
 	
 	var screenshot_image = screenshot(viewport)
-	
-	#img.flip_y()
 	texture_rect.texture = ImageTexture.create_from_image(screenshot_image)
 	
 	return texture_rect
+
 #endregion
 
 #region Parallax helpers

@@ -106,7 +106,8 @@ func hide_cross_reticle() -> void:
 	bottom_reticle.hide()
 	right_reticle.hide()
 	left_reticle.hide()
-		
+
+
 func expand_reticles(distance: float = 5.0, time: float = 0.15) -> void:
 		var tween: Tween = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 		

@@ -68,23 +68,27 @@ func remove(filename: String):
 
 
 func read_user_saved_games() -> Dictionary:
-	var saved_games := {}
-	var dir = DirAccess.open(SavedGame.default_path)
-
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
+	var saved_games: Dictionary= {}
+	var dir: DirAccess = DirAccess.open(SavedGame.default_path)
+	var dir_open_error: Error = DirAccess.get_open_error()
+	
+	if dir_open_error != OK:
+		push_error("SaveManager: An error %s ocurred trying to open the folder in path %s " % [error_string(dir_open_error), SavedGame.default_path])
+		return saved_games
 		
-		while file_name != "":
-			if not dir.current_is_dir() and file_name.get_extension() in [SavedGame.extension_on_save()]:
-				var saved_game = load_savegame(file_name.get_basename())
+	dir.list_dir_begin()
+	var file_name: String = dir.get_next()
+	
+	while not file_name.is_empty():
+		if not dir.current_is_dir() and file_name.get_extension() in [SavedGame.extension_on_save()]:
+			var saved_game = load_savegame(file_name.get_basename())
+			
+			if saved_game: 
+				saved_games[saved_game.filename] = saved_game
+	
+		file_name = dir.get_next()
 				
-				if saved_game: 
-					saved_games[saved_game.filename] = saved_game
-		
-			file_name = dir.get_next()
-					
-		dir.list_dir_end()
+	dir.list_dir_end()
 		
 	return saved_games
 	

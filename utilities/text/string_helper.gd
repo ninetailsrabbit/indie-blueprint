@@ -1,13 +1,13 @@
 class_name StringHelper
 
-const AsciiAlphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-const AsciiLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const AsciiLowercase = "abcdefghijklmnopqrstuvwxyz"
-const AsciiUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const AsciiDigits = "0123456789"
-const AsciiHexdigits = "0123456789ABCDEF"
-const AsciiPunctuation =  "!\"#$%&'()*+, -./:;<=>?@[\\]^_`{|}~"
-const bar = "█"
+const AsciiAlphanumeric: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+const AsciiLetters: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const AsciiLowercase: String = "abcdefghijklmnopqrstuvwxyz"
+const AsciiUppercase: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const AsciiDigits: String = "0123456789"
+const AsciiHexdigits: String = "0123456789ABCDEF"
+const AsciiPunctuation: String =  "!\"#$%&'()*+, -./:;<=>?@[\\]^_`{|}~"
+const bar: String = "█"
 
 static var random_number_generator: RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -83,8 +83,8 @@ static func wrap_text(text: String = "", max_line_length: int = 120):
 
 
 static func integer_to_ordinal(number: int) -> String:
-	var middle := number % 100
-	var suffix := ""
+	var middle: int = number % 100
+	var suffix: String = ""
 	
 	if middle >= 11 and middle <= 13:
 		suffix = "th"
@@ -99,7 +99,7 @@ static func pretty_number(number: float, suffixes: Array[String] = ["", "K", "M"
 	
 	number = absf(number)
 
-	var exponent = 0
+	var exponent: int = 0
 
 	while number >= 1000.0:
 		number /= 1000.0  # Divide by 1000 for each exponent level
@@ -112,8 +112,8 @@ static func pretty_number(number: float, suffixes: Array[String] = ["", "K", "M"
 
 
 static func to_binary_string(num: int) -> String:
-	var binary_string := ""
-	var number: = num
+	var binary_string: String= ""
+	var number: int = num
 	
 	while number > 0:
 		binary_string = str(number & 1) + binary_string
@@ -137,8 +137,8 @@ static func strip_filepaths(source: String) -> String:
 
 
 static func str_replace(target: String, regex: RegEx, cb: Callable) -> String:
-	var result = ""
-	var last_position = 0
+	var result: String = ""
+	var last_position: int = 0
 	
 	for regex_match in regex.search_all(target):
 		var start := regex_match.get_start()
