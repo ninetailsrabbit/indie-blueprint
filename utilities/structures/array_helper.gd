@@ -41,11 +41,11 @@ static func flatten(array: Array[Variant]):
 
 
 static func pick_random_values(array: Array[Variant], items_to_pick: int = 1, duplicates: bool = true) -> Array[Variant]:
-	var result := []
+	var result: Array[Variant] = []
 	var target = flatten(array.duplicate())
 	target.shuffle()
 	
-	items_to_pick = min(target.size(), items_to_pick)
+	items_to_pick = mini(target.size(), items_to_pick)
 	
 	for i in range(items_to_pick):
 		var item = target.pick_random()
@@ -58,7 +58,7 @@ static func pick_random_values(array: Array[Variant], items_to_pick: int = 1, du
 	
 
 static func remove_duplicates(array: Array[Variant]) -> Array[Variant]:
-	var cleaned_array := []
+	var cleaned_array: Array[Variant] = []
 	
 	for element in array:
 		if not cleaned_array.has(element):
@@ -68,7 +68,7 @@ static func remove_duplicates(array: Array[Variant]) -> Array[Variant]:
 	
 	
 static func remove_falsy_values(array: Array[Variant]) -> Array[Variant]:
-	var cleaned_array := []
+	var cleaned_array: Array[Variant] = []
 	
 	for element in array:
 		if element:

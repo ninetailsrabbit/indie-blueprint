@@ -14,5 +14,14 @@ func _ready():
 	area_entered.connect(on_area_entered)
 
 
+func enable():
+	set_deferred("monitoring", true)
+	
+
+func disable():
+	set_deferred("monitoring", false)
+
+
+
 func on_area_entered(hitbox: Hitbox3D) -> void:
 	hitbox_detected.emit(hitbox)

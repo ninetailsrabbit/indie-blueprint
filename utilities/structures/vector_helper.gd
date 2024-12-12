@@ -1,19 +1,19 @@
 class_name VectorHelper
 
-static var directions_v2 = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
-static var horizontal_directions_v2 = [Vector2.LEFT, Vector2.RIGHT]
-static var vertical_directions_v2 = [Vector2.UP, Vector2.DOWN]
+static var directions_v2: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
+static var horizontal_directions_v2: Array[Vector2] = [Vector2.LEFT, Vector2.RIGHT]
+static var vertical_directions_v2: Array[Vector2] = [Vector2.UP, Vector2.DOWN]
 
-static var directions_v3 = [Vector3.UP, Vector3.DOWN, Vector3.FORWARD, Vector3.BACK, Vector3.LEFT, Vector3.RIGHT]
+static var directions_v3: Array[Vector3] = [Vector3.UP, Vector3.DOWN, Vector3.FORWARD, Vector3.BACK, Vector3.LEFT, Vector3.RIGHT]
 
-static var opposite_directions_v2 = {
+static var opposite_directions_v2: Dictionary = {
 	Vector2.UP: Vector2.DOWN,
 	Vector2.DOWN: Vector2.UP,
 	Vector2.RIGHT: Vector2.LEFT,
 	Vector2.LEFT: Vector2.RIGHT
 }
 
-static var opposite_directions_v3 = {
+static var opposite_directions_v3: Dictionary = {
   	Vector3.UP: Vector3.DOWN,
 	Vector3.DOWN: Vector3.UP,
 	Vector3.RIGHT: Vector3.LEFT, 

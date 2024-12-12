@@ -19,7 +19,6 @@ signal unlocked
 @export var spring: float = 200.0
 @export var damp: float = 15.0
 @export var velocity_multiplier: float = 2.0
-
 @export_category("Punchy hover effect")
 @export var enable_punchy_hover: bool = false
 @export var punchy_hover_scale: Vector2 = Vector2(1.2, 1.2)

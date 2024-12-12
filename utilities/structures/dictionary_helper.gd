@@ -10,7 +10,7 @@ static func contain_any_key(target: Dictionary, keys: Array[String]) -> bool:
 
 
 static func reverse_key_value(source_dict: Dictionary) -> Dictionary:
-	var reversed := {}
+	var reversed: Dictionary = {}
 	
 	for key in source_dict.keys():
 		reversed[source_dict[key]] = key

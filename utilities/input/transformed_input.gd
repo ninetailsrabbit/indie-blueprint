@@ -8,7 +8,7 @@ var move_back_action: StringName = InputControls.MoveBack
 var actor: Node
 var deadzone: float = 0.5:
 	set(value):
-		deadzone = clamp(value, 0.0, 1.0)
+		deadzone = clampf(value, 0.0, 1.0)
 
 #region Current input
 var input_direction: Vector2

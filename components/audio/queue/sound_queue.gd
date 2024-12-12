@@ -2,7 +2,7 @@
 @icon("res://components/audio/queue/sound_queue.svg")
 class_name SoundQueue extends Node
 
-@export var queue_count := 2:
+@export var queue_count: float = 2:
 	set(value):
 		queue_count = max(2, value)
 
@@ -15,7 +15,7 @@ var next: int = 0:
 			next = value
 			next %= audio_stream_players.size() - 1
 		
-var audio_stream_players := []
+var audio_stream_players: Array[Variant] = []
 
 func _get_configuration_warnings():
 	if get_child_count() == 0:
@@ -35,7 +35,7 @@ func _get_configuration_warnings():
 
 
 func _ready():
-	if(get_child_count() == 0):
+	if (get_child_count() == 0):
 		push_error("SoundQueue: No AudioStreamPlayer child found.")
 		return
 		
@@ -44,7 +44,7 @@ func _ready():
 	if(child is AudioStreamPlayer or child is AudioStreamPlayer2D or child is AudioStreamPlayer3D):
 		audio_stream_players.append(child)
 		
-		for index in range(queue_count - audio_stream_players.size()):
+		for index: int in range(queue_count - audio_stream_players.size()):
 			var duplicated_player = child.duplicate()
 			add_child(duplicated_player)
 			audio_stream_players.append(duplicated_player)
@@ -114,7 +114,6 @@ func play_sound_with_ease_and_pitch_range(duration: float = 1.0, min_pitch_scale
 				)
 		
 		next += 1
-
 
 
 func stop_sounds() -> void:

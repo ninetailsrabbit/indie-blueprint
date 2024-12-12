@@ -3,41 +3,41 @@ class_name MathHelper
 const CommonEpsilon = 0.000001  # 1.0e-6
 const PreciseEpsilon = 0.00000001  # 1.0e-8
 
-const E = 2.71828182845904523536028747135266249775724709369995
-const δ = 4.6692016091 # FEIGENBAUM CONSTANT, period-doubling bifurcation. This bifurcation describes the behavior of a system that exhibits a doubling of its periodic cycle when a certain parameter is gradually changed
-const FeigenbaumAlpha = 2.5029078750  # FEIGENBAUM ALPHA, another bifurcation constant
-const AperyConstant = 1.2020569031  # APERY'S CONSTANT, related to zeta function
-const GoldenRatio = 1.6180339887  # GOLDEN RATIO, (1 + sqrt(5)) / 2
-const GoldenRatioConjugate = 0.618033988749895 # Reciprocal of the golden ratio. In other words, it's 1/ϕ.
-const EulerMascheroniConstant = 0.5772156649  # EULER-MASCHERONI CONSTANT, gamma minus harmonic series
-const KhinchinsConstant = 2.6854520010  # KHINCHIN'S CONSTANT, optimal embedding dimension
-const GaussKuzminWirsingConstant = 0.3036630028  # GAUSS-KUZMIN-WIRSING CONSTANT, sphere packing
-const BernstensConstant = 0.2801694990  # BERNSTEIN'S CONSTANT, derivative of Dirichlet eta function
-const HafnerSarnakMcCurleyConstant = 0.3532363718  # HAFNER-SARNAK-MCCURLEY CONSTANT, number theory
-const MeisselMertensConstant = 0.2614972128  # MEISSEL-MERTENS CONSTANT, prime number distribution
-const GlaisherKinkelinConstant = 1.2824271291  # GLAISHER-KINKELIN CONSTANT, zeta function
-const Omega = 0.5671432904  # OMEGA CONSTANT, alternating harmonic series
-const GolombDickmanConstant = 0.6243299885  # GOLOMB-DICKMAN CONSTANT, prime number distribution
-const CahensConstant = 0.6434105462  # CAHEN'S CONSTANT, Diophantine approximation
-const TwinPrime = 0.6601618158  # TWIN PRIME CONSTANT, probability of twin prime
-const LaplaceLimit = 0.6627434193  # LAPLACE LIMIT, cosmic microwave background radiation
-const LandauRamanujanConstant = 0.7642236535  # LANDAU-RAMANUJAN CONSTANT, constant in quantum field theory
-const CatalansConstant = 0.9159655941  # CATALAN'S CONSTANT, sum of reciprocals of squares
-const ViswanathsConstant = 1.13198824  # VISWANATH'S CONSTANT, number theory
-const ConwaysConstant = 1.3035772690  # CONWAY'S CONSTANT, sphere packing
-const MillsConstant = 1.3063778838  # MILLS' CONSTANT, normal number
-const PlasticConstant = 1.3247179572  # PLASTIC CONSTANT, golden raio analogue
-const RamanujanSoldnerConstant = 1.4513692348  # RAMANUJAN-SOLDNE CONSTANT, elliptic integrals
-const BackhouseConstant = 1.4560749485  # BACKHOUSE'S CONSTANT, gamma function
-const PortersConstant = 1.4670780794  # PORTER'S CONSTANT, geometry
-const LiebsSquareIceConstant = 1.5396007178  # LIEB'S SQUARE ICE CONSTANT, statistical mechanics
-const ErdosBorweinConstant = 1.6066951524  # ERDOS-BORWEIN CONSTANT, normal number
-const NivensConstant = 1.7052111401  # NIVENS' CONSTANT, number theory
-const UniversalParabolicConstant = 2.2955871493  # UNIVERSAL PARABOLIC CONSTANT, reflection coefficient
-const SierpinskisConstant = 2.5849817595  # SIERPINSKI'S CONSTANT, Sierpinski triangle fractal
+const E: float = 2.71828182845904523536028747135266249775724709369995
+const δ: float = 4.6692016091 # FEIGENBAUM CONSTANT, period-doubling bifurcation. This bifurcation describes the behavior of a system that exhibits a doubling of its periodic cycle when a certain parameter is gradually changed
+const FeigenbaumAlpha: float = 2.5029078750  # FEIGENBAUM ALPHA, another bifurcation constant
+const AperyConstant: float = 1.2020569031  # APERY'S CONSTANT, related to zeta function
+const GoldenRatio: float = 1.6180339887  # GOLDEN RATIO, (1 + sqrt(5)) / 2
+const GoldenRatioConjugate: float = 0.618033988749895 # Reciprocal of the golden ratio. In other words, it's 1/ϕ.
+const EulerMascheroniConstant: float = 0.5772156649  # EULER-MASCHERONI CONSTANT, gamma minus harmonic series
+const KhinchinsConstant: float = 2.6854520010  # KHINCHIN'S CONSTANT, optimal embedding dimension
+const GaussKuzminWirsingConstant: float = 0.3036630028  # GAUSS-KUZMIN-WIRSING CONSTANT, sphere packing
+const BernstensConstant: float = 0.2801694990  # BERNSTEIN'S CONSTANT, derivative of Dirichlet eta function
+const HafnerSarnakMcCurleyConstant: float = 0.3532363718  # HAFNER-SARNAK-MCCURLEY CONSTANT, number theory
+const MeisselMertensConstant: float = 0.2614972128  # MEISSEL-MERTENS CONSTANT, prime number distribution
+const GlaisherKinkelinConstant: float = 1.2824271291  # GLAISHER-KINKELIN CONSTANT, zeta function
+const Omega: float = 0.5671432904  # OMEGA CONSTANT, alternating harmonic series
+const GolombDickmanConstant: float = 0.6243299885  # GOLOMB-DICKMAN CONSTANT, prime number distribution
+const CahensConstant: float = 0.6434105462  # CAHEN'S CONSTANT, Diophantine approximation
+const TwinPrime: float = 0.6601618158  # TWIN PRIME CONSTANT, probability of twin prime
+const LaplaceLimit: float = 0.6627434193  # LAPLACE LIMIT, cosmic microwave background radiation
+const LandauRamanujanConstant: float = 0.7642236535  # LANDAU-RAMANUJAN CONSTANT, constant in quantum field theory
+const CatalansConstant: float = 0.9159655941  # CATALAN'S CONSTANT, sum of reciprocals of squares
+const ViswanathsConstant: float = 1.13198824  # VISWANATH'S CONSTANT, number theory
+const ConwaysConstant: float = 1.3035772690  # CONWAY'S CONSTANT, sphere packing
+const MillsConstant: float = 1.3063778838  # MILLS' CONSTANT, normal number
+const PlasticConstant: float = 1.3247179572  # PLASTIC CONSTANT, golden raio analogue
+const RamanujanSoldnerConstant: float = 1.4513692348  # RAMANUJAN-SOLDNE CONSTANT, elliptic integrals
+const BackhouseConstant: float = 1.4560749485  # BACKHOUSE'S CONSTANT, gamma function
+const PortersConstant: float = 1.4670780794  # PORTER'S CONSTANT, geometry
+const LiebsSquareIceConstant: float = 1.5396007178  # LIEB'S SQUARE ICE CONSTANT, statistical mechanics
+const ErdosBorweinConstant: float = 1.6066951524  # ERDOS-BORWEIN CONSTANT, normal number
+const NivensConstant: float = 1.7052111401  # NIVENS' CONSTANT, number theory
+const UniversalParabolicConstant: float = 2.2955871493  # UNIVERSAL PARABOLIC CONSTANT, reflection coefficient
+const SierpinskisConstant: float = 2.5849817595  # SIERPINSKI'S CONSTANT, Sierpinski triangle fractal
 
-const FransenRobinsonConstant = 2.807770
-const HexCharacters = "0123456789ABCDEF"
+const FransenRobinsonConstant: float = 2.807770
+const HexCharacters: String = "0123456789ABCDEF"
 
 ## "x": This is the input value between 0 and 1 that you want to apply the bias to. 
 ## It could represent a probability, a random number between 0 and 1, or any other value in that range.
@@ -378,9 +378,9 @@ static func logb(x: float, base: float = 10.0) -> float:
 
 static func generate_random_seed(seed_range: int = 10) -> String:
 	randomize()
-	var rnd_seed : String = ""
+	var random_seed: String = ""
 	
 	for index in range(seed_range):
-		rnd_seed += char(int(randi_range(40,127)))
+		random_seed += char(int(randi_range(40, 127)))
 		
-	return(rnd_seed)
+	return(random_seed)
