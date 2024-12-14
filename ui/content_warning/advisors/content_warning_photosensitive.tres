@@ -6,8 +6,8 @@
 script = ExtResource("1_yahh0")
 can_be_skipped = false
 time_on_screen = 2.0
-time_to_display_content_warning = 2.0
-time_to_hide_content_warning = 2.0
+time_to_display = 2.0
+time_to_hide = 2.0
 title = "PHOTOSENSITIVE SEIZURE WARNING"
 subtitle = "Please read before playing"
 description = "A small percentage of individuals may experience a seizure when exposed to certain visual images, flashing, lights, patterns or backgrounds which may appear in video games. Individuals who have had no history of any seizures of epilepsy to date may be undiagnosed and may go on experience seizures while playing video games"

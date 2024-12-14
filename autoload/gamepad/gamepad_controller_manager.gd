@@ -25,7 +25,7 @@ const PlaystationButtonLabels = ["Cross", "Circle", "Square", "Triangle", "Selec
 var current_controller_guid
 var current_controller_name := DeviceKeyboard
 var current_device_id := 0
-var connected := false
+var connected: bool = false
 
 
 func _notification(what: int) -> void:
@@ -126,7 +126,7 @@ func current_controller_is_switch_joycon_left() -> bool:
 
 
 func on_joy_connection_changed(device_id: int, _connected: bool):
-	var controller_name := Input.get_joy_name(device_id) if _connected else ""
+	var controller_name: String = Input.get_joy_name(device_id) if _connected else ""
 	update_current_controller(device_id, controller_name)
 	
 	connected = _connected

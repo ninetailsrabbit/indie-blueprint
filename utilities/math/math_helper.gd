@@ -58,6 +58,18 @@ static func sigmoid(x: float, scaling_factor: float = 0.0) -> float:
 	
 	return 1 - 1 / (1 + pow(E, - 10 * (x / scaling_factor - 0.5)))
 
+## Dease calculates a smooth, accelerating transition value over time
+## Sharpness should be a value between 0 and 1
+#Fading Effects: Gradually fade in or out game objects, images, or the entire screen.
+#Easing Movement: Create smooth acceleration and deceleration for moving objects, such as characters or camera movements.
+#Progress Bars: Simulate the filling of progress bars with a smooth, accelerating effect.
+#Sound Volume Control: Gradually increase or decrease the volume of sound effects or music.
+#Visual Effects: Create smooth transitions for visual effects like particle systems or screen shakes.
+static func dease(delta: float, sharpness: float = 0.5) -> float:
+	sharpness = clampf(sharpness, 0.0, 1.0)
+	
+	return clampf(1.0 - pow(1.0 - sharpness, delta * Engine.get_frames_per_second()), 0.0, 1.0)
+
 
 static func factorial(number):
 	if number == 0 or number == 1:

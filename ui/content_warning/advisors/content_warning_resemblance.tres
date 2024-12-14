@@ -6,8 +6,8 @@
 script = ExtResource("1_l8dpy")
 can_be_skipped = false
 time_on_screen = 2.0
-time_to_display_content_warning = 2.0
-time_to_hide_content_warning = 2.0
+time_to_display = 2.0
+time_to_hide = 2.0
 title = ""
 subtitle = "This game is a work of fiction and imagination. The characters, places, and events depicted are products of the author's creative mind and do not represent reality"
 description = ""
