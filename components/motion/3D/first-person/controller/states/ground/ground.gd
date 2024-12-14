@@ -61,7 +61,7 @@ func decelerate(delta: float = get_physics_process_delta_time()) -> void:
 
 
 func get_speed() -> float:
-	return side_speed if actor.motion_input.world_coordinate_space_direction in VectorHelper.horizontal_directions_v2 else speed
+	return side_speed if actor.motion_input.input_direction in VectorHelper.horizontal_directions_v2 else speed
 
 
 func stair_step_up():
