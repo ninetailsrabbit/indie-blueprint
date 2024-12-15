@@ -1,5 +1,19 @@
 extends Node
 
+## Configuration for retro psx games
+# Viewport Size: 320x180 o 640x360 depending on the textures details you want
+# Aspect: Keep
+# Mode: Viewport
+# Textures: Nearest
+
+## Configuration for pixel art games that allows smooth camera movement
+## Original source https://www.reddit.com/r/godot/comments/1hab9tb/how_i_setup_my_pixel_art_game_in_godot_4/
+# Viewport Size: 1920x1080 depending on the details you want
+# Aspect: Keep
+# Scale: 3, Scale mode: Integer
+# Mode: Canvas items
+# Textures: Nearest (Don't activate the Snaps 2D options for textures\)
+# 
 const Resolution_Mobile: String = "mobile"
 const Resolution4_3: String = "4:3"
 const Resolution16_9: String = "16:9"
