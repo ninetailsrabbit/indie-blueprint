@@ -13,7 +13,7 @@ extends Node
 # Scale: 3, Scale mode: Integer
 # Mode: Canvas items
 # Textures: Nearest (Don't activate the Snaps 2D options for textures\)
-# 
+
 const Resolution_Mobile: String = "mobile"
 const Resolution4_3: String = "4:3"
 const Resolution16_9: String = "16:9"

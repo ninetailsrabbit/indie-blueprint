@@ -12,29 +12,33 @@ signal tried_to_open_locked_door
 @export var is_open: bool = false:
 	set(value):
 		if value != is_open:
-			if value:
+			is_open = value
+			
+			if is_open:
 				opened.emit()
 			else:
 				closed.emit()
-		is_open = value
 		
-@export var is_locked := false:
+@export var is_locked: bool = false:
 	set(value):
 		if value != is_locked:
-			if value:
-				unlocked.emit()
+			is_locked = value
 			
-		is_locked = value
+			if is_locked:
+				locked.emit()
+			else:
+				unlocked.emit()
+				
 @export var door_name: String = "Door"
 @export var key_id: String = ""
 @export var delay_before_close: float = 0.0
-@export_range(0, 180, 0.01) var default_open_angle: float = 0.0
+@export_range(-360.0, 360.0, 0.01) var open_angle: float = 85.0
+@export_range(-360.0, 360.0, 0.01) var close_angle: float = 0.0
+@export var pivot_point: Node3D
 @export_group("Tween")
-@export var use_tweens: bool = false
+@export var use_tweens: bool = true
 @export var time_to_open: float = 0.3
 @export var time_to_close: float = 0.3
-@export var open_rotation: float = 90.0
-@export var pivot_point: Node3D
 @export_group("Animation")
 @export var animation_player: AnimationPlayer
 @export var open_door_animation: String = "open"
@@ -56,7 +60,7 @@ func _ready() -> void:
 
 	is_locked = not key_id.is_empty()
 	
-	pivot_point.rotation.y = deg_to_rad(default_open_angle)
+	pivot_point.rotation.y = deg_to_rad(open_angle if is_open else close_angle)
 	
 	interactable.interacted.connect(on_interacted)
 	tried_to_open_locked_door.connect(on_tried_to_open_locked_door)
@@ -69,7 +73,7 @@ func open() -> void:
 		if not is_open:
 			if use_tweens:
 				door_tween = create_tween()
-				door_tween.tween_property(pivot_point, "rotation:y", deg_to_rad(open_rotation), time_to_open).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+				door_tween.tween_property(pivot_point, "rotation:y", deg_to_rad(open_angle), time_to_open).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 			else:
 				animation_player.play(open_door_animation)
 	
@@ -82,7 +86,7 @@ func close() -> void:
 	
 	if use_tweens:
 		door_tween = create_tween()
-		door_tween.tween_property(pivot_point, "rotation:y", deg_to_rad(default_open_angle), time_to_open).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+		door_tween.tween_property(pivot_point, "rotation:y", deg_to_rad(close_angle), time_to_open).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	else:
 		if animation_player.has_animation(close_door_animation):
 			animation_player.play(close_door_animation)
@@ -127,4 +131,3 @@ func on_tried_to_open_locked_door() -> void:
 	if is_locked and animation_player.has_animation(locked_door_animation) and can_be_interacted():
 		animation_player.play(locked_door_animation)
 #endregion
-	
