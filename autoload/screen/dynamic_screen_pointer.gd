@@ -86,9 +86,9 @@ func prepare_reticles() -> void:
 	
 func display_dot_reticle(radius: float = dot_radius, color: Color = dot_color) -> void:
 	if dot_reticle_show:
-		draw_circle(Vector2.ZERO, radius, dot_color)
+		draw_circle(Vector2.ZERO, radius, color)
 	else:
-		draw_circle(Vector2.ZERO, 0.0, dot_color)
+		draw_circle(Vector2.ZERO, 0.0, color)
 		
 
 func hide_dot_reticle() -> void:

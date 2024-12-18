@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3jimvnacfqhj"]
+
+[ext_resource type="Script" path="res://components/rpg/inventory/3D/circular_inventory_3d.gd" id="1_xsofn"]
+
+[node name="CircularInventory3D" type="Node3D"]
+script = ExtResource("1_xsofn")
+distance_from_camera = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="Items" type="Node3D" parent="."]

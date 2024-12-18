@@ -27,6 +27,11 @@ const SecondaryWeapon: StringName = &"secondary_weapon"
 const HeavyWeapon: StringName = &"heavy_weapon"
 const MeleeWeapon: StringName = &"melee_weapon"
 
+const ItemLeft: StringName = &"item_left"
+const ItemRight: StringName = &"item_right"
+const ToggleInventory: StringName = &"toggle_inventory"
+
+
 const Drag: StringName = &"drag"
 
 const PerformanceMetrics: StringName = &"performance_metrics"
