@@ -124,25 +124,37 @@ func _update_previous_directions():
 
 #region Action setters
 func change_move_right_action(new_action: StringName) -> TransformedInput:
-	move_right_action = new_action
+	if InputMap.has_action(new_action):
+		move_right_action = new_action
+	else:
+		push_error("TransformedInput: The new move right action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 
 
 func change_move_left_action(new_action: StringName) -> TransformedInput:
-	move_left_action = new_action
+	if InputMap.has_action(new_action):
+		move_left_action = new_action
+	else:
+		push_error("TransformedInput: The new move left action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 
 
 func change_move_forward_action(new_action: StringName) -> TransformedInput:
-	move_forward_action = new_action
+	if InputMap.has_action(new_action):
+		move_forward_action = new_action
+	else:
+		push_error("TransformedInput: The new move forward action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 
 
 func change_move_back_action(new_action: StringName) -> TransformedInput:
-	move_back_action = new_action
+	if InputMap.has_action(new_action):
+		move_back_action = new_action
+	else:
+		push_error("TransformedInput: The new move back action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 #endregion
