@@ -35,8 +35,11 @@ const ErdosBorweinConstant: float = 1.6066951524  # ERDOS-BORWEIN CONSTANT, norm
 const NivensConstant: float = 1.7052111401  # NIVENS' CONSTANT, number theory
 const UniversalParabolicConstant: float = 2.2955871493  # UNIVERSAL PARABOLIC CONSTANT, reflection coefficient
 const SierpinskisConstant: float = 2.5849817595  # SIERPINSKI'S CONSTANT, Sierpinski triangle fractal
-
 const FransenRobinsonConstant: float = 2.807770
+
+const MetersPerSecondToMilePerHourFactor: float = 2.23694
+const MetersPerSecondToKilometersPerHourFactor: float = 3.6
+
 const HexCharacters: String = "0123456789ABCDEF"
 
 ## "x": This is the input value between 0 and 1 that you want to apply the bias to. 

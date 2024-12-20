@@ -31,8 +31,13 @@ const ItemLeft: StringName = &"item_left"
 const ItemRight: StringName = &"item_right"
 const ToggleInventory: StringName = &"toggle_inventory"
 
-
 const Drag: StringName = &"drag"
+
+const VehicleAccelerate: StringName = &"vehicle_accelerate"
+const VehicleReverseAccelerate: StringName = &"vehicle_reverse_accelerate"
+const VehicleSteerRight: StringName = &"vehicle_steer_right"
+const VehicleSteerLeft: StringName = &"vehicle_steer_left"
+const VehicleHandBrake: StringName = &"vehicle_hand_brake"
 
 const PerformanceMetrics: StringName = &"performance_metrics"
 const PauseGame: StringName = &"pause"
