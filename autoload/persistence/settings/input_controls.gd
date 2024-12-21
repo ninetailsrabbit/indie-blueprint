@@ -38,6 +38,7 @@ const VehicleReverseAccelerate: StringName = &"vehicle_reverse_accelerate"
 const VehicleSteerRight: StringName = &"vehicle_steer_right"
 const VehicleSteerLeft: StringName = &"vehicle_steer_left"
 const VehicleHandBrake: StringName = &"vehicle_hand_brake"
+const StartVehicleEngine: StringName = &"start_vehicle_engine"
 
 const PerformanceMetrics: StringName = &"performance_metrics"
 const PauseGame: StringName = &"pause"

@@ -40,6 +40,7 @@ var vehicle_steer_left_action: StringName = InputControls.VehicleSteerLeft:
 @export var engine_reverse_acceleration: float = 100.0
 ## The maximum value the wheels can be turned at
 @export var max_rpm: float = 500.0
+@export var start_engine_action: StringName = InputControls.StartVehicleEngine
 @export_category("Steering")
 ## Decides how much a wheel can be turned. Higher values means that it can turn more easily
 @export var kb_steering_ramp_up_factor: float = 30.0
@@ -68,12 +69,19 @@ var engine_on: bool = false:
 				stopped_engine.emit()
 
 
+func _unhandled_input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed(start_engine_action):
+		engine_on = !engine_on
+
+
 func _enter_tree() -> void:
 	add_to_group(GroupName)
 
 
 func _ready() -> void:
 	_update_input_actions()
+	
+	process_mode = PROCESS_MODE_PAUSABLE
 	
 
 func _physics_process(delta: float) -> void:
