@@ -91,9 +91,9 @@ func _physics_process(delta: float) -> void:
 	var turn_direction: float =  clampf(steering_input * delta * kb_steering_ramp_up_factor, -1.0, 1.0)
 	
 	if steering_wheel:
-		var target_steering_wheel_rotation: Vector3 = steering_wheel_maximum_rotation if is_zero_approx(steering_input) else steering_wheel_idle_rotation
+		var target_steering_wheel_rotation: Vector3 = steering_wheel_idle_rotation if is_zero_approx(steering_input) else steering_wheel_maximum_rotation
 		steering_wheel.rotation = steering_wheel.rotation.lerp(target_steering_wheel_rotation, clampf(delta * steering_wheel_lerp_factor, 0.0, 1.0))
-		
+	
 	steering = lerp(steering, turn_direction, steering_wheel_lerp_factor * delta)
 	
 	if engine_on:
