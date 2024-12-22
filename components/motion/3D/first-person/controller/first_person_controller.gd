@@ -86,7 +86,9 @@ func _ready() -> void:
 	
 	finite_state_machine.register_transitions([
 		WalkToRunTransition.new(),
-		RunToWalkTransition.new()
+		RunToWalkTransition.new(),
+		JumpToWallRunTransition.new(),
+		FallToWallRunTransition.new()
 	])
 	
 	finite_state_machine.state_changed.connect(on_state_changed)

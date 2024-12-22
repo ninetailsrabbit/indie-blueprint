@@ -62,8 +62,6 @@ func ready():
 	
 	
 func enter():
-	wall_run_start_cooldown_timer.start()
-	
 	apply_jump()
 	actor.move_and_slide()
 
@@ -100,6 +98,8 @@ func physics_update(delta: float):
 
 
 func apply_jump() -> void:
+	wall_run_start_cooldown_timer.start()
+	
 	last_jumped_position = actor.position
 	jump_count += 1
 	

@@ -1,5 +1,13 @@
 class_name WallRun extends AirState
 
+@export_category("Camera")
+@export_range(0, 360.0, 0.01) var camera_rotation_angle: float = 5.0
+@export_range(0, 360.0, 0.01) var camera_lerp_rotation_factor: float = 8.0
+@export_category("Parameters")
+@export var wall_speed: float = 5.0
+@export var reduce_speed_gradually: bool = true
+## The friction rate to reduce speed gradually on each frame multiplied by delta
+@export var friction_to_reduce_speed: float = 0.1
 ## Reduce the velocity of the run based on this friction coeficient
 @export var wall_friction: float = 0.2
 ## Set to zero to not have a limited time on wall running. 
@@ -12,7 +20,7 @@ var current_wall_direction: Vector3 = Vector3.ZERO
 var current_wall_normal: Vector3 = Vector3.ZERO
 var wall_run_timer: Timer
 var wall_run_cooldown_timer: Timer
-
+var decrease_rate: float = 0.0
 
 func ready() -> void:
 	_create_wall_run_timers()
@@ -29,8 +37,15 @@ func enter() -> void:
 	if wall_run_time > 0 and is_instance_valid(wall_run_timer):
 		wall_run_timer.start(wall_run_time)
 
-	print(current_wall_normal)
-	print(current_wall_direction)
+
+
+func physics_update(delta: float) -> void:
+	actor.camera.rotation.z = lerp_angle(
+		actor.camera.rotation.z,
+	 	camera_rotation_angle * 1 if current_wall_normal.is_equal_approx(Vector3.LEFT) else -1, 
+		delta * camera_lerp_rotation_factor
+		)
+	
 
 
 func exit(_next_state: MachineState) -> void:

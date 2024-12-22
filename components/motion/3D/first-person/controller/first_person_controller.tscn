@@ -217,6 +217,7 @@ actor = NodePath("../../..")
 [node name="WallRun" type="Node" parent="FiniteStateMachine/Special" node_paths=PackedStringArray("actor")]
 script = ExtResource("14_2jtjm")
 actor = NodePath("../../..")
+gravity_force = 0.6
 
 [node name="StandCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_1od8w")
