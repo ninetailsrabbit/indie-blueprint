@@ -1,8 +1,9 @@
 class_name WallRun extends AirState
 
 @export_category("Camera")
-@export_range(0, 360.0, 0.01) var camera_rotation_angle: float = 5.0
-@export_range(0, 360.0, 0.01) var camera_lerp_rotation_factor: float = 8.0
+@export_range(0, 360.0, 0.01) var camera_tilt_angle: float = 5.0
+@export_range(0, 360.0, 0.01) var camera_lerp_tilt_factor: float = 8.0
+@export var camera_tilt_comeback_time: float = 0.35
 @export_category("Parameters")
 @export var wall_speed: float = 5.0
 @export var reduce_speed_gradually: bool = true
@@ -12,9 +13,9 @@ class_name WallRun extends AirState
 @export var wall_friction: float = 0.2
 ## Set to zero to not have a limited time on wall running. 
 ## It can be further interrupted by the termination of the wall itself or by an external force that interrupts the action.
-@export var wall_run_time: float = 0.0
+@export var wall_run_time: float = 0.7
 ## When the wall run ends, the player cannot wall run again until this time passed
-@export var wall_run_cooldown: float = 0.5
+@export var wall_run_cooldown: float = 1.0
 
 var current_wall_direction: Vector3 = Vector3.ZERO
 var current_wall_normal: Vector3 = Vector3.ZERO
@@ -22,11 +23,17 @@ var wall_run_timer: Timer
 var wall_run_cooldown_timer: Timer
 var decrease_rate: float = 0.0
 
+var original_camera_rotation: Vector3 = Vector3.ZERO
+
+
 func ready() -> void:
 	_create_wall_run_timers()
 
 
 func enter() -> void:
+	print("entro wall run")
+	original_camera_rotation = actor.camera.rotation
+	
 	current_wall_normal = actor.get_current_wall_detected_normal()
 	current_wall_direction = calculate_wall_run_direction()
 	
@@ -36,29 +43,42 @@ func enter() -> void:
 		
 	if wall_run_time > 0 and is_instance_valid(wall_run_timer):
 		wall_run_timer.start(wall_run_time)
-
+	
+	if is_instance_valid(wall_run_cooldown_timer):
+		wall_run_cooldown_timer.stop()
 
 
 func physics_update(delta: float) -> void:
-	actor.camera.rotation.z = lerp_angle(
-		actor.camera.rotation.z,
-	 	camera_rotation_angle * 1 if current_wall_normal.is_equal_approx(Vector3.LEFT) else -1, 
-		delta * camera_lerp_rotation_factor
-		)
+	actor.camera.rotation.z = lerp_angle(actor.camera.rotation.z, calculate_camera_angle(), delta * camera_lerp_tilt_factor)
 	
+	detect_wall_jump()
+	
+	actor.move_and_slide()
 
 
 func exit(_next_state: MachineState) -> void:
+	if actor.camera.rotation.z != original_camera_rotation.z:
+		var tween: Tween = create_tween()
+		tween.tween_property(actor.camera, "rotation:z", original_camera_rotation.z, camera_tilt_comeback_time)\
+			.set_ease(Tween.EASE_OUT)
+	
 	wall_run_timer.stop()
 	
-	if wall_run_cooldown > 0 and is_instance_valid(wall_run_cooldown_timer):
-		wall_run_cooldown_timer.start(wall_run_cooldown)
+
+func calculate_camera_angle() -> float:
+	var angle: float = deg_to_rad(camera_tilt_angle)
+	
+	if current_wall_normal.is_equal_approx(Vector3.RIGHT) or current_wall_normal.is_equal_approx(Vector3.FORWARD):
+		angle *= -1
+		
+	return angle
 
 
 func calculate_wall_run_direction() -> Vector3:
 	var wall_direction = current_wall_normal.cross(Vector3.UP)
-
-	if (-actor.global_transform.basis.z - wall_direction).length() > (-actor.global_transform.basis.z - -wall_direction).length():
+	var player_direction: Vector3 = actor.global_transform.basis.z
+	
+	if (-player_direction - wall_direction).length() > (-player_direction - -wall_direction).length():
 			wall_direction *= -1
 	
 	return wall_direction
@@ -90,4 +110,5 @@ func _create_wall_run_timers() -> void:
 		
 		
 func on_wall_run_timer_timeout() -> void:
+	wall_run_cooldown_timer.start(wall_run_cooldown)
 	FSM.change_state_to(Fall)

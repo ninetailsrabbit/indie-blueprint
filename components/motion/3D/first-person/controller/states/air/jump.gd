@@ -89,7 +89,6 @@ func physics_update(delta: float):
 		else:
 			FSM.change_state_to(Walk)
 			
-	
 	detect_fall_after_jump_fall_time_passed()
 	detect_wall_jump()
 	detect_wall_run()

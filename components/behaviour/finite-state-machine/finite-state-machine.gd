@@ -90,7 +90,7 @@ func run_transition(from: MachineState, to: MachineState, parameters: Dictionary
 	transition.to_state = to
 	transition.parameters = parameters
 	
-	if transition.should_transition():		
+	if transition.should_transition():
 		transition.on_transition()
 		state_changed.emit(from, to)
 		

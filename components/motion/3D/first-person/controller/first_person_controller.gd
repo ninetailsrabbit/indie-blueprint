@@ -39,14 +39,10 @@ class_name FirstPersonController extends CharacterBody3D
 ## stuttering movement on irregular vertical surfaces
 @onready var front_close_wall_checker: RayCast3D = %FrontCloseWallChecker
 @onready var back_close_wall_checker: RayCast3D = %BackCloseWallChecker
-@onready var bottom_right_wall_checker: RayCast3D = %BottomRightWallChecker
-@onready var bottom_right_wall_checker_2: RayCast3D = %BottomRightWallChecker2
-@onready var top_right_wall_checker: RayCast3D = %TopRightWallChecker
-@onready var top_right_wall_checker_2: RayCast3D = %TopRightWallChecker2
-@onready var bottom_left_wall_checker: RayCast3D = %BottomLeftWallChecker
-@onready var bottom_left_wall_checker_2: RayCast3D = %BottomLeftWallChecker2
-@onready var top_left_wall_checker: RayCast3D = %TopLeftWallChecker
-@onready var top_left_wall_checker_2: RayCast3D = %TopLeftWallChecker2
+@onready var right_wall_checker: RayCast3D = %RightWallChecker
+@onready var right_wall_checker_2: RayCast3D = %RightWallChecker2
+@onready var left_wall_checker: RayCast3D = %LeftWallChecker
+@onready var left_wall_checker_2: RayCast3D = %LeftWallChecker2
 
 @onready var ceil_shape_cast: ShapeCast3D = $CeilShapeCast
 
@@ -87,8 +83,9 @@ func _ready() -> void:
 	finite_state_machine.register_transitions([
 		WalkToRunTransition.new(),
 		RunToWalkTransition.new(),
-		JumpToWallRunTransition.new(),
-		FallToWallRunTransition.new()
+		AnyToWallRunTransition.new(),
+		WallRunToFallTransition.new(),
+		WallRunToWallJumpTransition.new()
 	])
 	
 	finite_state_machine.state_changed.connect(on_state_changed)
@@ -119,39 +116,21 @@ func is_falling() -> bool:
 
 
 func wall_detected() -> bool:
-	var top_right_wall: bool = top_right_wall_checker.is_colliding() or top_right_wall_checker_2.is_colliding()
-	var bottom_right_wall: bool = bottom_right_wall_checker.is_colliding() or bottom_right_wall_checker_2.is_colliding()
-	var top_left_wall: bool = top_left_wall_checker.is_colliding() or top_left_wall_checker_2.is_colliding()
-	var bottom_left_wall: bool = bottom_left_wall_checker.is_colliding() or bottom_left_wall_checker_2.is_colliding()
+	var right_wall: bool = right_wall_checker.is_colliding() or right_wall_checker_2.is_colliding()
+	var left_wall: bool = left_wall_checker.is_colliding() or left_wall_checker_2.is_colliding()
 
-	return wall_jump and ((top_right_wall and bottom_right_wall) or (top_left_wall and bottom_left_wall))
+	return wall_jump and (right_wall or left_wall)
 	
 
 func get_current_wall_detected_normal() -> Vector3:
-	if top_left_wall_checker.is_colliding():
-		return top_left_wall_checker.get_collision_normal()
-		
-	elif top_left_wall_checker_2.is_colliding():
-		return top_left_wall_checker_2.get_collision_normal()
-		
-	elif bottom_left_wall_checker.is_colliding():
-		return bottom_left_wall_checker.get_collision_normal()
-		
-	elif bottom_left_wall_checker_2.is_colliding():
-		return bottom_left_wall_checker_2.get_collision_normal()
-		
-	elif top_right_wall_checker.is_colliding():
-		return top_right_wall_checker.get_collision_normal()
-		
-	elif top_right_wall_checker_2.is_colliding():
-		return top_right_wall_checker_2.get_collision_normal()
-		
-	elif bottom_right_wall_checker.is_colliding():
-		return bottom_right_wall_checker.get_collision_normal()
-		
-	elif bottom_right_wall_checker_2.is_colliding():
-		return bottom_right_wall_checker_2.get_collision_normal()
-
+	if right_wall_checker.is_colliding():
+		return right_wall_checker.get_collision_normal()
+	elif right_wall_checker_2.is_colliding():
+		return right_wall_checker_2.get_collision_normal()
+	elif left_wall_checker.is_colliding():
+		return left_wall_checker.get_collision_normal()
+	elif left_wall_checker_2.is_colliding():
+		return left_wall_checker_2.get_collision_normal()
 	else:
 		return Vector3.ZERO
 
@@ -175,14 +154,10 @@ func switch_mouse_capture_mode() -> void:
 
 func _update_wall_checkers() -> void:
 	if is_inside_tree():
-		top_left_wall_checker.enabled = wall_jump or wall_run
-		top_left_wall_checker_2.enabled = wall_jump or wall_run
-		top_right_wall_checker.enabled = wall_jump or wall_run
-		top_right_wall_checker_2.enabled = wall_jump or wall_run
-		bottom_left_wall_checker.enabled = wall_jump or wall_run
-		bottom_left_wall_checker_2.enabled = wall_jump or wall_run
-		bottom_right_wall_checker.enabled = wall_jump or wall_run
-		bottom_right_wall_checker_2.enabled = wall_jump or wall_run
+		right_wall_checker.enabled = wall_jump or wall_run
+		right_wall_checker_2.enabled = wall_jump or wall_run
+		left_wall_checker.enabled = wall_jump or wall_run
+		left_wall_checker_2.enabled = wall_jump or wall_run
 		
 		front_close_wall_checker.enabled = stairs
 		back_close_wall_checker.enabled = stairs
