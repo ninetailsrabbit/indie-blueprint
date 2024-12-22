@@ -24,7 +24,7 @@ func physics_update(delta):
 	super.physics_update(delta)
 	
 	if actor.motion_input.input_direction.is_zero_approx() or not Input.is_action_pressed(run_input_action):
-		FSM.change_state_to("Walk")
+		FSM.change_state_to(Walk)
 	
 	accelerate(delta)
 	

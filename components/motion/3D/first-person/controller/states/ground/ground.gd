@@ -24,8 +24,8 @@ class_name GroundState extends MachineState
 @export var crouch_input_action: StringName = InputControls.CrouchAction
 @export var crawl_input_action: StringName = InputControls.CrawlAction
 @export_group("Animation")
-@export var crouch_animation: StringName = "crouch"
-@export var crawl_animation: StringName = "crawl"
+@export var crouch_animation: StringName = InputControls.CrouchAction
+@export var crawl_animation: StringName = InputControls.CrawlAction
 
 var current_speed: float = 0
 var stair_stepping := false
@@ -65,8 +65,10 @@ func get_speed() -> float:
 
 
 func stair_step_up():
-	if not actor.stairs or not stair_stepping_enabled:
+	if not actor.stairs or not stair_stepping_enabled \
+		or actor.front_close_wall_checker.is_colliding() or actor.back_close_wall_checker.is_colliding():
 		return
+		
 		
 	stair_stepping = false
 	
@@ -146,7 +148,8 @@ func stair_step_up():
 
 	
 func stair_step_down():
-	if not actor.stairs or not stair_stepping_enabled:
+	if not actor.stairs or not stair_stepping_enabled \
+			or actor.front_close_wall_checker.is_colliding() or actor.back_close_wall_checker.is_colliding():
 		return
 		
 	stair_stepping = false
@@ -171,25 +174,25 @@ func stair_step_down():
 #region State Detectors
 func detect_run() -> void:
 	if actor.run and InputMap.has_action(run_input_action) and Input.is_action_pressed(run_input_action):
-		FSM.change_state_to("Run")
+		FSM.change_state_to(Run)
 
 
 func detect_slide() -> void:
 	if actor.crouch and actor.slide and InputMap.has_action(crouch_input_action) and Input.is_action_pressed(crouch_input_action):
-		FSM.change_state_to("Slide")
+		FSM.change_state_to(Slide)
 	
 
 func detect_crouch() -> void:
 	if actor.crouch and InputMap.has_action(crouch_input_action) and Input.is_action_pressed(crouch_input_action):
-		FSM.change_state_to("Crouch")
+		FSM.change_state_to(Crouch)
 
 
 func detect_crawl() -> void:
 	if actor.crawl and InputMap.has_action(crawl_input_action) and Input.is_action_pressed(crawl_input_action):
-		FSM.change_state_to("Crawl")
+		FSM.change_state_to(Crawl)
 
 
 func detect_jump() -> void:
 	if actor.jump and InputMap.has_action(jump_input_action) and Input.is_action_just_pressed(jump_input_action):
-		FSM.change_state_to("Jump")
+		FSM.change_state_to(Jump)
 #endregion

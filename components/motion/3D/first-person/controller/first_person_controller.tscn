@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bx3bh475g3jjf"]
+[gd_scene load_steps=32 format=3 uid="uid://bx3bh475g3jjf"]
 
 [ext_resource type="Script" path="res://components/motion/3D/first-person/controller/first_person_controller.gd" id="1_v7v7g"]
 [ext_resource type="PackedScene" uid="uid://bcj2w63oj13e5" path="res://components/motion/3D/first-person/controller/debug_ui/first_person_debug_ui.tscn" id="2_ml2dd"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/air/jump.gd" id="10_ynwvi"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/ground/slide.gd" id="11_jpv7j"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/special/swim.gd" id="12_vyybp"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/air/wall_jump.gd" id="13_uw3wc"]
 [ext_resource type="Script" path="res://components/cards/camera/3D/shake/camera_shake_3d.gd" id="14_smxor"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/firearm_weapon_holder.gd" id="15_cjftc"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_sway.gd" id="16_2a3la"]
@@ -209,6 +210,10 @@ script = ExtResource("12_vyybp")
 eyes = NodePath("../../../CameraController/Head")
 actor = NodePath("../../..")
 
+[node name="WallJump" type="Node" parent="FiniteStateMachine/Special" node_paths=PackedStringArray("actor")]
+script = ExtResource("13_uw3wc")
+actor = NodePath("../../..")
+
 [node name="StandCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_1od8w")
 
@@ -264,3 +269,43 @@ script = ExtResource("20_iio1q")
 [node name="FireArmWeapon" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder/Sway/Noise/Tilt/Impulse/Recoil" node_paths=PackedStringArray("camera")]
 script = ExtResource("21_q3kyc")
 camera = NodePath("../../../../../../..")
+
+[node name="WallCheckers" type="Node3D" parent="."]
+
+[node name="FrontCloseWallChecker" type="RayCast3D" parent="WallCheckers"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.05)
+target_position = Vector3(0, 0, -1)
+debug_shape_custom_color = Color(0.613951, 0.141829, 0.230894, 1)
+
+[node name="BackCloseWallChecker" type="RayCast3D" parent="WallCheckers"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.05)
+target_position = Vector3(0, 0, 1)
+debug_shape_custom_color = Color(0.613951, 0.141829, 0.230894, 1)
+
+[node name="BottomRightWallChecker" type="RayCast3D" parent="WallCheckers"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+target_position = Vector3(1.3, 0, 0)
+debug_shape_custom_color = Color(0.78019, 0.402978, 0.179512, 1)
+
+[node name="TopRightWallChecker" type="RayCast3D" parent="WallCheckers"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+target_position = Vector3(1.3, 0, 0)
+debug_shape_custom_color = Color(0.78019, 0.402978, 0.179512, 1)
+
+[node name="BottomLeftWallChecker" type="RayCast3D" parent="WallCheckers"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+target_position = Vector3(-1.3, 0, 0)
+debug_shape_custom_color = Color(0.78019, 0.402978, 0.179512, 1)
+
+[node name="TopLeftWallChecker" type="RayCast3D" parent="WallCheckers"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+target_position = Vector3(-1.3, 0, 0)
+debug_shape_custom_color = Color(0.78019, 0.402978, 0.179512, 1)
+
+[node name="Node3D" type="Node3D" parent="."]

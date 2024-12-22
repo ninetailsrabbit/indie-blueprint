@@ -41,7 +41,7 @@ func physics_update(delta: float):
 		actor.velocity += actor.up_direction * underwater_exit_impulse
 		
 	if actor.global_position.y > water_height:
-		FSM.change_state_to("Fall")
+		FSM.change_state_to(Fall)
 		
 	actor.move_and_slide()
 	

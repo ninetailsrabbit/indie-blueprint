@@ -10,7 +10,7 @@ class_name AirState extends MachineState
 @export var air_friction: float = 10.0
 @export var maximum_fall_velocity: float = 25.0
 @export_group("Input actions")
-@export var jump_input_action: String = "jump"
+@export var jump_input_action: String = InputControls.JumpAction
 
 var current_air_speed: float = 0.0
 
@@ -26,7 +26,7 @@ func apply_gravity(force: float = gravity_force, delta: float = get_physics_proc
 
 func air_move(delta: float = get_physics_process_delta_time()) -> void:
 	if not actor.motion_input.input_direction.is_zero_approx():
-				accelerate(delta)
+		accelerate(delta)
 
 
 func accelerate(delta: float = get_physics_process_delta_time()) -> void:
@@ -59,7 +59,12 @@ func get_speed() -> float:
 
 func detect_jump() -> void:
 	if actor.jump and InputMap.has_action(jump_input_action) and Input.is_action_just_pressed(jump_input_action):
-		FSM.change_state_to("Jump")
+		FSM.change_state_to(Jump)
+
+
+func detect_wall_jump() -> void:
+	if actor.can_wall_jump() and InputMap.has_action(jump_input_action) and Input.is_action_just_pressed(jump_input_action):
+		FSM.change_state_to(WallJump)
 
 
 func detect_swim() -> void:
@@ -67,7 +72,7 @@ func detect_swim() -> void:
 		var swim_state: Swim = FSM.states["Swim"] as Swim
 		
 		if swim_state.eyes.global_position.y <= swim_state.water_height:
-			FSM.change_state_to("Swim")
+			FSM.change_state_to(Swim)
 
 
 func limit_fall_velocity() -> void:

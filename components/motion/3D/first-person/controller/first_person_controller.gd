@@ -13,18 +13,37 @@ class_name FirstPersonController extends CharacterBody3D
 @export var crawl: bool = false
 @export var slide: bool = true
 @export var wall_run: bool = false
-@export var wall_jump: bool = false
+@export var wall_jump: bool = false:
+	set(value):
+		if value != wall_jump:
+			wall_jump = value
+			_update_wall_checkers()
+
 @export var wall_climb: bool = false
 @export var surf: bool = false
 @export var swim: bool = false
-@export var stairs: bool = true
+@export var stairs: bool = true:
+	set(value):
+		if value != stairs:
+			stairs = value
+			_update_wall_checkers()
 
 @onready var debug_ui: CanvasLayer = $DebugUI
 @onready var finite_state_machine: FiniteStateMachine = $FiniteStateMachine
 @onready var camera: CameraShake3D = $CameraController/Head/CameraShake3D
 @onready var camera_controller: CameraController3D = $CameraController
 
+## This raycast detects walls so the stair up and stair down is not applied to avoid a weird
+## stuttering movement on irregular vertical surfaces
+@onready var front_close_wall_checker: RayCast3D = %FrontCloseWallChecker
+@onready var back_close_wall_checker: RayCast3D = %BackCloseWallChecker
+@onready var bottom_right_wall_checker: RayCast3D = %BottomRightWallChecker
+@onready var top_right_wall_checker: RayCast3D = %TopRightWallChecker
+@onready var bottom_left_wall_checker: RayCast3D = %BottomLeftWallChecker
+@onready var top_left_wall_checker: RayCast3D = %TopLeftWallChecker
+
 @onready var ceil_shape_cast: ShapeCast3D = $CeilShapeCast
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var stand_collision_shape: CollisionShape3D = $StandCollisionShape
 @onready var crouch_collision_shape: CollisionShape3D = $CrouchCollisionShape
@@ -51,6 +70,8 @@ func _enter_tree() -> void:
 	
 	
 func _ready() -> void:
+	_update_wall_checkers()
+	
 	collision_layer = GameGlobals.player_collision_layer
 	debug_ui.visible = OS.is_debug_build()
 	
@@ -89,6 +110,12 @@ func is_falling() -> bool:
 	return not is_grounded and opposite_to_gravity_vector
 
 
+func can_wall_jump() -> bool:
+	return wall_jump \
+		and ( (top_left_wall_checker.is_colliding() and bottom_left_wall_checker.is_colliding()) \
+		or (top_right_wall_checker.is_colliding() and bottom_right_wall_checker.is_colliding()) )
+
+
 func lock_movement() -> void:
 	finite_state_machine.lock_state_machine()
 	camera_controller.lock()
@@ -98,12 +125,23 @@ func unlock_movement() -> void:
 	finite_state_machine.unlock_state_machine()
 	camera_controller.unlock()
 
-	
+
 func switch_mouse_capture_mode() -> void:
 	if InputHelper.is_mouse_visible():
 		InputHelper.capture_mouse()
 	else:
 		InputHelper.show_mouse_cursor()
+
+
+func _update_wall_checkers() -> void:
+	if is_inside_tree():
+		top_left_wall_checker.enabled = wall_jump or wall_run
+		top_right_wall_checker.enabled = wall_jump or wall_run
+		bottom_left_wall_checker.enabled = wall_jump or wall_run
+		bottom_right_wall_checker.enabled = wall_jump or wall_run
+		
+		front_close_wall_checker.enabled = stairs
+		back_close_wall_checker.enabled = stairs
 
 
 func _update_collisions_based_on_state(current_state: MachineState) -> void:

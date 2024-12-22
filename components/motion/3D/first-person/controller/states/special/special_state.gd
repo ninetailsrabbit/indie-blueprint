@@ -8,8 +8,8 @@ class_name SpecialState extends MachineState
 @export var acceleration: float = 8.0
 @export var friction: float = 10.0
 @export_group("Input actions")
-@export var run_input_action: String = "run"
-@export var jump_input_action: String = "jump"
+@export var run_input_action: StringName = InputControls.RunAction
+@export var jump_input_action: StringName = InputControls.JumpAction
 
 
 func apply_gravity(force: float = gravity_force, delta: float = get_physics_process_delta_time()):
@@ -18,7 +18,7 @@ func apply_gravity(force: float = gravity_force, delta: float = get_physics_proc
 
 func detect_jump() -> void:
 	if actor.jump and InputMap.has_action(jump_input_action) and Input.is_action_just_pressed(jump_input_action):
-		FSM.change_state_to("Jump")
+		FSM.change_state_to(Jump)
 
 
 func get_speed() -> float:

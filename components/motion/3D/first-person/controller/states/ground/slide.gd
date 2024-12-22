@@ -96,7 +96,7 @@ func on_slider_timeout():
 	detect_crouch()
 	
 	if actor.crouch and actor.ceil_shape_cast.is_colliding():
-		FSM.change_state_to("Crouch")
+		FSM.change_state_to(Crouch)
 	else:
-		FSM.change_state_to("Walk")
+		FSM.change_state_to(Walk)
 	

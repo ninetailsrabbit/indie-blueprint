@@ -14,7 +14,7 @@ func physics_update(delta):
 	super.physics_update(delta)
 	
 	if not Input.is_action_pressed(crawl_input_action) and not actor.ceil_shape_cast.is_colliding():
-		FSM.change_state_to("Crouch")
+		FSM.change_state_to(Crouch)
 		
 	accelerate(delta)
 		
