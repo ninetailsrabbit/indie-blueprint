@@ -9,10 +9,18 @@ class_name AirState extends MachineState
 @export var air_acceleration: float = 15.0
 @export var air_friction: float = 10.0
 @export var maximum_fall_velocity: float = 25.0
+## When enter any air state (except wall ones), the player cannot wall run until this time passed
+@export var wall_run_start_cooldown: float = 0.5
 @export_group("Input actions")
 @export var jump_input_action: String = InputControls.JumpAction
 
+var wall_run_start_cooldown_timer: Timer
 var current_air_speed: float = 0.0
+
+
+func _ready() -> void:
+	_create_wall_run_start_cooldown_timer()
+	
 
 func physics_update(delta: float):
 	apply_gravity(gravity_force, delta)
@@ -63,8 +71,13 @@ func detect_jump() -> void:
 
 
 func detect_wall_jump() -> void:
-	if actor.can_wall_jump() and InputMap.has_action(jump_input_action) and Input.is_action_just_pressed(jump_input_action):
+	if wall_run_start_cooldown_timer.is_stopped() and actor.wall_detected() and InputMap.has_action(jump_input_action) and Input.is_action_just_pressed(jump_input_action):
 		FSM.change_state_to(WallJump)
+
+
+func detect_wall_run() -> void:
+	if actor.wall_detected():
+		FSM.change_state_to(WallRun)
 
 
 func detect_swim() -> void:
@@ -84,3 +97,14 @@ func limit_fall_velocity() -> void:
 		actor.velocity.x = max(sign(up_direction_opposite.x) * maximum_fall_velocity, actor.velocity.x)
 		
 	
+func _create_wall_run_start_cooldown_timer() -> void:
+	if wall_run_start_cooldown_timer == null:
+		wall_run_start_cooldown_timer = Timer.new()
+		wall_run_start_cooldown_timer.name = "WallRunStartCooldownTimer"
+		
+	wall_run_start_cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	wall_run_start_cooldown_timer.wait_time = maxf(0.05, wall_run_start_cooldown)
+	wall_run_start_cooldown_timer.autostart = false
+	wall_run_start_cooldown_timer.one_shot = true
+	
+	add_child(wall_run_start_cooldown_timer)

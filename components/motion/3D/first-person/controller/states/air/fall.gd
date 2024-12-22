@@ -28,6 +28,8 @@ func enter():
 	
 	if FSM.last_state() is GroundState:
 		FSM.last_state().stair_stepping = false
+	
+	wall_run_start_cooldown_timer.start()
 
 
 func physics_update(delta: float):
@@ -38,19 +40,20 @@ func physics_update(delta: float):
 	current_jump_input_buffer_time_frames -= 1
 	
 	if jump_requested and _coyote_time_is_active():
-		FSM.change_state_to("Jump")
+		FSM.change_state_to(Jump)
 		
 	elif (not actor.was_grounded and actor.is_grounded) or actor.is_on_floor():
 		if jump_requested and _jump_input_buffer_is_active():
-			FSM.change_state_to("Jump")
+			FSM.change_state_to(Jump)
 		else:
 			if actor.motion_input.input_direction.is_zero_approx():
-				FSM.change_state_to("Idle")
+				FSM.change_state_to(Idle)
 			else:
-				FSM.change_state_to("Walk")
+				FSM.change_state_to(Walk)
 			
 	detect_swim()
 	detect_wall_jump()
+	detect_wall_run()
 
 	actor.move_and_slide()
 

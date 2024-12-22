@@ -62,6 +62,8 @@ func ready():
 	
 	
 func enter():
+	wall_run_start_cooldown_timer.start()
+	
 	apply_jump()
 	actor.move_and_slide()
 
@@ -92,6 +94,7 @@ func physics_update(delta: float):
 	
 	detect_fall_after_jump_fall_time_passed()
 	detect_wall_jump()
+	detect_wall_run()
 	
 	actor.move_and_slide()
 
