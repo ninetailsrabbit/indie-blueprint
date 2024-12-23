@@ -4,7 +4,7 @@ class_name Fall extends AirState
 @export var coyote_time: bool = true
 @export var coyote_time_frames = 20
 @export var jump_input_buffer: bool = true
-@export var jump_input_buffer_time_frames = 30
+@export var jump_input_buffer_time_frames: int = 30
 
 
 var jump_requested: bool = false
@@ -12,13 +12,13 @@ var current_coyote_time_frames: int = 0:
 	get:
 		return current_coyote_time_frames
 	set(value):
-		current_coyote_time_frames = max(0, value)
+		current_coyote_time_frames = maxi(0, value)
 		
 var current_jump_input_buffer_time_frames: int = 0:
 	get:
 		return current_jump_input_buffer_time_frames
 	set(value):
-		current_jump_input_buffer_time_frames = max(0, value)
+		current_jump_input_buffer_time_frames = maxi(0, value)
 
 
 func enter():
@@ -30,6 +30,9 @@ func enter():
 		FSM.last_state().stair_stepping = false
 	
 	wall_run_start_cooldown_timer.start()
+	
+	actor.velocity += actor.global_transform.basis.z * edge_gap_auto_jump
+	actor.move_and_slide()
 
 
 func physics_update(delta: float):

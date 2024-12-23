@@ -135,6 +135,18 @@ func get_current_wall_detected_normal() -> Vector3:
 		return Vector3.ZERO
 
 
+func get_current_wall_side() -> Vector3:
+	var right_wall: bool = right_wall_checker.is_colliding() or right_wall_checker_2.is_colliding()
+	var left_wall: bool = left_wall_checker.is_colliding() or left_wall_checker_2.is_colliding()
+	
+	if right_wall:
+		return Vector3.RIGHT
+	elif left_wall:
+		return Vector3.LEFT
+	else:
+		return Vector3.ZERO
+
+
 func lock_movement() -> void:
 	finite_state_machine.lock_state_machine()
 	camera_controller.lock()

@@ -43,8 +43,8 @@ func accelerate(delta: float = get_physics_process_delta_time()) -> void:
 	current_air_speed = get_speed()
 	
 	if air_acceleration > 0:
-		actor.velocity.x = lerp(actor.velocity.x, direction.x * current_air_speed, clamp(air_acceleration * delta, 0, 1.0))
-		actor.velocity.z = lerp(actor.velocity.z, direction.z * current_air_speed, clamp(air_acceleration * delta, 0, 1.0))
+		actor.velocity.x = lerp(actor.velocity.x, direction.x * current_air_speed, clampf(air_acceleration * delta, 0, 1.0))
+		actor.velocity.z = lerp(actor.velocity.z, direction.z * current_air_speed, clampf(air_acceleration * delta, 0, 1.0))
 	
 	else:
 		actor.velocity = Vector3(
@@ -56,7 +56,7 @@ func accelerate(delta: float = get_physics_process_delta_time()) -> void:
 
 func decelerate(delta: float = get_physics_process_delta_time()) -> void:
 	if air_friction > 0:
-		actor.velocity = lerp(actor.velocity, Vector3(0, actor.velocity.y, 0), clamp(air_friction * delta, 0, 1.0))
+		actor.velocity = lerp(actor.velocity, Vector3(0, actor.velocity.y, 0), clampf(air_friction * delta, 0, 1.0))
 	else:
 		actor.velocity = Vector3(0, actor.velocity.y, 0)
 
