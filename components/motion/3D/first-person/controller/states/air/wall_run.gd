@@ -5,10 +5,10 @@ class_name WallRun extends AirState
 @export_range(0, 360.0, 0.01) var camera_lerp_tilt_factor: float = 8.0
 @export var camera_tilt_comeback_time: float = 0.35
 @export_category("Parameters")
-@export var wall_gravity_force: float = 0.5
-@export var wall_speed: float = 3.0
+@export var wall_gravity_force: float = 0.1
+@export var wall_speed: float = 10.0
 @export var wall_acceleration: float = 15.0
-@export var reduce_speed_gradually: bool = true
+@export var reduce_speed_gradually: bool = false
 ## The friction rate to reduce speed gradually on each frame multiplied by delta
 @export var friction_momentum: float = 0.1
 ## Reduce the velocity of the run based on this friction coeficient
@@ -80,6 +80,7 @@ func physics_update(delta: float) -> void:
 	
 	detect_wall_jump()
 	
+	print(actor.velocity)
 	actor.move_and_slide()
 
 
