@@ -1,6 +1,5 @@
 @icon("res://components/drag_drop/2D/draggable_2d.svg")
-class_name DragDropRegion extends Button
-
+class_name Draggable2D extends Button
 
 signal dragged
 signal released
@@ -93,11 +92,11 @@ func _ready() -> void:
 	if draggable == null:
 		draggable = get_parent()
 		
-	assert(is_instance_valid(draggable) and (draggable is Node2D or draggable is Control), "MouseDragRegion: This mouse drag region needs a valid Node2D or Control to works properly")
+	assert(is_instance_valid(draggable) and (draggable is Node2D or draggable is Control), "Draggable2D: This mouse drag region needs a valid Node2D or Control to works properly")
 	
 	set_process(false)
 	
-	name = "DragDropRegion"
+	name = "Draggable2D"
 	position = Vector2.ZERO
 	self_modulate.a8 = 100 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
 	

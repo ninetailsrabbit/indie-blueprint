@@ -178,12 +178,12 @@ func on_card_entered(other_area: Area2D) -> void:
 	
 	if card.is_being_dragged():
 		last_detected_card = card
-		last_detected_card.drag_drop_region.released.connect(on_card_detected.bind(last_detected_card), CONNECT_ONE_SHOT)
+		last_detected_card.draggable_2d.released.connect(on_card_detected.bind(last_detected_card), CONNECT_ONE_SHOT)
 		
 
 func on_card_exited(_other_area: Area2D) -> void:
-	if last_detected_card != null and last_detected_card.drag_drop_region.released.is_connected(on_card_detected):
-		last_detected_card.drag_drop_region.released.disconnect(on_card_detected.bind(last_detected_card))
+	if last_detected_card != null and last_detected_card.draggable_2d.released.is_connected(on_card_detected):
+		last_detected_card.draggable_2d.released.disconnect(on_card_detected.bind(last_detected_card))
 		
 	last_detected_card = null
 	

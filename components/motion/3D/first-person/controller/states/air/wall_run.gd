@@ -31,7 +31,6 @@ func ready() -> void:
 
 
 func enter() -> void:
-	print("entro wall run")
 	original_camera_rotation = actor.camera.rotation
 	
 	current_wall_normal = actor.get_current_wall_detected_normal()

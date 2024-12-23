@@ -86,12 +86,12 @@ func add_card(card: PlayingCardUI) -> void:
 				card.face_up()
 			else:
 				card.face_down()
-		
+			
 		await get_tree().physics_frame
 		await get_tree().physics_frame
 		
-		card.drag_drop_region.dragged.connect(on_card_dragged.bind(card))
-		card.drag_drop_region.released.connect(on_card_released.bind(card))
+		card.draggable_2d.dragged.connect(on_card_dragged.bind(card))
+		card.draggable_2d.released.connect(on_card_released.bind(card))
 		
 		current_cards.append(card)
 		added_card.emit(card)
@@ -111,11 +111,11 @@ func add_cards(cards: Array[PlayingCardUI] = []) -> void:
 
 func remove_card(card: PlayingCardUI):
 	if has_card(card):
-		if card.drag_drop_region.dragged.is_connected(on_card_dragged.bind(card)):
-			card.drag_drop_region.dragged.disconnect(on_card_dragged.bind(card))
+		if card.draggable_2d.dragged.is_connected(on_card_dragged.bind(card)):
+			card.draggable_2d.dragged.disconnect(on_card_dragged.bind(card))
 			
-		if card.drag_drop_region.released.is_connected(on_card_released.bind(card)):
-			card.drag_drop_region.released.disconnect(on_card_released.bind(card))
+		if card.draggable_2d.released.is_connected(on_card_released.bind(card)):
+			card.draggable_2d.released.disconnect(on_card_released.bind(card))
 		
 		current_cards.erase(card)
 		removed_card.emit(card)
@@ -171,8 +171,8 @@ func _horizontal_layout(cards: Array[PlayingCardUI]) -> void:
 		card.position = new_position
 		card.rotation = (-1 if toggle_random_layout else 1) * randf_range(min_horizontal_rotation, max_horizontal_rotation)
 		
-		card.drag_drop_region.original_position = card.global_position
-		card.drag_drop_region.original_rotation = card.rotation
+		card.draggable_2d.original_position = card.global_position
+		card.draggable_2d.original_rotation = card.rotation
 		
 		toggle_random_layout = !toggle_random_layout
 
@@ -188,8 +188,8 @@ func _irregular_fan_layout(cards: Array[PlayingCardUI]) -> void:
 		var final_rotation: float = lerp_angle(-fan_rotation_max, fan_rotation_max, float(index) / float(cards_size))
 		card.position = final_position
 		card.rotation = final_rotation
-		card.drag_drop_region.original_position = card.global_position
-		card.drag_drop_region.original_rotation = card.rotation
+		card.draggable_2d.original_position = card.global_position
+		card.draggable_2d.original_rotation = card.rotation
 		
 
 func _perfect_arc_layout(cards: Array[PlayingCardUI]):
@@ -213,8 +213,8 @@ func _update_card_transform(card: PlayingCardUI, angle_in_drag: float):
 	card.position.y += perfect_arc_hand_radius
 	card.rotation = deg_to_rad(angle_in_drag + 90.0)
 
-	card.drag_drop_region.original_position = card.global_position 
-	card.drag_drop_region.original_rotation = card.rotation
+	card.draggable_2d.original_position = card.global_position 
+	card.draggable_2d.original_rotation = card.rotation
 #endregion
 
 #region Signal callbacks

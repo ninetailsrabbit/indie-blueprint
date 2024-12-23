@@ -36,7 +36,7 @@ signal faced_down
 
 @onready var shadow_sprite: TextureRect = $ShadowSprite
 @onready var front_sprite: TextureRect = $FrontSprite
-@onready var drag_drop_region: DragDropRegion = $FrontSprite/DragDropRegion
+@onready var draggable_2d: Draggable2D = $FrontSprite/Draggable2D
 @onready var card_area: Area2D = $CardArea
 @onready var card_area_collision: CollisionShape2D = $CardArea/CollisionShape2D
 @onready var card_detection_area: Area2D = $CardDetectionArea
@@ -71,6 +71,7 @@ func _ready() -> void:
 	
 	shadow_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	front_sprite.mouse_filter = Control.MOUSE_FILTER_PASS
+	set_anchors_preset(Control.PRESET_FULL_RECT)
 
 	if not card.texture_size.is_zero_approx():
 		front_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -82,7 +83,7 @@ func _ready() -> void:
 		shadow_sprite.size = card.texture_size
 	
 	if enable_fake_3d:
-		drag_drop_region.gui_input.connect(on_gui_input)
+		draggable_2d.gui_input.connect(on_gui_input)
 		shader_material = ShaderMaterial.new()
 		shader_material.shader = perspective_shader
 		front_sprite.material = shader_material
@@ -106,30 +107,30 @@ func enable_detection_areas(enable: bool) -> void:
 
 func lock() -> void:
 	enable_detection_areas(false)
-	drag_drop_region.lock()
+	draggable_2d.lock()
 
 
 func unlock() -> void:
 	enable_detection_areas(true)
-	drag_drop_region.unlock()
+	draggable_2d.unlock()
 	reset_fake_3d_perspective()
 	
 	
 func is_being_dragged() -> bool:
-	return drag_drop_region.is_dragging
+	return draggable_2d.is_dragging
 	
 	
 func is_locked() -> bool:
-	return drag_drop_region.is_locked
+	return draggable_2d.is_locked
 
 
 #region Card Effects
 func fake_3d_perspective() -> void:
 	if enable_fake_3d and front_sprite.material and not is_being_dragged() and not is_locked():
-		var mouse_pos: Vector2 = drag_drop_region.get_local_mouse_position()
+		var mouse_pos: Vector2 = draggable_2d.get_local_mouse_position()
 
-		var lerp_val_x: float = remap(mouse_pos.x, 0.0, drag_drop_region.size.x, 0, 1)
-		var lerp_val_y: float = remap(mouse_pos.y, 0.0, drag_drop_region.size.y, 0, 1)
+		var lerp_val_x: float = remap(mouse_pos.x, 0.0, draggable_2d.size.x, 0, 1)
+		var lerp_val_y: float = remap(mouse_pos.y, 0.0, draggable_2d.size.y, 0, 1)
 
 		var rot_x: float = rad_to_deg(lerp_angle(-current_angle_x_max, current_angle_x_max, lerp_val_x))
 		var rot_y: float = rad_to_deg(lerp_angle(current_angle_y_max, -current_angle_y_max, lerp_val_y))
@@ -177,12 +178,12 @@ func face_down() -> void:
 
 #region Preparation
 func _connect_to_drag_drop_signals() -> void:
-	drag_drop_region.button_down.connect(on_drag_drop_region_holded)
-	drag_drop_region.button_up.connect(on_drag_drop_region_released)
-	drag_drop_region.mouse_entered.connect(on_drag_drop_region_mouse_entered)
-	drag_drop_region.mouse_exited.connect(on_drag_drop_region_mouse_exited)
-	drag_drop_region.focus_entered.connect(on_drag_drop_region_focus_entered)
-	drag_drop_region.focus_exited.connect(on_drag_drop_region_focus_exited)
+	draggable_2d.button_down.connect(on_draggable_2d_holded)
+	draggable_2d.button_up.connect(on_draggable_2d_released)
+	draggable_2d.mouse_entered.connect(on_draggable_2d_mouse_entered)
+	draggable_2d.mouse_exited.connect(on_draggable_2d_mouse_exited)
+	draggable_2d.focus_entered.connect(on_draggable_2d_focus_entered)
+	draggable_2d.focus_exited.connect(on_draggable_2d_focus_exited)
 	
 	
 func _prepare_shadow() -> void:
@@ -205,14 +206,14 @@ func _prepare_areas() -> void:
 	card_area.monitorable = true
 	card_area.monitoring = false
 	card_area.priority = 1
-	card_area_collision.shape.size = drag_drop_region.size * front_sprite.scale
+	card_area_collision.shape.size = draggable_2d.size * front_sprite.scale
 	
 	card_detection_area.collision_layer = 0
 	card_detection_area.collision_mask = GameGlobals.playing_cards_collision_layer
 	card_detection_area.monitorable = false
 	card_detection_area.monitoring = true
 	card_detection_area.priority = 2
-	card_detection_area_collision.shape.size = drag_drop_region.size * 0.85 * front_sprite.scale
+	card_detection_area_collision.shape.size = draggable_2d.size * 0.85 * front_sprite.scale
 	card_detection_area.area_entered.connect(on_detected_card)
 #endregion
 
@@ -231,7 +232,7 @@ func on_detected_card(other_area: Area2D) -> void:
 		pass
 
 
-func on_drag_drop_region_holded() -> void:
+func on_draggable_2d_holded() -> void:
 	if not is_locked():
 		card_detection_area.set_deferred("monitoring", true)
 		
@@ -239,23 +240,23 @@ func on_drag_drop_region_holded() -> void:
 		reset_fake_3d_perspective()
 			
 
-func on_drag_drop_region_released() -> void:
+func on_draggable_2d_released() -> void:
 	shadow_sprite.hide()
 
 
-func on_drag_drop_region_mouse_entered() -> void:
+func on_draggable_2d_mouse_entered() -> void:
 	pass
 
 
-func on_drag_drop_region_mouse_exited() -> void:
+func on_draggable_2d_mouse_exited() -> void:
 	reset_fake_3d_perspective()
 	
 
-func on_drag_drop_region_focus_entered() -> void:
+func on_draggable_2d_focus_entered() -> void:
 	pass
 	
 	
-func on_drag_drop_region_focus_exited() -> void:
+func on_draggable_2d_focus_exited() -> void:
 	reset_fake_3d_perspective()
 
 #endregion

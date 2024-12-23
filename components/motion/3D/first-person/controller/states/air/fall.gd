@@ -22,7 +22,6 @@ var current_jump_input_buffer_time_frames: int = 0:
 
 
 func enter():
-	print("entro fall")
 	jump_requested = false
 	current_coyote_time_frames = coyote_time_frames
 	current_jump_input_buffer_time_frames = jump_input_buffer_time_frames
