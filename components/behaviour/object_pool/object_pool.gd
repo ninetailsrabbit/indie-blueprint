@@ -54,11 +54,14 @@ func add_to_pool(new_object: Variant) -> void:
 	new_object.process_mode = Node.PROCESS_MODE_DISABLED
 	new_object.hide()
 	pool.append(new_object)
+	
+	if not new_object.tree_exited.is_connected(on_object_exited_tree.bind(new_object)):
+		new_object.tree_exited.connect(on_object_exited_tree.bind(new_object))
 
 
 func spawn() -> Variant:
 	if pool.size() > 0:
-		var pool_object: Variant = pool.pop_back()
+		var pool_object: Variant = pool.pop_front()
 		pool_object.process_mode = process_mode_on_spawn
 		pool_object.show()
 		spawned.append(pool_object)
@@ -81,7 +84,7 @@ func spawn_multiple(amount: int) -> Array[Variant]:
 				break
 			
 			spawned_objects.append(spawned_object)
-			
+	
 	return spawned_objects
 
 
@@ -90,14 +93,22 @@ func spawn_all() -> Array[Variant]:
 
 
 func kill(spawned_object) -> void:
-	if spawned.has(spawned_object):
-		spawned.erase(spawned_object)
-		add_to_pool(spawned_object)
+	spawned.erase(spawned_object)
+		
+	add_to_pool(spawned_object)
 
 
 func kill_all() -> void:
-	for object: Variant in spawned:
+	## The loop needs to be in this way as erasing while iterating
+	## gives undesired behaviour and elements are left behind.
+	for i: int in spawned.size():
+		var object: Variant = spawned.pop_front()
 		kill(object)
+
+
+func free_pool() -> void:
+	for object: Variant in pool:
+		object.queue_free()
 
 
 func on_kill_requested(spawned_object: Variant) -> void:
@@ -106,3 +117,8 @@ func on_kill_requested(spawned_object: Variant) -> void:
 
 func on_kill_all_requested() -> void:
 	kill_all()
+
+
+func on_object_exited_tree(removed_object: Variant) -> void:
+	pool.erase(removed_object)
+	spawned.erase(removed_object)
