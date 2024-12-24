@@ -1,7 +1,8 @@
 @icon("res://components/behaviour/object_pool/object_pool.svg")
 class_name ObjectPool extends Node
 
-signal killed(spawned_object: Variant)
+signal kill_requested(spawned_object: Variant)
+signal kill_all_requested()
 
 @export var scene: PackedScene
 @export var create_objects_on_ready: bool = true
@@ -31,7 +32,8 @@ func _ready() -> void:
 	if create_objects_on_ready:
 		create_pool(max_objects_in_pool)
 	
-	killed.connect(on_killed)
+	kill_requested.connect(on_kill_requested)
+	kill_all_requested.connect(on_kill_all_requested)
 
 
 func create_pool(amount: int) -> void:
@@ -54,12 +56,6 @@ func add_to_pool(new_object: Variant) -> void:
 	pool.append(new_object)
 
 
-func kill(spawned_object) -> void:
-	if spawned.has(spawned_object):
-		spawned.erase(spawned_object)
-		add_to_pool(spawned_object)
-
-
 func spawn() -> Variant:
 	if pool.size() > 0:
 		var pool_object: Variant = pool.pop_back()
@@ -73,20 +69,40 @@ func spawn() -> Variant:
 	
 
 func spawn_multiple(amount: int) -> Array[Variant]:
-	amount = mini(amount, pool.size())
-	
 	var spawned_objects: Array[Variant] = []
 	
-	for i in amount:
-		var spawned_object: Variant = spawn()
+	if pool.size() > 0:
+		amount = mini(amount, pool.size())
 		
-		if spawned_object == null:
-			break
-		
-		spawned_objects.append(spawned_object)
-		
+		for i in amount:
+			var spawned_object: Variant = spawn()
+			
+			if spawned_object == null:
+				break
+			
+			spawned_objects.append(spawned_object)
+			
 	return spawned_objects
 
 
-func on_killed(spawned_object: Variant) -> void:
+func spawn_all() -> Array[Variant]:
+	return spawn_multiple(pool.size())
+
+
+func kill(spawned_object) -> void:
+	if spawned.has(spawned_object):
+		spawned.erase(spawned_object)
+		add_to_pool(spawned_object)
+
+
+func kill_all() -> void:
+	for object: Variant in spawned:
+		kill(object)
+
+
+func on_kill_requested(spawned_object: Variant) -> void:
 	kill(spawned_object)
+
+
+func on_kill_all_requested() -> void:
+	kill_all()
