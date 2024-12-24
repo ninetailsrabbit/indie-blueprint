@@ -31,6 +31,7 @@ SceneTransitionManager="*res://autoload/scenes/scene_transition_manager.tscn"
 GlobalEffects="*res://autoload/effects/global_effects.tscn"
 SaveManager="*res://autoload/persistence/save/save_manager.gd"
 SettingsManager="*res://autoload/persistence/settings/settings_manager.gd"
+ObjectPoolManager="*res://autoload/behaviour/object_pool/object_pool_manager.gd"
 
 [display]
 

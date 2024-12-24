@@ -55,8 +55,8 @@ func add_to_pool(new_object: Variant) -> void:
 	new_object.hide()
 	pool.append(new_object)
 	
-	if not new_object.tree_exited.is_connected(on_object_exited_tree.bind(new_object)):
-		new_object.tree_exited.connect(on_object_exited_tree.bind(new_object))
+	if not new_object.tree_exiting.is_connected(on_object_exiting_tree.bind(new_object)):
+		new_object.tree_exiting.connect(on_object_exiting_tree.bind(new_object))
 
 
 func spawn() -> Variant:
@@ -119,6 +119,6 @@ func on_kill_all_requested() -> void:
 	kill_all()
 
 
-func on_object_exited_tree(removed_object: Variant) -> void:
+func on_object_exiting_tree(removed_object: Variant) -> void:
 	pool.erase(removed_object)
 	spawned.erase(removed_object)
