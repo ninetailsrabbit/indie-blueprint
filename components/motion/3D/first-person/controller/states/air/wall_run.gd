@@ -80,7 +80,6 @@ func physics_update(delta: float) -> void:
 	
 	detect_wall_jump()
 	
-	print(actor.velocity)
 	actor.move_and_slide()
 
 

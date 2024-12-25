@@ -36,7 +36,8 @@ func physics_update(delta):
 	actor.move_and_slide()
 	
 	stair_step_down()
-
+	
+	actor.footsteps_manager_3d.footstep(0.4)
 
 	
 func _create_sprint_timer() -> void:

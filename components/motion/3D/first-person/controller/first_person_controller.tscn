@@ -329,6 +329,7 @@ floor_detector_raycast = NodePath("FloorDetectorRaycast")
 sound_queue = NodePath("SoundQueue")
 
 [node name="FloorDetectorRaycast" type="RayCast3D" parent="FootstepsManager3D"]
+collide_with_areas = true
 debug_shape_custom_color = Color(0.447865, 0.32889, 0.881494, 1)
 
 [node name="SoundQueue" type="Node" parent="FootstepsManager3D"]
@@ -336,5 +337,5 @@ script = ExtResource("25_p87h0")
 audio_stream = SubResource("AudioStreamRandomizer_jgm50")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="FootstepsManager3D/SoundQueue"]
-max_distance = 7.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06458, 0)
 bus = &"SFX"

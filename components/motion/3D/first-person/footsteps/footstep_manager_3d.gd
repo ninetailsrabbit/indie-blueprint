@@ -41,7 +41,7 @@ func _ready() -> void:
 	removed_footstep_sound.connect(on_removed_foostep_sound)
 	
 
-func foostep(interval_time: float = default_interval_time, footstep_type: FootstepSound.FootstepType = FootstepSound.FootstepType.Ground) -> void:
+func footstep(interval_time: float = default_interval_time, footstep_type: FootstepSound.FootstepType = FootstepSound.FootstepType.Ground) -> void:
 	if sounds_bank.is_empty() or sfx_playing or interval_timer.time_left > 0 or not floor_detector_raycast.enabled:
 		return
 		
@@ -57,33 +57,35 @@ func foostep(interval_time: float = default_interval_time, footstep_type: Footst
 			
 			match footstep_type:
 				FootstepSound.FootstepType.Ground:
-					interval_timer.start(interval_time)
-					sfx_playing = true
-					
-					sound_queue.audio_stream = footstep_sound.ground_stream
-					sound_queue.play_sound_with_pitch_range(
-						footstep_sound.ground_min_pitch_range, 
-						footstep_sound.ground_max_pitch_range
-						)
+					if footstep_sound.ground_stream:
+						interval_timer.start(interval_time)
+						sfx_playing = true
+						
+						sound_queue.audio_stream = footstep_sound.ground_stream
+						sound_queue.play_sound_with_pitch_range(
+							footstep_sound.ground_min_pitch_range, 
+							footstep_sound.ground_max_pitch_range
+							)
 				FootstepSound.FootstepType.Land:
-					interval_timer.start(interval_time)
-					sfx_playing = true
-					
-					sound_queue.audio_stream = footstep_sound.land_stream
-					
-					sound_queue.play_sound_with_pitch_range(
-						footstep_sound.land_min_pitch_range, 
-						footstep_sound.land_max_pitch_range
-						)
+					if footstep_sound.land_stream:
+						interval_timer.start(interval_time)
+						sfx_playing = true
+						
+						sound_queue.audio_stream = footstep_sound.land_stream
+						sound_queue.play_sound_with_pitch_range(
+							footstep_sound.land_min_pitch_range, 
+							footstep_sound.land_max_pitch_range
+							)
 				FootstepSound.FootstepType.Jump:
-					interval_timer.start(interval_time)
-					sfx_playing = true
-					
-					sound_queue.audio_stream = footstep_sound.jump_stream
-					sound_queue.play_sound_with_pitch_range(
-						footstep_sound.jump_min_pitch_range, 
-						footstep_sound.jump_max_pitch_range
-						)
+					if footstep_sound.jump_stream:
+						interval_timer.start(interval_time)
+						sfx_playing = true
+						
+						sound_queue.audio_stream = footstep_sound.jump_stream
+						sound_queue.play_sound_with_pitch_range(
+							footstep_sound.jump_min_pitch_range, 
+							footstep_sound.jump_max_pitch_range
+							)
 			
 
 func add_footstep_sound(footstep_sound: FootstepSound) -> void:

@@ -45,6 +45,7 @@ class_name FirstPersonController extends CharacterBody3D
 @onready var left_wall_checker_2: RayCast3D = %LeftWallChecker2
 
 @onready var ceil_shape_cast: ShapeCast3D = $CeilShapeCast
+@onready var footsteps_manager_3d: FootstepsManager3D = $FootstepsManager3D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var stand_collision_shape: CollisionShape3D = $StandCollisionShape

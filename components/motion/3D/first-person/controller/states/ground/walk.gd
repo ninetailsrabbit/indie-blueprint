@@ -30,6 +30,8 @@ func physics_update(delta):
 	actor.move_and_slide()
 	
 	stair_step_down()
+	
+	actor.footsteps_manager_3d.footstep(0.6)
 
 
 func _create_catching_breath_timer() -> void:

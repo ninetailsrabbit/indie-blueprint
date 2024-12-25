@@ -8,6 +8,7 @@ class_name SoundQueue extends Node
 		
 		if is_inside_tree():
 			create_queue_audio_stream_players()
+
 @export var audio_stream: AudioStream:
 	set(new_audio_stream):
 		if new_audio_stream != audio_stream:
@@ -64,11 +65,14 @@ func _ready():
 			
 
 func change_audio_stream(new_audio_stream: AudioStream) -> void:
+	stop_sounds()
+	
 	for audio_stream_player in audio_stream_players:
 		audio_stream_player.stream = new_audio_stream
 
 
 func create_queue_audio_stream_players() -> void:
+	stop_sounds()
 	audio_stream_players.clear()
 	audio_stream_players.append(root_audio_stream_player)
 	
