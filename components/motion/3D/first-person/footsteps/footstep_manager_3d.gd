@@ -11,7 +11,7 @@ signal removed_footstep_sound(footstep_sound: FootstepSound)
 ## The default interval to wait between footsteps
 @export var default_interval_time: float = 0.6
 ## The meta tag where the ground material information is saved
-@export var meta_tag: StringName = &"ground_material"
+@export var material_meta_tag: StringName = &"ground_material"
 ## A dictionary that contains [StringName, FootstepSound] where the key is the material of the ground
 @export var sounds_bank: Array[FootstepSound] = []
 
@@ -47,8 +47,8 @@ func footstep(interval_time: float = default_interval_time, footstep_type: Foots
 		
 	var collider = floor_detector_raycast.get_collider()
 	
-	if collider != null and collider.has_meta(meta_tag):
-		var material_id: StringName = collider.get_meta(meta_tag)
+	if collider != null and collider.has_meta(material_meta_tag):
+		var material_id: StringName = collider.get_meta(material_meta_tag)
 		var found_sounds: Array[FootstepSound] = sounds_bank.filter(func(sound: FootstepSound): return sound.material == material_id)
 		var footstep_sound: FootstepSound
 		
