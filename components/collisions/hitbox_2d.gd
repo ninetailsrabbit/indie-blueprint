@@ -1,4 +1,4 @@
-@icon("res://components/collisions/hitbox.svg")
+@icon("res://components1/collisions/hitbox.svg")
 class_name Hitbox2D extends Area2D
 
 

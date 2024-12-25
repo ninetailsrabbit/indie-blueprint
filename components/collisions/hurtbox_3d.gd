@@ -22,6 +22,5 @@ func disable():
 	set_deferred("monitoring", false)
 
 
-
 func on_area_entered(hitbox: Hitbox3D) -> void:
 	hitbox_detected.emit(hitbox)
