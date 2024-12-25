@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bx3bh475g3jjf"]
+[gd_scene load_steps=37 format=3 uid="uid://bx3bh475g3jjf"]
 
 [ext_resource type="Script" path="res://components/motion/3D/first-person/controller/first_person_controller.gd" id="1_v7v7g"]
 [ext_resource type="PackedScene" uid="uid://bcj2w63oj13e5" path="res://components/motion/3D/first-person/controller/debug_ui/first_person_debug_ui.tscn" id="2_ml2dd"]
@@ -23,6 +23,8 @@
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_impulse.gd" id="19_bbu1p"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_recoil.gd" id="20_iio1q"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/firearm_weapon.gd" id="21_q3kyc"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/footsteps/footstep_manager_3d.gd" id="24_8j70g"]
+[ext_resource type="Script" path="res://components/audio/queue/sound_queue.gd" id="25_p87h0"]
 
 [sub_resource type="Animation" id="Animation_x0wk0"]
 length = 0.001
@@ -131,6 +133,13 @@ frequency = 0.02
 offset = Vector3(1, 0.5, 0)
 fractal_octaves = 1
 fractal_lacunarity = 1.0
+
+[sub_resource type="AudioStream" id="AudioStream_sjrlx"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jgm50"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = SubResource("AudioStream_sjrlx")
 
 [node name="FirstPersonController" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879968, 0)
@@ -312,3 +321,20 @@ script = ExtResource("20_iio1q")
 [node name="FireArmWeapon" type="Node3D" parent="CameraController/Head/CameraShake3D/FireArmWeaponHolder/Sway/Noise/Tilt/Impulse/Recoil" node_paths=PackedStringArray("camera")]
 script = ExtResource("21_q3kyc")
 camera = NodePath("../../../../../../..")
+
+[node name="FootstepsManager3D" type="Node3D" parent="." node_paths=PackedStringArray("floor_detector_raycast", "sound_queue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20535, 0)
+script = ExtResource("24_8j70g")
+floor_detector_raycast = NodePath("FloorDetectorRaycast")
+sound_queue = NodePath("SoundQueue")
+
+[node name="FloorDetectorRaycast" type="RayCast3D" parent="FootstepsManager3D"]
+debug_shape_custom_color = Color(0.447865, 0.32889, 0.881494, 1)
+
+[node name="SoundQueue" type="Node" parent="FootstepsManager3D"]
+script = ExtResource("25_p87h0")
+audio_stream = SubResource("AudioStreamRandomizer_jgm50")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="FootstepsManager3D/SoundQueue"]
+max_distance = 7.0
+bus = &"SFX"

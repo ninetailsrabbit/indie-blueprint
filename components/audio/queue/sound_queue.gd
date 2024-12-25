@@ -5,6 +5,16 @@ class_name SoundQueue extends Node
 @export var queue_count: float = 2:
 	set(value):
 		queue_count = max(2, value)
+		
+		if is_inside_tree():
+			create_queue_audio_stream_players()
+@export var audio_stream: AudioStream:
+	set(new_audio_stream):
+		if new_audio_stream != audio_stream:
+			audio_stream = new_audio_stream
+			
+			if is_inside_tree():
+				change_audio_stream(audio_stream)
 
 var next: int = 0:
 	set(value):
@@ -16,6 +26,8 @@ var next: int = 0:
 			next %= audio_stream_players.size() - 1
 		
 var audio_stream_players: Array[Variant] = []
+var root_audio_stream_player
+
 
 func _get_configuration_warnings():
 	if get_child_count() == 0:
@@ -42,13 +54,29 @@ func _ready():
 	var child = get_child(0)
 	
 	if(child is AudioStreamPlayer or child is AudioStreamPlayer2D or child is AudioStreamPlayer3D):
+		root_audio_stream_player = child
 		audio_stream_players.append(child)
 		
-		for index: int in range(queue_count - audio_stream_players.size()):
-			var duplicated_player = child.duplicate()
+		if audio_stream != null and child.stream == null:
+			child.stream = audio_stream
+		
+		create_queue_audio_stream_players()
+			
+
+func change_audio_stream(new_audio_stream: AudioStream) -> void:
+	for audio_stream_player in audio_stream_players:
+		audio_stream_player.stream = new_audio_stream
+
+
+func create_queue_audio_stream_players() -> void:
+	audio_stream_players.clear()
+	audio_stream_players.append(root_audio_stream_player)
+	
+	for index: int in range(queue_count - 1):
+			var duplicated_player = root_audio_stream_player.duplicate()
 			add_child(duplicated_player)
 			audio_stream_players.append(duplicated_player)
-
+			
 
 func play_sound():
 	if audio_stream_players.is_empty():

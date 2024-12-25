@@ -1,5 +1,13 @@
 class_name FootstepSound extends Resource
 
+enum FootstepType {
+	Ground,
+	Land,
+	Jump
+}
+
+
+@export var material: StringName = &""
 @export_category("Ground")
 ## The sound for a normal footstep in the ground
 @export var ground_stream: AudioStream
