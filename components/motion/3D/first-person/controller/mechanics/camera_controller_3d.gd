@@ -1,7 +1,7 @@
 @icon("res://components/motion/3D/first-person/controller/mechanics/camera_controller_3d.svg")
 class_name CameraController3D extends Node3D
 
-@export var actor: FirstPersonController
+@export var actor: Node3D
 @export var camera: Camera3D
 ## 0 Means the rotation on the Y-axis is not limited
 @export_range(0, 360, 1, "degrees") var camera_vertical_limit = 89
@@ -10,9 +10,9 @@ class_name CameraController3D extends Node3D
 @export_group("Swing head")
 @export var swing_head_enabled: bool = true:
 	set(value):
-		swing_head_enabled = value
-		if not swing_head_enabled and not bob_enabled:
-			set_physics_process(false)
+		if value != swing_head_enabled:
+			swing_head_enabled = value
+			set_physics_process(swing_head_enabled or (bob_enabled and bob_head != null))
 			
 @export_range(0, 360.0, 0.01) var swing_rotation_degrees = 1.5
 @export var swing_lerp_factor = 5.0
@@ -20,10 +20,18 @@ class_name CameraController3D extends Node3D
 @export_group("Bob head")
 @export var bob_enabled: bool = true:
 	set(value):
-		bob_enabled = value
-		if not swing_head_enabled and not bob_enabled:
-			set_physics_process(false)
-@export var bob_head: Node3D
+		if value != bob_enabled:
+			bob_enabled = value
+			set_physics_process(swing_head_enabled or (bob_enabled and bob_head != null))
+				
+@export var bob_head: Node3D:
+	set(value):
+		if value != bob_head:
+			bob_head = value
+			
+			if bob_head != null:
+				original_head_bob_position = bob_head.position
+			
 @export var bob_speed: float = 10.0
 @export var bob_intensity: float = 0.03
 @export var bob_lerp_speed = 5.0
@@ -53,18 +61,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		var motion: InputEventMouseMotion = event.xformed_by(get_tree().root.get_final_transform())
 		last_mouse_input = motion.relative
 		
-		rotate_camera(motion)
-		
 		
 func _ready() -> void:
-	assert(actor is FirstPersonController, "CameraController: This node needs a FirstPersonController node referenced to apply the camera movement")
+	assert(actor is Node3D, "CameraController: actor Node3D is not set, this camera controller needs a reference to apply the camera movement")
+	
+	set_physics_process(swing_head_enabled or (bob_enabled and bob_head != null))
 	
 	current_horizontal_limit = camera_horizontal_limit
 	current_vertical_limit = camera_vertical_limit
 	original_camera_rotation = camera.rotation
-	original_head_bob_position = bob_head.position
 	
-	mouse_sensitivity = SettingsManager.get_accessibility_section("mouse_sensitivity")
+	if bob_head != null:
+		original_head_bob_position = bob_head.position
+	
+	mouse_sensitivity = SettingsManager.get_accessibility_section(GameSettings.MouseSensivitySetting)
 	
 	SettingsManager.updated_setting_section.connect(on_mouse_sensitivity_changed)
 	
@@ -72,24 +82,29 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	swing_head(delta)
 	headbob(delta)
+	
+	
+func _process(_delta: float) -> void:
+	rotate_camera(last_mouse_input)
 
 
-func rotate_camera(motion: InputEventMouseMotion) -> void:
-	var mouse_sens = mouse_sensitivity / 1000 # radians/pixel, 3 becomes 0.003
+func rotate_camera(motion: Vector2) -> void:
+	var mouse_sens: float = mouse_sensitivity / 1000 # radians/pixel, 3 becomes 0.003
 		
-	var twistInput = motion.relative.x * mouse_sens ## Giro
-	var pitchInput = motion.relative.y * mouse_sens ## Cabeceo
+	var twist_input: float = motion.x * mouse_sens ## Giro
+	var pitch_input: float = motion.y * mouse_sens ## Cabeceo
 	
-	var mouse_rotation: Vector3 = Vector3(-pitchInput, -twistInput, 0)
-	
-	actor.rotate_y(mouse_rotation.y)
-	rotate_x(mouse_rotation.x)
+	actor.rotate_y(-twist_input)
+	rotate_x(-pitch_input)
 	
 	actor.rotation_degrees.y = limit_horizontal_rotation(actor.rotation_degrees.y)
 	rotation_degrees.x = limit_vertical_rotation(rotation_degrees.x)
 	
-	orthonormalize()
-
+	#actor.orthonormalize()
+	#orthonormalize()
+	#
+	last_mouse_input = Vector2.ZERO
+	
 
 func limit_vertical_rotation(angle: float) -> float:
 	if current_vertical_limit > 0:

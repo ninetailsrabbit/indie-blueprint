@@ -62,7 +62,8 @@ var current_weapon: WeaponDatabase.WeaponRecord:
 				current_state = WeaponHolderStates.Dismantle
 			else:
 				current_state = WeaponHolderStates.Neutral
-				
+			
+			set_physics_process(current_weapon != null)
 
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -78,6 +79,8 @@ func _ready() -> void:
 	
 	original_holder_position = position
 	original_camera_fov = camera_controller.camera.fov
+	
+	set_physics_process(current_weapon != null)
 	
 
 func _physics_process(delta: float) -> void:

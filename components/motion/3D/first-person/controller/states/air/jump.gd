@@ -3,7 +3,6 @@ class_name Jump extends AirState
 @export var jump_times: int = 1
 @export var height_reduced_by_jump = 0.2
 @export var shorten_jump_on_input_release = true
-
 @export var jump_height: float = 2.5:
 	get:
 		return jump_height

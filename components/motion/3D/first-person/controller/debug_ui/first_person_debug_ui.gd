@@ -46,7 +46,8 @@ func _process(_delta: float) -> void:
 		
 	if actor.camera:
 		fov_label.text = str(actor.camera.fov)
-	
+
+
 func on_state_changed(from: MachineState, to: MachineState) -> void:
 	state_label.text = "State: %s -> [%s]" % [from.name, to.name]
 	
