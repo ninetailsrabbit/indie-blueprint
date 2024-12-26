@@ -100,9 +100,9 @@ func rotate_camera(motion: Vector2) -> void:
 	actor.rotation_degrees.y = limit_horizontal_rotation(actor.rotation_degrees.y)
 	rotation_degrees.x = limit_vertical_rotation(rotation_degrees.x)
 	
-	#actor.orthonormalize()
-	#orthonormalize()
-	#
+	actor.orthonormalize()
+	orthonormalize()
+	
 	last_mouse_input = Vector2.ZERO
 	
 
