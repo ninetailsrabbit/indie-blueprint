@@ -63,7 +63,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _ready() -> void:
 	assert(actor is Node3D, "CameraController: actor Node3D is not set, this camera controller needs a reference to apply the camera movement")
 	
-	
 	current_horizontal_limit = camera_horizontal_limit
 	current_vertical_limit = camera_vertical_limit
 	original_camera_rotation = camera.rotation
