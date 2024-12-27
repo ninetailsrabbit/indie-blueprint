@@ -12,7 +12,6 @@ class_name CameraController3D extends Node3D
 	set(value):
 		if value != swing_head_enabled:
 			swing_head_enabled = value
-			set_physics_process(swing_head_enabled or (bob_enabled and bob_head != null))
 			
 @export_range(0, 360.0, 0.01) var swing_rotation_degrees = 1.5
 @export var swing_lerp_factor = 5.0
@@ -22,7 +21,6 @@ class_name CameraController3D extends Node3D
 	set(value):
 		if value != bob_enabled:
 			bob_enabled = value
-			set_physics_process(swing_head_enabled or (bob_enabled and bob_head != null))
 				
 @export var bob_head: Node3D:
 	set(value):
@@ -61,11 +59,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		var motion: InputEventMouseMotion = event.xformed_by(get_tree().root.get_final_transform())
 		last_mouse_input = motion.relative
 		
-		
+
 func _ready() -> void:
 	assert(actor is Node3D, "CameraController: actor Node3D is not set, this camera controller needs a reference to apply the camera movement")
 	
-	set_physics_process(swing_head_enabled or (bob_enabled and bob_head != null))
 	
 	current_horizontal_limit = camera_horizontal_limit
 	current_vertical_limit = camera_vertical_limit
@@ -82,12 +79,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	swing_head(delta)
 	headbob(delta)
-	
-	
-func _process(_delta: float) -> void:
 	rotate_camera(last_mouse_input)
-
-
+	
+	
 func rotate_camera(motion: Vector2) -> void:
 	var mouse_sens: float = mouse_sensitivity / 1000 # radians/pixel, 3 becomes 0.003
 		
