@@ -4,7 +4,7 @@ var cursor_display_timer: Timer
 var temporary_display_time: float = 3.5
 var last_cursor_texture: Texture2D
 
-## Dictoinary[Input.CursorShape, Texture2D]
+## Dictionary[Input.CursorShape, Texture2D]
 var default_game_cursors_by_shape: Dictionary = {}
 
 
@@ -35,6 +35,25 @@ func change_cursor_temporary_to(texture: Texture2D, cursor_shape: Input.CursorSh
 	cursor_display_timer.start(duration)
 	change_cursor_to(texture, cursor_shape, false)
 
+
+func show_mouse() -> void:
+	InputHelper.show_mouse_cursor()
+	
+
+func capture_mouse() -> void:
+	InputHelper.capture_mouse()
+
+
+func hide_mouse() -> void:
+	InputHelper.hide_mouse_cursor()
+
+
+func switch_mouse_capture_mode() -> void:
+	if InputHelper.is_mouse_visible():
+		capture_mouse()
+	else:
+		show_mouse()
+	
 
 func on_cursor_display_timer_timeout() -> void:
 	change_cursor_to(last_cursor_texture)
