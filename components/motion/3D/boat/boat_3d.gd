@@ -28,8 +28,6 @@ signal stopped_engine
 @export var boat_rudder_idle_rotation: Vector3 = Vector3.ZERO
 @export var boat_rudder_lerp_factor: float = 15.0
 
-@onready var body: MeshInstance3D = $Body
-
 var current_engine_force: float = 0.0
 var buoyancy_spots: Array[Node3D] = []
 
