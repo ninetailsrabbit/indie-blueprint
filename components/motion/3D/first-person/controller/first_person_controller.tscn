@@ -141,7 +141,7 @@ random_pitch = 1.5
 streams_count = 1
 stream_0/stream = SubResource("AudioStream_sjrlx")
 
-[node name="FirstPersonController" type="CharacterBody3D"]
+[node name="FirstPersonController" type="CharacterBody3D" groups=["player"]]
 process_mode = 1
 collision_layer = 2
 collision_mask = 21
@@ -298,6 +298,7 @@ bob_head = NodePath("Head")
 script = ExtResource("14_smxor")
 
 [node name="FireArmWeaponHolder" type="Node3D" parent="CameraController/Head/CameraShake3D" node_paths=PackedStringArray("actor", "camera_controller", "camera_recoil_node")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33, -0.55, -0.56)
 script = ExtResource("15_cjftc")
 actor = NodePath("../../../..")

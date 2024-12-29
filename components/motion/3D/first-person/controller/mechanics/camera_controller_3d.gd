@@ -41,7 +41,8 @@ class_name CameraController3D extends Node3D
 @onready var current_horizontal_limit: int:
 	set(value):
 		current_horizontal_limit = clamp(value, 0, 360)
-		
+
+@onready var root_node: Window = get_tree().root
 
 var last_mouse_input: Vector2
 var mouse_sensitivity: float = 3.0
@@ -54,14 +55,15 @@ var bob_index: float = 0.0
 var bob_vector: Vector3 = Vector3.ZERO
 
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and InputHelper.is_mouse_captured():
-		var motion: InputEventMouseMotion = event.xformed_by(get_tree().root.get_final_transform())
-		last_mouse_input = motion.relative
+		var motion: InputEventMouseMotion = event.xformed_by(root_node.get_final_transform())
+		last_mouse_input += motion.relative
 		
 
 func _ready() -> void:
-	assert(actor is Node3D, "CameraController: actor Node3D is not set, this camera controller needs a reference to apply the camera movement")
+	assert(actor is Node3D, "CameraController: actor FirstPersonController is not set, this camera controller needs a reference to apply the camera movement")
 	
 	current_horizontal_limit = camera_horizontal_limit
 	current_vertical_limit = camera_vertical_limit
@@ -80,8 +82,11 @@ func _physics_process(delta: float) -> void:
 	headbob(delta)
 	rotate_camera(last_mouse_input)
 	
-	
+
 func rotate_camera(motion: Vector2) -> void:
+	if motion.is_zero_approx():
+		return
+
 	var mouse_sens: float = mouse_sensitivity / 1000 # radians/pixel, 3 becomes 0.003
 		
 	var twist_input: float = motion.x * mouse_sens ## Giro
@@ -92,7 +97,7 @@ func rotate_camera(motion: Vector2) -> void:
 	
 	actor.rotation_degrees.y = limit_horizontal_rotation(actor.rotation_degrees.y)
 	rotation_degrees.x = limit_vertical_rotation(rotation_degrees.x)
-	
+
 	actor.orthonormalize()
 	orthonormalize()
 	
@@ -125,7 +130,6 @@ func unlock() -> void:
 	locked = false
 	
 	
-
 func swing_head(delta: float) -> void:
 	if swing_head_enabled and actor.is_grounded:
 		var direction = actor.motion_input.input_direction

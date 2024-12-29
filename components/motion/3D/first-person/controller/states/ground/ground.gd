@@ -9,15 +9,15 @@ class_name GroundState extends MachineState
 @export var friction: float = 10.0
 @export_group("Stair stepping")
 ## Define if the behaviour to step & down stairs it's enabled
-@export var stair_stepping_enabled := true
+@export var stair_stepping_enabled: bool = true
 ## Maximum height in meters the player can step up.
-@export var max_step_up := 0.6 
+@export var max_step_up: float = 0.6 
 ## Maximum height in meters the player can step down.
-@export var max_step_down := -0.6
+@export var max_step_down: float = -0.6
 ## Shortcut for converting vectors to vertical
-@export var vertical := Vector3(0, 1, 0)
+@export var vertical: Vector3 = Vector3(0, 1, 0)
 ## Shortcut for converting vectors to horizontal
-@export var horizontal := Vector3(1, 0, 1)
+@export var horizontal: Vector3 = Vector3(1, 0, 1)
 @export_group("Input actions")
 @export var run_input_action: StringName = InputControls.RunAction
 @export var jump_input_action: StringName = InputControls.JumpAction
@@ -28,7 +28,7 @@ class_name GroundState extends MachineState
 @export var crawl_animation: StringName = InputControls.CrawlAction
 
 var current_speed: float = 0
-var stair_stepping := false
+var stair_stepping: bool = false
 
 
 func physics_update(delta):
@@ -36,7 +36,7 @@ func physics_update(delta):
 		apply_gravity(gravity_force, delta)
 
 	if actor.is_falling() and not stair_stepping:
-		FSM.change_state_to("Fall")
+		FSM.change_state_to(Fall)
 
 
 func apply_gravity(force: float = gravity_force, delta: float = get_physics_process_delta_time()):
