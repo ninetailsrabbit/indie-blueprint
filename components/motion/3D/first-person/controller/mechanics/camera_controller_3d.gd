@@ -1,7 +1,7 @@
 @icon("res://components/motion/3D/first-person/controller/mechanics/camera_controller_3d.svg")
 class_name CameraController3D extends Node3D
 
-@export var actor: Node3D
+@export var actor: FirstPersonController
 @export var camera: Camera3D
 ## 0 Means the rotation on the Y-axis is not limited
 @export_range(0, 360, 1, "degrees") var camera_vertical_limit = 89
@@ -131,7 +131,7 @@ func unlock() -> void:
 	
 	
 func swing_head(delta: float) -> void:
-	if swing_head_enabled and actor.is_grounded:
+	if swing_head_enabled and actor.is_grounded and not actor.finite_state_machine.locked:
 		var direction = actor.motion_input.input_direction
 		
 		if direction in VectorHelper.horizontal_directions_v2:
@@ -141,7 +141,7 @@ func swing_head(delta: float) -> void:
 
 
 func headbob(delta: float) -> void:
-	if bob_enabled and actor.is_grounded:
+	if bob_enabled and actor.is_grounded and not actor.finite_state_machine.locked:
 	
 		bob_index += bob_speed * delta
 		

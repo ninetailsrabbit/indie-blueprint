@@ -176,10 +176,12 @@ func push_state_to_stack(state: MachineState) -> void:
 
 func lock_state_machine():
 	process_mode =  ProcessMode.PROCESS_MODE_DISABLED
+	locked = true
 
 	
 func unlock_state_machine():
-		process_mode =  ProcessMode.PROCESS_MODE_INHERIT
+	process_mode =  ProcessMode.PROCESS_MODE_INHERIT
+	locked = false
 
 
 func _prepare_states(node: Node = self):

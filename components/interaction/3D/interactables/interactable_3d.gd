@@ -77,6 +77,8 @@ func _ready() -> void:
 	unfocused.connect(on_unfocused)
 	canceled_interaction.connect(on_canceled_interaction)
 	
+	times_interacted = 0
+	
 	
 func activate() -> void:
 	priority = 3
@@ -86,7 +88,6 @@ func activate() -> void:
 	monitoring = false
 	
 	can_be_interacted = true
-	times_interacted = 0
 	
 	
 func deactivate() -> void:
@@ -142,8 +143,10 @@ func on_interacted() -> void:
 	if disable_after_interaction:
 		deactivate()
 	
+	_remove_outline_shader()
 	GlobalGameEvents.interactable_interacted.emit(self)
-		
+
+
 func on_focused() -> void:
 	_apply_outline_shader()
 	
@@ -154,8 +157,14 @@ func on_unfocused() -> void:
 	_remove_outline_shader()
 	
 	GlobalGameEvents.interactable_unfocused.emit(self)
-	
+
+
 func on_canceled_interaction() -> void:
+	if times_interacted < number_of_times_can_be_interacted:
+		activate()
+		
+	_remove_outline_shader()
+	
 	GlobalGameEvents.interactable_canceled_interaction.emit(self)
 	
 #endregion

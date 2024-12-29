@@ -50,7 +50,8 @@ func cancel_interact(interactable: Interactable3D = current_interactable):
 		interacting = false
 		focused = false
 		enabled = true
-				
+		current_interactable = null
+		
 		interactable.canceled_interaction.emit()
 
 
@@ -59,8 +60,8 @@ func focus(interactable: Interactable3D):
 	focused = true
 	
 	interactable.focused.emit()
-	
-	
+
+
 func unfocus(interactable: Interactable3D = current_interactable):
 	if interactable and focused:
 		current_interactable = null
@@ -69,10 +70,3 @@ func unfocus(interactable: Interactable3D = current_interactable):
 		enabled = true
 		
 		interactable.unfocused.emit()
-		
-
-func on_canceled_interaction(_interactable: Interactable3D) -> void:
-	current_interactable = null
-	focused = false
-	interacting = false
-	enabled = true
