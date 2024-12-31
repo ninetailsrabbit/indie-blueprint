@@ -1,6 +1,8 @@
 @icon("res://components/motion/3D/first-person/controller/first_person_controller.svg")
 class_name FirstPersonController extends CharacterBody3D
 
+const GroupName: StringName = &"player"
+
 @export var mouse_mode_switch_input_actions: Array[String] = ["ui_cancel"]
 @export_group("Camera FOV")
 @export var dinamic_camera_fov: bool = true
@@ -30,6 +32,7 @@ class_name FirstPersonController extends CharacterBody3D
 		if value != stairs:
 			stairs = value
 			_update_wall_checkers()
+@export var ladder_climb: bool = false
 @onready var debug_ui: CanvasLayer = $DebugUI
 @onready var finite_state_machine: FiniteStateMachine = $FiniteStateMachine
 @onready var camera: CameraShake3D = $CameraController/Head/CameraShake3D
@@ -45,6 +48,8 @@ class_name FirstPersonController extends CharacterBody3D
 @onready var left_wall_checker_2: RayCast3D = %LeftWallChecker2
 
 @onready var ceil_shape_cast: ShapeCast3D = $CeilShapeCast
+@onready var ladder_cast_detector: ShapeCast3D = $LadderCastDetector
+
 @onready var footsteps_manager_3d: FootstepsManager3D = $FootstepsManager3D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -55,7 +60,6 @@ class_name FirstPersonController extends CharacterBody3D
 @onready var original_camera_fov = camera.fov
 @onready var fire_arm_weapon_holder: FireArmWeaponHolder = $CameraController/Head/CameraShake3D/FireArmWeaponHolder
 
-const group_name = "player"
 
 var was_grounded: bool = false
 var is_grounded: bool = false
@@ -66,10 +70,10 @@ var last_direction: Vector3 = Vector3.ZERO
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if InputHelper.is_any_action_just_pressed(mouse_mode_switch_input_actions):
 		switch_mouse_capture_mode()
-		
+
 
 func _enter_tree() -> void:
-	add_to_group(group_name)
+	add_to_group(GroupName)
 	
 	
 func _ready() -> void:
@@ -86,7 +90,8 @@ func _ready() -> void:
 		RunToWalkTransition.new(),
 		AnyToWallRunTransition.new(),
 		WallRunToFallTransition.new(),
-		WallRunToWallJumpTransition.new()
+		WallRunToWallJumpTransition.new(),
+		AnyToLadderClimbTransition.new()
 	])
 	
 	finite_state_machine.state_changed.connect(on_state_changed)
@@ -150,11 +155,17 @@ func get_current_wall_side() -> Vector3:
 
 func lock_movement() -> void:
 	finite_state_machine.lock_state_machine()
-	camera_controller.lock()
 
 	
 func unlock_movement() -> void:
 	finite_state_machine.unlock_state_machine()
+
+
+func lock_camera() -> void:
+	camera_controller.lock()
+
+	
+func unlock_camera() -> void:
 	camera_controller.unlock()
 
 
@@ -216,7 +227,7 @@ func on_state_changed(_from: MachineState, to: MachineState) -> void:
 	#if interactable.lock_player_on_interact:
 		#lock_movement()
 	#
-#
+
 #func on_interactable_canceled_interaction(_interactable: Interactable3D) -> void:
 	#unlock_movement()
 	#camera.make_current()

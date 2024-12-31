@@ -1,5 +1,6 @@
 class_name Swim extends SpecialState
 
+
 @export var speed_reduction_on_water_entrance: float = 2.0
 @export var eyes: Node3D
 @export var safe_submerged_margin: float = 0.15
@@ -8,14 +9,35 @@ class_name Swim extends SpecialState
 
 ##the height at which water is in the global world Y axis to detect if it's submerged or not
 var water_height: float = 0.0
-
 var was_underwater: bool = false
-var is_underwater: bool = false
+var is_underwater: bool = false:
+	set(value):
+		if value != is_underwater:
+			is_underwater = value
+			
+			if is_inside_tree() and ocean:
+				ocean.underwater.visible = is_underwater
+			
+var ocean: Ocean
 
+
+func handle_input(event: InputEvent) -> void:
+	detect_ladder_input()
+
+
+func ready() -> void:
+	ocean = get_tree().get_first_node_in_group(Ocean.GroupName)
 	
+	if ocean:
+		water_height = ocean.water_level
+		ocean.water_level_changed.connect(on_water_level_changed)
+
 func enter():
 	actor.velocity /= speed_reduction_on_water_entrance
+	actor.velocity.y = gravity_force
+	actor.move_and_slide()
 	## TODO - APPLY SUBMERGED AND OTHER UNDERWATER EFFECTS
+
 
 func exit(_next_state: MachineState):
 	pass ## TODO - SUBMERGED AND REFRACTION EFFECTS RESET
@@ -40,15 +62,16 @@ func physics_update(delta: float):
 	if was_underwater and not is_underwater:
 		actor.velocity += actor.up_direction * underwater_exit_impulse
 		
-	if actor.global_position.y > water_height:
+	if actor.global_position.y > water_height or (not is_underwater and actor.is_on_floor()):
 		FSM.change_state_to(Fall)
+		
+	detect_ladder()
 		
 	actor.move_and_slide()
 	
 
-
 func accelerate(delta: float = get_physics_process_delta_time()):
-	var direction = actor.current_input_direction()
+	var direction = actor.motion_input.world_coordinate_space_direction
 	var camera_direction = Camera3DHelper.forward_direction(actor.camera)
 	var current_speed = get_speed()
 
@@ -68,10 +91,17 @@ func accelerate(delta: float = get_physics_process_delta_time()):
 	else:
 		actor.velocity = direction * current_speed
 			
-	
 
-func decelerate(delta: float = get_physics_process_delta_time()) -> void:	
+func decelerate(delta: float = get_physics_process_delta_time()) -> void:
+	## With this line we make sure the swim impulse is canceled and start to apply the gravity force in the water
+	if is_underwater and actor.velocity.y > 0:
+		actor.velocity.y = (VectorHelper.up_direction_opposite_vector3(actor.up_direction) * gravity_force).y
+		
 	if friction > 0:
 		actor.velocity = lerp(actor.velocity, Vector3(0, actor.velocity.y if is_underwater else 0.0, 0), clamp(friction * delta, 0, 1.0))
 	else:
 		actor.velocity = Vector3(0, actor.velocity.y if is_underwater else 0.0, 0)
+
+
+func on_water_level_changed(new_water_level: float) -> void:
+	water_height = new_water_level

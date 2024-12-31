@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bx3bh475g3jjf"]
+[gd_scene load_steps=39 format=3 uid="uid://bx3bh475g3jjf"]
 
 [ext_resource type="Script" path="res://components/motion/3D/first-person/controller/first_person_controller.gd" id="1_v7v7g"]
 [ext_resource type="PackedScene" uid="uid://bcj2w63oj13e5" path="res://components/motion/3D/first-person/controller/debug_ui/first_person_debug_ui.tscn" id="2_ml2dd"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/air/wall_run.gd" id="14_2jtjm"]
 [ext_resource type="Script" path="res://components/cards/camera/3D/shake/camera_shake_3d.gd" id="14_smxor"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/firearm_weapon_holder.gd" id="15_cjftc"]
+[ext_resource type="Script" path="res://components/motion/3D/first-person/controller/states/special/ladder_climb.gd" id="15_puccb"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_sway.gd" id="16_2a3la"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_noise.gd" id="17_vpodh"]
 [ext_resource type="Script" path="res://components/motion/3D/first-person/shooter/weapons/motion/weapon_tilt.gd" id="18_2tnx5"]
@@ -126,6 +127,9 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_plvkn"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_wwv7u"]
+size = Vector3(0.3, 0.3, 0.5)
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dfk1p"]
 noise_type = 3
 seed = 50
@@ -228,6 +232,10 @@ script = ExtResource("14_2jtjm")
 actor = NodePath("../../..")
 gravity_force = 0.6
 
+[node name="LadderClimb" type="Node" parent="FiniteStateMachine/Special" node_paths=PackedStringArray("actor")]
+script = ExtResource("15_puccb")
+actor = NodePath("../../..")
+
 [node name="StandCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_1od8w")
@@ -245,6 +253,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_plvkn")
 target_position = Vector3(0, 0.65, 0)
 debug_shape_custom_color = Color(0, 0.854902, 0, 1)
+
+[node name="LadderCastDetector" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29395, -0.535157)
+shape = SubResource("BoxShape3D_wwv7u")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0.652263, 0.380637, 0.944592, 1)
 
 [node name="WallCheckers" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

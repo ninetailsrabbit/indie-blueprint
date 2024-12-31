@@ -69,7 +69,6 @@ func stair_step_up():
 		or actor.front_close_wall_checker.is_colliding() or actor.back_close_wall_checker.is_colliding():
 		return
 		
-		
 	stair_stepping = false
 	
 	if actor.motion_input.world_coordinate_space_direction.is_zero_approx():

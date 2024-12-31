@@ -1,7 +1,7 @@
 @icon("res://components/motion/3D/first-person/controller/mechanics/camera_controller_3d.svg")
 class_name CameraController3D extends Node3D
 
-@export var actor: FirstPersonController
+@export var actor: Node3D
 @export var camera: Camera3D
 ## 0 Means the rotation on the Y-axis is not limited
 @export_range(0, 360, 1, "degrees") var camera_vertical_limit = 89
@@ -55,7 +55,6 @@ var bob_index: float = 0.0
 var bob_vector: Vector3 = Vector3.ZERO
 
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and InputHelper.is_mouse_captured():
 		var motion: InputEventMouseMotion = event.xformed_by(root_node.get_final_transform())
@@ -63,7 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 
 func _ready() -> void:
-	assert(actor is Node3D, "CameraController: actor FirstPersonController is not set, this camera controller needs a reference to apply the camera movement")
+	assert(actor is Node3D, "CameraController: the Node3D actor is not set, this camera controller needs a reference to apply the camera movement")
 	
 	current_horizontal_limit = camera_horizontal_limit
 	current_vertical_limit = camera_vertical_limit
@@ -142,7 +141,6 @@ func swing_head(delta: float) -> void:
 
 func headbob(delta: float) -> void:
 	if bob_enabled and actor.is_grounded and not actor.finite_state_machine.locked:
-	
 		bob_index += bob_speed * delta
 		
 		if actor.is_grounded and not actor.motion_input.input_direction.is_zero_approx():

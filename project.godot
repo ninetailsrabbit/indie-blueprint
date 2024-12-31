@@ -296,3 +296,8 @@ locale/translations=PackedStringArray("res://localization/translations/de.po", "
 2d_physics/layer_9="PlayingCards"
 3d_physics/layer_9="PlayingCards"
 3d_physics/layer_10="DeckPiles"
+
+[physics]
+
+common/physics_ticks_per_second=120
+common/max_physics_steps_per_frame=12
