@@ -4,14 +4,24 @@ extends Node
 
 const MasterBusIndex = 0
 
-static var default_audio_volumes := {
-	"master": 0.9,
-	"music": 0.8,
-	"sfx": 0.9,
-	"echosfx": 0.9,
-	"voice": 0.8,
-	"ui": 0.7,
-	"ambient": 0.9
+const MasterBus: StringName = &"Master"
+const MusicBus: StringName = &"Music"
+const SFXBus: StringName = &"SFX"
+const EchoSFXBus: StringName = &"EchoSFX"
+const VoiceBus: StringName = &"Voice"
+const UIBus: StringName = &"UI"
+const AmbientBus: StringName = &"Ambient"
+
+const VolumeDBInaudible: float = -80.0
+
+static var default_audio_volumes: Dictionary = {
+	MasterBus.to_lower(): 0.9,
+	MusicBus.to_lower(): 0.8,
+	SFXBus.to_lower(): 0.9,
+	EchoSFXBus.to_lower(): 0.9,
+	VoiceBus.to_lower(): 0.8,
+	UIBus.to_lower(): 0.7,
+	AmbientBus.to_lower(): 0.9
 }
 
 
@@ -114,3 +124,10 @@ func get_bus(bus) -> int:
 
 func bus_exists(bus_name: String) -> bool:
 	return bus_name in available_buses
+
+
+func fade_out_stream(audio_stream_player, fade_time: float = 2.0) -> void:
+	if audio_stream_player.stream:
+		var fade_tween = create_tween()
+		fade_tween.tween_property(audio_stream_player, "volume_db", VolumeDBInaudible, fade_time)\
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
