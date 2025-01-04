@@ -1,11 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=13 format=3 uid="uid://cf5yq4x0wcvie"]
+[gd_resource type="ShaderMaterial" load_steps=11 format=3 uid="uid://cf5yq4x0wcvie"]
 
-[ext_resource type="Shader" path="res://components/environment/water/shaders/64-water-intense.gdshader" id="1_acwrr"]
-[ext_resource type="Texture2D" uid="uid://bgesqi2nq5b56" path="res://components/environment/water/materials/foam.tres" id="2_ugb1l"]
-[ext_resource type="Texture2D" uid="uid://1kmjfuu4gl1f" path="res://components/environment/water/materials/foam_w_noise.tres" id="3_s4wtp"]
-[ext_resource type="Texture2D" uid="uid://docoxpl4le41k" path="res://components/environment/water/materials/n_noise_1.tres" id="4_ie3vy"]
-[ext_resource type="Texture2D" uid="uid://bjpkeab8vhsjp" path="res://components/environment/water/materials/n_noise_2.tres" id="5_0vmww"]
-[ext_resource type="Texture2D" uid="uid://b432laminpoje" path="res://components/environment/water/materials/u_w_noise.tres" id="6_ekk2h"]
+[ext_resource type="Shader" path="res://components/environment/water/shaders/64-water-intense.gdshader" id="1_5w07p"]
+[ext_resource type="Texture2D" uid="uid://docoxpl4le41k" path="res://components/environment/water/materials/n_noise_1.tres" id="2_ubqwd"]
+[ext_resource type="Texture2D" uid="uid://bjpkeab8vhsjp" path="res://components/environment/water/materials/n_noise_2.tres" id="3_txwth"]
+[ext_resource type="Texture2D" uid="uid://b432laminpoje" path="res://components/environment/water/materials/u_w_noise.tres" id="4_tycgi"]
 
 [sub_resource type="Gradient" id="Gradient_v4ahr"]
 interpolation_mode = 2
@@ -49,8 +47,9 @@ noise = SubResource("FastNoiseLite_ku1yw")
 
 [resource]
 resource_local_to_scene = true
+resource_name = "water_material"
 render_priority = 0
-shader = ExtResource("1_acwrr")
+shader = ExtResource("1_5w07p")
 shader_parameter/sync_time = 0.0
 shader_parameter/wave_speed = 0.02
 shader_parameter/caustic_speed = 0.015
@@ -78,16 +77,14 @@ shader_parameter/wobble_power = 0.05
 shader_parameter/sky_color = Color(0.0588235, 0.341176, 0.458824, 1)
 shader_parameter/vertex_noise_big = SubResource("NoiseTexture2D_nka1t")
 shader_parameter/vertex_noise_big2 = SubResource("NoiseTexture2D_c46ic")
-shader_parameter/normal_noise = ExtResource("4_ie3vy")
-shader_parameter/normal_noise2 = ExtResource("5_0vmww")
-shader_parameter/under_wobble_noise = ExtResource("6_ekk2h")
+shader_parameter/normal_noise = ExtResource("2_ubqwd")
+shader_parameter/normal_noise2 = ExtResource("3_txwth")
+shader_parameter/under_wobble_noise = ExtResource("4_tycgi")
 shader_parameter/foam_color = Color(1, 1, 1, 1)
-shader_parameter/foam_mask_size = 64.0
+shader_parameter/foam_mask_size = 0.0
 shader_parameter/foam_mask_offset = Vector2(0, 0)
 shader_parameter/foam_wobble = 0.05
 shader_parameter/foam_wobble_size = 10.0
-shader_parameter/foam = ExtResource("2_ugb1l")
-shader_parameter/foam_wobble_noise = ExtResource("3_s4wtp")
 shader_parameter/high_color = Color(0, 0.540833, 0.59, 1)
 shader_parameter/low_color = Color(0, 0.232333, 0.34, 1)
 shader_parameter/wave_color_range = 2.0

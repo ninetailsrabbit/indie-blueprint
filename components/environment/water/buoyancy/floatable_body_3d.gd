@@ -24,7 +24,7 @@ func _ready() -> void:
 		for child in body.get_children().filter(func(child: Node): return child is Marker3D):
 			buoyancy_points.append(child)
 	
-	assert(buoyancy_points.size() > 0, "FloatableBody3D: This node need at least 2 buoyancy points")
+	assert(buoyancy_points.size() > 1, "FloatableBody3D: This node need at least 2 buoyancy points")
 
 
 func apply_fast_mode_buoyancy(force: float) -> void:
