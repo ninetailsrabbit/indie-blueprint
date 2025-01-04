@@ -1,0 +1,15 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://b432laminpoje"]
+
+[sub_resource type="Gradient" id="Gradient_7miei"]
+colors = PackedColorArray(0.497474, 0.497474, 0.497474, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iwdch"]
+frequency = 0.0017
+
+[resource]
+width = 64
+height = 64
+seamless = true
+seamless_blend_skirt = 0.342
+color_ramp = SubResource("Gradient_7miei")
+noise = SubResource("FastNoiseLite_iwdch")

@@ -277,6 +277,7 @@ locale/translations=PackedStringArray("res://localization/translations/de.po", "
 
 [layer_names]
 
+3d_render/layer_2="Foam"
 2d_physics/layer_1="World"
 3d_physics/layer_1="World"
 2d_physics/layer_2="Player"

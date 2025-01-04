@@ -1,0 +1,102 @@
+[gd_resource type="ShaderMaterial" load_steps=13 format=3 uid="uid://cf5yq4x0wcvie"]
+
+[ext_resource type="Shader" path="res://components/environment/water/shaders/64-water-intense.gdshader" id="1_acwrr"]
+[ext_resource type="Texture2D" uid="uid://bgesqi2nq5b56" path="res://components/environment/water/materials/foam.tres" id="2_ugb1l"]
+[ext_resource type="Texture2D" uid="uid://1kmjfuu4gl1f" path="res://components/environment/water/materials/foam_w_noise.tres" id="3_s4wtp"]
+[ext_resource type="Texture2D" uid="uid://docoxpl4le41k" path="res://components/environment/water/materials/n_noise_1.tres" id="4_ie3vy"]
+[ext_resource type="Texture2D" uid="uid://bjpkeab8vhsjp" path="res://components/environment/water/materials/n_noise_2.tres" id="5_0vmww"]
+[ext_resource type="Texture2D" uid="uid://b432laminpoje" path="res://components/environment/water/materials/u_w_noise.tres" id="6_ekk2h"]
+
+[sub_resource type="Gradient" id="Gradient_v4ahr"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.338182, 0.712727, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.266727, 0.266727, 0.266727, 1, 0.71438, 0.71438, 0.71438, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lyiw1"]
+noise_type = 0
+seed = 700
+frequency = 0.0194
+fractal_type = 2
+fractal_octaves = 1
+fractal_lacunarity = -2.665
+fractal_gain = 2.46
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nka1t"]
+width = 256
+height = 256
+seamless = true
+seamless_blend_skirt = 0.564
+normalize = false
+color_ramp = SubResource("Gradient_v4ahr")
+noise = SubResource("FastNoiseLite_lyiw1")
+
+[sub_resource type="Gradient" id="Gradient_lne5p"]
+colors = PackedColorArray(0, 0, 0, 1, 0.803325, 0.803325, 0.803325, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ku1yw"]
+noise_type = 0
+seed = -40
+frequency = 0.0228
+fractal_octaves = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c46ic"]
+width = 256
+height = 256
+seamless = true
+seamless_blend_skirt = 0.358
+color_ramp = SubResource("Gradient_lne5p")
+noise = SubResource("FastNoiseLite_ku1yw")
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_acwrr")
+shader_parameter/sync_time = 0.0
+shader_parameter/wave_speed = 0.02
+shader_parameter/caustic_speed = 0.015
+shader_parameter/edge_fade_power = 3.825
+shader_parameter/transmittence = 0.085
+shader_parameter/h_dist_trans_weight = 3.0
+shader_parameter/transmit_color = Color(0.18152, 0.215028, 0.219817, 1)
+shader_parameter/depth_fade = 0.5
+shader_parameter/depth_fade_distance = 5.0
+shader_parameter/surface_albedo = Color(0.0627451, 0.407843, 0.568627, 1)
+shader_parameter/surface_bottom = Color(0.294118, 0.533333, 0.670588, 0.65098)
+shader_parameter/opacity = 0.96
+shader_parameter/opacity_floor = 0.14
+shader_parameter/opacity_ceiling = 1.0
+shader_parameter/roughness = 0.17
+shader_parameter/height_scale = 1.0
+shader_parameter/amplitude1 = 2.0
+shader_parameter/amplitude2 = 0.2
+shader_parameter/v_noise_tile = 200
+shader_parameter/normal_noise_size = 2.56
+shader_parameter/normal_noise_speed = 0.05
+shader_parameter/v_normal_scale = 1.0
+shader_parameter/normal_map_w = 256
+shader_parameter/wobble_power = 0.05
+shader_parameter/sky_color = Color(0.0588235, 0.341176, 0.458824, 1)
+shader_parameter/vertex_noise_big = SubResource("NoiseTexture2D_nka1t")
+shader_parameter/vertex_noise_big2 = SubResource("NoiseTexture2D_c46ic")
+shader_parameter/normal_noise = ExtResource("4_ie3vy")
+shader_parameter/normal_noise2 = ExtResource("5_0vmww")
+shader_parameter/under_wobble_noise = ExtResource("6_ekk2h")
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/foam_mask_size = 64.0
+shader_parameter/foam_mask_offset = Vector2(0, 0)
+shader_parameter/foam_wobble = 0.05
+shader_parameter/foam_wobble_size = 10.0
+shader_parameter/foam = ExtResource("2_ugb1l")
+shader_parameter/foam_wobble_noise = ExtResource("3_s4wtp")
+shader_parameter/high_color = Color(0, 0.540833, 0.59, 1)
+shader_parameter/low_color = Color(0, 0.232333, 0.34, 1)
+shader_parameter/wave_color_range = 2.0
+shader_parameter/enable_fake_lighting = false
+shader_parameter/shine_strength = 0.17
+shader_parameter/shine_shininess = 18.0
+shader_parameter/shadow = 0.654
+shader_parameter/shadow_width = 0.13
+shader_parameter/shadow_color = Color(0.705, 0.705, 0.705, 0.705)
+shader_parameter/_specular_smoothness = 0.199
+shader_parameter/_specular_strength = 0.0
+shader_parameter/_glossiness = 0.067
