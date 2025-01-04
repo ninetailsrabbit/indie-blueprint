@@ -14,6 +14,8 @@ const GroupName: StringName = &"floatable_bodies"
 @export var fast_mode: bool = false
 @export var buoyancy_points : Array[Node3D]
 
+var is_enabled: bool = true
+
 
 func _enter_tree() -> void:
 	add_to_group(GroupName)
@@ -25,6 +27,14 @@ func _ready() -> void:
 			buoyancy_points.append(child)
 	
 	assert(buoyancy_points.size() > 1, "FloatableBody3D: This node need at least 2 buoyancy points")
+
+
+func enable() -> void:
+	is_enabled = true
+
+
+func disable() -> void:
+	is_enabled = false
 
 
 func apply_fast_mode_buoyancy(force: float) -> void:

@@ -74,7 +74,7 @@ func _process(delta: float):
 func _physics_process(_delta: float) -> void:
 	## It's more performant one physic process that handle all floatable bodies
 	## that individual physics on each floatable body
-	for floatable_body in floatable_bodies:
+	for floatable_body in floatable_bodies.filter(func(body: FloatableBody3D): return body.is_enabled):
 		if floatable_body.fast_mode:
 			var water_y: float = fast_water_height(floatable_body.body.global_position)
 			var k: float = clampf((water_y - floatable_body.body.global_position.y), 0.0, 1.0)
