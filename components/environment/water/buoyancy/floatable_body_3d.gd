@@ -35,7 +35,7 @@ func enable() -> void:
 
 func disable() -> void:
 	is_enabled = false
-
+	
 
 func apply_fast_mode_buoyancy(force: float) -> void:
 	body.apply_central_force(Vector3.UP * force * buoyancy_power * buoyancy_points.size())
