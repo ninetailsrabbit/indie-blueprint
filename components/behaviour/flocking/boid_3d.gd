@@ -1,4 +1,3 @@
-@icon("res://components/behaviour/flocking/boid.svg")
 class_name Boid3D extends Node3D
 
 @export var unit_scenes: Array[PackedScene] = []
@@ -27,7 +26,12 @@ func _ready() -> void:
 		
 		spawn_unit(spawn_position)
 	
-	units.assign(get_tree().get_nodes_in_group(group))
+	await get_tree().physics_frame
+	
+	units.assign(get_tree().get_nodes_in_group(group)\
+		.map(func(node: Node3D): 
+			return node if node is BoidUnit3D else NodeTraversal.first_node_of_custom_class(node, BoidUnit3D))
+			)
 
 
 func spawn_unit(spawn_position: Vector3) -> void:

@@ -126,7 +126,7 @@ func _prepare_neighbour_detection_area() -> void:
 func on_neighbour_area_entered(neighbour_area: Area3D) -> void:
 	var boid_unit := neighbour_area.get_parent()
 	
-	if boid_unit != null and boid_unit is BoidUnit3D:
+	if boid_unit != null and boid_unit is BoidUnit3D and boid_unit.is_in_group(boid.group):
 		if not neighbour_units.has(boid_unit):
 			neighbour_units.append(boid_unit)
 
