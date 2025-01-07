@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://df37odhldu56g"
-path="res://.godot/imported/trauma_causer.svg-dc66c10f0d13fdc9684124ea9dbb7b57.ctex"
+path="res://.godot/imported/trauma_causer.svg-eea1922e9473b9ec03c2d767d9e149d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/cards/camera/3D/shake/trauma_causer.svg"
-dest_files=["res://.godot/imported/trauma_causer.svg-dc66c10f0d13fdc9684124ea9dbb7b57.ctex"]
+source_file="res://components/camera/3D/shake/trauma_causer.svg"
+dest_files=["res://.godot/imported/trauma_causer.svg-eea1922e9473b9ec03c2d767d9e149d7.ctex"]
 
 [params]
 

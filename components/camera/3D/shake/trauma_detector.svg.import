@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn0vn1yokfou2"
-path="res://.godot/imported/free_look_camera.svg-ac81da2fbb3386cfcad735b22efa4f5f.ctex"
+uid="uid://bx8wu1qdi8vu7"
+path="res://.godot/imported/trauma_detector.svg-ef2f9696b7413fc6170812137edf210e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/cards/camera/3D/free_look/free_look_camera.svg"
-dest_files=["res://.godot/imported/free_look_camera.svg-ac81da2fbb3386cfcad735b22efa4f5f.ctex"]
+source_file="res://components/camera/3D/shake/trauma_detector.svg"
+dest_files=["res://.godot/imported/trauma_detector.svg-ef2f9696b7413fc6170812137edf210e.ctex"]
 
 [params]
 
