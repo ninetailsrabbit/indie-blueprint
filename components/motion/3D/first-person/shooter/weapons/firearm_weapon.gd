@@ -1,7 +1,7 @@
 @icon("res://components/motion/3D/first-person/shooter/weapons/weapon.svg")
 class_name FireArmWeapon extends Node3D
 
-const GroupName = "firearm-weapons"
+const GroupName: StringName = &"firearm-weapons"
 
 signal stored
 signal drawed

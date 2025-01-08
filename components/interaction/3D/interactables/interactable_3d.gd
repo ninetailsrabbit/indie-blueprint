@@ -1,7 +1,7 @@
 @icon("res://components/interaction/3D/grabbable.svg")
 class_name Interactable3D extends Area3D
 
-const GroupName = "interactables"
+const GroupName: StringName = &"interactables"
 
 signal interacted()
 signal canceled_interaction()

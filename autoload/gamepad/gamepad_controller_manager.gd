@@ -1,3 +1,4 @@
+# Nintendo switch pro controllers does not work yet https://github.com/godotengine/godot/issues/81191
 extends Node
 
 

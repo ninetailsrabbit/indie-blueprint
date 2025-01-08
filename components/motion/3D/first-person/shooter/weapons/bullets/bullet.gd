@@ -1,6 +1,6 @@
 class_name Bullet extends RigidBody3D
 
-const GroupName = "bullets"
+const GroupName: StringName = &"bullets"
 
 @export var damage: int = 10
 @export var impact_force: Vector3 = Vector3.ONE
