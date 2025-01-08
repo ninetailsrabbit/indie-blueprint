@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #8da5f3;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Şekil_1" data-name="Şekil 1" class="cls-1" d="M0,0H128V128H0V0ZM5,5V122H123V5H5Zm5,5H49v4H14V45H10V10Zm108,0V45h-4V14H78V10h40ZM14,113H49v5H10V83h4v30Zm104,5H78v-5h36V83h4v35Z"/>
+</svg>
