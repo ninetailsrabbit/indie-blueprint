@@ -105,11 +105,8 @@ func remove_footstep_sound(footstep_sound: FootstepSound) -> void:
 
 func _create_interval_timer():
 	if interval_timer == null:
-		interval_timer = Timer.new()
+		interval_timer = TimeHelper.create_physics_timer(default_interval_time, false, true)
 		interval_timer.name = "FoostepIntervalTimer"
-		interval_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		interval_timer.autostart = false
-		interval_timer.one_shot = true
 		
 		add_child(interval_timer)
 		interval_timer.timeout.connect(on_interval_timer_timeout)

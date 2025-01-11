@@ -81,12 +81,8 @@ func physics_update(delta):
 	
 	
 func _create_slide_timer() -> void:
-	slide_timer = Timer.new()
+	slide_timer = TimeHelper.create_physics_timer(slide_time, false, true)
 	slide_timer.name = "SlideTimer"
-	slide_timer.wait_time = slide_time
-	slide_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-	slide_timer.autostart = false
-	slide_timer.one_shot = true
 	
 	add_child(slide_timer)
 	slide_timer.timeout.connect(on_slider_timeout)

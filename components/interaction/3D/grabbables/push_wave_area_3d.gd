@@ -78,12 +78,8 @@ func push_bodies_on_range():
 	
 func _create_alive_timer():
 	if alive_timer == null:
-		alive_timer = Timer.new()
+		alive_timer = TimeHelper.create_physics_timer(max(0.05, time_alive), false, true)
 		alive_timer.name = "PushWaveAliveTimer"
-		alive_timer.wait_time = max(0.05, time_alive)
-		alive_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		alive_timer.autostart = false
-		alive_timer.one_shot = true
 		
 		add_child(alive_timer)
 		alive_timer.timeout.connect(on_alive_timer_timeout)

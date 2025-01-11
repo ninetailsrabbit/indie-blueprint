@@ -121,28 +121,17 @@ func calculate_wall_run_direction() -> Vector3:
 
 func _create_wall_run_timers() -> void:
 	if wall_run_timer == null:
-		wall_run_timer = Timer.new()
+		wall_run_timer = TimeHelper.create_physics_timer(maxf(0.05, wall_run_time), false, true)
 		wall_run_timer.name = "WallRunTimer"
+
+		add_child(wall_run_timer)
+		wall_run_timer.timeout.connect(on_wall_run_timer_timeout)
 		
-	wall_run_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-	wall_run_timer.wait_time = maxf(0.05, wall_run_time)
-	wall_run_timer.autostart = false
-	wall_run_timer.one_shot = true
-	
-	wall_run_timer.timeout.connect(on_wall_run_timer_timeout)
-	add_child(wall_run_timer)
-	
 	if wall_run_cooldown_timer == null:
-		wall_run_cooldown_timer = Timer.new()
+		wall_run_cooldown_timer =  TimeHelper.create_physics_timer(maxf(0.05, wall_run_time), false, true)
 		wall_run_timer.name = "WallRunCooldownTimer"
-		
-	wall_run_cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-	wall_run_cooldown_timer.wait_time = maxf(0.05, wall_run_time)
-	wall_run_cooldown_timer.autostart = false
-	wall_run_cooldown_timer.one_shot = true
-	
-	add_child(wall_run_cooldown_timer)
-		
+		add_child(wall_run_cooldown_timer)
+			
 		
 func on_wall_run_timer_timeout() -> void:
 	wall_run_cooldown_timer.start(wall_run_cooldown)

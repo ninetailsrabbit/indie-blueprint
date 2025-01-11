@@ -150,12 +150,8 @@ func blink_animation(light: Light3D, turn_off_light_at_the_end: bool = false):
 	
 func _create_temporary_light_timer():
 	if temporary_light_timer == null:
-		temporary_light_timer = Timer.new()
+		temporary_light_timer = TimeHelper.create_physics_timer(time_lights_are_on, false, true)
 		temporary_light_timer.name = "TemporaryLightTimer"
-		temporary_light_timer.wait_time = time_lights_are_on
-		temporary_light_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		temporary_light_timer.autostart = false
-		temporary_light_timer.one_shot = true
 		
 		add_child(temporary_light_timer)
 		temporary_light_timer.timeout.connect(on_temporary_light_timer_timeout)

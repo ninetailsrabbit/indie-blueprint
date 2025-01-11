@@ -113,7 +113,7 @@ func unmute_all_buses() -> void:
 func get_bus(bus) -> int:
 	var bus_index = bus
 	
-	if typeof(bus_index) == TYPE_STRING:
+	if typeof(bus_index) == TYPE_STRING or typeof(bus_index) == TYPE_STRING_NAME:
 		bus_index = AudioServer.get_bus_index(bus)
 		
 		if bus_index == -1:

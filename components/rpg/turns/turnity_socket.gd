@@ -142,12 +142,8 @@ func stop_turn_timer():
 #region Private
 func _create_turn_timer():
 	if turn_timer == null:
-		turn_timer = Timer.new()
+		turn_timer = TimeHelper.create_idle_timer()
 		turn_timer.name = "TurnitySocketTimer"
-		turn_timer.process_callback = Timer.TIMER_PROCESS_IDLE
-		turn_timer.wait_time = 1.0
-		turn_timer.one_shot = false
-		turn_timer.autostart = false
 
 		add_child(turn_timer)
 		turn_timer.timeout.connect(on_turn_timer_timeout)

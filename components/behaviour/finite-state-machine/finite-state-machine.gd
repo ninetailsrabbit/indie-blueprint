@@ -58,7 +58,7 @@ func change_state_to(next_state: Variant, parameters: Dictionary = {}):
 			else:
 				push_error("FiniteStateMachine: The change of state cannot be done because %s does not exist in this Finite State Machine" % state_name)
 		
-		elif typeof(next_state) == TYPE_STRING:
+		elif typeof(next_state) == TYPE_STRING or typeof(next_state) == TYPE_STRING_NAME:
 			if current_state_is_by_name(next_state):
 				return
 			
@@ -133,7 +133,7 @@ func current_state_is_by_class(state: GDScript) -> bool:
 
 func current_state_is_not(_states: Array = []) -> bool:
 	return _states.any(func(state):
-		if typeof(state) == TYPE_STRING:
+		if typeof(state) == TYPE_STRING or typeof(state) == TYPE_STRING_NAME:
 			return current_state_is_by_name(state)
 		
 		if state is MachineState:

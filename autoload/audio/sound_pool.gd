@@ -8,6 +8,14 @@ var pool_players_number: int = 32:
 		setup_pool()
 
 
+func _notification(what):
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_OUT:
+			pause_streams_from_buses()
+		NOTIFICATION_APPLICATION_FOCUS_IN:
+			unpause_streams_from_buses()
+
+
 func _ready():
 	setup_pool()
 
@@ -26,7 +34,7 @@ func setup_pool():
 		add_child(stream_player)
 
 
-func play(stream: AudioStream, bus: String = "SFX", volume: float = 1.0):
+func play(stream: AudioStream, bus: String = AudioManager.SFXBus, volume: float = 1.0):
 	if _bus_is_valid(bus):
 		var available_stream_player = _next_available_stream_player()
 		
@@ -38,7 +46,7 @@ func play(stream: AudioStream, bus: String = "SFX", volume: float = 1.0):
 
 
 
-func play_with_pitch(stream: AudioStream, bus: String = "SFX", volume: float = 1.0, pitch_scale: float = 1.0):
+func play_with_pitch(stream: AudioStream, bus: String = AudioManager.SFXBus, volume: float = 1.0, pitch_scale: float = 1.0):
 	if _bus_is_valid(bus):
 		var available_stream_player = _next_available_stream_player()
 		
@@ -50,7 +58,7 @@ func play_with_pitch(stream: AudioStream, bus: String = "SFX", volume: float = 1
 			available_stream_player.play()
 
 
-func play_with_pitch_range(stream: AudioStream, bus: String = "SFX", volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3):
+func play_with_pitch_range(stream: AudioStream, bus: String = AudioManager.SFXBus, volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3):
 	if _bus_is_valid(bus):
 		var available_stream_player = _next_available_stream_player()
 		
@@ -58,37 +66,58 @@ func play_with_pitch_range(stream: AudioStream, bus: String = "SFX", volume: flo
 			play_with_pitch(stream, bus, volume, randf_range(min_pitch_scale, max_pitch_scale))
 
 
-func play_random_stream(streams: Array[AudioStream] = [], bus: String = "SFX", volume: float = 1.0):
+func play_random_stream(streams: Array[AudioStream] = [], bus: String = AudioManager.SFXBus, volume: float = 1.0):
 	if streams.is_empty() or not _bus_is_valid(bus):
 		return
 		
 	play(streams.pick_random(), bus, volume)
 
 
-func play_random_stream_with_pitch(streams: Array[AudioStream] = [], bus: String = "SFX", volume: float = 1.0, pitch_scale: float = 1.0):
+func play_random_stream_with_pitch(streams: Array[AudioStream] = [], bus: String = AudioManager.SFXBus, volume: float = 1.0, pitch_scale: float = 1.0):
 	if streams.is_empty() or not _bus_is_valid(bus):
 		return
 		
 	play_with_pitch(streams.pick_random(), bus, volume, pitch_scale)
 
 
-func play_random_stream_with_pitch_range(streams: Array[AudioStream] = [], bus: String = "SFX", volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3):
+func play_random_stream_with_pitch_range(streams: Array[AudioStream] = [], bus: String = AudioManager.SFXBus, volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3):
 	if streams.is_empty() or not _bus_is_valid(bus):
 		return
 		
 	play_with_pitch_range(streams.pick_random(), bus, volume, min_pitch_scale, max_pitch_scale)
 
 
-func stop_streams_from_bus(bus: String = "SFX"):
-	
+func stop_streams_from_bus(bus: String = AudioManager.SFXBus):
 	for player: AudioStreamPlayer in stream_players_pool:
 		if player.bus.to_lower() == bus.to_lower():
 			player.stop()
 
 
-func stop_streams_from_buses(buses: Array[String] = ["SFX"]):
+func stop_streams_from_buses(buses: Array[String] = [AudioManager.SFXBus]):
 	for bus in buses:
 		stop_streams_from_bus(bus)
+
+
+func pause_streams_from_bus(bus: String = AudioManager.SFXBus):
+	for player: AudioStreamPlayer in stream_players_pool:
+		if player.bus.to_lower() == bus.to_lower():
+			player.stream_paused = true
+
+
+func pause_streams_from_buses(buses: Array[String] = [AudioManager.SFXBus]):
+	for bus in buses:
+		pause_streams_from_bus(bus)
+
+
+func unpause_streams_from_bus(bus: String = AudioManager.SFXBus):
+	for player: AudioStreamPlayer in stream_players_pool:
+		if player.bus.to_lower() == bus.to_lower():
+			player.stream_paused = false
+
+
+func unpause_streams_from_buses(buses: Array[String] = [AudioManager.SFXBus]):
+	for bus in buses:
+		unpause_streams_from_bus(bus)
 
 
 func _bus_is_valid(bus: String) -> bool:

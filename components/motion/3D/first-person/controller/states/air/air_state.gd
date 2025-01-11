@@ -99,12 +99,7 @@ func limit_fall_velocity() -> void:
 	
 func _create_wall_run_start_cooldown_timer() -> void:
 	if wall_run_start_cooldown_timer == null:
-		wall_run_start_cooldown_timer = Timer.new()
+		wall_run_start_cooldown_timer = TimeHelper.create_physics_timer(maxf(0.05, wall_run_start_cooldown), false, true)
 		wall_run_start_cooldown_timer.name = "WallRunStartCooldownTimer"
-		
-	wall_run_start_cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-	wall_run_start_cooldown_timer.wait_time = maxf(0.05, wall_run_start_cooldown)
-	wall_run_start_cooldown_timer.autostart = false
-	wall_run_start_cooldown_timer.one_shot = true
-	
-	add_child(wall_run_start_cooldown_timer)
+
+		add_child(wall_run_start_cooldown_timer)

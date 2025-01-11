@@ -42,12 +42,8 @@ func physics_update(delta):
 	
 func _create_sprint_timer() -> void:
 	if not sprint_timer:
-		sprint_timer = Timer.new()
+		sprint_timer = TimeHelper.create_physics_timer(sprint_time, false, true)
 		sprint_timer.name = "RunSprintTimer"
-		sprint_timer.wait_time = sprint_time
-		sprint_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		sprint_timer.autostart = false
-		sprint_timer.one_shot = true
 		
 		add_child(sprint_timer)
 		sprint_timer.timeout.connect(on_sprint_timer_timeout)

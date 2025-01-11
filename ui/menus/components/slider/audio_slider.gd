@@ -1,6 +1,6 @@
 class_name AudioSlider extends HSlider
 
-@export_enum("Master", "Music", "SFX", "EchoSFX", "Voice", "UI", "Ambient") var target_bus: String = "Music"
+@export_enum(&"Master", &"Music", &"SFX", &"EchoSFX", &"Voice", &"UI", &"Ambient") var target_bus: String = AudioManager.MusicBus
 
 
 func _enter_tree() -> void:
@@ -19,8 +19,8 @@ func _ready() -> void:
 
 func audio_slider_drag_ended(volume_changed: bool):
 	if volume_changed:
-		if(target_bus == "SFX"):
-			AudioManager.change_volume("EchoSFX", value)
+		if(target_bus == AudioManager.SFXBus):
+			AudioManager.change_volume(AudioManager.EchoSFXBus, value)
 		AudioManager.change_volume(target_bus, value)
 		
 		SettingsManager.update_audio_section(target_bus, value)

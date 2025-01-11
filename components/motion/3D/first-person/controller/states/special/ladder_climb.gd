@@ -63,11 +63,6 @@ func physics_update(delta: float) -> void:
 	
 func _create_cooldown_timer():
 	if cooldown_timer == null:
-		cooldown_timer = Timer.new()
+		cooldown_timer = TimeHelper.create_physics_timer(cooldown_time, false, true)
 		cooldown_timer.name = "LadderClimbCooldownTimer"
-		cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		cooldown_timer.wait_time = cooldown_time
-		cooldown_timer.autostart = false
-		cooldown_timer.one_shot = true
-		
 		add_child(cooldown_timer)

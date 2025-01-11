@@ -128,15 +128,12 @@ func _create_health_regen_timer(time: float = health_regen_tick_time):
 			health_regen_timer.stop()
 			health_regen_timer.wait_time = time
 	else:
-		health_regen_timer = Timer.new()
-		
+		health_regen_timer = TimeHelper.create_idle_timer(max(0.05, time), true, false)
 		health_regen_timer.name = "HealthRegenTimer"
-		health_regen_timer.wait_time = max(0.05, time)
-		health_regen_timer.one_shot = false
-		
+
 		add_child(health_regen_timer)
-		
 		health_regen_timer.timeout.connect(on_health_regen_timer_timeout)
+
 
 func _create_invulnerability_timer(time: float = invulnerability_time):
 	if invulnerability_timer:
@@ -144,18 +141,12 @@ func _create_invulnerability_timer(time: float = invulnerability_time):
 			invulnerability_timer.stop()
 			invulnerability_timer.wait_time = time
 	else:
-		invulnerability_timer = Timer.new()
-		
+		invulnerability_timer = TimeHelper.create_idle_timer(max(0.05, time), false, true)
 		invulnerability_timer.name = "InvulnerabilityTimer"
-		invulnerability_timer.wait_time = max(0.05, time)
-		invulnerability_timer.one_shot = true
-		invulnerability_timer.autostart = false
-		
+
 		add_child(invulnerability_timer)
-		
 		invulnerability_timer.timeout.connect(on_invulnerability_timer_timeout)
 		
-
 ## SIGNAL CALLBACKS ##
 func on_health_changed(amount: int, type: Types):
 	if type == Types.Damage:

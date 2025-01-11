@@ -36,11 +36,6 @@ func physics_update(delta):
 
 func _create_catching_breath_timer() -> void:
 	if not catching_breath_timer:
-		catching_breath_timer = Timer.new()
+		catching_breath_timer = TimeHelper.create_physics_timer(catching_breath_recovery_time, false, true)
 		catching_breath_timer.name = "RunCatchingBreathTimer"
-		catching_breath_timer.wait_time = catching_breath_recovery_time
-		catching_breath_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		catching_breath_timer.autostart = false
-		catching_breath_timer.one_shot = true
-		
 		add_child(catching_breath_timer)

@@ -85,12 +85,12 @@ func remove_streams_from_music_bank(stream_names: Array[String]):
 func _create_audio_stream_players():
 	main_audio_stream_player = AudioStreamPlayer.new()
 	main_audio_stream_player.name = "MainAudioStreamPlayer"
-	main_audio_stream_player.bus = "Music"
+	main_audio_stream_player.bus = AudioManager.MusicBus
 	main_audio_stream_player.autoplay = false
 	
 	secondary_audio_stream_player = AudioStreamPlayer.new()
 	secondary_audio_stream_player.name = "SecondaryAudioStreamPlayer"
-	secondary_audio_stream_player.bus = "Music"
+	secondary_audio_stream_player.bus = AudioManager.MusicBus
 	secondary_audio_stream_player.autoplay = false
 	
 	current_audio_stream_player = main_audio_stream_player

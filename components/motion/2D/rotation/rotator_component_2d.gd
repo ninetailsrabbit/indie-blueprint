@@ -125,13 +125,9 @@ func _update_turn_direction_timer() -> void:
 
 func _create_turn_direction_timer():
 	if turn_direction_timer == null:
-		turn_direction_timer = Timer.new()
+		turn_direction_timer = TimeHelper.create_idle_timer(maxf(0.05, change_rotation_direction_after_seconds), false, true)
 		turn_direction_timer.name = "TurnDirectionTimer"
-		turn_direction_timer.process_callback = Timer.TIMER_PROCESS_IDLE
-		turn_direction_timer.wait_time = maxf(0.05, change_rotation_direction_after_seconds)
-		turn_direction_timer.autostart = false
-		turn_direction_timer.one_shot = false
-		
+
 		add_child(turn_direction_timer)
 		turn_direction_timer.timeout.connect(on_turn_direction_timer_timeout)
 

@@ -9,11 +9,8 @@ var default_game_cursors_by_shape: Dictionary = {}
 
 
 func _ready() -> void:
-	cursor_display_timer = Timer.new()
+	cursor_display_timer = TimeHelper.create_idle_timer(temporary_display_time, false, true)
 	cursor_display_timer.name = "CursorDisplayTimer"
-	cursor_display_timer.wait_time = temporary_display_time
-	cursor_display_timer.autostart = false
-	cursor_display_timer.one_shot = true
 	
 	add_child(cursor_display_timer)
 	cursor_display_timer.timeout.connect(on_cursor_display_timer_timeout)

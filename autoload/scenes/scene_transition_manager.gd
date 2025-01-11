@@ -51,7 +51,7 @@ func transition_to_scene(
 	
 	transition_requested.emit(next_scene_path)
 	
-	if typeof(scene) == TYPE_STRING and _is_valid_scene_path(scene):
+	if (typeof(scene) == TYPE_STRING or typeof(scene) == TYPE_STRING_NAME) and _is_valid_scene_path(scene):
 		if not remaining_animations.is_empty():
 			await trigger_transition(remaining_animations.pop_back())
 			

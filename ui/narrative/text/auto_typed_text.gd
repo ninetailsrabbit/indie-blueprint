@@ -134,11 +134,8 @@ func play_typing_sound() -> void:
 
 func _create_typing_timer():
 	if typing_timer == null:
-		typing_timer = Timer.new()
+		typing_timer = TimeHelper.create_idle_timer(1.0, false, true)
 		typing_timer.name = "TypingTimer"
-		typing_timer.process_callback = Timer.TIMER_PROCESS_IDLE
-		typing_timer.one_shot = true
-		typing_timer.autostart = false
 	
 	add_child(typing_timer)
 	typing_timer.timeout.connect(on_typing_timer_timeout)

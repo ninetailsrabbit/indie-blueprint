@@ -46,12 +46,8 @@ func _ready() -> void:
 
 func _create_region_distance_timer():
 	if region_distance_timer == null:
-		region_distance_timer = Timer.new()
+		region_distance_timer = TimeHelper.create_physics_timer(region_distance_checker_interval_time, true, false)
 		region_distance_timer.name = "RegionDistanceTimer"
-		region_distance_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		region_distance_timer.wait_time = region_distance_checker_interval_time
-		region_distance_timer.autostart = true
-		region_distance_timer.one_shot = false
 		
 		add_child(region_distance_timer)
 		region_distance_timer.timeout.connect(on_region_distance_timer_timeout)
