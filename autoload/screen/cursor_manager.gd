@@ -40,12 +40,13 @@ func show_mouse() -> void:
 	InputHelper.show_mouse_cursor()
 	
 
-func capture_mouse() -> void:
-	InputHelper.capture_mouse()
-
-
 func hide_mouse() -> void:
 	InputHelper.hide_mouse_cursor()
+
+
+
+func capture_mouse() -> void:
+	InputHelper.capture_mouse()
 
 
 func switch_mouse_capture_mode() -> void:

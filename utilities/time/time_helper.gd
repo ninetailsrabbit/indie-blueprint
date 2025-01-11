@@ -69,3 +69,23 @@ static func convert_to_seconds(time: float, origin_unit: TimeUnit) -> float:
 
 static func convert_to(time: float, origin_unit: TimeUnit, target_unit: TimeUnit) -> float:
 	return convert_to_seconds(time, origin_unit) * conversions_to_seconds[target_unit]
+
+
+static func create_idle_timer(wait_time: float = 1.0, autostart: bool = false, one_shot: bool = false) -> Timer:
+	var timer = Timer.new()
+	timer.wait_time = wait_time
+	timer.process_callback = Timer.TIMER_PROCESS_IDLE
+	timer.autostart = autostart
+	timer.one_shot = one_shot
+	
+	return timer
+
+
+static func create_physics_timer(wait_time: float = 1.0, autostart: bool = false, one_shot: bool = false) -> Timer:
+	var timer = Timer.new()
+	timer.wait_time = wait_time
+	timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	timer.autostart = autostart
+	timer.one_shot = one_shot
+	
+	return timer
