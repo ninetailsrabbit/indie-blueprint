@@ -15,6 +15,7 @@ var input_direction: Vector2
 var input_direction_deadzone_square_shape: Vector2
 var input_direction_horizontal_axis: float
 var input_direction_vertical_axis: float
+var input_axis_as_vector: Vector2
 var input_direction_horizontal_axis_applied_deadzone: float
 var input_direction_vertical_axis_applied_deadzone: float
 var input_joy_direction_left: Vector2
@@ -27,6 +28,7 @@ var previous_input_direction: Vector2
 var previous_input_direction_deadzone_square_shape: Vector2
 var previous_input_direction_horizontal_axis: float
 var previous_input_direction_vertical_axis: float
+var previous_input_axis_as_vector: Vector2
 var previous_input_direction_horizontal_axis_applied_deadzone: float
 var previous_input_direction_vertical_axis_applied_deadzone: float
 var previous_input_joy_direction_left: Vector2
@@ -61,6 +63,8 @@ func update():
 	
 	input_direction_horizontal_axis = Input.get_axis(move_left_action, move_right_action)
 	input_direction_vertical_axis = Input.get_axis(move_forward_action, move_back_action)
+	
+	input_axis_as_vector = Vector2(input_direction_horizontal_axis, input_direction_vertical_axis)
 	
 	_calculate_joystick_movement()
 	
@@ -116,7 +120,8 @@ func _update_previous_directions():
 		
 	previous_input_direction_horizontal_axis = input_direction_horizontal_axis
 	previous_input_direction_vertical_axis = input_direction_vertical_axis
-		
+	previous_input_axis_as_vector = input_axis_as_vector
+	
 	previous_input_direction_horizontal_axis_applied_deadzone = input_direction_horizontal_axis_applied_deadzone
 	previous_input_direction_vertical_axis_applied_deadzone = input_direction_vertical_axis_applied_deadzone
 

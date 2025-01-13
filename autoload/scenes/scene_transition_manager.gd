@@ -123,7 +123,8 @@ func voronoi_out_transition(flip: bool = false, duration: float = 1.0):
 	
 	var tween = create_tween()
 	tween.tween_property(color_rect.material, "shader_parameter/threshold", 0.0, duration).from(1.0)
-	
+
+
 func _enum_transition_to_animation_name(transition: Transitions) -> String:
 	var transition_name: String = ""
 	
