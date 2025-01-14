@@ -32,21 +32,21 @@ var current_angle: float = initial_angle:
 		current_angle = clampf(value, 0.0, TAU)
 
 
-
 func _ready():
 	assert(target is Node2D and orbit_around is Node2D and target != orbit_around, "OrbitComponent2D: This component needs a Node2D target and orbit around to apply the orbit and cannot be the same node")
 	
-	current_angle = initial_angle
+	current_angle = deg_to_rad(initial_angle)
 	set_process(active)
 
 
 func _process(delta: float):
-	current_angle += delta * angular_velocity
-	current_angle = fmod(current_angle, TAU)
-	
-	var offset: Vector2 = Vector2(cos(current_angle), sin(current_angle)) * radius
-	target.position = orbit_around.position + offset
-	
+	if target:
+		current_angle += delta * angular_velocity
+		current_angle = fmod(current_angle, TAU)
+		
+		var offset: Vector2 = Vector2(cos(current_angle), sin(current_angle)) * radius
+		target.position = orbit_around.position + offset
+		
 
 func start():
 	active = true
