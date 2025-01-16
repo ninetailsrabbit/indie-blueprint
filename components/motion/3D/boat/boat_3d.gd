@@ -31,6 +31,9 @@ signal stopped_engine
 @export var boat_rudder_lerp_factor: float = 5.0
 @export var boat_rudder_idle_lerp_factor: float = 2.0
 
+@onready var floatable_body_3d: FloatableBody3D = $FloatableBody3D
+
+
 var motion_input: TransformedInput = TransformedInput.new(self)
 var current_engine_force: float = 0.0
 var buoyancy_spots: Array[Node3D] = []
@@ -109,6 +112,6 @@ func _physics_process(delta: float) -> void:
 		if boat_rudder:
 			boat_rudder.rotation_degrees = boat_rudder.rotation_degrees.lerp(boat_rudder_idle_rotation, delta * boat_rudder_idle_lerp_factor)
 		
-	for buoyancy_spot: Node3D in buoyancy_spots:
-		if buoyancy_spot.global_position.y <= water_level:
-			apply_force(mass * Vector3.UP * randf_range(buoyancy_force - buoyancy_force_variation, buoyancy_force) * -buoyancy_spot.global_position, buoyancy_spot.global_position - global_position)
+	#for buoyancy_spot: Node3D in buoyancy_spots:
+		#if buoyancy_spot.global_position.y <= water_level:
+			#apply_force(mass * Vector3.UP * randf_range(buoyancy_force - buoyancy_force_variation, buoyancy_force) * -buoyancy_spot.global_position, buoyancy_spot.global_position - global_position)

@@ -69,8 +69,7 @@ func _process(delta: float):
 	
 	if reference_node_to_activate_fast_mode and Engine.get_process_frames() % 30 == 0:
 		_update_floatables_fast_mode()
-		
-	
+			
 func _physics_process(_delta: float) -> void:
 	## It's more performant one physic process that handle all floatable bodies
 	## that individual physics on each floatable body

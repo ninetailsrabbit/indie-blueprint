@@ -9,7 +9,7 @@ const GroupName: StringName = &"floatable_bodies"
 @export var damper: float = 1.0
 @export var archimedes_force: float = 20.0
 @export var y_offset: float = -1.0
-@export var min_max_rotation: Vector3 = Vector3.ONE
+@export var min_max_rotation: Vector3 = Vector3.ZERO
 ## Enable when the object is far away from the player
 @export var fast_mode: bool = false
 @export var buoyancy_points : Array[Node3D]
@@ -35,7 +35,7 @@ func enable() -> void:
 
 func disable() -> void:
 	is_enabled = false
-	
+
 
 func apply_fast_mode_buoyancy(force: float) -> void:
 	body.apply_central_force(Vector3.UP * force * buoyancy_power * buoyancy_points.size())
@@ -53,6 +53,9 @@ func calculate_damping_force(factor_k: float) -> float:
 	
 	
 func limit_rotation() -> void:
+	if min_max_rotation.is_zero_approx():
+		return
+		
 	var x: float = minf(abs(body.rotation.x), min_max_rotation.x) * sign(body.rotation.x)
 	var y: float = minf(abs(body.rotation.y), min_max_rotation.y) * sign(body.rotation.y)
 	var z: float = minf(abs(body.rotation.z), min_max_rotation.z) * sign(body.rotation.z)
