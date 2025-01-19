@@ -24,7 +24,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if load_on_start:
 		prepare_settings()
-
+	
 
 #region Generic
 func save_settings(path: String = settings_file_path) -> void:
@@ -108,6 +108,7 @@ func create_graphics_section() -> void:
 	update_graphics_section(GameSettings.WindowDisplaySetting, GameSettings.DefaultSettings[GameSettings.WindowDisplaySetting])
 	update_graphics_section(GameSettings.WindowDisplayBorderlessSetting,  GameSettings.DefaultSettings[GameSettings.WindowDisplayBorderlessSetting])
 	update_graphics_section(GameSettings.WindowResolutionSetting, GameSettings.DefaultSettings[GameSettings.WindowResolutionSetting])
+	update_graphics_section(GameSettings.IntegerScalingSetting, GameSettings.DefaultSettings[GameSettings.IntegerScalingSetting])
 	update_graphics_section(GameSettings.VsyncSetting, GameSettings.DefaultSettings[GameSettings.VsyncSetting])
 	update_graphics_section(GameSettings.Scaling3DMode, GameSettings.DefaultSettings[GameSettings.Scaling3DMode])
 	update_graphics_section(GameSettings.Scaling3DValue, GameSettings.DefaultSettings[GameSettings.Scaling3DValue])
@@ -234,6 +235,8 @@ func load_graphics() -> void:
 				DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, bool(config_value))
 			GameSettings.WindowResolutionSetting:
 				DisplayServer.window_set_size(config_value)
+			GameSettings.IntegerScalingSetting:
+				get_tree().root.content_scale_stretch = int(config_value)
 			GameSettings.Scaling3DMode:
 				get_viewport().scaling_3d_mode = config_value
 			GameSettings.Scaling3DValue:

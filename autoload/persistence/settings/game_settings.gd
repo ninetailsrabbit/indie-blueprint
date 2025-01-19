@@ -17,6 +17,7 @@ const MaxFpsSetting: StringName = &"max_fps"
 const WindowDisplaySetting: StringName = &"display"
 const WindowDisplayBorderlessSetting: StringName = &"borderless"
 const WindowResolutionSetting: StringName = &"resolution"
+const IntegerScalingSetting: StringName = &"integer_scaling"
 const VsyncSetting: StringName = &"vsync"
 const Scaling3DMode: StringName = &"scaling_3d_mode"
 const Scaling3DValue: StringName = &"scaling_3d_value"
@@ -52,6 +53,7 @@ static var DefaultSettings: Dictionary = {
 	GameSettings.WindowDisplaySetting: DisplayServer.window_get_mode(),
 	GameSettings.WindowResolutionSetting: DisplayServer.window_get_size(),
 	GameSettings.WindowDisplayBorderlessSetting: DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS),
+	GameSettings.IntegerScalingSetting: 1 if ProjectSettings.get_setting("display/window/stretch/scale_mode") == "integer" else 0,
 	GameSettings.VsyncSetting:  DisplayServer.window_get_vsync_mode(),
 	GameSettings.Scaling3DMode: Viewport.SCALING_3D_MODE_BILINEAR,
 	GameSettings.Scaling3DValue: 1.0,

@@ -22,7 +22,7 @@ static func is_valid_url(url: String) -> bool:
 	return regex.search(url) != null
 
 
-func open_external_link(url: String) -> void:
+static func open_external_link(url: String) -> void:
 	if is_valid_url(url) and OS.has_method("shell_open"):
 		if OS.get_name() == "Web":
 			url = url.uri_encode()
