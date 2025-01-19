@@ -44,10 +44,15 @@ static func snake_to_camel_case(screaming_snake_case: String) -> String:
 	
 	return camel_case
 
-## Clean a string by removing characters that are not letters (uppercase or lowercase) or spaces, tabs or newlines.
-static func clean(string: String) -> String:
+
+## Clean a string by removing characters that are not letters (uppercase or lowercase), numbers or spaces, tabs or newlines.
+static func clean(string: String, include_numbers: bool = true) -> String:
 	var regex = RegEx.new()
-	regex.compile("[\\p{L} ]*")
+	
+	if include_numbers:
+		regex.compile("[\\p{L}\\p{N} ]*")
+	else:
+		regex.compile("[\\p{L} ]*")
 	
 	var result = ""
 	var matches = regex.search_all(string)
