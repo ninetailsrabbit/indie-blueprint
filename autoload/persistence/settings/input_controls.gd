@@ -9,6 +9,7 @@ const CrouchAction: StringName = &"crouch"
 const CrawlAction: StringName = &"crawl"
 const RunAction: StringName = &"run"
 const JumpAction: StringName = &"jump"
+const DashAction: StringName = &"dash"
 
 const Interact: StringName = &"interact"
 const CancelInteraction: StringName = &"cancel_interact"

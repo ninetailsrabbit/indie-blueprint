@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://bi5gskavh1v12"]
+
+[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/top_down_controller.gd" id="1_he78o"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="1_xe1n6"]
+[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="3_rqasu"]
+[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/walk.gd" id="4_awo8b"]
+[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/dash.gd" id="5_hxucb"]
+[ext_resource type="Script" path="res://components/vfx/2D/ghost_trail/ghost_trail_effect.gd" id="6_cpsj0"]
+[ext_resource type="Texture2D" uid="uid://la28kx7jw0ho" path="res://components/vfx/2D/ghost_trail/ghost.svg" id="7_8dxvv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eee6g"]
+
+[node name="TopDownController" type="CharacterBody2D"]
+script = ExtResource("1_he78o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_eee6g")
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_xe1n6")
+current_state = NodePath("TopDownIdle")
+
+[node name="TopDownIdle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("3_rqasu")
+actor = NodePath("../..")
+
+[node name="TopDownWalk" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_awo8b")
+actor = NodePath("../..")
+
+[node name="TopDownDash" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("5_hxucb")
+actor = NodePath("../..")
+
+[node name="GhostEffect" type="Node2D" parent="FiniteStateMachine/TopDownDash" node_paths=PackedStringArray("target")]
+script = ExtResource("6_cpsj0")
+target = NodePath("../../../Sprite2D")
+
+[node name="DashTimer" type="Timer" parent="FiniteStateMachine/TopDownDash"]
+process_callback = 0
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("7_8dxvv")
