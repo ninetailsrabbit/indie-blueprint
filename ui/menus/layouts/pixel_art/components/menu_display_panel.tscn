@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7x5g1yqaqlni"]
+
+[ext_resource type="Texture2D" uid="uid://c2gelfn56wrtv" path="res://ui/menus/layouts/pixel_art/assets/14 Border 02.png" id="1_g005e"]
+[ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="2_vcv6i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xkmp"]
+atlas = ExtResource("1_g005e")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5lvec"]
+font = ExtResource("2_vcv6i")
+font_size = 18
+font_color = Color(0.899258, 0.899258, 0.899258, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MenuDisplayPanel" type="NinePatchRect"]
+clip_contents = true
+offset_right = 300.0
+offset_bottom = 50.0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_4xkmp")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = -9.5
+offset_right = 81.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PANEL_SELECT_WORLD"
+label_settings = SubResource("LabelSettings_5lvec")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

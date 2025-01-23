@@ -1,0 +1,43 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://c6o5sbust8emw"]
+
+[ext_resource type="StyleBox" uid="uid://bkrtpk5rlv8dm" path="res://ui/menus/layouts/pixel_art/theme/ui_panel_stylebox_flat.tres" id="1_l8c5p"]
+[ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="1_xndjw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2um2n"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_txqc1"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dorqr"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e17am"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+
+[resource]
+default_font = ExtResource("1_xndjw")
+default_font_size = 16
+Button/colors/font_color = Color(0.662745, 0.662745, 0.662745, 1)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 18
+Button/styles/focus = SubResource("StyleBoxEmpty_2um2n")
+Button/styles/hover = SubResource("StyleBoxEmpty_txqc1")
+Button/styles/normal = SubResource("StyleBoxEmpty_dorqr")
+Button/styles/pressed = SubResource("StyleBoxEmpty_e17am")
+OptionButton/fonts/font = ExtResource("1_xndjw")
+Panel/styles/panel = ExtResource("1_l8c5p")

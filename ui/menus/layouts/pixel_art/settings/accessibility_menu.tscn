@@ -1,0 +1,146 @@
+[gd_scene load_steps=12 format=3 uid="uid://dloly10h6i6tl"]
+
+[ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="1_83j8m"]
+[ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="2_55wrc"]
+[ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="3_qsjab"]
+[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="4_07uf0"]
+[ext_resource type="PackedScene" uid="uid://c7x5g1yqaqlni" path="res://ui/menus/layouts/pixel_art/components/menu_display_panel.tscn" id="5_lvwrp"]
+[ext_resource type="LabelSettings" uid="uid://2eihg2k5xqp6" path="res://ui/menus/layouts/pixel_art/theme/label_configurations/menu_settings_label.tres" id="6_3c72l"]
+[ext_resource type="Script" path="res://ui/menus/components/slider/mouse_sensitivity_slider.gd" id="7_7hn17"]
+[ext_resource type="Script" path="res://ui/menus/components/checkbox/inverted_mouse_checkbox.gd" id="8_2wbkp"]
+[ext_resource type="Script" path="res://ui/menus/components/checkbox/photosensitive_checkbox.gd" id="9_d6c7x"]
+[ext_resource type="Script" path="res://ui/menus/components/checkbox/screenshake_checkbox.gd" id="10_vriae"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_51ctv"]
+font = ExtResource("1_83j8m")
+font_color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[node name="AccessibilityMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TemporaryBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="Version" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "1.0.0"
+label_settings = SubResource("LabelSettings_51ctv")
+
+[node name="BackButton" type="Button" parent="MarginContainer" node_paths=PackedStringArray("linked_menu")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("2_55wrc")
+icon = ExtResource("3_qsjab")
+script = ExtResource("4_07uf0")
+linked_menu = NodePath("../..")
+
+[node name="MenuDisplayPanel" parent="." instance=ExtResource("5_lvwrp")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+mouse_filter = 1
+
+[node name="Label" parent="MenuDisplayPanel" index="0"]
+text = "MENU_ACCESSIBILITY_SETTINGS"
+
+[node name="SettingsMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 175
+theme_override_constants/margin_top = 85
+theme_override_constants/margin_right = 175
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="MouseSensitivityLabel" type="Label" parent="SettingsMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGS_MOUSE_SENSITIVITY"
+label_settings = ExtResource("6_3c72l")
+
+[node name="MouseSensitivitySlider" type="HSlider" parent="SettingsMarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_55wrc")
+script = ExtResource("7_7hn17")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ReverseMouseLabel" type="Label" parent="SettingsMarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_MOUSE_REVERSE"
+label_settings = ExtResource("6_3c72l")
+
+[node name="ReverseMouseCheckbox" type="CheckBox" parent="SettingsMarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_2wbkp")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_PHOTOSENSITIVITY"
+label_settings = ExtResource("6_3c72l")
+
+[node name="PhotosensitiveCheckbox" type="CheckBox" parent="SettingsMarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+script = ExtResource("9_d6c7x")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="SettingsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_SCREEN_SHAKE"
+label_settings = ExtResource("6_3c72l")
+
+[node name="ScreenShakeCheckbox" type="CheckBox" parent="SettingsMarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+script = ExtResource("10_vriae")
+
+[editable path="MenuDisplayPanel"]

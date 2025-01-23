@@ -57,3 +57,6 @@ static var QualityPresetKeys: Dictionary = {
 	HardwareDetector.QualityPreset.High: QualityHighTranslationKey,
 	HardwareDetector.QualityPreset.Ultra: QualityUltraTranslationKey,
 }
+
+
+static var EmptySaveSlot: String = "EMPTY_SAVE_SLOT"

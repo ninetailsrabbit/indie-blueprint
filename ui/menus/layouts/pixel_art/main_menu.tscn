@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://ntiluou0bs8h"]
+
+[ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="1_857k7"]
+[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/main_menu.gd" id="1_h4174"]
+[ext_resource type="PackedScene" uid="uid://bleiqd8yjy62p" path="res://ui/menus/layouts/pixel_art/world_selection.tscn" id="3_7jnhg"]
+[ext_resource type="PackedScene" uid="uid://cjy60mv75hnb8" path="res://ui/menus/layouts/pixel_art/settings/settings_menu.tscn" id="4_p0cw0"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h4174")
+
+[node name="TemporaryBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 50
+
+[node name="MainMenuButtons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="StartGameButton" type="Button" parent="MarginContainer/MainMenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../QuitGameButton")
+theme = ExtResource("1_857k7")
+text = "BUTTON_START_GAME"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/MainMenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_857k7")
+text = "BUTTON_SETTINGS"
+
+[node name="FeedbackButton" type="Button" parent="MarginContainer/MainMenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_857k7")
+text = "BUTTON_FEEDBACK"
+
+[node name="QuitGameButton" type="Button" parent="MarginContainer/MainMenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_bottom = NodePath("../StartGameButton")
+theme = ExtResource("1_857k7")
+text = "BUTTON_QUIT"
+
+[node name="WorldSelection" parent="." instance=ExtResource("3_7jnhg")]
+visible = false
+layout_mode = 1
+
+[node name="SettingsMenu" parent="." instance=ExtResource("4_p0cw0")]
+visible = false
+layout_mode = 1

@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://k6jdunvu56uj"]
+
+[ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="1_avr1h"]
+[ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="2_qjgdu"]
+[ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="3_u1qpr"]
+[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="4_f6134"]
+[ext_resource type="PackedScene" uid="uid://c7x5g1yqaqlni" path="res://ui/menus/layouts/pixel_art/components/menu_display_panel.tscn" id="5_jvsoj"]
+[ext_resource type="PackedScene" uid="uid://bs4y3s4v0is47" path="res://ui/menus/components/panel/input_remap_panel.tscn" id="6_slxey"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l83yp"]
+font = ExtResource("1_avr1h")
+font_color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[node name="ControlSettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TemporaryBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="Version" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "1.0.0"
+label_settings = SubResource("LabelSettings_l83yp")
+
+[node name="BackButton" type="Button" parent="MarginContainer" node_paths=PackedStringArray("linked_menu")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("2_qjgdu")
+icon = ExtResource("3_u1qpr")
+script = ExtResource("4_f6134")
+linked_menu = NodePath("../..")
+
+[node name="MenuDisplayPanel" parent="." instance=ExtResource("5_jvsoj")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+mouse_filter = 1
+
+[node name="Label" parent="MenuDisplayPanel" index="0"]
+text = "MENU_CONTROL_SETTINGS"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 85
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="InputRemapPanel" parent="MarginContainer2/ScrollContainer" instance=ExtResource("6_slxey")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme = ExtResource("2_qjgdu")
+exclude_actions = Array[String](["crouch", "crawl", "run", "jump", "pull", "pull_area", "drop", "throw", "push_wave", "aim", "shoot", "primary_weapon", "secondary_weapon", "heavy_weapon", "melee_weapon", "climb_ladder", "vehicle_accelerate", "vehicle_reverse_accelerate", "vehicle_steer_right", "vehicle_steer_left", "vehicle_hand_brake", "start_vehicle_engine", "stop_driving_boat", "grenade"])
+
+[editable path="MenuDisplayPanel"]

@@ -21,7 +21,7 @@ func _ready() -> void:
 	
 	if auto_start:
 		start()
-	
+
 
 func start() -> void:
 	for spin_card: SpinCard in current_spin_cards:

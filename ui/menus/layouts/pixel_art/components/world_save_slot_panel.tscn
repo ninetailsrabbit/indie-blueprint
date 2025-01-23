@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://du0kusvolof3y"]
+
+[ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="1_6ve34"]
+[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/world_save_slot_panel.gd" id="2_22ss5"]
+
+[node name="WorldSaveSlot" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_22ss5")
+
+[node name="SaveSlotNumber" type="Label" parent="."]
+layout_mode = 2
+theme = ExtResource("1_6ve34")
+text = "1"
+
+[node name="WorldSaveSlotPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(310, 60)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_6ve34")
+
+[node name="MarginContainer" type="MarginContainer" parent="WorldSaveSlotPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="SaveSlotName" type="Label" parent="WorldSaveSlotPanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Save slot name"

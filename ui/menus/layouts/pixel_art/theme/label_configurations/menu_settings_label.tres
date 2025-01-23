@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://2eihg2k5xqp6"]
+
+[ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://scenes/menus/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="1_ljul7"]
+
+[resource]
+font = ExtResource("1_ljul7")
+font_color = Color(0.662745, 0.662745, 0.662745, 1)
