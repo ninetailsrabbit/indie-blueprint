@@ -1,6 +1,5 @@
 class_name ElementalResistances extends Resource
 
-
 @export_range(0.0, 100.0, 0.01) var fire_resistance: float = 0.1
 @export_range(0.0, 100.0, 0.01) var water_resistance: float = 0.1
 @export_range(0.0, 100.0, 0.01) var ice_resistance: float = 0.1

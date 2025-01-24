@@ -1,7 +1,6 @@
 extends Node
 
 @export_file(".tscn") var next_scene: String = ""
-
 @onready var content_warnings: ContentWarnings = $ContentWarnings
 
 func _ready() -> void:

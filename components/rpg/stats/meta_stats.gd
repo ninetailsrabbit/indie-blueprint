@@ -24,7 +24,7 @@ enum ClassType {
 
 @export var level: int = 1
 @export var class_range: ClassRange = ClassRange.C
-@export var class_type: ClassType = ClassType.Neutral
+@export var class_types: Array[ClassType] = [ClassType.Neutral]
 
 @export var hp: int = 100: 
 	set(value): 
@@ -34,11 +34,10 @@ enum ClassType {
 	set(value):
 		pm = clampi(value, 0, max_pm)
 @export var max_pm: int = 50
-
-@export var physical_attack: int = 50
-@export var physical_defense: int = 50
-@export var magical_attack: int = 50
-@export var magical_defense: int = 50
+@export var raw_physical_attack: int = 50
+@export var raw_physical_defense: int = 50
+@export var raw_magical_attack: int = 50
+@export var raw_magical_defense: int = 50
 @export var speed: float = 100.0
 @export_category("Classic Stats")
 @export var strength: int = 10
@@ -64,22 +63,56 @@ enum ClassType {
 @export var negative_status_effects_resistances: NegativeStatusEffectsResistances
 
 
-
+#region Range shortcuts
 func is_c_range() -> bool:
 	return class_range == ClassRange.C
-	
 	
 func is_b_range() -> bool:
 	return class_range == ClassRange.B
 	
-	
 func is_a_range() -> bool:
 	return class_range == ClassRange.A
 	
-	
 func is_s_range() -> bool:
 	return class_range == ClassRange.S
-	
 
 func is_s_plus_range() -> bool:
 	return class_range == ClassRange.S_Plus
+	
+#endregion
+
+#region ClassType shortcuts
+func is_fire() -> bool:
+	return ClassType.Fire in class_types
+
+func is_water() -> bool:
+	return ClassType.Water in class_types
+
+func is_ice() -> bool:
+	return ClassType.Ice in class_types
+
+func is_earth() -> bool:
+	return ClassType.Earth in class_types
+
+func is_wind() -> bool:
+	return ClassType.Wind in class_types
+
+func is_electric() -> bool:
+	return ClassType.Electric in class_types
+
+func is_physical() -> bool:
+	return ClassType.Physical in class_types
+
+func is_neutral() -> bool:
+	return ClassType.Neutral in class_types
+
+func is_machine() -> bool:
+	return ClassType.Machine in class_types
+
+func is_shadow() -> bool:
+	return ClassType.Shadow in class_types
+
+func is_light() -> bool:
+	return ClassType.Light in class_types
+
+#endregion
