@@ -10,6 +10,7 @@ const VolumeDBInaudible: float = -80.0
 
 ## Dictionary<String, AudioStream>
 var music_bank: Dictionary = {}
+var track_history: Array[AudioStream] = []
 
 #region AudioStreamPlayers
 var main_audio_stream_player: AudioStreamPlayer
@@ -21,6 +22,7 @@ var current_audio_stream_player: AudioStreamPlayer
 var crossfade_tween: Tween
 var default_crossfade_time: float = 5.0
 #endregion
+
 
 func _ready():
 	_create_audio_stream_players()
@@ -40,7 +42,7 @@ func play_music(stream_name: String, crossfade: bool = true, crossfade_time: flo
 		if crossfade:
 			var next_audio_stream_player: AudioStreamPlayer = secondary_audio_stream_player if current_audio_stream_player.name == "MainAudioStreamPlayer" else main_audio_stream_player
 			next_audio_stream_player.volume_db = VolumeDBInaudible
-			play_stream(next_audio_stream_player, next_stream)
+			_play_stream(next_audio_stream_player, next_stream)
 			
 			var volume: float = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(next_audio_stream_player.bus))
 			
@@ -50,10 +52,10 @@ func play_music(stream_name: String, crossfade: bool = true, crossfade_time: flo
 			crossfade_tween.chain().tween_callback(func(): current_audio_stream_player = next_audio_stream_player)
 			return
 		
-	play_stream(current_audio_stream_player, next_stream)
+	_play_stream(current_audio_stream_player, next_stream)
 		
 
-func play_stream(player: AudioStreamPlayer, stream: AudioStream):
+func _play_stream(player: AudioStreamPlayer, stream: AudioStream):
 	if current_audio_stream_player.stream != null:
 		changed_stream.emit(current_audio_stream_player.stream, stream)
 	
@@ -74,23 +76,21 @@ func replay_current_track() -> void:
 		current_audio_stream_player.play()
 	
 	
-#region Syntatic sugar to play a music a track
-func change_track_to(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
-	play_music(new_stream_name, crossfade, crossfade_time)
+func current_track() -> AudioStream:
+	return current_audio_stream_player.stream
+	
 
+func remove_stream_from_track_history(stream: AudioStream) -> void:
+	track_history.erase(stream)
+	
 
-func change_track(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
-	play_music(new_stream_name, crossfade, crossfade_time)
+func flush_track_history() -> void:
+	track_history.clear()
+	
+	
+func stream_already_played(stream: AudioStream) -> void:
+	return track_history.has(stream)
 
-
-func change_music(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
-	play_music(new_stream_name, crossfade, crossfade_time)
-
-
-func change_music_to(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
-	play_music(new_stream_name, crossfade, crossfade_time)
-
-#endregion
 	
 ## Dictionary<String, AudioStream>
 func add_streams_to_music_bank(streams: Dictionary):
@@ -113,6 +113,25 @@ func remove_streams_from_music_bank(stream_names: Array[String]):
 		remove_stream_from_music_bank(stream_name)
 
 
+
+#region Syntatic sugar to play a music a track
+func change_track_to(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
+	play_music(new_stream_name, crossfade, crossfade_time)
+
+
+func change_track(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
+	play_music(new_stream_name, crossfade, crossfade_time)
+
+
+func change_music(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
+	play_music(new_stream_name, crossfade, crossfade_time)
+
+
+func change_music_to(new_stream_name: String, crossfade: bool = true, crossfade_time: float = default_crossfade_time) -> void:
+	play_music(new_stream_name, crossfade, crossfade_time)
+#endregion
+
+#region Private helpers
 func _create_audio_stream_players():
 	main_audio_stream_player = _create_music_audio_stream_player("MainAudioStreamPlayer")
 	secondary_audio_stream_player = _create_music_audio_stream_player("SecondaryAudioStreamPlayer")
@@ -137,6 +156,11 @@ func _create_music_audio_stream_player(player_name: String) -> AudioStreamPlayer
 func _crossfade_tween_is_running() -> bool:
 	return crossfade_tween != null and crossfade_tween.is_running()
 
+#endregion
 
+#region Signal callbacks
 func on_finished_audio_stream_player(audio_stream_player: AudioStreamPlayer):
 	finished_stream.emit(audio_stream_player, audio_stream_player.stream)
+	track_history.append(audio_stream_player.stream)
+
+#endregion
