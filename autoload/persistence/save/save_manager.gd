@@ -18,6 +18,12 @@ signal error_removing_savegame(filename: String, error: Error)
 				loaded_savegame.emit(current_saved_game.filename)
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if current_saved_game:
+			current_saved_game.write_savegame()
+		
+		
 func _ready() -> void:
 	list_of_saved_games.merge(read_user_saved_games(), true)
 

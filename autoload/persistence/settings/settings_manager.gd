@@ -17,6 +17,11 @@ var include_ui_keybindings: bool = false
 var load_on_start: bool = true
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		save_settings()
+		
+		
 func _enter_tree() -> void:
 	updated_setting_section.connect(on_updated_setting_section)
 	
