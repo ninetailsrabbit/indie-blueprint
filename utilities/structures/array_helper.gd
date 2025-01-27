@@ -84,6 +84,31 @@ static func middle_element(array: Array[Variant]):
 	return null
 	
 
+## This method works in a circular way, this means that is the value is the last, it returns the first one in the array
+static func next_element_from_value(array: Array[Variant], value: Variant) -> Variant:
+	if array.is_empty() or not array.has(value):
+		return null
+	
+	elif array.size() > 1 and array.has(value):
+		var from_value_index = array.find(value)
+		
+		if from_value_index != -1 and from_value_index + 1 < array.size():
+			return array[from_value_index + 1]
+		else:
+			return array.front()
+		
+	return null
+	
+## Return a dictionary with the array value as key and the frequency count as value
+static func frequency(array: Array[Variant]) -> Dictionary:
+	var result: Dictionary = {}
+	
+	for element: Variant in array:
+		result[element] = result.get(element, 0) + 1
+		
+	return result
+	
+
 ## To detect if a contains elements of b
 static func intersects(a: Array[Variant], b: Array[Variant]) -> bool:
 	for e: Variant in a:
@@ -98,7 +123,7 @@ static func intersected_elements(a: Array[Variant], b: Array[Variant]) -> Array[
 		return a.filter(func(element): return element in b)
 		
 	return []
-	
+
 
 static func merge_unique(first: Array[Variant], second: Array[Variant]) -> Array[Variant]:
 	var merged_array: Array[Variant] = remove_duplicates(first)
