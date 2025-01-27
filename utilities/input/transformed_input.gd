@@ -64,12 +64,42 @@ func update():
 	input_direction_horizontal_axis = Input.get_axis(move_left_action, move_right_action)
 	input_direction_vertical_axis = Input.get_axis(move_forward_action, move_back_action)
 	
-	input_axis_as_vector = Vector2(input_direction_horizontal_axis, input_direction_vertical_axis)
+	input_axis_as_vector = _input_axis_as_vector()
 	
 	_calculate_joystick_movement()
 	
 	input_direction_horizontal_axis_applied_deadzone = input_direction_horizontal_axis * (1.0 - deadzone)
 	input_direction_vertical_axis_applied_deadzone = input_direction_vertical_axis * (1.0 - deadzone)
+
+
+func _input_axis_as_vector() -> Vector2:
+	var input: Vector2 = Vector2(input_direction_horizontal_axis, input_direction_vertical_axis)
+	
+	if input.normalized().is_equal_approx(Vector2.DOWN):
+		return Vector2.DOWN
+		
+	elif input.normalized().is_equal_approx(Vector2.UP):
+		return Vector2.UP
+		
+	elif input.normalized().is_equal_approx(Vector2.RIGHT):
+		return Vector2.RIGHT
+		
+	elif input.normalized().is_equal_approx(Vector2.LEFT):
+		return Vector2.LEFT
+		
+	elif sign(input.x) == 1 and sign(input.y) == -1:
+		return Vector2.RIGHT + Vector2.UP
+		
+	elif sign(input.x) == -1 and sign(input.y) == -1:
+		return Vector2.LEFT + Vector2.UP
+		
+	elif sign(input.x) == 1 and sign(input.y) == 1:
+		return Vector2.RIGHT + Vector2.DOWN
+		
+	elif sign(input.x) == -1 and sign(input.y) == 1:
+		return Vector2.LEFT + Vector2.DOWN
+	else:
+		return input
 
 
 func _calculate_joystick_movement() -> void:

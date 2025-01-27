@@ -63,5 +63,3 @@ func on_target_input_event(_camera: Node, event: InputEvent, _event_position: Ve
 	if InputHelper.is_mouse_visible():
 		event = InputHelper.double_click_to_single(event)
 		is_dragging = InputHelper.is_mouse_left_button_pressed(event)
-
-	
