@@ -6,7 +6,6 @@ class_name MusicTrack extends Resource
 @export var bus: StringName
 
 
-
 func _init(_stream: AudioStream, _name: StringName = &"", _artist: StringName = &"", _bus: StringName = AudioManager.MusicBus) -> void:
 	stream = _stream
 	track_name = _name
