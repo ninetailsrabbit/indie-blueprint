@@ -10,3 +10,5 @@ script = ExtResource("1_8s3f3")
 
 [node name="ContentWarnings" parent="." instance=ExtResource("2_747re")]
 content_warnings_to_display = Array[ExtResource("3_bn3e4")]([ExtResource("4_oftts")])
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
