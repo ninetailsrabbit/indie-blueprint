@@ -264,7 +264,7 @@ static func filter_list(texts: Array[String] = [], censor_character: String = "*
 	var censored_texts: Array[String] = []
 	
 	for text in texts:
-		censored_texts.append(filter(text))
+		censored_texts.append(filter(text, censor_character))
 		
 	return censored_texts
 	

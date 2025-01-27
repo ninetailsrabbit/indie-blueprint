@@ -22,8 +22,8 @@ var transition_tween_3d: Tween
 
 
 func _ready():
-	assert(global_camera_2d is Camera2D, "The autoload GlobalCameraTransition needs a Camera2D in scene to allow the transitions")
-	assert(global_camera_3d is Camera3D, "The autoload GlobalCameraTransition needs a Camera3D in scene to allow the transitions")
+	assert(global_camera_2d is Camera2D, "GlobalCameraShifter: Needs a Camera2D in scene to allow the transitions")
+	assert(global_camera_3d is Camera3D, "GlobalCameraShifter: Needs a Camera3D in scene to allow the transitions")
 	
 	global_camera_2d.enabled = false
 	global_camera_3d.clear_current()

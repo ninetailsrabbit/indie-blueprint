@@ -41,7 +41,6 @@ func hide_mouse() -> void:
 	InputHelper.hide_mouse_cursor()
 
 
-
 func capture_mouse() -> void:
 	InputHelper.capture_mouse()
 

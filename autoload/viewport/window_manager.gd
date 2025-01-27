@@ -19,6 +19,7 @@ const Resolution4_3: String = "4:3"
 const Resolution16_9: String = "16:9"
 const Resolution16_10: String = "16:10"
 const Resolution21_9: String = "21:9"
+const IntegerScalingResolutions: String = "integer_scaling"
 
 const AspectRatio4_3: Vector2i = Vector2i(4, 3)
 const AspectRatio16_9: Vector2i = Vector2i(16,9)
@@ -43,7 +44,6 @@ var resolutions: Dictionary = {
 		Vector2i(1080, 1920), # Some Iphone models
 		Vector2i(1242, 2208), # Mid-range tables
 		Vector2i(1536, 2048), # High resolutions in larger tablets and some smartphones
-		
 	],
 	Resolution4_3: [
 	  	Vector2i(320, 180),
@@ -81,6 +81,14 @@ var resolutions: Dictionary = {
 		Vector2i(3840, 2160), # 4K
 		Vector2i(5120, 2880),
 		Vector2i(7680, 4320), # 8K
+	],
+	IntegerScalingResolutions: [
+		Vector2(320, 180),
+		Vector2(640, 360),
+		Vector2(960, 540),
+		Vector2(1280, 720),
+		Vector2(1600, 900),
+		Vector2(1920, 1080),
 	]
 }
 
@@ -130,6 +138,13 @@ func get_21_9_resolutions(use_computer_screen_limit: bool = false) -> Array[Vect
 		return resolutions[Resolution21_9].filter(_filter_by_screen_size_limit)
 
 	return resolutions[Resolution21_9]
+
+
+func get_integer_scaling_resolutions(use_computer_screen_limit: bool = false) -> Array[Vector2i]:
+	if use_computer_screen_limit:
+		return resolutions[IntegerScalingResolutions].filter(_filter_by_screen_size_limit)
+
+	return resolutions[IntegerScalingResolutions]
 
 
 func _filter_by_screen_size_limit(screen_size: Vector2i):
