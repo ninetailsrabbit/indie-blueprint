@@ -36,7 +36,8 @@ func _notification(what):
 func reset_to_default_volumes() -> void:
 	for bus: String in available_buses:
 		change_volume(bus, default_audio_volumes[bus.to_lower()])
-		
+
+
 func get_default_volume_for_bus(bus) -> float:
 	if typeof(bus) == TYPE_INT:
 		bus = AudioServer.get_bus_name(bus)
@@ -65,7 +66,7 @@ func get_actual_volume_db_from_bus_name(bus_name: String) -> float:
 	var bus_index: int = AudioServer.get_bus_index(bus_name)
 	
 	if bus_index == -1:
-		push_error("AudioManager: Cannot retrieve volume for bus name {name}, it does not exists".format({"name": bus_name}))
+		push_error("AudioManager: Cannot retrieve volume for bus name %s, it does not exists" %  bus_name)
 		return 0.0
 		
 	return get_actual_volume_db_from_bus_index(bus_index)
@@ -117,7 +118,7 @@ func get_bus(bus) -> int:
 		bus_index = AudioServer.get_bus_index(bus)
 		
 		if bus_index == -1:
-			push_error("AudioManager:mute_bus() -> The bus with the name %s does not exists in this project" % bus)
+			push_error("AudioManager:get_bus() -> The bus with the name %s does not exists in this project" % bus)
 			
 	return bus_index
 	

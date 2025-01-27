@@ -5,7 +5,6 @@ var stream_players_pool: Array[AudioStreamPlayer] = []
 var pool_players_number: int = 32:
 	set(value):
 		pool_players_number = max(2, value)
-		setup_pool()
 
 
 func _notification(what):
@@ -17,24 +16,48 @@ func _notification(what):
 
 
 func _ready():
-	setup_pool()
+	increase_pool(pool_players_number)
 
 
-func setup_pool():
-	for stream_player: AudioStreamPlayer in stream_players_pool.filter(func(audio_player: AudioStreamPlayer): return not audio_player.is_queued_for_deletion()):
-		stream_player.queue_free()
+func increase_pool(pool_number: int, override: bool = false):
+	if override:
+		for stream_player: AudioStreamPlayer in stream_players_pool.filter(func(audio_player: AudioStreamPlayer): return not audio_player.is_queued_for_deletion()):
+			stream_player.queue_free()
+		
+		stream_players_pool.clear()
 	
-	stream_players_pool.clear()
+	var last_index: int = stream_players_pool.size()
 	
-	
-	for i in range(pool_players_number):
+	for i in range(1, pool_number + 1):
 		var stream_player = AudioStreamPlayer.new()
-		stream_player.name = "PoolAudioStreamPlayer%d" % (i + 1)
+		stream_player.name = "PoolAudioStreamPlayer%d" % (last_index + i)
 		stream_players_pool.append(stream_player)
 		add_child(stream_player)
 
 
-func play(stream: AudioStream, bus: String = AudioManager.SFXBus, volume: float = 1.0):
+func decrease_pool(pool_number: int):
+	if stream_players_pool.is_empty():
+		return
+	elif stream_players_pool.size() == pool_number:
+		for stream_player: AudioStreamPlayer in stream_players_pool:
+			stream_player.stop()
+			stream_player.queue_free()
+	else:
+		pool_number = clampi(pool_number, 0, stream_players_pool.size())
+		
+		stream_players_pool.reverse()
+		var count: int = 0
+		
+		while count < pool_number:
+			var stream_player: AudioStreamPlayer = stream_players_pool.pop_back()
+			stream_player.stop()
+			stream_player.queue_free()
+			count += 1
+			
+		stream_players_pool.reverse()
+		
+
+func play(stream: AudioStream, volume: float = 1.0, bus: String = AudioManager.SFXBus):
 	if _bus_is_valid(bus):
 		var available_stream_player = _next_available_stream_player()
 		
@@ -46,7 +69,7 @@ func play(stream: AudioStream, bus: String = AudioManager.SFXBus, volume: float 
 
 
 
-func play_with_pitch(stream: AudioStream, bus: String = AudioManager.SFXBus, volume: float = 1.0, pitch_scale: float = 1.0):
+func play_with_pitch(stream: AudioStream, volume: float = 1.0, pitch_scale: float = 1.0, bus: String = AudioManager.SFXBus):
 	if _bus_is_valid(bus):
 		var available_stream_player = _next_available_stream_player()
 		
@@ -58,33 +81,33 @@ func play_with_pitch(stream: AudioStream, bus: String = AudioManager.SFXBus, vol
 			available_stream_player.play()
 
 
-func play_with_pitch_range(stream: AudioStream, bus: String = AudioManager.SFXBus, volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3):
+func play_with_pitch_range(stream: AudioStream, volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3, bus: String = AudioManager.SFXBus):
 	if _bus_is_valid(bus):
 		var available_stream_player = _next_available_stream_player()
 		
 		if available_stream_player:
-			play_with_pitch(stream, bus, volume, randf_range(min_pitch_scale, max_pitch_scale))
+			play_with_pitch(stream, volume, randf_range(min_pitch_scale, max_pitch_scale), bus)
 
 
-func play_random_stream(streams: Array[AudioStream] = [], bus: String = AudioManager.SFXBus, volume: float = 1.0):
+func play_random_stream(streams: Array[AudioStream] = [], volume: float = 1.0, bus: String = AudioManager.SFXBus):
 	if streams.is_empty() or not _bus_is_valid(bus):
 		return
 		
-	play(streams.pick_random(), bus, volume)
+	play(streams.pick_random(), volume, bus)
 
 
-func play_random_stream_with_pitch(streams: Array[AudioStream] = [], bus: String = AudioManager.SFXBus, volume: float = 1.0, pitch_scale: float = 1.0):
+func play_random_stream_with_pitch(streams: Array[AudioStream] = [], volume: float = 1.0, pitch_scale: float = 1.0, bus: String = AudioManager.SFXBus):
 	if streams.is_empty() or not _bus_is_valid(bus):
 		return
 		
-	play_with_pitch(streams.pick_random(), bus, volume, pitch_scale)
+	play_with_pitch(streams.pick_random(), volume, pitch_scale, bus)
 
 
-func play_random_stream_with_pitch_range(streams: Array[AudioStream] = [], bus: String = AudioManager.SFXBus, volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3):
+func play_random_stream_with_pitch_range(streams: Array[AudioStream] = [], volume: float = 1.0, min_pitch_scale: float = 0.9, max_pitch_scale: float = 1.3,  bus: String = AudioManager.SFXBus):
 	if streams.is_empty() or not _bus_is_valid(bus):
 		return
 		
-	play_with_pitch_range(streams.pick_random(), bus, volume, min_pitch_scale, max_pitch_scale)
+	play_with_pitch_range(streams.pick_random(), volume, min_pitch_scale, max_pitch_scale, bus)
 
 
 func stop_streams_from_bus(bus: String = AudioManager.SFXBus):
