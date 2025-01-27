@@ -23,7 +23,7 @@ func _ready() -> void:
 	set_process(enabled)
 	
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Engine.get_physics_frames() % frames_interval == 0:
 		apply()
 	
