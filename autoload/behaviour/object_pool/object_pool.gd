@@ -12,15 +12,15 @@ signal kill_all_requested()
 			max_objects_in_pool = maxi(1, absi(value))
 @export var process_mode_on_spawn: ProcessMode = Node.PROCESS_MODE_INHERIT
 
-var pool: Array[Variant] = []
-var spawned: Array[Variant] = []
+var pool: Array[ObjectPoolWrapper] = []
+var spawned: Array[ObjectPoolWrapper] = []
 
 
 func _init(
-	_scene: PackedScene,
-	 amount: int,
-	 create_on_ready: bool = true,
-	_process_mode_on_spawn: ProcessMode = Node.PROCESS_MODE_INHERIT
+	_scene: PackedScene = scene,
+	 amount: int = max_objects_in_pool,
+	 create_on_ready: bool = create_objects_on_ready,
+	_process_mode_on_spawn: ProcessMode = process_mode_on_spawn
 ) -> void:
 	scene = _scene
 	max_objects_in_pool = amount
@@ -44,26 +44,28 @@ func create_pool(amount: int) -> void:
 	amount = mini(amount, max_objects_in_pool - pool.size())
 	
 	for i in amount:
-		add_to_pool(scene.instantiate())
+		add_to_pool(ObjectPoolWrapper.new(self, scene))
 
 
-func add_to_pool(new_object: Variant) -> void:
+func add_to_pool(new_object: ObjectPoolWrapper) -> void:
 	if pool.has(new_object):
 		return
 		
-	new_object.process_mode = Node.PROCESS_MODE_DISABLED
-	new_object.hide()
+	new_object.instance.process_mode = Node.PROCESS_MODE_DISABLED
+	new_object.instance.hide()
+	new_object.sleeping = true
 	pool.append(new_object)
 	
-	if not new_object.tree_exiting.is_connected(on_object_exiting_tree.bind(new_object)):
-		new_object.tree_exiting.connect(on_object_exiting_tree.bind(new_object))
+	if not new_object.instance.tree_exiting.is_connected(on_object_exiting_tree.bind(new_object.instance)):
+		new_object.instance.tree_exiting.connect(on_object_exiting_tree.bind(new_object.instance))
 
 
-func spawn() -> Variant:
+func spawn() -> ObjectPoolWrapper:
 	if pool.size() > 0:
-		var pool_object: Variant = pool.pop_front()
-		pool_object.process_mode = process_mode_on_spawn
-		pool_object.show()
+		var pool_object: ObjectPoolWrapper = pool.pop_front()
+		pool_object.instance.process_mode = process_mode_on_spawn
+		pool_object.instance.show()
+		pool_object.sleeping = false
 		spawned.append(pool_object)
 		
 		return pool_object
@@ -71,14 +73,14 @@ func spawn() -> Variant:
 	return null
 	
 
-func spawn_multiple(amount: int) -> Array[Variant]:
-	var spawned_objects: Array[Variant] = []
+func spawn_multiple(amount: int) -> Array[ObjectPoolWrapper]:
+	var spawned_objects: Array[ObjectPoolWrapper] = []
 	
 	if pool.size() > 0:
 		amount = mini(amount, pool.size())
 		
 		for i in amount:
-			var spawned_object: Variant = spawn()
+			var spawned_object: ObjectPoolWrapper = spawn()
 			
 			if spawned_object == null:
 				break
@@ -92,9 +94,9 @@ func spawn_all() -> Array[Variant]:
 	return spawn_multiple(pool.size())
 
 
-func kill(spawned_object) -> void:
+func kill(spawned_object: ObjectPoolWrapper) -> void:
 	spawned.erase(spawned_object)
-		
+	
 	add_to_pool(spawned_object)
 
 
@@ -102,16 +104,16 @@ func kill_all() -> void:
 	## The loop needs to be in this way as erasing while iterating
 	## gives undesired behaviour and elements are left behind.
 	for i: int in spawned.size():
-		var object: Variant = spawned.pop_front()
+		var object: ObjectPoolWrapper = spawned.pop_front()
 		kill(object)
 
 
 func free_pool() -> void:
-	for object: Variant in pool:
+	for object: ObjectPoolWrapper in pool:
 		object.queue_free()
 
 
-func on_kill_requested(spawned_object: Variant) -> void:
+func on_kill_requested(spawned_object: ObjectPoolWrapper) -> void:
 	kill(spawned_object)
 
 
@@ -119,6 +121,6 @@ func on_kill_all_requested() -> void:
 	kill_all()
 
 
-func on_object_exiting_tree(removed_object: Variant) -> void:
+func on_object_exiting_tree(removed_object: ObjectPoolWrapper) -> void:
 	pool.erase(removed_object)
 	spawned.erase(removed_object)
