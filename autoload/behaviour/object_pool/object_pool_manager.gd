@@ -13,9 +13,7 @@ func add_pool(id: StringName, pool: ObjectPool, overwrite: bool = false) -> void
 	if not overwrite and available_pools.has(id):
 		return
 		
-	available_pools[id] = pool
-	
-	added_pool.emit(pool)
+	added_pool.emit(available_pools.get_or_add(id, pool))
 	
 
 func update_pool(id: StringName, new_pool: ObjectPool):

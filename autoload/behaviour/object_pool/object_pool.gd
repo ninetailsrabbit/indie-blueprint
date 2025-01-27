@@ -1,9 +1,12 @@
 @icon("res://components/behaviour/object_pool/object_pool.svg")
 class_name ObjectPool extends Node
 
+const GroupName: StringName = &"object_pools"
+
 signal kill_requested(spawned_object: Variant)
 signal kill_all_requested()
 
+@export var id: StringName = &""
 @export var scene: PackedScene
 @export var create_objects_on_ready: bool = true
 @export var max_objects_in_pool: int = 100:
@@ -17,15 +20,21 @@ var spawned: Array[ObjectPoolWrapper] = []
 
 
 func _init(
+	_id: StringName = &"",
 	_scene: PackedScene = scene,
 	 amount: int = max_objects_in_pool,
 	 create_on_ready: bool = create_objects_on_ready,
 	_process_mode_on_spawn: ProcessMode = process_mode_on_spawn
 ) -> void:
+	id = _id
 	scene = _scene
 	max_objects_in_pool = amount
 	create_objects_on_ready = create_on_ready
 	process_mode_on_spawn = _process_mode_on_spawn
+
+
+func _enter_tree() -> void:
+	add_to_group(GroupName)
 
 
 func _ready() -> void:
