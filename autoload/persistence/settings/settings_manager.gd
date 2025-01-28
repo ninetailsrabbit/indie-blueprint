@@ -226,7 +226,7 @@ func load_audio() -> void:
 			AudioManager.change_volume(bus, get_audio_section(bus))
 			AudioManager.mute_bus(bus, muted_buses)
 		
-
+@warning_ignore("int_as_enum_without_cast")
 func load_graphics() -> void:
 	for section_key: String in config_file_api.get_section_keys(GameSettings.GraphicsSection):
 		var config_value = get_graphics_section(section_key)

@@ -81,7 +81,6 @@ static func get_nearest_node_by_distance(from: Vector2, nodes: Array = [], min_d
 			result.target = node
 			result.distance = distance_to_target
 		
-		
 	return result
 	
 
@@ -104,5 +103,25 @@ static func get_farthest_node_by_distance(from: Vector2, nodes: Array = [], min_
 			farthest.target = node
 			farthest.distance = distance_to_target
 		
-		
 	return farthest
+
+
+static func mouse_grid_snap(node: Node2D, size: int, use_local_position: bool = false) -> Vector2:
+	if node.is_inside_tree():
+		var mouse_position: Vector2 = node.get_local_mouse_position() if use_local_position else node.get_global_mouse_position()
+		var grid_position: Vector2 = (mouse_position / size).floor()
+		
+		if use_local_position:
+			node.position = grid_position * size
+		else:
+			node.global_position = grid_position * size
+			
+		return grid_position
+		
+	return Vector2.ZERO
+
+
+static func mouse_grid_snap_by_texture(sprite: Sprite2D, use_local_position: bool = false) -> Vector2:
+	var texture_size: Vector2 = sprite.texture.get_size()
+	
+	return mouse_grid_snap(sprite, floor(max(texture_size.x, texture_size.y)), use_local_position)

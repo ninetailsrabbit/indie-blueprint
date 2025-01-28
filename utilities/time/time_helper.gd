@@ -32,6 +32,7 @@ Example:
 	var formatted_time_with_ms = format_seconds(123.456, true)
 	# Result: "02:03:45"
 """
+@warning_ignore("narrowing_conversion")
 static func format_seconds(time: float, use_milliseconds: bool = false) -> String:
 	var minutes: int= floori(time / 60)
 	var seconds: int = fmod(time, 60)

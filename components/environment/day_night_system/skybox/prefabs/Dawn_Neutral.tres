@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://4fwj6kulvpbr"]
+
+[ext_resource type="Shader" path="res://components/environment/day_night_system/skybox/Sky.gdshader" id="1"]
+[ext_resource type="Texture2D" uid="uid://uphaf58mkdyl" path="res://components/environment/day_night_system/skybox/panoramas/dawn.png" id="2"]
+
+[resource]
+shader = ExtResource("1")
+shader_parameter/skyColor = Color(0.862745, 0.941176, 1, 1)
+shader_parameter/horizonColor = Color(1, 1, 1, 1)
+shader_parameter/groundColor = Color(0.54902, 0.501961, 0.392157, 1)
+shader_parameter/panorama = ExtResource("2")
+shader_parameter/sun = true
+shader_parameter/sunColor = Color(1, 0.941176, 0.588235, 1)
+shader_parameter/sunSize = 0.04
+shader_parameter/sunBlur = 0.5
+shader_parameter/sunDisc = 0.5

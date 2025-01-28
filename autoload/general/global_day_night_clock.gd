@@ -7,6 +7,7 @@ signal day_passed
 
 const MinutesPerDay: int = 1440 
 const MinutesPerHour: int = 60
+@warning_ignore("integer_division")
 const DayHourLength: int = MinutesPerDay / MinutesPerHour
 const InGameToRealMinuteDuration := TAU / MinutesPerDay
 
@@ -85,7 +86,7 @@ func stop() -> void:
 
 func total_seconds() -> int:
 	if current_day > 0:
-		current_day * seconds()
+		return current_day * seconds()
 	
 	return seconds()
 
@@ -106,10 +107,10 @@ func time_display() -> String:
 	var minute: int = current_minute
 
 	if hour < 10:
-		"0" + str(hour)
+		return "0" + str(hour)
 		
 	if minute < 10:
-		"0" + str(minute)
+		return "0" + str(minute)
 
 	return "%s:%s" % [hour, minute]
 
@@ -126,6 +127,14 @@ func change_minute_to(new_minute: int) -> void:
 	initial_minute = new_minute
 
 
+func is_am() -> bool:
+	return current_period == "AM"
+
+
+func is_pm() -> bool:
+	return current_period == "PM"
+	
+@warning_ignore("integer_division")
 func _recalculate_time() -> void:
 	var total_minutes = int(time / InGameToRealMinuteDuration) + initial_minute
 	var current_day_minutes = fmod(total_minutes, MinutesPerDay) + initial_minute
