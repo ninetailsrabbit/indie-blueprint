@@ -14,33 +14,34 @@ signal stopped_engine
 
 ## The acceleration will be applied to the engine force. More acceleration takes less time to achieve max speed
 @export_category("Input")
-var vehicle_acceleration_action: StringName = InputControls.VehicleAccelerate:
+@export var start_engine_action: StringName = InputControls.StartVehicleEngine
+@export var vehicle_acceleration_action: StringName = InputControls.VehicleAccelerate:
 	set(new_action):
 		if new_action != vehicle_acceleration_action:
 			vehicle_acceleration_action = new_action
 			_update_input_actions()
-var vehicle_reverse_acceleration_action: StringName = InputControls.VehicleReverseAccelerate:
+@export var vehicle_reverse_acceleration_action: StringName = InputControls.VehicleReverseAccelerate:
 	set(new_action):
 		if new_action != vehicle_reverse_acceleration_action:
 			vehicle_reverse_acceleration_action = new_action
 			_update_input_actions()
-var vehicle_steer_right_action: StringName = InputControls.VehicleSteerRight:
+@export var vehicle_steer_right_action: StringName = InputControls.VehicleSteerRight:
 	set(new_action):
 		if new_action != vehicle_steer_right_action:
 			vehicle_steer_right_action = new_action
 			_update_input_actions()
-var vehicle_steer_left_action: StringName = InputControls.VehicleSteerLeft:
+@export var vehicle_steer_left_action: StringName = InputControls.VehicleSteerLeft:
 	set(new_action):
 		if new_action != vehicle_steer_left_action:
 			vehicle_steer_left_action = new_action
 			_update_input_actions()
+@export var vehicle_hand_brake: StringName = InputControls.VehicleHandBrake
 
 @export_category("Engine")
 @export var engine_acceleration: float = 200.0
 @export var engine_reverse_acceleration: float = 100.0
 ## The maximum value the wheels can be turned at
 @export var max_rpm: float = 500.0
-@export var start_engine_action: StringName = InputControls.StartVehicleEngine
 @export_category("Steering")
 ## Decides how much a wheel can be turned. Higher values means that it can turn more easily
 @export var kb_steering_ramp_up_factor: float = 30.0
