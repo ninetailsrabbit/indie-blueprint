@@ -1,13 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtxxla3axlugk"]
+[gd_scene load_steps=7 format=3 uid="uid://dtxxla3axlugk"]
 
 [ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/new_save_screen.gd" id="1_ceovf"]
 [ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="1_vxktb"]
 [ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="2_y3j4a"]
 [ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="3_3piy6"]
 [ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="4_i0wmr"]
-
-[sub_resource type="Resource" id="Resource_br3in"]
-metadata/__load_path__ = "res://scenes/world/map/world_map.tscn"
 
 [sub_resource type="LabelSettings" id="LabelSettings_58tge"]
 font = ExtResource("1_vxktb")
@@ -22,7 +19,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_ceovf")
-main_game_scene = SubResource("Resource_br3in")
 
 [node name="TemporaryBackground" type="ColorRect" parent="."]
 layout_mode = 1

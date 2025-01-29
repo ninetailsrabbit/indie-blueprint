@@ -1,9 +1,8 @@
 class_name NewSaveScreen extends Control
 
+signal created_new_save(new_save: SavedGame)
 
 @export var action_to_submit: StringName = &"ui_accept"
-@export var main_game_scene: PackedScene
-
 
 @onready var save_file_name_line_edit: LineEdit = %SaveFileNameLineEdit
 
@@ -29,7 +28,8 @@ func create_new_save() -> void:
 		save_file_name_line_edit.editable = false
 		
 		SaveManager.create_new_save(save_file_name_line_edit.text, true)
-		SceneTransitionManager.transition_to_scene(main_game_scene)
+		
+		created_new_save.emit(SaveManager.current_saved_game)
 	
 	
 func filename_is_valid(filename: String) -> bool:

@@ -16,6 +16,7 @@ func _ready() -> void:
 	display_saved_games()
 	
 	new_save_screen.visibility_changed.connect(on_new_save_screen_visibility_changed)
+	new_save_screen.created_new_save.connect(on_created_new_save)
 
 
 func display_saved_games() -> void:
@@ -42,10 +43,14 @@ func display_saved_games() -> void:
 		
 func on_save_slot_selected(world_save_slot: WorldSaveSlotPanel) -> void:
 	if world_save_slot.saved_game:
-		SaveManager.current_saved_game = world_save_slot.saved_game
+		SaveManager.make_current(world_save_slot.saved_game)
 		SceneTransitionManager.transition_to_scene(main_game_scene)
 	else:
 		new_save_screen.show()
+
+
+func on_created_new_save(_new_save: SavedGame) -> void:
+	SceneTransitionManager.transition_to_scene(main_game_scene)
 
 
 func on_new_save_screen_visibility_changed() -> void:

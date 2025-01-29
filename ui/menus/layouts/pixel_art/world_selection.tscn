@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bleiqd8yjy62p"]
+[gd_scene load_steps=10 format=3 uid="uid://bleiqd8yjy62p"]
 
 [ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="1_6o1k1"]
 [ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/world_selection.gd" id="1_6xnh7"]
@@ -8,9 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="3_qofbw"]
 [ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="4_dt5u2"]
 [ext_resource type="PackedScene" uid="uid://dtxxla3axlugk" path="res://ui/menus/layouts/pixel_art/new_save_screen.tscn" id="8_5pcea"]
-
-[sub_resource type="Resource" id="Resource_fuw3d"]
-metadata/__load_path__ = "res://scenes/world/map/world_map.tscn"
 
 [sub_resource type="LabelSettings" id="LabelSettings_dg0fa"]
 font = ExtResource("2_nix18")
@@ -26,7 +23,6 @@ grow_vertical = 2
 mouse_filter = 1
 mouse_force_pass_scroll_events = false
 script = ExtResource("1_6xnh7")
-main_game_scene = SubResource("Resource_fuw3d")
 
 [node name="TemporaryBackground" type="ColorRect" parent="."]
 layout_mode = 1

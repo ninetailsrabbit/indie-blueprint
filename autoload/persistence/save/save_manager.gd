@@ -28,7 +28,11 @@ func _ready() -> void:
 	list_of_saved_games.merge(read_user_saved_games(), true)
 
 
-func create_new_save(filename: String, make_current: bool = false):
+func make_current(saved_game: SavedGame) -> void:
+	current_saved_game = saved_game
+
+
+func create_new_save(filename: String, make_it_as_current: bool = false):
 	if SavedGame.save_exists(filename):
 		error_creating_savegame.emit(filename, ERR_ALREADY_EXISTS)
 		return
@@ -40,8 +44,8 @@ func create_new_save(filename: String, make_current: bool = false):
 		created_savegame.emit(filename)
 		list_of_saved_games[filename] = new_saved_game
 		
-		if make_current:
-			current_saved_game = new_saved_game
+		if make_it_as_current:
+			make_current(new_saved_game)
 	else:
 		error_creating_savegame.emit(filename, error)
 
