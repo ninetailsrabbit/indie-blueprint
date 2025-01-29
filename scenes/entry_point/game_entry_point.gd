@@ -1,6 +1,6 @@
 extends Node
 
-@export_file(".tscn") var next_scene: String = ""
+@export_file("*.tscn") var next_scene: String = ""
 
 @onready var content_warnings: ContentWarnings = $ContentWarnings
 
