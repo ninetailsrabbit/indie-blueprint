@@ -54,7 +54,7 @@ func on_text_changed(new_text: String) -> void:
 func on_text_submitted(_filename: String) -> void:
 	create_new_save()
 
-
+@warning_ignore("unused_parameter")
 func on_error_creating_save_game(filename: String, error: Error) -> void:
 	pass
 

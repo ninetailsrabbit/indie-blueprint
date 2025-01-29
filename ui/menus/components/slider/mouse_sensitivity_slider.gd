@@ -15,6 +15,6 @@ func _ready() -> void:
 	value = SettingsManager.get_accessibility_section(GameSettings.MouseSensivitySetting)
 		
 
-
-func on_sensitivity_changed(sensitivity_changed: float) -> void:
-	SettingsManager.update_accessibility_section(GameSettings.MouseSensivitySetting, value)
+func on_sensitivity_changed(sensitivity_changed: bool) -> void:
+	if sensitivity_changed:
+		SettingsManager.update_accessibility_section(GameSettings.MouseSensivitySetting, value)

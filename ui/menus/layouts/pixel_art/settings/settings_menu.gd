@@ -31,7 +31,7 @@ func all_menus_are_hidden() -> bool:
 		and not controls_settings_menu.visible
 
 
-func on_component_settings_menu_visibility_changed(settings_menu: Control) -> void:
+func on_component_settings_menu_visibility_changed(_settings_menu: Control) -> void:
 	await get_tree().physics_frame
 	
 	if all_menus_are_hidden():
