@@ -1,8 +1,8 @@
 extends Node
 
-signal created_savegame(filename: String)
-signal loaded_savegame(filename: String)
-signal removed_saved_game(filename: String)
+signal created_savegame(saved_game: SavedGame)
+signal loaded_savegame(saved_game: SavedGame)
+signal removed_saved_game(saved_game: SavedGame)
 signal error_creating_savegame(filename: String, error: Error)
 signal error_loading_savegame(filename: String, error: Error)
 signal error_removing_savegame(filename: String, error: Error)
@@ -15,7 +15,7 @@ signal error_removing_savegame(filename: String, error: Error)
 			current_saved_game = value
 			
 			if current_saved_game:
-				loaded_savegame.emit(current_saved_game.filename)
+				loaded_savegame.emit(current_saved_game)
 
 
 func _notification(what: int) -> void:
@@ -41,8 +41,8 @@ func create_new_save(filename: String, make_it_as_current: bool = false):
 	var error: Error = new_saved_game.write_savegame(filename)
 	
 	if error == Error.OK:
-		created_savegame.emit(filename)
 		list_of_saved_games[filename] = new_saved_game
+		created_savegame.emit(new_saved_game)
 		
 		if make_it_as_current:
 			make_current(new_saved_game)
@@ -64,11 +64,12 @@ func remove(filename: String):
 		return
 		
 	if (list_of_saved_games.has(filename)):
-		var saved_game: SavedGame = list_of_saved_games[filename] as SavedGame
+		var saved_game: SavedGame = list_of_saved_games[filename]
+		removed_saved_game.emit(saved_game)
+		
 		saved_game.delete()
 		
 		list_of_saved_games.erase(filename)
-		removed_saved_game.emit(filename)
 		
 		return
 	

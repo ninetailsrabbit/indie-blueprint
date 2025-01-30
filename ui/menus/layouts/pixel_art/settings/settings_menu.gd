@@ -13,6 +13,10 @@ class_name SettingsMenu extends Control
 
 
 func _ready() -> void:
+	if visible:
+		display_settings_button.grab_focus()
+		
+	
 	display_settings_button.pressed.connect(on_display_settings_pressed)
 	audio_settings_button.pressed.connect(on_audio_settings_pressed)
 	accessibility_settings_button.pressed.connect(on_accessibility_settings_pressed)
@@ -22,7 +26,9 @@ func _ready() -> void:
 	audio_settings_menu.visibility_changed.connect(on_component_settings_menu_visibility_changed.bind(audio_settings_menu))
 	accessibility_settings_menu.visibility_changed.connect(on_component_settings_menu_visibility_changed.bind(accessibility_settings_menu))
 	controls_settings_menu.visibility_changed.connect(on_component_settings_menu_visibility_changed.bind(controls_settings_menu))
-
+	
+	visibility_changed.connect(on_settings_menu_visibility_changed)
+	
 
 func all_menus_are_hidden() -> bool:
 	return not display_settings_menu.visible \
@@ -38,6 +44,11 @@ func on_component_settings_menu_visibility_changed(_settings_menu: Control) -> v
 		back_button.enable()
 	else:
 		back_button.disable()
+
+
+func on_settings_menu_visibility_changed() -> void:
+	if visible:
+		display_settings_button.grab_focus()
 
 
 func on_display_settings_pressed() -> void:

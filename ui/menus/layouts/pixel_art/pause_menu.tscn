@@ -1,0 +1,134 @@
+[gd_scene load_steps=10 format=3 uid="uid://ckmpartbateng"]
+
+[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/pause_menu.gd" id="1_ge1r7"]
+[ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="2_4hnh5"]
+[ext_resource type="PackedScene" uid="uid://c7x5g1yqaqlni" path="res://ui/menus/layouts/pixel_art/components/menu_display_panel.tscn" id="3_q7u3i"]
+[ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="4_vbsv5"]
+[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/project_version.gd" id="5_dkc40"]
+[ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="5_osjm4"]
+[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="6_8o6xi"]
+[ext_resource type="PackedScene" uid="uid://cjy60mv75hnb8" path="res://ui/menus/layouts/pixel_art/settings/settings_menu.tscn" id="8_cicu4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4jf2"]
+font = ExtResource("4_vbsv5")
+font_color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ge1r7")
+
+[node name="TemporaryBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Version" type="Label" parent="MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "1.0.0"
+label_settings = SubResource("LabelSettings_s4jf2")
+script = ExtResource("5_dkc40")
+
+[node name="SaveName" type="Label" parent="MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Save-name"
+label_settings = SubResource("LabelSettings_s4jf2")
+
+[node name="BackButton" type="Button" parent="MarginContainer2" node_paths=PackedStringArray("linked_menu")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("2_4hnh5")
+icon = ExtResource("5_osjm4")
+script = ExtResource("6_8o6xi")
+linked_menu = NodePath("../..")
+
+[node name="MenuDisplayPanel" parent="." instance=ExtResource("3_q7u3i")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+mouse_filter = 1
+
+[node name="Label" parent="MenuDisplayPanel" index="0"]
+text = "PANEL_PAUSE_MENU"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="MainMenuButtons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/MainMenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../QuitGameButton")
+theme = ExtResource("2_4hnh5")
+text = "BUTTON_SETTINGS"
+
+[node name="QuitGameButton" type="Button" parent="MarginContainer/MainMenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_bottom = NodePath("../SettingsButton")
+theme = ExtResource("2_4hnh5")
+text = "BUTTON_QUIT"
+
+[node name="SettingsMenu" parent="." instance=ExtResource("8_cicu4")]
+visible = false
+layout_mode = 1
+
+[editable path="MenuDisplayPanel"]
