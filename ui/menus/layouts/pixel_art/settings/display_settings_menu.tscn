@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/settings/display_settings_menu.gd" id="1_fhyvk"]
 [ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="1_omb32"]
 [ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="2_ljhdo"]
-[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/project_version.gd" id="3_dfytw"]
+[ext_resource type="Script" path="res://ui/menus/components/label/project_version.gd" id="3_dfytw"]
 [ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="3_syby4"]
 [ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="4_tb3nf"]
 [ext_resource type="PackedScene" uid="uid://c7x5g1yqaqlni" path="res://ui/menus/layouts/pixel_art/components/menu_display_panel.tscn" id="5_6ij2g"]

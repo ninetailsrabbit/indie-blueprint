@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://du0kusvolof3y" path="res://ui/menus/layouts/pixel_art/components/world_save_slot_panel.tscn" id="3_ob8f4"]
 [ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="3_qofbw"]
 [ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="4_dt5u2"]
-[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/project_version.gd" id="4_xorya"]
+[ext_resource type="Script" path="res://ui/menus/components/label/project_version.gd" id="4_xorya"]
 [ext_resource type="PackedScene" uid="uid://dtxxla3axlugk" path="res://ui/menus/layouts/pixel_art/new_save_screen.tscn" id="8_5pcea"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dg0fa"]
