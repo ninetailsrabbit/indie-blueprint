@@ -14,40 +14,32 @@ var is_underwater: bool = false:
 	set(value):
 		if value != is_underwater:
 			is_underwater = value
-			
-			if is_inside_tree() and ocean:
-				ocean.underwater.visible = is_underwater
-			
-var ocean: Ocean
+			actor.is_underwater = is_underwater
+var water_manager: WaterManager
 
 
-func handle_input(event: InputEvent) -> void:
+func handle_input(_event: InputEvent) -> void:
 	detect_ladder_input()
 
 
 func ready() -> void:
-	ocean = get_tree().get_first_node_in_group(Ocean.GroupName)
-	
-	if ocean:
-		water_height = ocean.water_level
-		ocean.water_level_changed.connect(on_water_level_changed)
+	water_manager = get_tree().get_first_node_in_group(WaterManager.GroupName)
+
 
 func enter():
 	actor.velocity /= speed_reduction_on_water_entrance
-	actor.velocity.y = gravity_force
 	actor.move_and_slide()
-	## TODO - APPLY SUBMERGED AND OTHER UNDERWATER EFFECTS
 
 
 func exit(_next_state: MachineState):
-	pass ## TODO - SUBMERGED AND REFRACTION EFFECTS RESET
+	is_underwater = false
 	
 
 func physics_update(delta: float):
 	was_underwater = is_underwater
-	var depth = water_height - (eyes.global_position.y - safe_submerged_margin)
+	var depth = water_manager.calculate_water_height(actor.global_position) - (eyes.global_position.y - safe_submerged_margin)
 	is_underwater = depth > 0
-		
+
 	if actor.motion_input.input_direction.is_zero_approx():
 		decelerate(delta)
 	else:
@@ -60,10 +52,11 @@ func physics_update(delta: float):
 			detect_jump()
 		
 	if was_underwater and not is_underwater:
-		actor.velocity += actor.up_direction * underwater_exit_impulse
+		actor.velocity *= actor.up_direction * underwater_exit_impulse
 		
 	if actor.global_position.y > water_height or (not is_underwater and actor.is_on_floor()):
 		FSM.change_state_to(Fall)
+		return
 		
 	detect_ladder()
 		

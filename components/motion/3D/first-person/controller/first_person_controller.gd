@@ -38,6 +38,8 @@ const GroupName: StringName = &"player"
 @onready var camera: CameraShake3D = $CameraController/Head/CameraShake3D
 @onready var camera_controller: CameraController3D = $CameraController
 
+@onready var submerged_effect: ColorRect = $PostProcessingEffects/Submerged
+
 ## This raycast detects walls so the stair up and stair down is not applied to avoid a weird
 ## stuttering movement on irregular vertical surfaces
 @onready var front_close_wall_checker: RayCast3D = %FrontCloseWallChecker
@@ -63,6 +65,12 @@ const GroupName: StringName = &"player"
 
 var was_grounded: bool = false
 var is_grounded: bool = false
+var is_underwater: bool = false:
+	set(value):
+		if value != is_underwater:
+			is_underwater = value
+			submerged_effect.visible = is_underwater
+			
 var motion_input: TransformedInput
 var last_direction: Vector3 = Vector3.ZERO
 
@@ -81,7 +89,8 @@ func _ready() -> void:
 	
 	collision_layer = GameGlobals.player_collision_layer
 	debug_ui.visible = OS.is_debug_build()
-	
+	submerged_effect.visible = is_underwater
+
 	motion_input = TransformedInput.new(self)
 	InputHelper.capture_mouse()
 	

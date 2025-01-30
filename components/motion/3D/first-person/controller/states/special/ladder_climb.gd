@@ -9,7 +9,7 @@ var current_ladder: Ladder3D
 var cooldown_timer: Timer
 
 
-func handle_input(event: InputEvent) -> void:
+func handle_input(_event: InputEvent) -> void:
 	if current_ladder and current_ladder.press_to_release and Input.is_action_just_pressed(current_ladder.input_action_to_climb_ladder):
 		current_ladder = null
 		FSM.change_state_to(Fall)

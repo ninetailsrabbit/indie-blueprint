@@ -12,7 +12,7 @@ class_name SpecialState extends MachineState
 @export var jump_input_action: StringName = InputControls.JumpAction
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if actor.ladder_climb and not FSM.current_state_is_by_class(LadderClimb) \
 		and actor.ladder_cast_detector.is_colliding():
 		var ladder: Ladder3D = actor.ladder_cast_detector.get_collider(0).get_parent()
