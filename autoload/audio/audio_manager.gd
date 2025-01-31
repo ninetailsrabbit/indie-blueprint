@@ -14,6 +14,14 @@ const AmbientBus: StringName = &"Ambient"
 
 const VolumeDBInaudible: float = -80.0
 
+#region Audio Effects
+const MasterBusChorusEffect: int = 0
+const MasterBusLowPassFilterEffect: int = 1
+const MasterBusPhaserEffect: int = 2
+
+const MusicBusLowPassFilterEffect: int = 0
+#endregion
+
 static var default_audio_volumes: Dictionary = {
 	MasterBus.to_lower(): 0.9,
 	MusicBus.to_lower(): 0.8,
@@ -127,8 +135,72 @@ func bus_exists(bus_name: String) -> bool:
 	return bus_name in available_buses
 
 
+func fade_in_stream(audio_stream_player, fade_time: float = 2.0) -> void:
+	if audio_stream_player.stream:
+		audio_stream_player.volume_db = VolumeDBInaudible
+		var bus_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(audio_stream_player.bus))
+		
+		var fade_tween = create_tween()
+		fade_tween.tween_property(audio_stream_player, "volume_db", bus_volume, fade_time)\
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
+
+
 func fade_out_stream(audio_stream_player, fade_time: float = 2.0) -> void:
 	if audio_stream_player.stream:
 		var fade_tween = create_tween()
 		fade_tween.tween_property(audio_stream_player, "volume_db", VolumeDBInaudible, fade_time)\
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
+
+#region Bus accessors
+func master_bus() -> int:
+	return get_bus(MasterBus)
+
+
+func music_bus() -> int:
+	return get_bus(MusicBus)
+	
+	
+func sfx_bus() -> int:
+	return get_bus(SFXBus)
+	
+	
+func echosfx_bus() -> int:
+	return get_bus(EchoSFXBus)
+	
+
+func voice_bus() -> int:
+	return get_bus(VoiceBus)
+
+
+func ui_bus() -> int:
+	return get_bus(UIBus)
+
+
+func ambient_bus() -> int:
+	return get_bus(AmbientBus)
+#endregion
+
+#region Audio Effects
+func apply_master_bus_low_pass_filter() -> void:
+	AudioServer.set_bus_effect_enabled(master_bus(), MasterBusLowPassFilterEffect, true)
+
+
+func remove_master_bus_low_pass_filter() -> void:
+	AudioServer.set_bus_effect_enabled(master_bus(), MasterBusLowPassFilterEffect, false)
+	
+	
+func apply_master_bus_chorus_filter() -> void:
+	AudioServer.set_bus_effect_enabled(master_bus(), MasterBusChorusEffect, true)
+
+
+func remove_master_bus_chorus_filter() -> void:
+	AudioServer.set_bus_effect_enabled(master_bus(), MasterBusChorusEffect, false)
+	
+	
+func apply_master_bus_phaser_filter() -> void:
+	AudioServer.set_bus_effect_enabled(master_bus(), MasterBusPhaserEffect, true)
+
+
+func remove_master_bus_phaser_filter() -> void:
+	AudioServer.set_bus_effect_enabled(master_bus(), MasterBusPhaserEffect, false)
+#endregion
