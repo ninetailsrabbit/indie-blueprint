@@ -79,8 +79,8 @@ func _ready() -> void:
 		
 		front_sprite.custom_minimum_size = card.texture_size
 		shadow_sprite.custom_minimum_size = card.texture_size
-		front_sprite.size = card.texture_size
-		shadow_sprite.size = card.texture_size
+		front_sprite.set_deferred("size", card.texture_size)
+		shadow_sprite.set_deferred("size", card.texture_size)
 	
 	if enable_fake_3d:
 		draggable_2d.gui_input.connect(on_gui_input)

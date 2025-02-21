@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PlayingCard" load_steps=3 format=3 uid="uid://dpo12vgrqjvrj"]
+
+[ext_resource type="Texture2D" uid="uid://3rt10yyetr24" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png" id="1_lu4qc"]
+[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="2_8k4kc"]
+
+[resource]
+script = ExtResource("2_8k4kc")
+id = &"back_3"
+display_name = ""
+description = ""
+texture_size = Vector2(37, 52)
+back_texture = ExtResource("1_lu4qc")
+suit = 8
+value = 0.0
+table_value = 0.0
+default_orientation = 0

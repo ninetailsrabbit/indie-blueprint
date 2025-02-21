@@ -67,6 +67,10 @@ func is_french() -> bool:
 	return suit in FrenchSuits
 
 
+func is_back() -> bool:
+	return suit == Suits.Back
+	
+	
 func is_joker() -> bool:
 	return value == 0 or suit == Suits.Joker
 	
