@@ -4,3 +4,4 @@
 
 [node name="ShockwaveEffect" type="Node2D"]
 script = ExtResource("1_53r0l")
+emitting = false

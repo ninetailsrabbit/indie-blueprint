@@ -3,4 +3,6 @@
 [ext_resource type="Script" path="res://components/vfx/2D/pop_effect/pop.gd" id="1_iiiyc"]
 
 [node name="PopCircleEffect" type="Node2D"]
+position = Vector2(-8.84928, -74.357)
+scale = Vector2(0.225935, 0.225935)
 script = ExtResource("1_iiiyc")

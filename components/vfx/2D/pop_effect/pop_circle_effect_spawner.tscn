@@ -4,3 +4,4 @@
 
 [node name="PopCircleEffectSpawner" type="Node2D"]
 script = ExtResource("1_ejum3")
+colors = PackedColorArray(0.402101, 0.624108, 0.954969, 1, 0.830478, 0.273834, 0.721003, 1, 0.81065, 0.870233, 0.43151, 1)
