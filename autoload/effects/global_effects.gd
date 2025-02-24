@@ -15,6 +15,10 @@ signal frame_freezed_finished
 @export var default_fade_color: Color = Color("040404")
 @export var default_fade_duration: float = 1.0
 @export var default_z_index: int = 101
+@export_group("Flash")
+@export var default_flash_color: Color = Color.WHITE
+@export var default_flash_duration: float = 0.2
+@export_range(0, 255, 1) var default_flash_transparency: int = 255
 @export_group("Frame freeze")
 @export var default_frame_freeze_duration: float = 1.0
 @export var default_frame_freeze_time_scale: float = 0.25
@@ -113,10 +117,14 @@ func _fade_out(
 
 #region Screen flashes
 
-func flash(color: Color, duration: float = 1.0, initial_transparency: int = 255) -> ColorRect:
+func flash(
+	color: Color = default_flash_color,
+	duration: float = default_flash_duration,
+	initial_transparency: int = default_flash_transparency
+) -> ColorRect:
 	var flash_screen: ColorRect = _create_color_rect()
 	flash_screen.color = color
-	flash_screen.modulate.a8 = clamp(initial_transparency, 0, 255)
+	flash_screen.modulate.a8 = clampi(initial_transparency, 0, 255)
 	flash_started.emit(flash_screen)
 	
 	var tween = create_tween()
@@ -129,9 +137,9 @@ func flash(color: Color, duration: float = 1.0, initial_transparency: int = 255)
 
 
 func flashes(
-	colors: PackedColorArray,
-	flash_duration: float = 1.0, 
-	initial_transparency: int = 255
+	colors: PackedColorArray = [],
+	flash_duration: float = default_flash_duration, 
+	initial_transparency: int = default_flash_transparency
 ) -> Array[ColorRect]:
 	var flash_screens: Array[ColorRect] = [] 
 	
@@ -141,6 +149,9 @@ func flashes(
 		flash_screen.color = color
 		flash_screen.modulate.a8 = initial_transparency
 		flash_screen.z_index = default_z_index - flash_screens.size()
+	
+	if colors.is_empty():
+		return
 		
 	var tween: Tween = create_tween().set_parallel(true)
 	
@@ -154,7 +165,7 @@ func flashes(
 	tween.finished.connect(func():
 		for screen: ColorRect in flash_screens:
 			screen.queue_free()
-		, CONNECT_ONE_SHOT)
+		,CONNECT_ONE_SHOT)
 		
 	return flash_screens
 
