@@ -114,19 +114,18 @@ func _fade_out(
 #region Screen flashes
 
 func flash(color: Color, duration: float = 1.0, initial_transparency: int = 255) -> ColorRect:
-	flash_started.emit()
-	
-	var flash_screen_color: ColorRect = _create_color_rect()
-	flash_screen_color.color = color
-	flash_screen_color.modulate.a8 = clamp(initial_transparency, 0, 255)
+	var flash_screen: ColorRect = _create_color_rect()
+	flash_screen.color = color
+	flash_screen.modulate.a8 = clamp(initial_transparency, 0, 255)
+	flash_started.emit(flash_screen)
 	
 	var tween = create_tween()
-	tween.tween_property(flash_screen_color, "modulate:a8", 0, duration)\
+	tween.tween_property(flash_screen, "modulate:a8", 0, duration)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	
-	tween.finished.connect(func(): flash_finished.emit(flash_screen_color))
+	tween.finished.connect(func(): flash_finished.emit(flash_screen))
 	
-	return flash_screen_color
+	return flash_screen
 
 
 func flashes(
@@ -146,13 +145,16 @@ func flashes(
 	var tween: Tween = create_tween().set_parallel(true)
 	
 	for screen: ColorRect in flash_screens:
+		flash_started.emit(screen)
+		
 		tween.chain().tween_property(screen, "modulate:a8", 0.0, flash_duration)\
 				.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	
+		tween.tween_callback(func(): flash_finished.emit(screen))
+		
 	tween.finished.connect(func():
 		for screen: ColorRect in flash_screens:
 			screen.queue_free()
-		)
+		, CONNECT_ONE_SHOT)
 		
 	return flash_screens
 
