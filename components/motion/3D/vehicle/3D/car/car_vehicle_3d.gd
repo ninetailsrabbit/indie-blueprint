@@ -57,7 +57,7 @@ signal stopped_engine
 @onready var rear_left_wheel: VehicleWheel3D = %RearLeftWheel
 
 
-var motion_input: TransformedInput = TransformedInput.new(self)
+var motion_input: MotionInput = MotionInput.new(self)
 var engine_on: bool = false:
 	set(value):
 		if value != engine_on:
@@ -117,7 +117,7 @@ func stop_engine() -> void:
 
 func _update_input_actions() -> void:
 	if motion_input == null:
-		motion_input = TransformedInput.new(self)
+		motion_input = MotionInput.new(self)
 		
 	motion_input.change_move_right_action(vehicle_steer_right_action)\
 		.change_move_left_action(vehicle_steer_left_action)\

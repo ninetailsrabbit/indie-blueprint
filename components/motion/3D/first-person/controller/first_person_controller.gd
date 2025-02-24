@@ -71,7 +71,7 @@ var is_underwater: bool = false:
 			is_underwater = value
 			submerged_effect.visible = is_underwater
 			
-var motion_input: TransformedInput
+var motion_input: MotionInput
 var last_direction: Vector3 = Vector3.ZERO
 
 
@@ -91,7 +91,7 @@ func _ready() -> void:
 	debug_ui.visible = OS.is_debug_build()
 	submerged_effect.visible = is_underwater
 
-	motion_input = TransformedInput.new(self)
+	motion_input = MotionInput.new(self)
 	InputHelper.capture_mouse()
 	
 	finite_state_machine.register_transitions([

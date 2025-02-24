@@ -63,7 +63,7 @@ func pprint():
 	return string
 
 
-func to_byte_array():
+func to_byte_array() -> PackedByteArray:
 	var byte_array = PackedByteArray()
 	var digit_count = 0
 	var value = 0
@@ -83,7 +83,7 @@ func to_byte_array():
 	return byte_array
 
 
-func from_byte_array(byte_array: PackedByteArray):
+func from_byte_array(byte_array: PackedByteArray) -> BitStream:
 	bits.clear()
 	
 	for byte in byte_array:
@@ -105,20 +105,19 @@ func to_utf8() -> String:
 	return utf8_string
 
 
-func from_utf8(utf8_string: String):
-	from_byte_array(utf8_string.to_utf8_buffer())
+func from_utf8(utf8_string: String) -> BitStream:
+	return from_byte_array(utf8_string.to_utf8_buffer())
 
 	
 func to_ascii_string()-> String:
-	var byte_array = to_byte_array()
-	return byte_array.get_string_from_ascii()
+	return to_byte_array().get_string_from_ascii()
 
 
 func from_ascii_string(string: String):
-	from_byte_array(string.to_ascii_buffer())
+	return from_byte_array(string.to_ascii_buffer())
 	
 
-func from_string(string):
+func from_string(string: String):
 	bits.clear()
 	
 	for s in string:

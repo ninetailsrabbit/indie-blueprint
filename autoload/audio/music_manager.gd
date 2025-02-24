@@ -19,8 +19,11 @@ signal finished_playlist(playlist: MusicPlaylist)
 
 
 enum PlayMode {
+	## The music tracks are manually initiated
 	Manual,
+	## Once a stream ends, get another random stream from the music bank.
 	RandomMusicFromBank,
+	## Uses a playlist provided in which songs are played sequentially.
 	Playlist
 }
 

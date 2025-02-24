@@ -2,6 +2,12 @@ class_name UUID
 
 const BYTE_MASK: int = 0b11111111
 
+var _uuid: Array
+
+func _init(rng := RandomNumberGenerator.new()) -> void:
+  _uuid = uuidbinrng(rng)
+
+
 static func uuidbin():
   randomize()
   # 16 random bytes with the bytes on index 6 and 8 modified
@@ -21,7 +27,7 @@ static func uuidbinrng(rng: RandomNumberGenerator):
 	rng.randi() & BYTE_MASK, rng.randi() & BYTE_MASK, rng.randi() & BYTE_MASK, rng.randi() & BYTE_MASK,
   ]
 
-static func v4():
+static func v4() -> String:
   # 16 random bytes with the bytes on index 6 and 8 modified
   var b = uuidbin()
 
@@ -42,7 +48,7 @@ static func v4():
 	b[10], b[11], b[12], b[13], b[14], b[15]
   ]
   
-static func v4_rng(rng: RandomNumberGenerator):
+static func v4_rng(rng: RandomNumberGenerator) -> String:
   # 16 random bytes with the bytes on index 6 and 8 modified
   var b = uuidbinrng(rng)
 
@@ -63,11 +69,6 @@ static func v4_rng(rng: RandomNumberGenerator):
 	b[10], b[11], b[12], b[13], b[14], b[15]
   ]
   
-var _uuid: Array
-
-func _init(rng := RandomNumberGenerator.new()) -> void:
-  _uuid = uuidbinrng(rng)
-
 
 func as_array() -> Array:
   return _uuid.duplicate()

@@ -96,4 +96,4 @@ static func color_from_vector(vec) -> Color:
 	elif vec is Vector4:
 		return Color(vec.x, vec.y, vec.z, vec.w)
 	else:
-		return Color.BLACK
+		return Color.WHITE

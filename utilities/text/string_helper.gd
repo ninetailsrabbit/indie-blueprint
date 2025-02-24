@@ -186,5 +186,14 @@ static func repeat(text: String, times: int) -> String:
 	return result
 
 
-static func bars(amount: int) -> String:
-	return repeat(bar, amount)
+static func bars(amount: int, separator: String = "") -> String:
+	var bars_text: String  = repeat(bar, amount)
+	var result:  String = ""
+	
+	if amount > 1:
+		for character: String in bars_text:
+			result += "%s%s" % [bar, separator]
+	else:
+		return bars_text
+		
+	return result

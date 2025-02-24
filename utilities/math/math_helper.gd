@@ -35,7 +35,7 @@ const ErdosBorweinConstant: float = 1.6066951524  # ERDOS-BORWEIN CONSTANT, norm
 const NivensConstant: float = 1.7052111401  # NIVENS' CONSTANT, number theory
 const UniversalParabolicConstant: float = 2.2955871493  # UNIVERSAL PARABOLIC CONSTANT, reflection coefficient
 const SierpinskisConstant: float = 2.5849817595  # SIERPINSKI'S CONSTANT, Sierpinski triangle fractal
-const FransenRobinsonConstant: float = 2.807770
+const FransenRobinsonConstant: float = 2.807770 # FRANSEN ROBINSON'S CONSTANT, It represents the area between the graph of the reciprocal Gamma function, 1/Γ(x), and the positive x-axis
 
 const MetersPerSecondToMilePerHourFactor: float = 2.23694
 const MetersPerSecondToKilometersPerHourFactor: float = 3.6
@@ -209,14 +209,14 @@ static func decimal_value_is_between(number: float, min_value: float, max_value:
 	return number >= min(min_value, max_value) and number <= max(min_value, max_value)
 
 
-static func add_thousand_separator(number) -> String:
+static func add_thousand_separator(number, separator: String = ",") -> String:
 	var number_as_text = str(number)
 	var mod = number_as_text.length() % 3
 	var result := ""
 	
 	for index in range(0, number_as_text.length()):
 		if index != 0 and index % 3 == mod:
-			result += ","
+			result += separator
 			
 		result += number_as_text[index]
 		

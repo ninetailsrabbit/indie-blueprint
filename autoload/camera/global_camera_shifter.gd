@@ -1,13 +1,12 @@
 @icon("res://autoload/camera/camera_shifter.svg")
 extends Node
 
-
 signal transition_2d_started(from: Camera2D, to: Camera2D, duration: float)
 signal transition_2d_finished(from: Camera2D, to: Camera2D, duration: float)
 signal transition_3d_started(from: Camera3D, to: Camera3D, duration: float)
 signal transition_3d_finished(from: Camera3D, to: Camera3D, duration: float)
 
-@export var transition_duration: float = 1.5
+@export var default_transition_duration: float = 1.5
 @export var remove_last_transition_step_2d_on_back: bool = false
 @export var remove_last_transition_step_3d_on_back: bool = false
 
@@ -29,7 +28,7 @@ func _ready():
 	global_camera_3d.clear_current()
 	
 	
-func transition_to_requested_camera_2d(from: Camera2D, to: Camera2D, duration: float = transition_duration, record_transition: bool = true):
+func transition_to_requested_camera_2d(from: Camera2D, to: Camera2D, duration: float = default_transition_duration, record_transition: bool = true):
 	if is_transitioning_2d():
 		return
 	
@@ -64,7 +63,7 @@ func transition_to_requested_camera_2d(from: Camera2D, to: Camera2D, duration: f
 
 
 
-func transition_to_requested_camera_3d(from: Camera3D, to: Camera3D, duration: float = transition_duration, record_transition: bool = true):
+func transition_to_requested_camera_3d(from: Camera3D, to: Camera3D, duration: float = default_transition_duration, record_transition: bool = true):
 	if is_transitioning_3d():
 		return
 	
@@ -115,7 +114,7 @@ func transition_to_requested_camera_3d(from: Camera3D, to: Camera3D, duration: f
 	global_camera_3d.clear_current()
 
 
-func transition_to_next_camera_2d(to: Camera2D, duration: float = transition_duration):
+func transition_to_next_camera_2d(to: Camera2D, duration: float = default_transition_duration):
 	if(transition_steps_2d.is_empty() or is_transitioning_2d()):
 		return
 		
@@ -145,7 +144,7 @@ func transition_to_first_camera_through_all_steps_2d(clean_steps_on_finished: bo
 		transition_steps_2d.clear()
 	
 	
-func transition_to_next_camera_3d(to: Camera3D, duration: float = transition_duration):
+func transition_to_next_camera_3d(to: Camera3D, duration: float = default_transition_duration):
 	if(transition_steps_3d.is_empty() or is_transitioning_3d()):
 		return
 		
@@ -183,11 +182,11 @@ func is_transitioning_3d() -> bool:
 	return transition_tween_3d and transition_tween_3d.is_running()
 	
 	
-func on_transition_camera_2d_requested(from: Camera2D, to: Camera2D, duration: float = transition_duration):
+func on_transition_camera_2d_requested(from: Camera2D, to: Camera2D, duration: float = default_transition_duration):
 	transition_to_requested_camera_2d(from, to, duration)
 
 
-func on_transition_camera_3d_requested(from: Camera3D, to: Camera3D, duration: float = transition_duration):
+func on_transition_camera_3d_requested(from: Camera3D, to: Camera3D, duration: float = default_transition_duration):
 	transition_to_requested_camera_3d(from, to, duration)
 
 

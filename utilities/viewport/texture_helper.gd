@@ -53,5 +53,3 @@ static func get_png_rect_from_texture(texture: Texture2D) -> Rect2i:
 	var size: Vector2i = Vector2i(right_position + roundi(position.x / 2.0),  top_position + roundi(position.y / 2.0))
 	
 	return Rect2i(position, size)
-	
-	

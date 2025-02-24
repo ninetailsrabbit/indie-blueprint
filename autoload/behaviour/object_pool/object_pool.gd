@@ -1,4 +1,4 @@
-@icon("res://components/behaviour/object_pool/object_pool.svg")
+@icon("res://autoload/behaviour/object_pool/object_pool.svg")
 class_name ObjectPool extends Node
 
 const GroupName: StringName = &"object_pools"
@@ -53,11 +53,11 @@ func create_pool(amount: int) -> void:
 	amount = mini(amount, max_objects_in_pool - pool.size())
 	
 	for i in amount:
-		add_to_pool(ObjectPoolWrapper.new(self, scene))
+		add_to_pool(ObjectPoolWrapper.new(self))
 
 
 func add_to_pool(new_object: ObjectPoolWrapper) -> void:
-	if pool.has(new_object):
+	if pool.has(new_object) or not is_instance_valid(new_object):
 		return
 		
 	new_object.instance.process_mode = Node.PROCESS_MODE_DISABLED
@@ -99,14 +99,19 @@ func spawn_multiple(amount: int) -> Array[ObjectPoolWrapper]:
 	return spawned_objects
 
 
-func spawn_all() -> Array[Variant]:
+func spawn_all() -> Array[ObjectPoolWrapper]:
 	return spawn_multiple(pool.size())
 
 
 func kill(spawned_object: ObjectPoolWrapper) -> void:
-	spawned.erase(spawned_object)
-	
-	add_to_pool(spawned_object)
+	if is_instance_valid(spawned_object):
+		spawned.erase(spawned_object)
+		add_to_pool(spawned_object)
+
+
+func kill_multiple(spawned_objects: Array[ObjectPoolWrapper]) -> void:
+	for spawned_object: ObjectPoolWrapper in spawned_objects:
+		kill(spawned_object)
 
 
 func kill_all() -> void:
@@ -117,9 +122,19 @@ func kill_all() -> void:
 		kill(object)
 
 
+func free_object(spawned_object: ObjectPoolWrapper) -> void:
+	if is_instance_valid(spawned_object):
+		spawned_object.queue_free()
+	
+
+func free_objects(spawned_objects: Array[ObjectPoolWrapper]) -> void:
+	for spawned_object: ObjectPoolWrapper in spawned_objects:
+		free_object(spawned_object)
+
+	
 func free_pool() -> void:
 	for object: ObjectPoolWrapper in pool:
-		object.queue_free()
+		free_object(object)
 
 
 func on_kill_requested(spawned_object: ObjectPoolWrapper) -> void:

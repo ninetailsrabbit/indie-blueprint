@@ -11,7 +11,7 @@ class_name WeaponTilt extends FireArmWeaponMotion
 
 var target_tilt_rotation = Vector3.ZERO
 var target_push_position = Vector3.ZERO
-var motion_input: TransformedInput = TransformedInput.new(self)
+var motion_input: MotionInput = MotionInput.new(self)
 
 
 func _physics_process(delta):

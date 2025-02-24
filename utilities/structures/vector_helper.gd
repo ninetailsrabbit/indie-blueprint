@@ -4,7 +4,14 @@ static var directions_v2: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LE
 static var horizontal_directions_v2: Array[Vector2] = [Vector2.LEFT, Vector2.RIGHT]
 static var vertical_directions_v2: Array[Vector2] = [Vector2.UP, Vector2.DOWN]
 
-static var directions_v3: Array[Vector3] = [Vector3.UP, Vector3.DOWN, Vector3.FORWARD, Vector3.BACK, Vector3.LEFT, Vector3.RIGHT]
+static var directions_v3: Array[Vector3] = [
+	Vector3.UP,
+	Vector3.DOWN,
+	Vector3.FORWARD,
+	Vector3.BACK,
+	Vector3.LEFT,
+	Vector3.RIGHT
+]
 
 static var opposite_directions_v2: Dictionary = {
 	Vector2.UP: Vector2.DOWN,
@@ -21,8 +28,6 @@ static var opposite_directions_v3: Dictionary = {
 	Vector3.FORWARD: Vector3.BACK, 
 	Vector3.BACK: Vector3.FORWARD
 }
-
-
 
 static func up_direction_opposite_vector2(up_direction: Vector2) -> Vector2:
 	if opposite_directions_v2.has(up_direction):
@@ -158,10 +163,6 @@ static func normalize_diagonal_vector2(direction: Vector2) -> Vector2:
 	return direction
 
 
-static func is_diagonal_direction_v2(direction: Vector2) -> bool:
-	return direction.x != 0 and direction.y != 0
-	
-
 static func normalize_vector3(value: Vector3) -> Vector3:
 		var direction := normalize_diagonal_vector3(value)
 		
@@ -178,6 +179,10 @@ static func normalize_diagonal_vector3(direction: Vector3) -> Vector3:
 	return direction
 
 
+static func is_diagonal_direction_v2(direction: Vector2) -> bool:
+	return direction.x != 0 and direction.y != 0
+	
+	
 static func is_diagonal_direction_v3(direction: Vector3) -> bool:
 	return direction.x != 0 and direction.y != 0 and direction.z != 0
 	

@@ -34,7 +34,7 @@ signal stopped_engine
 @onready var floatable_body_3d: FloatableBody3D = $FloatableBody3D
 
 
-var motion_input: TransformedInput = TransformedInput.new(self)
+var motion_input: MotionInput = MotionInput.new(self)
 var current_engine_force: float = 0.0
 var buoyancy_spots: Array[Node3D] = []
 var is_being_driven: bool = false

@@ -1,4 +1,4 @@
-class_name TransformedInput
+class_name MotionInput
 
 var move_right_action: StringName = InputControls.MoveRight
 var move_left_action: StringName = InputControls.MoveLeft
@@ -40,7 +40,7 @@ var previous_world_coordinate_space_direction: Vector3
 var current_device_id: int = 0
 
 func _init(_actor: Node, _deadzone: float = deadzone):
-	assert(_actor is Node2D or _actor is Node3D, "TransformedInputDirection: The actor needs to inherit from Node2D or Node3D to retrieve the input correctly")
+	assert(_actor is Node2D or _actor is Node3D, "MotionInputDirection: The actor needs to inherit from Node2D or Node3D to retrieve the input correctly")
 	
 	actor = _actor
 	deadzone = _deadzone
@@ -158,38 +158,38 @@ func _update_previous_directions():
 	
 
 #region Action setters
-func change_move_right_action(new_action: StringName) -> TransformedInput:
+func change_move_right_action(new_action: StringName) -> MotionInput:
 	if InputMap.has_action(new_action):
 		move_right_action = new_action
 	else:
-		push_error("TransformedInput: The new move right action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+		push_error("MotionInput: The new move right action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 
 
-func change_move_left_action(new_action: StringName) -> TransformedInput:
+func change_move_left_action(new_action: StringName) -> MotionInput:
 	if InputMap.has_action(new_action):
 		move_left_action = new_action
 	else:
-		push_error("TransformedInput: The new move left action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+		push_error("MotionInput: The new move left action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 
 
-func change_move_forward_action(new_action: StringName) -> TransformedInput:
+func change_move_forward_action(new_action: StringName) -> MotionInput:
 	if InputMap.has_action(new_action):
 		move_forward_action = new_action
 	else:
-		push_error("TransformedInput: The new move forward action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+		push_error("MotionInput: The new move forward action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 
 
-func change_move_back_action(new_action: StringName) -> TransformedInput:
+func change_move_back_action(new_action: StringName) -> MotionInput:
 	if InputMap.has_action(new_action):
 		move_back_action = new_action
 	else:
-		push_error("TransformedInput: The new move back action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+		push_error("MotionInput: The new move back action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 #endregion
