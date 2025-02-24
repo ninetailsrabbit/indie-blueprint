@@ -7,7 +7,7 @@ extends Node
 
 func _ready() -> void:
 	content_warnings.all_content_warnings_displayed.connect(on_all_content_warnings_displayed)
-	
+
 
 func on_all_content_warnings_displayed() -> void:
 	if not next_scene.is_empty():

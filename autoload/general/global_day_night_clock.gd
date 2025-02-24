@@ -24,6 +24,7 @@ const InGameToRealMinuteDuration := TAU / MinutesPerDay
 		time = InGameToRealMinuteDuration * MinutesPerHour * initial_hour
 
 var is_running: bool = false
+var is_stopped: bool = false
 var time: float = 0.0
 var past_minute: int = -1
 ## Get the current value time to use on gradient color curves and change the environment tempererature according to the day time
@@ -68,19 +69,22 @@ func start(day: int = initial_day, hour: int = initial_hour, minute: int = initi
 	initial_hour = hour
 	initial_minute = minute
 	
-	current_day = initial_day
-	current_hour = initial_hour
-	current_minute = initial_minute
-	past_minute = current_minute
-	
+	if not is_stopped:
+		current_day = initial_day
+		current_hour = initial_hour
+		current_minute = initial_minute
+		past_minute = current_minute
+		
 	time = InGameToRealMinuteDuration * MinutesPerHour * current_hour
 	
 	is_running = true
+	is_stopped = false
 	set_process(true)
 
 
 func stop() -> void:
 	is_running = false
+	is_stopped = true
 	set_process(false)
 
 
@@ -98,7 +102,6 @@ func seconds(hour: int = current_hour, minute: int = current_minute) -> int:
 func get_curve_value(hour: int = current_hour, minute: int = current_minute) -> float:
 	var current_time_fraction = (seconds(hour, minute) * 1000) / (DayHourLength * MinutesPerHour * MinutesPerHour * 1000.0)
 	
-
 	return clampf(current_time_fraction, 0.0, 1.0)
 
 
@@ -111,8 +114,8 @@ func time_display() -> String:
 		
 	if minute < 10:
 		return "0" + str(minute)
-
-	return "%s:%s" % [hour, minute]
+		
+	return "%s:%s" % [hour, minute] 
 
 
 func change_day_to(new_day: int) -> void:
@@ -136,12 +139,13 @@ func is_pm() -> bool:
 	
 @warning_ignore("integer_division")
 func _recalculate_time() -> void:
-	var total_minutes = int(time / InGameToRealMinuteDuration) + initial_minute
+	var total_minutes = int(time / InGameToRealMinuteDuration)
 	var current_day_minutes = fmod(total_minutes, MinutesPerDay) + initial_minute
-	
+
 	current_day = initial_day + int(total_minutes / MinutesPerDay)
 	current_hour = int(current_day_minutes / MinutesPerHour)
 	current_minute = int(fmod(current_day_minutes, MinutesPerHour))
+	
 	
 	if past_minute != current_minute:
 		past_minute = current_minute

@@ -143,15 +143,15 @@ func flashes(
 ) -> Array[ColorRect]:
 	var flash_screens: Array[ColorRect] = [] 
 	
+	if colors.is_empty():
+		return flash_screens
+			
 	for color: Color in colors:
 		var flash_screen: ColorRect = _create_color_rect()
 		flash_screens.append(flash_screen)
 		flash_screen.color = color
 		flash_screen.modulate.a8 = initial_transparency
 		flash_screen.z_index = default_z_index - flash_screens.size()
-	
-	if colors.is_empty():
-		return
 		
 	var tween: Tween = create_tween().set_parallel(true)
 	

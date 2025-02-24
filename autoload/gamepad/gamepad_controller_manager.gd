@@ -5,7 +5,6 @@ extends Node
 signal controller_connected(device_id, controller_name:String)
 signal controller_disconnected(device_id, previous_controller_name:String, controller_name: String)
 
-
 const default_vibration_strength = 0.5
 const default_vibration_duration = 0.65
 
