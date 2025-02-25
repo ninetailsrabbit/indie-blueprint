@@ -98,7 +98,7 @@ func _ready() -> void:
 	
 	name = "Draggable2D"
 	position = Vector2.ZERO
-	self_modulate.a8 = 100 ## TODO - CHANGE TO 0 WHEN FINISH DEBUG
+	self_modulate.a8 = 0
 	
 	original_position = draggable.global_position
 	original_rotation = draggable.rotation
