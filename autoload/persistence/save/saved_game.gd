@@ -19,7 +19,6 @@ func update_last_datetime():
 	timestamp = Time.get_unix_time_from_system()
 
 
-
 func write_savegame(new_filename: String = filename) -> Error:	
 	if filename.is_empty():
 		if new_filename.is_empty() or new_filename == null:

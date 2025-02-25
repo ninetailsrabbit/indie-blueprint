@@ -3,7 +3,7 @@ extends Node
 signal transition_requested(next_scene: String)
 signal transition_finished(next_scene: String)
 
-const voronoi_material = preload("res://autoload/scenes/transitions/voronoi_material.tres")
+const VoronoiMaterial: ShaderMaterial = preload("res://autoload/scenes/transitions/voronoi_material.tres")
 
 @export var loading_screen_scene: PackedScene = preload("res://autoload/scenes/loading/loading_screen.tscn")
 
@@ -110,7 +110,7 @@ func trigger_transition(transition: Transitions) -> void:
 
 
 func voronoi_in_transition(flip: bool = false, duration: float = 1.0):
-	color_rect.material = voronoi_material as ShaderMaterial
+	color_rect.material = VoronoiMaterial
 	color_rect.material.set_shader_parameter("flip", flip)
 	
 	var tween = create_tween()
@@ -118,7 +118,7 @@ func voronoi_in_transition(flip: bool = false, duration: float = 1.0):
 	
 
 func voronoi_out_transition(flip: bool = false, duration: float = 1.0):
-	color_rect.material = voronoi_material as ShaderMaterial
+	color_rect.material = VoronoiMaterial
 	color_rect.material.set_shader_parameter("flip", flip)
 	
 	var tween = create_tween()
@@ -150,8 +150,7 @@ func _enum_transition_to_animation_name(transition: Transitions) -> String:
 func _is_valid_scene_path(scene: String) -> bool:
 	return not scene.is_empty() and scene.is_absolute_path() and ResourceLoader.exists(scene)
 
-### SIGNAL CALLBACKS ###
-
+#region Signal callbacks
 func on_animation_finished(_animation_name: String):
 	if remaining_animations.is_empty():
 		return
@@ -160,3 +159,5 @@ func on_animation_finished(_animation_name: String):
 	
 	if animation and transition_animation_player.get_animation_list().has(animation):
 		transition_animation_player.play(animation)
+		
+#endregion
