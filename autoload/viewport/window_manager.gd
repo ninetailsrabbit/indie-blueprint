@@ -178,7 +178,7 @@ func get_camera2d_frame(viewport: Viewport = get_viewport()) -> Rect2:
 	
 #region Screenshot
 ## Recommended to call this method after await RenderingServer.frame_post_draw
-func screenshot(viewport: Viewport) -> Image:
+func screenshot(viewport: Viewport = get_viewport()) -> Image:
 	var screenshot_image = viewport.get_texture().get_image()
 	
 	assert(screenshot_image is Image, "WindowManager::screenshot: The image output is null")

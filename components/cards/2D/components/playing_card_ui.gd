@@ -162,7 +162,7 @@ func is_face_up() -> bool:
 func is_face_down() -> bool:
 	return card_orientation == PlayingCard.Orientation.FaceDown
 	
-	
+
 func face_up() -> void:
 	card_orientation = PlayingCard.Orientation.FaceUp 
 	front_sprite.texture = card.front_texture

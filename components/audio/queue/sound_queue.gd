@@ -151,4 +151,3 @@ func play_sound_with_ease_and_pitch_range(duration: float = 1.0, min_pitch_scale
 func stop_sounds() -> void:
 	for audio_player in audio_stream_players:
 		audio_player.stop()
-	

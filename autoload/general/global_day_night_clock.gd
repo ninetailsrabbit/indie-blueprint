@@ -1,4 +1,4 @@
-## Original version https://github.com/bitbrain/godot-tutorials/blob/godot-4.x/day-night-cycle/demo/daynightcycle.gd
+## Inspired by the original version https://github.com/bitbrain/godot-tutorials/blob/godot-4.x/day-night-cycle/demo/daynightcycle.gd
 extends Node
 
 signal time_tick(day: int, hour: int, minute: int)
