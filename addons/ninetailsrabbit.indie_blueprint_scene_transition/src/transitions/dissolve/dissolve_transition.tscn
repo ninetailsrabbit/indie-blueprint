@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cahn573jvq0f7"]
+
+[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/dissolve_transition.gd" id="1_e56cw"]
+[ext_resource type="Shader" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/dissolve_2d.gdshader" id="1_f0c86"]
+[ext_resource type="Texture2D" uid="uid://d3of356kl174u" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/textures/horiz_paint_brush.png" id="3_n82ba"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gc32w"]
+shader = ExtResource("1_f0c86")
+shader_parameter/dissolve_amount = 0.0
+shader_parameter/dissolve_texture = ExtResource("3_n82ba")
+
+[node name="DissolveTransition" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e56cw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_gc32w")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 1)

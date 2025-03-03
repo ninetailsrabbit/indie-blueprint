@@ -56,7 +56,7 @@ func _ready():
 
 func _input(event):
 	if active:
-		if InputHelper.is_any_action_just_pressed(mouse_mode_switch_input_actions):
+		if IndieBlueprintInputHelper.is_any_action_just_pressed(mouse_mode_switch_input_actions):
 			switch_mouse_capture_mode()
 			
 		if event is InputEventMouseMotion:
@@ -112,10 +112,10 @@ func is_active() -> bool:
 	
 	
 func switch_mouse_capture_mode() -> void:
-	if InputHelper.is_mouse_visible():
-		InputHelper.capture_mouse()
+	if IndieBlueprintInputHelper.is_mouse_visible():
+		IndieBlueprintInputHelper.capture_mouse()
 	else:
-		InputHelper.show_mouse_cursor()
+		IndieBlueprintInputHelper.show_mouse_cursor()
 
 
 func on_free_camera_enabled():
@@ -126,7 +126,7 @@ func on_free_camera_enabled():
 	set_process_input(true)
 	
 	Input.mouse_mode = previous_mouse_mode
-	InputHelper.capture_mouse()
+	IndieBlueprintInputHelper.capture_mouse()
 	
 	
 func on_free_camera_disabled():

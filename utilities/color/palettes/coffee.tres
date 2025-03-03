@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://cpwttsrbyyvub"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_bq3f1"]
-
-[resource]
-script = ExtResource("1_bq3f1")
-id = &"coffee"
-name = &"Coffee"
-colors = [Color(0, 0, 0, 1), null, Color(0.0392157, 0.0392157, 0.0392157, 1), Color(0.0980392, 0.0980392, 0.0980392, 1), Color(0.32549, 0.243137, 0.176471, 1), Color(0.635294, 0.439216, 0.207843, 1), Color(0.721569, 0.545098, 0.290196, 1), Color(0.866667, 0.792157, 0.490196, 1), Color(0.984314, 0.976471, 0.937255, 1)]

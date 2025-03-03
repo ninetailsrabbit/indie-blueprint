@@ -53,10 +53,10 @@ var active_grabbables: Array[ActiveGrabbable] = []
 
 
 func _input(_event: InputEvent) -> void:
-	if push_wave_ability and active_grabbables.is_empty() and InputHelper.action_just_pressed_and_exists(push_wave_input_action):
+	if push_wave_ability and active_grabbables.is_empty() and IndieBlueprintInputHelper.action_just_pressed_and_exists(push_wave_input_action):
 		push_wave()
 		
-	if pull_individual_ability and InputHelper.action_just_pressed_and_exists(pull_input_action):
+	if pull_individual_ability and IndieBlueprintInputHelper.action_just_pressed_and_exists(pull_input_action):
 		if slots_available():
 			if grabbable_interactor and grabbable_interactor.is_colliding():
 				var body = grabbable_interactor.get_collider() as Grabbable3D
@@ -64,7 +64,7 @@ func _input(_event: InputEvent) -> void:
 				if body and not body.state_is_pull():
 					pull_body(body)
 	
-	if pull_area_ability and InputHelper.action_just_pressed_and_exists(pull_area_input_action) and slots_available():
+	if pull_area_ability and IndieBlueprintInputHelper.action_just_pressed_and_exists(pull_area_input_action) and slots_available():
 		var grabbables := get_near_grabbables()
 
 		for body: Grabbable3D in grabbables:
@@ -74,11 +74,11 @@ func _input(_event: InputEvent) -> void:
 		
 				
 	## TODO - SEE A WAY TO DROP A SELECTED GRABBABLE
-	if InputHelper.action_just_pressed_and_exists(drop_input_action):
+	if IndieBlueprintInputHelper.action_just_pressed_and_exists(drop_input_action):
 		for active_grabbable: ActiveGrabbable in active_grabbables:
 			drop_body(active_grabbable.body)
 			
-	elif InputHelper.action_just_pressed_and_exists(throw_input_action):
+	elif IndieBlueprintInputHelper.action_just_pressed_and_exists(throw_input_action):
 		for active_grabbable: ActiveGrabbable in active_grabbables:
 			throw_body(active_grabbable.body)
 	
@@ -137,7 +137,9 @@ func push_wave():
 func get_near_grabbables() -> Array:
 	if grabbable_area_detector and grabbable_area_detector.monitoring:
 		var bodies := grabbable_area_detector.get_overlapping_bodies().filter(func(body): return body is Grabbable3D)
-		bodies.sort_custom(func(a: Grabbable3D, b: Grabbable3D): return NodePositioner.global_distance_to_v3(a, self) <= NodePositioner.global_distance_to_v3(b, self))
+		bodies.sort_custom(func(a: Grabbable3D, b: Grabbable3D): 
+			return IndieBlueprintNodePositioner.global_distance_to_v3(a, self) <= IndieBlueprintNodePositioner.global_distance_to_v3(b, self))
+		
 		return bodies.slice(0, max_number_of_grabbables)
 		
 	return []

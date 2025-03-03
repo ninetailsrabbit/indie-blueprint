@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://0lwrg4orhopg"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_8l30y"]
-
-[resource]
-script = ExtResource("1_8l30y")
-id = &"submerged_chimera"
-name = &"Submerged Chimera"
-colors = [Color(0.0196078, 0.00784314, 0.0980392, 1), Color(0.0705882, 0.0588235, 0.156863, 1), Color(0.180392, 0.117647, 0.360784, 1), Color(0.427451, 0.258824, 0.6, 1), Color(0.52549, 0.137255, 0.682353, 1), Color(0.870588, 0.223529, 0.913725, 1), Color(0.968627, 0.572549, 0.894118, 1), Color(1, 0.823529, 0.870588, 1), Color(0.968627, 0.980392, 0.917647, 1)]

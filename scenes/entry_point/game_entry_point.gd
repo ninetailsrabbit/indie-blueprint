@@ -11,4 +11,4 @@ func _ready() -> void:
 
 func on_all_content_warnings_displayed() -> void:
 	if not next_scene.is_empty():
-		SceneTransitionManager.transition_to_scene(next_scene)
+		IndieBlueprintSceneTransitioner.transition_to(next_scene)

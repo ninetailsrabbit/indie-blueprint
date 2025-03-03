@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://bn8gvswphpdvs"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_ks1ir"]
-
-[resource]
-script = ExtResource("1_ks1ir")
-id = &"ammo8"
-name = &"Ammo-8"
-colors = [Color(0, 0.0392157, 0.0117647, 1), Color(0.0156863, 0.0470588, 0.0235294, 1), Color(0.0666667, 0.137255, 0.0941176, 1), Color(0.117647, 0.227451, 0.160784, 1), Color(0.188235, 0.364706, 0.258824, 1), Color(0.301961, 0.501961, 0.380392, 1), Color(0.537255, 0.635294, 0.341176, 1), Color(0.745098, 0.862745, 0.498039, 1), Color(0.933333, 1, 0.8, 1)]

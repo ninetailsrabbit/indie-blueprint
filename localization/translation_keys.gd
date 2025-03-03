@@ -37,26 +37,17 @@ static var Scaling3dModeFSR: String = "FSR"
 static var Scaling3dModeFSR2: String = "FSR2"
 
 
-static var DaltonismKeys: Dictionary = {
-	WindowManager.DaltonismTypes.No: NoTranslationKey,
-	WindowManager.DaltonismTypes.Protanopia: ProtanopiaTranslationKey,
-	WindowManager.DaltonismTypes.Deuteranopia: DeuteranopiaTranslationKey,
-	WindowManager.DaltonismTypes.Tritanopia: TritanopiaTranslationKey,
-	WindowManager.DaltonismTypes.Achromatopsia: AchromatopsiaTranslationKey,
-}
-
-
 static var GraphicsQualityTranslationKey := "GRAPHICS_QUALITY"
 static var QualityLowTranslationKey := "QUALITY_LOW"
 static var QualityMediumTranslationKey := "QUALITY_MEDIUM"
 static var QualityHighTranslationKey := "QUALITY_HIGH"
 static var QualityUltraTranslationKey := "QUALITY_ULTRA"
-static var QualityPresetKeys: Dictionary = {
-	HardwareDetector.QualityPreset.Low: QualityLowTranslationKey,
-	HardwareDetector.QualityPreset.Medium: QualityMediumTranslationKey,
-	HardwareDetector.QualityPreset.High: QualityHighTranslationKey,
-	HardwareDetector.QualityPreset.Ultra: QualityUltraTranslationKey,
-}
 
+static var QualityPresetKeys: Dictionary = {
+	IndieBlueprintHardwareDetector.QualityPreset.Low: QualityLowTranslationKey,
+	IndieBlueprintHardwareDetector.QualityPreset.Medium: QualityMediumTranslationKey,
+	IndieBlueprintHardwareDetector.QualityPreset.High: QualityHighTranslationKey,
+	IndieBlueprintHardwareDetector.QualityPreset.Ultra: QualityUltraTranslationKey,
+}
 
 static var EmptySaveSlot: String = "EMPTY_SAVE_SLOT"

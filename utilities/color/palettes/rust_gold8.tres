@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://ol5me4tvp4rl"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_bnjg5"]
-
-[resource]
-script = ExtResource("1_bnjg5")
-id = &"rust_gold8"
-name = &"Rust Gold-8"
-colors = [Color(0.0313726, 0.0784314, 0.117647, 1), Color(0.12549, 0.12549, 0.12549, 1), Color(0.223529, 0.223529, 0.223529, 1), Color(0.447059, 0.34902, 0.337255, 1), Color(0.733333, 0.498039, 0.341176, 1), Color(0.2, 0.109804, 0.0901961, 1), Color(0.337255, 0.196078, 0.14902, 1), Color(0.67451, 0.419608, 0.14902, 1), Color(0.964706, 0.803922, 0.14902, 1)]

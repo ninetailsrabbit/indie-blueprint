@@ -2,7 +2,7 @@ class_name WorldSaveSlotPanel extends HBoxContainer
 
 signal selected
 
-@export var saved_game: SavedGame
+@export var saved_game: IndieBlueprintSavedGame
 
 @onready var world_save_slot_panel: Panel = $WorldSaveSlotPanel
 @onready var save_slot_number: Label = $SaveSlotNumber
@@ -24,7 +24,7 @@ func _ready() -> void:
 	world_save_slot_panel.gui_input.connect(on_gui_input_save_slot_panel)
 
 
-func display_saved_game(new_saved_game: SavedGame) -> void:
+func display_saved_game(new_saved_game: IndieBlueprintSavedGame) -> void:
 	saved_game = new_saved_game
 	save_slot_name.text = saved_game.display_name
 
@@ -39,7 +39,7 @@ func set_list_number(number: int) -> void:
 
 
 func on_gui_input_save_slot_panel(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_accept") or InputHelper.is_mouse_left_click(event):
+	if Input.is_action_just_pressed("ui_accept") or IndieBlueprintInputHelper.is_mouse_left_click(event):
 		selected.emit()
 		
 

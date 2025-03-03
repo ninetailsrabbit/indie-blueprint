@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://ci31vt88yrxaj"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_mg54p"]
-
-[resource]
-script = ExtResource("1_mg54p")
-id = &"oil6"
-name = &"Oil6"
-colors = [Color(0.0235294, 0.0235294, 0.0392157, 1), Color(0.0666667, 0.0666667, 0.121569, 1), Color(0.113725, 0.113725, 0.2, 1), Color(0.152941, 0.152941, 0.266667, 1), Color(0.286275, 0.301961, 0.494118, 1), Color(0.545098, 0.427451, 0.611765, 1), Color(0.776471, 0.623529, 0.647059, 1), Color(0.94902, 0.827451, 0.670588, 1), Color(0.984314, 0.960784, 0.937255, 1)]

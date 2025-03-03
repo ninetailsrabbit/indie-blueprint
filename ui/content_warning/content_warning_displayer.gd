@@ -18,7 +18,7 @@ var display_tween: Tween
 
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if InputHelper.is_any_action_just_pressed(input_actions_that_skip_warning):
+	if IndieBlueprintInputHelper.is_any_action_just_pressed(input_actions_that_skip_warning):
 		if current_content_warning and current_content_warning.can_be_skipped:
 			display_tween.kill()
 			content_warning_displayed.emit(current_content_warning)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8ugt3jv3degk"]
+
+[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_global_clock/src/global_clock.gd" id="1_krokw"]
+
+[node name="IndieBlueprintGlobalClock" type="Node"]
+script = ExtResource("1_krokw")

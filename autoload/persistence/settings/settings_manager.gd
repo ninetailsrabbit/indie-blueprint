@@ -36,7 +36,7 @@ func save_settings(path: String = settings_file_path) -> void:
 	var error: Error = config_file_api.save_encrypted_pass(path, encription_key()) if use_encription else config_file_api.save(path)
 	
 	if error != OK:
-		push_error("SettingsManager: An error %d ocurred trying to save the settings on file %s " % [error_string(error), path])
+		push_error("IndieBlueprintSettingsManager: An error %d ocurred trying to save the settings on file %s " % [error_string(error), path])
 		
 
 func reset_to_factory_settings(path: String = settings_file_path) -> void:
@@ -60,7 +60,7 @@ func load_settings(path: String = settings_file_path) -> void:
 	var error: Error = config_file_api.load_encrypted_pass(path, encription_key()) if use_encription else config_file_api.load(path) 
 	
 	if error != OK:
-		push_error("SettingsManager: An error %d ocurred trying to load the settings from path %s " % [error_string(error), path])
+		push_error("IndieBlueprintSettingsManager: An error %d ocurred trying to load the settings from path %s " % [error_string(error), path])
 		return
 		
 	load_audio()
@@ -95,16 +95,16 @@ func create_settings(path: String = settings_file_path) -> void:
 
 
 func create_audio_section() -> void:
-	for bus: String in AudioManager.available_buses:
-		update_audio_section(bus, AudioManager.get_default_volume_for_bus(bus))
+	for bus: String in IndieBlueprintAudioManager.available_buses:
+		update_audio_section(bus, IndieBlueprintAudioManager.get_default_volume_for_bus(bus))
 	
 	var buses_are_muted: bool = GameSettings.DefaultSettings[GameSettings.MutedAudioSetting]
 	update_audio_section(GameSettings.MutedAudioSetting, buses_are_muted)
 	
 	if(buses_are_muted):
-		AudioManager.mute_all_buses()
+		IndieBlueprintAudioManager.mute_all_buses()
 	else:
-		AudioManager.unmute_all_buses()
+		IndieBlueprintAudioManager.unmute_all_buses()
 		
 
 func create_graphics_section() -> void:
@@ -149,13 +149,13 @@ func create_keybindings_section() -> void:
 
 func create_keybinding_events_for_action(action: StringName) -> Array[String]:
 	var keybinding_events: Array[String] = []
-	var all_inputs_for_action: Array[InputEvent] = InputHelper.get_all_inputs_for_action(action)
+	var all_inputs_for_action: Array[InputEvent] = IndieBlueprintInputHelper.get_all_inputs_for_action(action)
 	## We save the default input map actions to allow players reset to factory default
 	GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting][action] = all_inputs_for_action
 	
 	for input_event: InputEvent in all_inputs_for_action:
 		if input_event is InputEventKey:
-			keybinding_events.append("InputEventKey:%s" %  StringHelper.remove_whitespaces(InputHelper.readable_key(input_event)))
+			keybinding_events.append("InputEventKey:%s" %  IndieBlueprintStringHelper.remove_whitespaces(IndieBlueprintInputHelper.readable_key(input_event)))
 			
 		if input_event is InputEventMouseButton:
 			var mouse_button_text: String = ""
@@ -222,9 +222,9 @@ func load_audio() -> void:
 	var muted_buses: bool = get_audio_section(GameSettings.MutedAudioSetting)
 	
 	for bus in config_file_api.get_section_keys(GameSettings.AudioSection):
-		if(bus in AudioManager.available_buses):
-			AudioManager.change_volume(bus, get_audio_section(bus))
-			AudioManager.mute_bus(bus, muted_buses)
+		if(bus in IndieBlueprintAudioManager.available_buses):
+			IndieBlueprintAudioManager.change_volume(bus, get_audio_section(bus))
+			IndieBlueprintAudioManager.mute_bus(bus, muted_buses)
 		
 @warning_ignore("int_as_enum_without_cast")
 func load_graphics() -> void:
@@ -364,10 +364,10 @@ func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
 	match keybinding_type[0]:
 		"InputEventKey":
 			var input_event_key = InputEventKey.new()
-			input_event_key.keycode = OS.find_keycode_from_string(StringHelper.str_replace(keybinding_type[1].strip_edges(), keybinding_modifiers_regex, func(_text: String): return ""))
-			input_event_key.alt_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "alt") and keybinding_type[1].containsn("alt")
-			input_event_key.ctrl_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "ctrl") and keybinding_type[1].containsn("ctrl")
-			input_event_key.shift_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "shift") and keybinding_type[1].containsn("shift")
+			input_event_key.keycode = OS.find_keycode_from_string(IndieBlueprintStringHelper.str_replace(keybinding_type[1].strip_edges(), keybinding_modifiers_regex, func(_text: String): return ""))
+			input_event_key.alt_pressed = not IndieBlueprintStringHelper.case_insensitive_comparison(keybinding_type[1], "alt") and keybinding_type[1].containsn("alt")
+			input_event_key.ctrl_pressed = not IndieBlueprintStringHelper.case_insensitive_comparison(keybinding_type[1], "ctrl") and keybinding_type[1].containsn("ctrl")
+			input_event_key.shift_pressed = not IndieBlueprintStringHelper.case_insensitive_comparison(keybinding_type[1], "shift") and keybinding_type[1].containsn("shift")
 			input_event_key.meta_pressed =  keybinding_type[1].containsn("meta")
 			
 			InputMap.action_add_event(action, input_event_key)
@@ -389,29 +389,29 @@ func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
 			InputMap.action_add_event(action, input_event_joypad_button)
 	
 #region Environment
-func apply_graphics_on_directional_light(directional_light: DirectionalLight3D, quality_preset: HardwareDetector.QualityPreset = HardwareDetector.QualityPreset.Medium) -> void:
-	var preset: HardwareDetector.GraphicQualityPreset = HardwareDetector.graphics_quality_presets[quality_preset]
+func apply_graphics_on_directional_light(directional_light: DirectionalLight3D, quality_preset: IndieBlueprintHardwareDetector.QualityPreset = IndieBlueprintHardwareDetector.QualityPreset.Medium) -> void:
+	var preset: IndieBlueprintHardwareDetector.GraphicQualityPreset = IndieBlueprintHardwareDetector.graphics_quality_presets[quality_preset]
 	
-	for quality: HardwareDetector.GraphicQualityDisplay in preset.quality:
+	for quality: IndieBlueprintHardwareDetector.GraphicQualityDisplay in preset.quality:
 		match quality.project_setting:
 			"shadow_atlas":
 				match quality_preset:
-					HardwareDetector.QualityPreset.Low:
+					IndieBlueprintHardwareDetector.QualityPreset.Low:
 						directional_light.shadow_bias = 0.03
-					HardwareDetector.QualityPreset.Medium:
+					IndieBlueprintHardwareDetector.QualityPreset.Medium:
 						directional_light.shadow_bias = 0.02
-					HardwareDetector.QualityPreset.High:
+					IndieBlueprintHardwareDetector.QualityPreset.High:
 						directional_light.shadow_bias = 0.01
-					HardwareDetector.QualityPreset.Ultra:
+					IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 						directional_light.shadow_bias = 0.005
 
 
 @warning_ignore("int_as_enum_without_cast")
-func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_preset: HardwareDetector.QualityPreset = HardwareDetector.QualityPreset.Medium) -> void:
+func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_preset: IndieBlueprintHardwareDetector.QualityPreset = IndieBlueprintHardwareDetector.QualityPreset.Medium) -> void:
 	var viewport: Viewport = world_environment.get_viewport()
-	var preset: HardwareDetector.GraphicQualityPreset = HardwareDetector.graphics_quality_presets[quality_preset]
+	var preset: IndieBlueprintHardwareDetector.GraphicQualityPreset = IndieBlueprintHardwareDetector.graphics_quality_presets[quality_preset]
 	
-	for quality: HardwareDetector.GraphicQualityDisplay in preset.quality:
+	for quality: IndieBlueprintHardwareDetector.GraphicQualityDisplay in preset.quality:
 		match quality.project_setting:
 			"environment/glow_enabled":
 				world_environment.environment.glow_enabled = bool(quality.enabled)
@@ -420,39 +420,39 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 				
 				if world_environment.environment.ssao_enabled:
 					match quality_preset:
-						HardwareDetector.QualityPreset.Low:
+						IndieBlueprintHardwareDetector.QualityPreset.Low:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_VERY_LOW, true, 0.5, 2, 50, 300)
-						HardwareDetector.QualityPreset.Medium:
+						IndieBlueprintHardwareDetector.QualityPreset.Medium:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_LOW, true, 0.5, 2, 50, 300)
-						HardwareDetector.QualityPreset.High:
+						IndieBlueprintHardwareDetector.QualityPreset.High:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_MEDIUM, true, 0.5, 2, 50, 300)
-						HardwareDetector.QualityPreset.Ultra:
+						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_HIGH, true, 0.5, 2, 50, 300)
 			"environment/ss_reflections_enabled":
 				world_environment.environment.ssr_enabled = bool(quality.enabled)
 				
 				if world_environment.environment.ssr_enabled:
 					match quality_preset:
-						HardwareDetector.QualityPreset.Low:
+						IndieBlueprintHardwareDetector.QualityPreset.Low:
 							world_environment.environment.ssr_max_steps = 8
-						HardwareDetector.QualityPreset.Medium:
+						IndieBlueprintHardwareDetector.QualityPreset.Medium:
 							world_environment.environment.ssr_max_steps = 32
-						HardwareDetector.QualityPreset.High:
+						IndieBlueprintHardwareDetector.QualityPreset.High:
 							world_environment.environment.ssr_max_steps = 56
-						HardwareDetector.QualityPreset.Ultra:
+						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 							world_environment.environment.ssr_max_steps = 56
 			"environment/sdfgi_enabled":
 				world_environment.environment.sdfgi_enabled = bool(quality.enabled)
 				
 				if world_environment.environment.sdfgi_enabled:
 					match quality_preset:
-						HardwareDetector.QualityPreset.Low:
+						IndieBlueprintHardwareDetector.QualityPreset.Low:
 							RenderingServer.gi_set_use_half_resolution(true)
-						HardwareDetector.QualityPreset.Medium:
+						IndieBlueprintHardwareDetector.QualityPreset.Medium:
 							RenderingServer.gi_set_use_half_resolution(true)
-						HardwareDetector.QualityPreset.High:
+						IndieBlueprintHardwareDetector.QualityPreset.High:
 							RenderingServer.gi_set_use_half_resolution(false)
-						HardwareDetector.QualityPreset.Ultra:
+						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 							RenderingServer.gi_set_use_half_resolution(false)
 			"environment/ssil_enabled":
 				world_environment.environment.ssil_enabled = bool(quality.enabled)

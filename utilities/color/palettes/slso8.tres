@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://b3haf5geiy1f5"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_ef4rh"]
-
-[resource]
-script = ExtResource("1_ef4rh")
-id = &"slso8"
-name = &"Slso8"
-colors = [Color(0, 0.0901961, 0.168627, 1), Color(0.0509804, 0.168627, 0.270588, 1), Color(0.12549, 0.235294, 0.337255, 1), Color(0.329412, 0.305882, 0.407843, 1), Color(0.552941, 0.411765, 0.478431, 1), Color(0.815686, 0.505882, 0.34902, 1), Color(1, 0.666667, 0.368627, 1), Color(1, 0.831373, 0.639216, 1), Color(1, 0.92549, 0.839216, 1)]
