@@ -39,10 +39,10 @@ func _ready() -> void:
 		gpu_label.hide()
 	else:
 		vsync_label.text = "Vsync: %s" % ("Yes" if DisplayServer.window_get_vsync_mode() > 0 else "No")
-		os_label.text = "OS: %s" % HardwareDetector.platform
-		distro_label.text = "Distro: %s" % HardwareDetector.distribution_name
-		cpu_label.text = "CPU: %s" % HardwareDetector.processor_name
-		gpu_label.text = "GPU: %s" % HardwareDetector.video_adapter_name
+		os_label.text = "OS: %s" % IndieBlueprintHardwareDetector.platform
+		distro_label.text = "Distro: %s" % IndieBlueprintHardwareDetector.distribution_name
+		cpu_label.text = "CPU: %s" % IndieBlueprintHardwareDetector.processor_name
+		gpu_label.text = "GPU: %s" % IndieBlueprintHardwareDetector.video_adapter_name
 		
 
 func _process(_delta: float) -> void:
@@ -54,5 +54,3 @@ func _process(_delta: float) -> void:
 
 func on_visibility_changed() -> void:
 	set_process(visible)
-
-	

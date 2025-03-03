@@ -45,11 +45,11 @@ func _ready():
 	current = active
 	set_as_top_level(true)
 	
-	mouse_sensitivity = SettingsManager.get_accessibility_section(GameSettings.MouseSensivitySetting)
+	mouse_sensitivity = IndieBlueprintget_accessibility_section(GameSettings.MouseSensivitySetting)
 	
 	free_camera_enabled.connect(on_free_camera_enabled)
 	free_camera_disabled.connect(on_free_camera_disabled)
-	SettingsManager.updated_setting_section.connect(on_mouse_sensitivity_changed)
+	IndieBlueprintupdated_setting_section.connect(on_mouse_sensitivity_changed)
 	
 	previous_mouse_mode = Input.mouse_mode
 

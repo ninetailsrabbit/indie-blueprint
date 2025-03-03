@@ -1,4 +1,4 @@
-class_name GameSettings
+class_name IndieBlueprintGameSettings
 
 #region ConfigFile sections
 const KeybindingsSection: StringName = &"keybindings"
@@ -47,31 +47,31 @@ const DefaultInputMapActionsSetting: StringName = &"default_input_map_actions"
 
 #region Default settings
 static var DefaultSettings: Dictionary = {
-	GameSettings.MutedAudioSetting: false,
-	GameSettings.FpsCounterSetting: false,
-	GameSettings.MaxFpsSetting: 0,
-	GameSettings.WindowDisplaySetting: DisplayServer.window_get_mode(),
-	GameSettings.WindowResolutionSetting: DisplayServer.window_get_size(),
-	GameSettings.WindowDisplayBorderlessSetting: DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS),
-	GameSettings.IntegerScalingSetting: 1 if ProjectSettings.get_setting("display/window/stretch/scale_mode") == "integer" else 0,
-	GameSettings.VsyncSetting:  DisplayServer.window_get_vsync_mode(),
-	GameSettings.Scaling3DMode: Viewport.SCALING_3D_MODE_BILINEAR,
-	GameSettings.Scaling3DValue: 1.0,
-	GameSettings.QualityPresetSetting: IndieBlueprintHardwareDetector.auto_discover_graphics_quality(),
-	GameSettings.MouseSensivitySetting: 3.0,
-	GameSettings.ReversedMouseSetting: false,
-	GameSettings.ControllerVibrationSetting: true,
-	GameSettings.ScreenBrightnessSetting: 1.0,
-	GameSettings.PhotosensitivitySetting: false,
-	GameSettings.ScreenShakeSetting: true,
-	GameSettings.DaltonismSetting: IndieBlueprintWindowManager.DaltonismTypes.No,
-	GameSettings.CurrentLanguageSetting: TranslationServer.get_locale(),
-	GameSettings.VoicesLanguageSetting: TranslationServer.get_locale(),
-	GameSettings.SubtitlesLanguageSetting: TranslationServer.get_locale(),
-	GameSettings.SubtitlesEnabledSetting: false,
-	GameSettings.AllowTelemetrySetting: false,
+	IndieBlueprintGameSettings.MutedAudioSetting: false,
+	IndieBlueprintGameSettings.FpsCounterSetting: false,
+	IndieBlueprintGameSettings.MaxFpsSetting: 0,
+	IndieBlueprintGameSettings.WindowDisplaySetting: DisplayServer.window_get_mode(),
+	IndieBlueprintGameSettings.WindowResolutionSetting: DisplayServer.window_get_size(),
+	IndieBlueprintGameSettings.WindowDisplayBorderlessSetting: DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS),
+	IndieBlueprintGameSettings.IntegerScalingSetting: 1 if ProjectSettings.get_setting("display/window/stretch/scale_mode") == "integer" else 0,
+	IndieBlueprintGameSettings.VsyncSetting:  DisplayServer.window_get_vsync_mode(),
+	IndieBlueprintGameSettings.Scaling3DMode: Viewport.SCALING_3D_MODE_BILINEAR,
+	IndieBlueprintGameSettings.Scaling3DValue: 1.0,
+	IndieBlueprintGameSettings.QualityPresetSetting: IndieBlueprintHardwareDetector.auto_discover_graphics_quality(),
+	IndieBlueprintGameSettings.MouseSensivitySetting: 3.0,
+	IndieBlueprintGameSettings.ReversedMouseSetting: false,
+	IndieBlueprintGameSettings.ControllerVibrationSetting: true,
+	IndieBlueprintGameSettings.ScreenBrightnessSetting: 1.0,
+	IndieBlueprintGameSettings.PhotosensitivitySetting: false,
+	IndieBlueprintGameSettings.ScreenShakeSetting: true,
+	IndieBlueprintGameSettings.DaltonismSetting: IndieBlueprintWindowManager.DaltonismTypes.No,
+	IndieBlueprintGameSettings.CurrentLanguageSetting: TranslationServer.get_locale(),
+	IndieBlueprintGameSettings.VoicesLanguageSetting: TranslationServer.get_locale(),
+	IndieBlueprintGameSettings.SubtitlesLanguageSetting: TranslationServer.get_locale(),
+	IndieBlueprintGameSettings.SubtitlesEnabledSetting: false,
+	IndieBlueprintGameSettings.AllowTelemetrySetting: false,
 	## Dictionary[StringName, Array[InputEvent]
-	GameSettings.DefaultInputMapActionsSetting: {}
+	IndieBlueprintGameSettings.DefaultInputMapActionsSetting: {}
 }
 
 static var FpsLimits: Array[int] = [0, 30, 60, 90, 144, 240, 300]

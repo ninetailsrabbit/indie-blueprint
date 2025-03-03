@@ -16,4 +16,4 @@ func _ready() -> void:
 func on_vsync_changed(vsync_enabled: bool) -> void:
 	DisplayServer.window_set_vsync_mode(int(vsync_enabled))
 	
-	SettingsManager.update_graphics_section(GameSettings.VsyncSetting, DisplayServer.window_get_vsync_mode())
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.VsyncSetting, DisplayServer.window_get_vsync_mode())

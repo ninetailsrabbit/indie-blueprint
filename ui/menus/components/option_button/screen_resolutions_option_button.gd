@@ -17,13 +17,13 @@ func _ready() -> void:
 	
 
 func _fill_available_resolutions() -> void:
-	var current_window_size: Vector2i =  DisplayServer.window_get_size() if DisplayServer.window_get_mode() == DisplayServer.WindowMode.WINDOW_MODE_WINDOWED else SettingsManager.get_graphics_section("resolution")
+	var current_window_size: Vector2i =  DisplayServer.window_get_size() if DisplayServer.window_get_mode() == DisplayServer.WindowMode.WINDOW_MODE_WINDOWED else IndieBlueprintSettingsManager.get_graphics_section("resolution")
 	
-	for display_resolution in WindowManager.resolutions:
+	for display_resolution in IndieBlueprintWindowManager.resolutions:
 		if _resolution_is_included(display_resolution):
 			add_separator(display_resolution)
 			
-			var allowed_resolutions =  WindowManager.resolutions[display_resolution].filter(func(screen_size): return screen_size <= HardwareDetector.computer_screen_size) if use_computer_screen_resolution_limit else WindowManager.resolutions[display_resolution] 
+			var allowed_resolutions =  IndieBlueprintWindowManager.resolutions[display_resolution].filter(func(screen_size): return screen_size <= IndieBlueprintHardwareDetector.computer_screen_size) if use_computer_screen_resolution_limit else IndieBlueprintWindowManager.resolutions[display_resolution] 
 			
 			for screen_size: Vector2i in allowed_resolutions:
 				add_item("%dx%d" % [screen_size.x, screen_size.y])
@@ -33,12 +33,12 @@ func _fill_available_resolutions() -> void:
 			
 
 func resolutions_based_on_hardware() -> void:
-	if (HardwareDetector.is_steam_deck()):
+	if (IndieBlueprintHardwareDetector.is_steam_deck()):
 		display16_10 = true
 		display16_9 = false
 		display21_9 = false
 		display4_3 = false
-	elif HardwareDetector.is_mobile():
+	elif IndieBlueprintHardwareDetector.is_mobile():
 		display16_10 = false
 		display16_9 = false
 		display21_9 = false
@@ -47,11 +47,11 @@ func resolutions_based_on_hardware() -> void:
 		
 
 func _resolution_is_included(resolution: String) -> bool:
-	return resolution == WindowManager.Resolution4_3 && display4_3 \
-		or resolution == WindowManager.Resolution16_9 && display16_9 \
-		or resolution == WindowManager.Resolution16_10 && display16_10 \
-		or resolution == WindowManager.Resolution21_9 && display21_9 \
-		or resolution == WindowManager.Resolution_Mobile && display_mobile
+	return resolution == IndieBlueprintWindowManager.Resolution4_3 && display4_3 \
+		or resolution == IndieBlueprintWindowManager.Resolution16_9 && display16_9 \
+		or resolution == IndieBlueprintWindowManager.Resolution16_10 && display16_10 \
+		or resolution == IndieBlueprintWindowManager.Resolution21_9 && display21_9 \
+		or resolution == IndieBlueprintWindowManager.Resolution_Mobile && display_mobile
 
 
 func on_resolution_selected(idx) -> void:
@@ -61,4 +61,4 @@ func on_resolution_selected(idx) -> void:
 	
 	DisplayServer.window_set_size(screen_size)
 	
-	SettingsManager.update_graphics_section(GameSettings.WindowResolutionSetting, screen_size)
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.WindowResolutionSetting, screen_size)

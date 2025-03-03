@@ -29,4 +29,4 @@ func on_fps_limit_button_pressed(fps_limit_button: BaseButton) -> void:
 	var limit = fps_limit_button.name.strip_edges().to_int()
 	Engine.max_fps = limit
 	
-	SettingsManager.update_graphics_section(GameSettings.MaxFpsSetting, limit)
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.MaxFpsSetting, limit)

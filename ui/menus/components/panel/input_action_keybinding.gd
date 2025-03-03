@@ -37,7 +37,7 @@ func update_keybinding(new_event: InputEvent) -> void:
 	keybinding = new_event
 	display_keybindings()
 	
-	SettingsManager.create_keybinding_events_for_action(action)
+	IndieBlueprintSettingsManager.create_keybinding_events_for_action(action)
 
 
 func change_to_remapping_text() -> void:

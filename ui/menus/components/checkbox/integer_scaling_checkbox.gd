@@ -10,4 +10,4 @@ func _ready() -> void:
 @warning_ignore("int_as_enum_without_cast")
 func on_integer_scaling_changed(enabled: bool) -> void:
 	get_tree().root.content_scale_stretch = int(enabled)
-	SettingsManager.update_graphics_section(GameSettings.IntegerScalingSetting, get_tree().root.content_scale_stretch)
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.IntegerScalingSetting, get_tree().root.content_scale_stretch)

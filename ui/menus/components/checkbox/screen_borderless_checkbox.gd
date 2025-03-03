@@ -9,4 +9,4 @@ func _ready() -> void:
 
 func on_screen_borderless_changed(enabled: bool) -> void:
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, enabled)
-	SettingsManager.update_graphics_section(GameSettings.WindowDisplayBorderlessSetting, enabled)
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.WindowDisplayBorderlessSetting, enabled)

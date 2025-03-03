@@ -12,9 +12,9 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	value = SettingsManager.get_accessibility_section(GameSettings.MouseSensivitySetting)
+	value = IndieBlueprintSettingsManager.get_accessibility_section(IndieBlueprintGameSettings.MouseSensivitySetting)
 		
 
 func on_sensitivity_changed(sensitivity_changed: bool) -> void:
 	if sensitivity_changed:
-		SettingsManager.update_accessibility_section(GameSettings.MouseSensivitySetting, value)
+		IndieBlueprintSettingsManager.update_accessibility_section(IndieBlueprintGameSettings.MouseSensivitySetting, value)

@@ -23,7 +23,7 @@ func _input(event: InputEvent) -> void:
 		accept_event()
 		
 		## Important line to accept modifiers when this are keep pressed
-		if InputHelper.any_key_modifier_is_pressed() and event.pressed:
+		if IndieBlueprintInputHelper.any_key_modifier_is_pressed() and event.pressed:
 			return
 		
 		current_action_to_remap.update_keybinding(event)
@@ -32,7 +32,7 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseButton and event.pressed:
 		accept_event()
 		
-		event = InputHelper.double_click_to_single(event)
+		event = IndieBlueprintInputHelper.double_click_to_single(event)
 		
 		current_action_to_remap.update_keybinding(event)
 		reset_remapping()
@@ -40,7 +40,7 @@ func _input(event: InputEvent) -> void:
 		
 
 func _ready() -> void:
-	for child in NodeTraversal.find_nodes_of_custom_class(action_list, InputActionKeybindingDisplay):
+	for child in IndieBlueprintNodeTraversal.find_nodes_of_custom_class(action_list, InputActionKeybindingDisplay):
 		child.queue_free()
 	
 	set_process_input(is_remapping)
@@ -80,10 +80,10 @@ func _get_input_map_actions() -> Array[StringName]:
 func on_reset_to_default_pressed() -> void:
 	reset_remapping()
 	
-	var default_input_map_actions: Dictionary = GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting]
+	var default_input_map_actions: Dictionary = IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DefaultInputMapActionsSetting]
 	
 	if not default_input_map_actions.is_empty():
-		for input_action_keybinding: InputActionKeybindingDisplay in NodeTraversal.find_nodes_of_custom_class(action_list, InputActionKeybindingDisplay):
+		for input_action_keybinding: InputActionKeybindingDisplay in IndieBlueprintNodeTraversal.find_nodes_of_custom_class(action_list, InputActionKeybindingDisplay):
 			var current_action: StringName = StringName(input_action_keybinding.action)
 			
 			if default_input_map_actions.has(current_action):
@@ -91,8 +91,7 @@ func on_reset_to_default_pressed() -> void:
 
 
 func on_input_keybinding_pressed(event: InputEvent, input_action_keybinding: InputActionKeybindingDisplay) -> void:
-	if InputHelper.is_mouse_left_click(event) and not is_remapping:
+	if IndieBlueprintInputHelper.is_mouse_left_click(event) and not is_remapping:
 		is_remapping = true
 		current_action_to_remap = input_action_keybinding
 		current_action_to_remap.change_to_remapping_text()
-		

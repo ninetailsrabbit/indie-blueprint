@@ -44,4 +44,4 @@ func _scale_mode_to_string(mode) -> String:
 
 func on_scale_mode_selected(idx) -> void:
 	get_viewport().scaling_3d_mode = get_item_id(idx) as Viewport.Scaling3DMode
-	SettingsManager.update_graphics_section(GameSettings.Scaling3DMode, get_viewport().scaling_3d_mode)
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.Scaling3DMode, get_viewport().scaling_3d_mode)

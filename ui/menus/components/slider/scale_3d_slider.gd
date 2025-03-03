@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	scale_value_to_slider_value(SettingsManager.get_graphics_section(GameSettings.Scaling3DValue))
+	scale_value_to_slider_value(IndieBlueprintSettingsManager.get_graphics_section(IndieBlueprintGameSettings.Scaling3DValue))
 
 
 func scale_value_to_slider_value(scale_3d_value: float) -> void:
@@ -55,4 +55,4 @@ func slider_value_to_scale_value(slider_value: float) -> float:
 
 
 func on_scale_value_changed(new_value: float) -> void:
-	SettingsManager.update_graphics_section(GameSettings.Scaling3DValue, slider_value_to_scale_value(new_value))
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.Scaling3DValue, slider_value_to_scale_value(new_value))
