@@ -19,8 +19,9 @@ func _ready() -> void:
 
 func audio_slider_drag_ended(volume_changed: bool):
 	if volume_changed:
+		
 		if(target_bus == IndieBlueprintAudioManager.SFXBus):
 			IndieBlueprintAudioManager.change_volume(IndieBlueprintAudioManager.EchoSFXBus, value)
+			
 		IndieBlueprintAudioManager.change_volume(target_bus, value)
-		
 		IndieBlueprintSettingsManager.update_audio_section(target_bus, value)
