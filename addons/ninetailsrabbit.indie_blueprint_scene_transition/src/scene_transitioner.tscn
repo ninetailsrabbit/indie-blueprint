@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cx6pdxa5atxe8"]
 
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/scene_transitioner.gd" id="1_tdru7"]
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/configuration/scene_transition_configuration.gd" id="2_r3y02"]
+[ext_resource type="Script" uid="uid://doxtb3eblc8a6" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/scene_transitioner.gd" id="1_tdru7"]
+[ext_resource type="Script" uid="uid://chcn2hxd0pq64" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/configuration/scene_transition_configuration.gd" id="2_r3y02"]
 [ext_resource type="Resource" uid="uid://c3x0a0amt7xbb" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/color_fade/color_fade_transition.tres" id="3_jq7gd"]
 [ext_resource type="Resource" uid="uid://d0s7ntjjacsso" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/voronoi/voronoi_transition.tres" id="4_1g777"]
 [ext_resource type="Resource" uid="uid://dr8yjgntslopu" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/dissolve_transition.tres" id="5_6265j"]

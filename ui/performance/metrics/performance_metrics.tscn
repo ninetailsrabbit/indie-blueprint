@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ca0723gt87eb7"]
 
-[ext_resource type="Script" path="res://ui/performance/metrics/performance_metrics.gd" id="1_cjjbn"]
+[ext_resource type="Script" uid="uid://ded0d0byvsm46" path="res://ui/performance/metrics/performance_metrics.gd" id="1_cjjbn"]
 [ext_resource type="LabelSettings" uid="uid://d1524b81u6exi" path="res://ui/performance/metrics/hardware_label_settings.tres" id="2_sjbvd"]
 
 [node name="PerformanceMetrics" type="Control"]

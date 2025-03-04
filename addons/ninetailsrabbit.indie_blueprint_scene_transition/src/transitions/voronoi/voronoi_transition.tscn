@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://i2ck0bmnxkmo"]
 
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/voronoi/voronoi_transition.gd" id="1_jd7fu"]
-[ext_resource type="Shader" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/voronoi/vornoi_transition.gdshader" id="2_i1x6d"]
+[ext_resource type="Script" uid="uid://bryakd7w8sxia" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/voronoi/voronoi_transition.gd" id="1_jd7fu"]
+[ext_resource type="Shader" uid="uid://na8oi3r0ap0m" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/voronoi/vornoi_transition.gdshader" id="2_i1x6d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0bh67"]
 shader = ExtResource("2_i1x6d")

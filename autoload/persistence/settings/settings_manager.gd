@@ -241,6 +241,7 @@ func load_graphics() -> void:
 			IndieBlueprintGameSettings.WindowResolutionSetting:
 				DisplayServer.window_set_size(config_value)
 			IndieBlueprintGameSettings.IntegerScalingSetting:
+				@warning_ignore("int_as_enum_without_cast")
 				get_tree().root.content_scale_stretch = int(config_value)
 			IndieBlueprintGameSettings.Scaling3DMode:
 				get_viewport().scaling_3d_mode = config_value
@@ -457,6 +458,7 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 			"environment/ssil_enabled":
 				world_environment.environment.ssil_enabled = bool(quality.enabled)
 			"rendering/anti_aliasing/quality/msaa_3d":
+				@warning_ignore("int_as_enum_without_cast")
 				viewport.msaa_3d = quality.enabled
 			"shadow_atlas":
 				RenderingServer.directional_shadow_atlas_set_size(quality.enabled, true)

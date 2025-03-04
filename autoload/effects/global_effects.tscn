@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcaj3bg13gg7r"]
 
-[ext_resource type="Script" path="res://autoload/effects/global_effects.gd" id="1_hmtja"]
+[ext_resource type="Script" uid="uid://diwwi7qonsiyl" path="res://autoload/effects/global_effects.gd" id="1_hmtja"]
 
 [node name="GlobalEffects" type="Control"]
 layout_mode = 3

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://datbuch2ro6oq"]
 
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/color_fade/color_fade_transition.gd" id="1_jdyq5"]
+[ext_resource type="Script" uid="uid://cawpo011i4if4" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/color_fade/color_fade_transition.gd" id="1_jdyq5"]
 
 [node name="ColorFadeTransition" type="Control"]
 layout_mode = 3

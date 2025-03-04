@@ -14,7 +14,7 @@ config/name="IndieBlueprint"
 config/description="Indie Blueprint is a comprehensive Godot project template designed to streamline your development process. It includes essential features, optimized settings, and best practices to help you create amazing indie game"
 config/version="1.3.0"
 run/main_scene="res://scenes/entry_point/game-entry_point.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]

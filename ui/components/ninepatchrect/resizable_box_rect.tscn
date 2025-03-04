@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://tihw7phb5x3h"]
 
 [ext_resource type="Texture2D" uid="uid://cys0djg4fi1iy" path="res://ui/components/ninepatchrect/box_transparent.png" id="2_f0d7d"]
-[ext_resource type="Script" path="res://ui/components/ninepatchrect/resizable_ninepatchrect.gd" id="2_hokc5"]
+[ext_resource type="Script" uid="uid://dd8o8wwanhhpv" path="res://ui/components/ninepatchrect/resizable_ninepatchrect.gd" id="2_hokc5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d72y6"]
 

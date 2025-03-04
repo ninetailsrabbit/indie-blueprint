@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://cahn573jvq0f7"]
 
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/dissolve_transition.gd" id="1_e56cw"]
-[ext_resource type="Shader" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/dissolve_2d.gdshader" id="1_f0c86"]
+[ext_resource type="Script" uid="uid://bmf1dvfx5cwkg" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/dissolve_transition.gd" id="1_e56cw"]
+[ext_resource type="Shader" uid="uid://chhhueku151x6" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/dissolve_2d.gdshader" id="1_f0c86"]
 [ext_resource type="Texture2D" uid="uid://d3of356kl174u" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/dissolve/textures/horiz_paint_brush.png" id="3_n82ba"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gc32w"]
 shader = ExtResource("1_f0c86")
-shader_parameter/dissolve_amount = 0.0
 shader_parameter/dissolve_texture = ExtResource("3_n82ba")
+shader_parameter/dissolve_amount = 0.0
 
 [node name="DissolveTransition" type="Control"]
 layout_mode = 3

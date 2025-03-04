@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dn6n6dte8i5et"]
 
-[ext_resource type="Script" path="res://components/vfx/2D/pop_effect/pop_circle_spawner.gd" id="1_ejum3"]
+[ext_resource type="Script" uid="uid://crmv3p02j4s61" path="res://components/vfx/2D/pop_effect/pop_circle_spawner.gd" id="1_ejum3"]
 
 [node name="PopCircleEffectSpawner" type="Node2D"]
 script = ExtResource("1_ejum3")

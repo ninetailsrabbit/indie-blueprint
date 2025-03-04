@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bd85klabpk5b7"]
 
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/src/camera_transitioner.gd" id="1_d5iar"]
+[ext_resource type="Script" uid="uid://mfucpibyhovj" path="res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/src/camera_transitioner.gd" id="1_d5iar"]
 
 [node name="IndieBlueprintCameraTransitioner" type="Node"]
 script = ExtResource("1_d5iar")

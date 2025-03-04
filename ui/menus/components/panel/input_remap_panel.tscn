@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bs4y3s4v0is47"]
 
-[ext_resource type="Script" path="res://ui/menus/components/panel/input_remap_panel.gd" id="1_fw2mc"]
+[ext_resource type="Script" uid="uid://dfuskf62qp38q" path="res://ui/menus/components/panel/input_remap_panel.gd" id="1_fw2mc"]
 [ext_resource type="PackedScene" uid="uid://lxbuehwddqs" path="res://ui/menus/components/panel/input_action_keybinding.tscn" id="2_uyeiq"]
 
 [node name="PanelContainer" type="PanelContainer"]

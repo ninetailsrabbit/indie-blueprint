@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckmpartbateng"]
 
-[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/pause_menu.gd" id="1_ge1r7"]
+[ext_resource type="Script" uid="uid://cyn7dpb1i7dal" path="res://ui/menus/layouts/pixel_art/pause_menu.gd" id="1_ge1r7"]
 [ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="2_4hnh5"]
 [ext_resource type="PackedScene" uid="uid://c7x5g1yqaqlni" path="res://ui/menus/layouts/pixel_art/components/menu_display_panel.tscn" id="3_q7u3i"]
 [ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://ui/menus/layouts/pixel_art/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="4_vbsv5"]
-[ext_resource type="Script" path="res://ui/menus/components/label/project_version.gd" id="5_dkc40"]
+[ext_resource type="Script" uid="uid://dgjkur7tqncp4" path="res://ui/menus/components/label/project_version.gd" id="5_dkc40"]
 [ext_resource type="Texture2D" uid="uid://1pdniev668cm" path="res://assets/geometry/arrows/medium_left.png" id="5_osjm4"]
-[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="6_8o6xi"]
+[ext_resource type="Script" uid="uid://c7xflsrumdoya" path="res://ui/menus/layouts/pixel_art/components/menu_back_button.gd" id="6_8o6xi"]
 [ext_resource type="PackedScene" uid="uid://cjy60mv75hnb8" path="res://ui/menus/layouts/pixel_art/settings/settings_menu.tscn" id="8_cicu4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s4jf2"]

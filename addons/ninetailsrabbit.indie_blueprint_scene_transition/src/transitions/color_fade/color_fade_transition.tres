@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="IndieBlueprintSceneTransitionConfiguration" load_steps=3 format=3 uid="uid://c3x0a0amt7xbb"]
 
 [ext_resource type="PackedScene" uid="uid://datbuch2ro6oq" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/color_fade/color_fade_transition.tscn" id="1_wv113"]
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/configuration/scene_transition_configuration.gd" id="2_pkn76"]
+[ext_resource type="Script" uid="uid://chcn2hxd0pq64" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/configuration/scene_transition_configuration.gd" id="2_pkn76"]
 
 [resource]
 script = ExtResource("2_pkn76")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://lxbuehwddqs"]
 
-[ext_resource type="Script" path="res://ui/menus/components/panel/input_action_keybinding.gd" id="1_6njha"]
+[ext_resource type="Script" uid="uid://fucgs5ff6485" path="res://ui/menus/components/panel/input_action_keybinding.gd" id="1_6njha"]
 
 [node name="InputActionKeybinding" type="HBoxContainer"]
 script = ExtResource("1_6njha")

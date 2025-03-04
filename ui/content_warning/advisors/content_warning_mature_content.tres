@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ContentWarning" load_steps=2 format=3 uid="uid://p5m4fngey0i"]
 
-[ext_resource type="Script" path="res://ui/content_warning/advisors/content_warning.gd" id="1_ixu7d"]
+[ext_resource type="Script" uid="uid://b76wk7tpa8pkd" path="res://ui/content_warning/advisors/content_warning.gd" id="1_ixu7d"]
 
 [resource]
 script = ExtResource("1_ixu7d")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://du0kusvolof3y"]
 
 [ext_resource type="Theme" uid="uid://c6o5sbust8emw" path="res://ui/menus/layouts/pixel_art/theme/ui_theme.tres" id="1_6ve34"]
-[ext_resource type="Script" path="res://ui/menus/layouts/pixel_art/components/world_save_slot_panel.gd" id="2_22ss5"]
+[ext_resource type="Script" uid="uid://b54w8bdnqdsqc" path="res://ui/menus/layouts/pixel_art/components/world_save_slot_panel.gd" id="2_22ss5"]
 
 [node name="WorldSaveSlot" type="HBoxContainer"]
 offset_right = 40.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://co10huwfvo8tx"]
 
-[ext_resource type="Script" path="res://autoload/screen/dynamic_screen_pointer.gd" id="1_3lj1f"]
-[ext_resource type="Script" path="res://autoload/screen/dynamic_screen_pointer_canvas_layer.gd" id="1_ixmrb"]
+[ext_resource type="Script" uid="uid://codsj7bdn3y47" path="res://autoload/screen/dynamic_screen_pointer.gd" id="1_3lj1f"]
+[ext_resource type="Script" uid="uid://2eroxwwy2cwv" path="res://autoload/screen/dynamic_screen_pointer_canvas_layer.gd" id="1_ixmrb"]
 
 [node name="DynamicScreenPointerCanvasLayer" type="CanvasLayer"]
 layer = 2

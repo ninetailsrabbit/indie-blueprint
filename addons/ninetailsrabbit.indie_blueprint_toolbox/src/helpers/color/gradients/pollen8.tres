@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ColorGradient" load_steps=4 format=3 uid="uid://cm3iy6pqbmmb7"]
 
-[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/helpers/color/color_gradient.gd" id="1_vokey"]
+[ext_resource type="Script" uid="uid://wm64lt7ss7sg" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/helpers/color/color_gradient.gd" id="1_vokey"]
 
 [sub_resource type="Gradient" id="Gradient_fecuy"]
 offsets = PackedFloat32Array(0, 0, 0.143, 0.286, 0.429, 0.571, 0.714, 0.857, 1)

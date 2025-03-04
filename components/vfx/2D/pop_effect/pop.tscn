@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://7uexvgan7raf"]
 
-[ext_resource type="Script" path="res://components/vfx/2D/pop_effect/pop.gd" id="1_iiiyc"]
+[ext_resource type="Script" uid="uid://b8kx5ckhmqxfo" path="res://components/vfx/2D/pop_effect/pop.gd" id="1_iiiyc"]
 
 [node name="PopCircleEffect" type="Node2D"]
 position = Vector2(-8.84928, -74.357)
