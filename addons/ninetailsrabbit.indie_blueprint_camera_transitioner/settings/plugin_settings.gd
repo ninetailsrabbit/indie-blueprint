@@ -27,4 +27,3 @@ static func remove_setting(name: String) -> void:
 	if ProjectSettings.has_setting(name):
 		ProjectSettings.set_setting(name, null)
 		ProjectSettings.save()
-		

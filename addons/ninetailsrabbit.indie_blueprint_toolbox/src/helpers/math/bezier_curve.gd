@@ -1,7 +1,7 @@
 class BezierCurve:
 	
 	static var maximum_control_points: int = 18
-	static var factorial: Array[float] = MathHelper.factorials_from(maximum_control_points)
+	static var factorial: Array[float] = IndieBlueprintMathHelper.factorials_from(maximum_control_points)
 	
 	static func change_maximum_control_points(points: int) -> void:
 		maximum_control_points = max(3, points)

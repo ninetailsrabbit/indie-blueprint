@@ -9,12 +9,12 @@ enum ColorGenerationMethod {
 }
 
 
-static func get_palette(id: StringName) -> ColorPalette:
+static func get_palette(id: StringName) -> IndieBlueprintColorPalette:
 	var regex = RegEx.new()
 	regex.compile(".tres$")
 	
 	for color_palette_path: String in IndieBlueprintFileHelper.get_files_recursive(ColorPalettesPath, regex):
-		var color_palette: ColorPalette = ResourceLoader.load(color_palette_path, "", ResourceLoader.CACHE_MODE_REUSE)
+		var color_palette: IndieBlueprintColorPalette = ResourceLoader.load(color_palette_path, "", ResourceLoader.CACHE_MODE_REUSE)
 		
 		if color_palette.id == id:
 			return color_palette

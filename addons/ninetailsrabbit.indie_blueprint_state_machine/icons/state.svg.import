@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dph26qbf2bmgo"
-path="res://.godot/imported/interactor_2d.svg-56060a8b134fc8e83c0a5221b609204c.ctex"
+uid="uid://c1j32xyrqeyqk"
+path="res://.godot/imported/state.svg-8757a8547e00a03a3b071a174d8f61d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/interaction/2D/interactor_2d.svg"
-dest_files=["res://.godot/imported/interactor_2d.svg-56060a8b134fc8e83c0a5221b609204c.ctex"]
+source_file="res://addons/ninetailsrabbit.indie_blueprint_state_machine/icons/state.svg"
+dest_files=["res://.godot/imported/state.svg-8757a8547e00a03a3b071a174d8f61d9.ctex"]
 
 [params]
 

@@ -30,11 +30,11 @@ IndieBlueprintMusicManager="*res://addons/ninetailsrabbit.indie_blueprint_audio/
 IndieBlueprintSoundPool="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/sound_pool.gd"
 IndieBlueprintCameraTransitioner="*res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/src/camera_transitioner.tscn"
 IndieBlueprintGlobalClock="*res://addons/ninetailsrabbit.indie_blueprint_global_clock/src/global_clock.tscn"
-IndieBlueprintObjectPoolManager="*res://addons/ninetailsrabbit.indie_blueprint_pool/src/object_pool_manager.gd"
-IndieBlueprintSceneTransitioner="*res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/scene_transitioner.tscn"
+IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
 IndieBlueprintLootManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/loot/loot_manager.gd"
 IndieBlueprintTurnityManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/turns/turnity_manager.gd"
-IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
+IndieBlueprintObjectPoolManager="*res://addons/ninetailsrabbit.indie_blueprint_pool/src/object_pool_manager.gd"
+IndieBlueprintSceneTransitioner="*res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/scene_transitioner.tscn"
 IndieBlueprintWindowManager="*res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/autoloads/viewport/window_manager.gd"
 
 [display]
@@ -46,7 +46,7 @@ window/size/window_height_override=720
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ninetailsrabbit.indie_blueprint_audio/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_global_clock/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_pool/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_rpg/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_scene_transition/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/plugin.cfg")
+enabled=PackedStringArray("res://addons/ninetailsrabbit.indie_blueprint_audio/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_global_clock/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_pool/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_rpg/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_scene_transition/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_state_machine/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/plugin.cfg")
 
 [file_customization]
 

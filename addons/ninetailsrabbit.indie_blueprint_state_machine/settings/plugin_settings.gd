@@ -1,10 +1,10 @@
 @tool
-class_name IndieBlueprintPoolSettings extends RefCounted
+class_name IndieBlueprintStateMachineSettings extends RefCounted
 
-const PluginPrefixName: String = "ninetailsrabbit.indie_blueprint_pool" ## The folder name
-const GitRepositoryName: String = "indie-blueprint-pool"
+const PluginPrefixName: String = "ninetailsrabbit.indie_blueprint_state_machine"
+const GitRepositoryName: String = "indie-blueprint-state-machine"
 
-static var PluginName: String = "Indie Blueprint Pool"
+static var PluginName: String = "IndieBlueprintFiniteStateMachine"
 static var PluginProjectName: String = ProjectSettings.get_setting("application/config/name")
 static var PluginBasePath: String = "res://addons/%s" % PluginPrefixName
 static var PluginLocalConfigFilePath = "%s/plugin.cfg" % PluginBasePath
@@ -16,7 +16,7 @@ static var PluginTemporaryReleaseFilePath = "%s/%s.zip" % [PluginTemporaryDirect
 static var PluginDebugDirectoryPath = "res://debug"
 
 #region Plugin Settings
-##PluginSettingsBasePath + "/update_notification_enabled"
+## PluginSettingsBasePath + "/update_notification_enabled"
 #endregion
 
 ## Enable to test the updater without need to have a latest release version to trigger it
