@@ -12,9 +12,9 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	value = IndieBlueprintget_accessibility_section(GameSettings.ScreenBrightnessSetting)
+	value = IndieBlueprintSettingsManager.get_accessibility_section(IndieBlueprintGameSettings.ScreenBrightnessSetting)
 		
 
 func on_brightness_changed(brightness_changed: bool) -> void:
 	if brightness_changed:
-		IndieBlueprintupdate_accessibility_section(GameSettings.ScreenBrightnessSetting, value)
+		IndieBlueprintSettingsManager.update_accessibility_section(IndieBlueprintGameSettings.ScreenBrightnessSetting, value)

@@ -23,8 +23,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_processing() and current_camera is Camera3D and event is InputEventMouseButton:
 		mouse_position = (event as InputEventMouseButton).position
 		
-		if interact_mouse_button == MOUSE_BUTTON_LEFT and InputHelper.is_mouse_left_click(event) \
-			or interact_mouse_button == MOUSE_BUTTON_RIGHT and InputHelper.is_mouse_right_click(event):
+		if interact_mouse_button == MOUSE_BUTTON_LEFT and IndieBlueprintInputHelper.is_mouse_left_click(event) \
+			or interact_mouse_button == MOUSE_BUTTON_RIGHT and IndieBlueprintInputHelper.is_mouse_right_click(event):
 				interact(current_interactable)
 	
 	if is_processing() and InputMap.has_action(cancel_interact_input_action) and Input.is_action_just_pressed(cancel_interact_input_action) and current_interactable is Interactable3D:
@@ -55,7 +55,7 @@ func get_detected_interactable():
 	var ray_query = PhysicsRayQueryParameters3D.create(
 		from, 
 		to,
-		GameGlobals.world_collision_layer | GameGlobals.interactables_collision_layer | GameGlobals.grabbables_collision_layer
+		IndieBlueprintGameGlobals.world_collision_layer | IndieBlueprintGameGlobals.interactables_collision_layer | IndieBlueprintGameGlobals.grabbables_collision_layer
 	)
 	
 	ray_query.collide_with_areas = true
@@ -63,7 +63,7 @@ func get_detected_interactable():
 	
 	var result := world_space.intersect_ray(ray_query)
 	
-	if InputHelper.is_mouse_visible() and result.has("collider") and result["collider"] is Interactable3D:
+	if IndieBlueprintInputHelper.is_mouse_visible() and result.has("collider") and result["collider"] is Interactable3D:
 		return result.collider as Interactable3D
 		
 	return null

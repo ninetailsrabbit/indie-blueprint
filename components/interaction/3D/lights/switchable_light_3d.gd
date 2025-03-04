@@ -150,7 +150,7 @@ func blink_animation(light: Light3D, turn_off_light_at_the_end: bool = false):
 	
 func _create_temporary_light_timer():
 	if temporary_light_timer == null:
-		temporary_light_timer = TimeHelper.create_physics_timer(time_lights_are_on, false, true)
+		temporary_light_timer = IndieBlueprintTimeHelper.create_physics_timer(time_lights_are_on, false, true)
 		temporary_light_timer.name = "TemporaryLightTimer"
 		
 		add_child(temporary_light_timer)

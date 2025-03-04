@@ -6,7 +6,7 @@ class_name TraumaDetector2D extends Area2D
 func _ready():
 	monitoring = false
 	monitorable = true
-	collision_layer = GameGlobals.shakeables_collision_layer
+	collision_layer = IndieBlueprintGameGlobals.shakeables_collision_layer
 	collision_mask = 0 
 
 

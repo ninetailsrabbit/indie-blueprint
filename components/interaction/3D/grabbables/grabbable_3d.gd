@@ -102,7 +102,7 @@ func _enter_tree() -> void:
 	focused.connect(on_focused)
 	unfocused.connect(on_unfocused)
 	
-	collision_layer = GameGlobals.grabbables_collision_layer
+	collision_layer = IndieBlueprintGameGlobals.grabbables_collision_layer
 
 
 func _apply_outline_shader() -> void:
@@ -150,10 +150,10 @@ func _remove_outline_shader() -> void:
 func on_focused() -> void:
 	_apply_outline_shader()
 
-	GlobalGameEvents.grabbable_focused.emit(self)
+	IndieBlueprintGlobalGameEvents.grabbable_focused.emit(self)
 
 func on_unfocused() -> void:
 	_remove_outline_shader()
 	
-	GlobalGameEvents.grabbable_unfocused.emit(self)
+	IndieBlueprintGlobalGameEvents.grabbable_unfocused.emit(self)
 #endregion

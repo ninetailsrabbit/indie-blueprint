@@ -82,7 +82,7 @@ func _ready() -> void:
 	
 func activate() -> void:
 	priority = 3
-	collision_layer = GameGlobals.interactables_collision_layer
+	collision_layer = IndieBlueprintGameGlobals.interactables_collision_layer
 	collision_mask = 0
 	monitorable = true
 	monitoring = false
@@ -144,19 +144,19 @@ func on_interacted() -> void:
 		deactivate()
 	
 	_remove_outline_shader()
-	GlobalGameEvents.interactable_interacted.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_interacted.emit(self)
 
 
 func on_focused() -> void:
 	_apply_outline_shader()
 	
-	GlobalGameEvents.interactable_focused.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_focused.emit(self)
 	
 
 func on_unfocused() -> void:
 	_remove_outline_shader()
 	
-	GlobalGameEvents.interactable_unfocused.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_unfocused.emit(self)
 
 
 func on_canceled_interaction() -> void:
@@ -165,6 +165,6 @@ func on_canceled_interaction() -> void:
 		
 	_remove_outline_shader()
 	
-	GlobalGameEvents.interactable_canceled_interaction.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_canceled_interaction.emit(self)
 	
 #endregion

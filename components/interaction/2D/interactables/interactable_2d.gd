@@ -53,7 +53,7 @@ func _ready() -> void:
 	
 func activate() -> void:
 	priority = 3
-	collision_layer = GameGlobals.interactables_collision_layer
+	collision_layer = IndieBlueprintGameGlobals.interactables_collision_layer
 	collision_mask = 0
 	monitorable = true
 	monitoring = false
@@ -74,21 +74,21 @@ func on_interacted() -> void:
 	if disable_after_interaction:
 		deactivate()
 	
-	GlobalGameEvents.interactable_2d_interacted.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_2d_interacted.emit(self)
 
 
 func on_focused() -> void:
-	GlobalGameEvents.interactable_2d_focused.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_2d_focused.emit(self)
 	
 
 func on_unfocused() -> void:
-	GlobalGameEvents.interactable_2d_unfocused.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_2d_unfocused.emit(self)
 
 
 func on_canceled_interaction() -> void:
 	if times_interacted < number_of_times_can_be_interacted:
 		activate()
 		
-	GlobalGameEvents.interactable_2d_canceled_interaction.emit(self)
+	IndieBlueprintGlobalGameEvents.interactable_2d_canceled_interaction.emit(self)
 	
 #endregion

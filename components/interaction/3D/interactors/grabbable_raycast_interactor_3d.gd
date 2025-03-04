@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 	exclude_parent = true
 	collide_with_areas = false
 	collide_with_bodies = true
-	collision_mask = GameGlobals.world_collision_layer | GameGlobals.grabbables_collision_layer
+	collision_mask = IndieBlueprintGameGlobals.world_collision_layer | IndieBlueprintGameGlobals.grabbables_collision_layer
 
 
 func _physics_process(_delta):

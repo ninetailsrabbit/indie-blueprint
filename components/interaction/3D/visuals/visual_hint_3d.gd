@@ -19,15 +19,15 @@ class_name VisualHint3D extends Node3D
 
 func _ready() -> void:
 	if image_hint == null:
-		image_hint = NodeTraversal.first_node_of_type(self, Sprite3D.new())
+		image_hint = IndieBlueprintNodeTraversal.first_node_of_type(self, Sprite3D.new())
 		
 	if text_hint == null:
-		text_hint = NodeTraversal.first_node_of_type(self, Label3D.new())
+		text_hint = IndieBlueprintNodeTraversal.first_node_of_type(self, Label3D.new())
 		
 	assert(image_hint != null or text_hint != null, "VisualHint3D: This node needs at least one Sprite3D or Label3D to work as expected")
 	
 	if interactable == null:
-		interactable = NodeTraversal.first_node_of_custom_class(self, Interactable3D)
+		interactable = IndieBlueprintNodeTraversal.first_node_of_custom_class(self, Interactable3D)
 	
 	assert(interactable != null, "VisualHint3D: This node needs at least one Interactable3D so that it can be interactive")
 	
