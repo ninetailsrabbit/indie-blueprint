@@ -53,7 +53,7 @@ def included_files_filter(file: str) -> bool:
 
 
 def _contains_godot_prefixes(filename: str) -> bool:
-    godot_prefixes_to_exclude = ["BLEND_", "LOOP_", "PRESET_" ,"WRITE_", "SIZE_", "CULL_", "SHADOW_", "SHADING_", "ENV_", "CACHE_", "PROJECTION_", "TIMER_", "PROCESS_", "CURSOR_", "NOTIFICATION_", "SPACE_", "KEY_", "JOY_", "FREEZE_", "TRANSPARENCY_", "EASE_", "TRANS_", "MOUSE_", "TYPE_", "THREAD_", "AUTOWRAP_", "WINDOW_", "ERROR_", "ERR_", "BYTE_", "MSAA_"]
+    godot_prefixes_to_exclude = ["NORMAL_", "SCREEN_", "CONNECT_", "BLEND_", "LOOP_", "PRESET_" ,"WRITE_", "SIZE_", "CULL_", "SHADOW_", "SHADING_", "ENV_", "CACHE_", "PROJECTION_", "TIMER_", "PROCESS_", "CURSOR_", "NOTIFICATION_", "SPACE_", "KEY_", "JOY_", "FREEZE_", "TRANSPARENCY_", "EASE_", "TRANS_", "MOUSE_", "TYPE_", "THREAD_", "AUTOWRAP_", "WINDOW_", "ERROR_", "ERR_", "BYTE_", "MSAA_"]
 
     for prefix in godot_prefixes_to_exclude:
         if filename.startswith(prefix):
