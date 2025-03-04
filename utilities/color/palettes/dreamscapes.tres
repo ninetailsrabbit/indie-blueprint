@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://fakd5kmyjr68"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_lhnds"]
-
-[resource]
-script = ExtResource("1_lhnds")
-id = &"dreamscapes"
-name = &"Dreamscapes"
-colors = [Color(0.129412, 0.0980392, 0.129412, 1), Color(0.329412, 0.2, 0.266667, 1), Color(0.545098, 0.25098, 0.286275, 1), Color(0.682353, 0.415686, 0.278431, 1), Color(0.792157, 0.627451, 0.352941, 1), Color(0.317647, 0.321569, 0.384314, 1), Color(0.388235, 0.470588, 0.490196, 1), Color(0.556863, 0.627451, 0.568627, 1), Color(0.788235, 0.8, 0.631373, 1)]

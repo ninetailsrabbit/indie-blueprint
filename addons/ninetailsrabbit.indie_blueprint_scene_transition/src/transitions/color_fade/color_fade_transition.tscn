@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://datbuch2ro6oq"]
+
+[ext_resource type="Script" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/color_fade/color_fade_transition.gd" id="1_jdyq5"]
+
+[node name="ColorFadeTransition" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jdyq5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0177324, 0.0177324, 0.0177324, 1)

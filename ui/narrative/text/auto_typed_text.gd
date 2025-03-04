@@ -17,7 +17,7 @@ const bbcode_end_flag: String = ']'
 @export var space_time: float = 0.06
 @export var punctuation_time: float = 0.2
 @export_category("Sound")
-@export var type_sound_queue: SoundQueue
+@export var type_sound_queue: IndieBlueprintSoundQueue
 @export var use_type_sounds: bool = false
 @export var min_pitch_range: float = 1.0
 @export var max_pitch_range: float = 1.2
@@ -37,10 +37,10 @@ var typing_finished: bool = false
 func _input(_event: InputEvent):
 	if not typing_finished:
 		if is_typing:
-			if can_be_skipped and InputHelper.is_any_action_just_pressed(input_actions_to_skip):
+			if can_be_skipped and IndieBlueprintInputHelper.is_any_action_just_pressed(input_actions_to_skip):
 				skip()
 		else:
-			if manual_start and InputHelper.is_any_action_just_pressed(input_actions_to_start):
+			if manual_start and IndieBlueprintInputHelper.is_any_action_just_pressed(input_actions_to_start):
 				display_letters()
 			
 
@@ -93,9 +93,9 @@ func display_letters():
 	if letter_index <= content_to_display.length() - 1:
 		var current_character: String = content_to_display[letter_index]
 		
-		if StringHelper.is_whitespace(current_character):
+		if IndieBlueprintStringHelper.is_whitespace(current_character):
 			typing_timer.start(space_time)
-		elif StringHelper.AsciiPunctuation.contains(current_character):
+		elif IndieBlueprintStringHelper.AsciiPunctuation.contains(current_character):
 			typing_timer.start(punctuation_time)
 		else:
 			typing_timer.start(letter_time)
@@ -134,7 +134,7 @@ func play_typing_sound() -> void:
 
 func _create_typing_timer():
 	if typing_timer == null:
-		typing_timer = TimeHelper.create_idle_timer(1.0, false, true)
+		typing_timer = IndieBlueprintTimeHelper.create_idle_timer(1.0, false, true)
 		typing_timer.name = "TypingTimer"
 	
 	add_child(typing_timer)

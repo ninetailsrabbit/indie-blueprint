@@ -15,6 +15,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.5\n"
 
+#: ui/menus/components/option_button/scale_3d_mode_option_button.gd
+msgid "SCALING_3D_MODE_BILINEAR"
+msgstr "SCALING_3D_MODE_BILINEAR"
+
 #: localization/translation_keys.gd
 msgid "GENERAL_NO"
 msgstr "No"
@@ -26,10 +30,6 @@ msgstr "Si"
 #: localization/translation_keys.gd
 msgid "AUDIO_TAB"
 msgstr "Audio"
-
-#: localization/translation_keys.gd
-msgid "SCREEN_TAB"
-msgstr "Pantalla"
 
 #: localization/translation_keys.gd
 msgid "GRAPHICS_TAB"
@@ -60,22 +60,6 @@ msgid "DALTONISM_ACHROMATOPSIA"
 msgstr "Achromatopsia"
 
 #: localization/translation_keys.gd
-msgid "SCREEN_MODE_WINDOWED"
-msgstr "Ventana"
-
-#: ui/menus/layouts/settings/tabs/settings_menu.tscn
-msgid "SCREEN_MODE_BORDERLESS"
-msgstr "Sin bordes"
-
-#: localization/translation_keys.gd
-msgid "SCREEN_MODE_FULLSCREEN"
-msgstr "Pantalla completa"
-
-#: localization/translation_keys.gd
-msgid "SCREEN_MODE_EXCLUSIVE_FULLSCREEN"
-msgstr "Pantalla completa exclusiva"
-
-#: localization/translation_keys.gd
 msgid "GRAPHICS_QUALITY"
 msgstr "Calidad de gráficos"
 
@@ -94,6 +78,10 @@ msgstr "Alto"
 #: localization/translation_keys.gd
 msgid "QUALITY_ULTRA"
 msgstr "Ultra"
+
+#: localization/translation_keys.gd
+msgid "EMPTY_SAVE_SLOT"
+msgstr "EMPTY_SAVE_SLOT"
 
 #: ui/content_warning/advisors/content_warning_photosensitive.tres
 msgid "PHOTOSENSITIVE_TITLE"
@@ -153,9 +141,174 @@ msgstr ""
 "may find troubling. If you or someone you know is struggling, information "
 "and crisis resources are available at www.wannatalkaboutit.com"
 
+#: ui/menus/components/checkbox/integer_scaling_checkbox.gd
+msgid "CONTENT_SCALE_STRETCH"
+msgstr "CONTENT_SCALE_STRETCH"
+
+#: ui/menus/components/option_button/scale_3d_mode_option_button.gd
+msgid "SCALING_3D_MODE_FSR"
+msgstr "SCALING_3D_MODE_FSR"
+
+#: ui/menus/components/option_button/scale_3d_mode_option_button.gd
+msgid "SCALING_3D_MODE_FSR2"
+msgstr "SCALING_3D_MODE_FSR2"
+
 #: ui/menus/components/panel/input_remap_panel.tscn
 msgid "RESET_TO_DEFAULT"
 msgstr "Restablecer valores por defecto"
+
+#: ui/menus/layouts/pixel_art/main_menu.tscn
+msgid "BUTTON_START_GAME"
+msgstr "BUTTON_START_GAME"
+
+#: ui/menus/layouts/pixel_art/pause_menu.tscn
+#, fuzzy
+msgid "BUTTON_SETTINGS"
+msgstr "Opciones"
+
+#: ui/menus/layouts/pixel_art/main_menu.tscn
+msgid "BUTTON_FEEDBACK"
+msgstr "BUTTON_FEEDBACK"
+
+#: ui/menus/layouts/pixel_art/pause_menu.tscn
+msgid "BUTTON_QUIT"
+msgstr "BUTTON_QUIT"
+
+#: ui/menus/layouts/pixel_art/pause_menu.tscn
+msgid "PANEL_PAUSE_MENU"
+msgstr "PANEL_PAUSE_MENU"
+
+#: ui/menus/layouts/pixel_art/components/menu_display_panel.tscn
+msgid "PANEL_SELECT_WORLD"
+msgstr "PANEL_SELECT_WORLD"
+
+#: ui/menus/layouts/pixel_art/components/world_save_slot_panel.gd
+msgid "FOCUS_ALL"
+msgstr "FOCUS_ALL"
+
+#: ui/menus/layouts/pixel_art/settings/accessibility_menu.tscn
+#, fuzzy
+msgid "MENU_ACCESSIBILITY_SETTINGS"
+msgstr "Opciones"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_MOUSE_SENSITIVITY"
+msgstr "Sensibilidad del ratón"
+
+#: ui/menus/layouts/pixel_art/settings/accessibility_menu.tscn
+#, fuzzy
+msgid "SETTINGS_MOUSE_REVERSE"
+msgstr "Sensibilidad del ratón"
+
+#: ui/menus/layouts/pixel_art/settings/accessibility_menu.tscn
+#, fuzzy
+msgid "SETTINGS_PHOTOSENSITIVITY"
+msgstr "Fotosensitivo"
+
+#: ui/menus/layouts/pixel_art/settings/accessibility_menu.tscn
+#, fuzzy
+msgid "SETTINGS_SCREEN_SHAKE"
+msgstr "Temblor de pantalla"
+
+#: ui/menus/layouts/pixel_art/settings/audio_settings_menu.tscn
+#, fuzzy
+msgid "MENU_AUDIO_SETTINGS"
+msgstr "Opciones"
+
+#: ui/menus/layouts/pixel_art/settings/audio_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_AUDIO_MUSIC"
+msgstr "Modo de pantalla"
+
+#: ui/menus/layouts/pixel_art/settings/audio_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_AUDIO_SFX"
+msgstr "Resolución"
+
+#: ui/menus/layouts/pixel_art/settings/audio_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_AUDIO_VOICE"
+msgstr "Modo de pantalla"
+
+#: ui/menus/layouts/pixel_art/settings/audio_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_AUDIO_UI"
+msgstr "Resolución"
+
+#: ui/menus/layouts/pixel_art/settings/audio_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_AUDIO_AMBIENT"
+msgstr "Modo de pantalla"
+
+#: ui/menus/layouts/pixel_art/settings/audio_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_MUTE_AUDIO"
+msgstr "Resolución"
+
+#: ui/menus/layouts/pixel_art/settings/control_settings_menu.tscn
+#, fuzzy
+msgid "MENU_CONTROL_SETTINGS"
+msgstr "Opciones"
+
+#: ui/menus/layouts/pixel_art/settings/display_settings_menu.tscn
+#, fuzzy
+msgid "MENU_DISPLAY_SETTINGS"
+msgstr "Opciones"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_WINDOW_MODE"
+msgstr "Modo de pantalla"
+
+#: ui/menus/layouts/pixel_art/settings/display_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_WINDOW_BORDERLESS"
+msgstr "Modo de pantalla"
+
+#: ui/menus/layouts/pixel_art/settings/display_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_WINDOW_RESOLUTION"
+msgstr "Resolución"
+
+#: ui/menus/layouts/pixel_art/settings/display_settings_menu.tscn
+#, fuzzy
+msgid "SETTINGS_STRETCH_MODE"
+msgstr "Modo de pantalla"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_VSYNC"
+msgstr "Vsync"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_FPS_LIMIT"
+msgstr "Límite de FPS"
+
+#: ui/menus/layouts/simple/main_menu.tscn
+msgid "MENU_SETTINGS"
+msgstr "Opciones"
+
+#: ui/menus/layouts/settings/tabs/settings_menu.tscn
+msgid "SETTINGS_LANGUAGE"
+msgstr "Idioma"
+
+#: ui/menus/layouts/pixel_art/settings/settings_menu.tscn
+#, fuzzy
+msgid "MENU_SETTINGS_DISPLAY"
+msgstr "Opciones"
+
+#: ui/menus/layouts/pixel_art/settings/settings_menu.tscn
+#, fuzzy
+msgid "MENU_SETTINGS_AUDIO"
+msgstr "Opciones"
+
+#: ui/menus/layouts/pixel_art/settings/settings_menu.tscn
+#, fuzzy
+msgid "MENU_SETTINGS_ACCESSIBILITY"
+msgstr "Opciones"
+
+#: ui/menus/layouts/pixel_art/settings/settings_menu.tscn
+#, fuzzy
+msgid "MENU_SETTINGS_CONTROLS"
+msgstr "Opciones"
 
 #: ui/menus/layouts/settings/tabs/settings_menu.tscn
 msgid "BUS_MASTER"
@@ -186,10 +339,6 @@ msgid "MUTE_ACTION"
 msgstr "Mutear"
 
 #: ui/menus/layouts/settings/tabs/settings_menu.tscn
-msgid "SETTINGS_WINDOW_MODE"
-msgstr "Modo de pantalla"
-
-#: ui/menus/layouts/settings/tabs/settings_menu.tscn
 msgid "SETTINGS_RESOLUTION"
 msgstr "Resolución"
 
@@ -198,14 +347,6 @@ msgid "SETTINGS_VSYNC_INFO"
 msgstr ""
 "Sincroniza la tasa de fotogramas del juego con la frecuencia de "
 "actualización de tu monitor para reducir defectos en la imagen."
-
-#: ui/menus/layouts/settings/tabs/settings_menu.tscn
-msgid "SETTINGS_VSYNC"
-msgstr "Vsync"
-
-#: ui/menus/layouts/settings/tabs/settings_menu.tscn
-msgid "SETTINGS_FPS_LIMIT"
-msgstr "Límite de FPS"
 
 #: ui/menus/layouts/settings/tabs/settings_menu.tscn
 msgid "SETTINGS_BRIGHTNESS"
@@ -224,10 +365,6 @@ msgid "SETTING_PHOTOSENSITIVE"
 msgstr "Fotosensitivo"
 
 #: ui/menus/layouts/settings/tabs/settings_menu.tscn
-msgid "SETTINGS_LANGUAGE"
-msgstr "Idioma"
-
-#: ui/menus/layouts/settings/tabs/settings_menu.tscn
 msgid "SUBTITLES_LANGUAGE"
 msgstr "Idioma subtitulos"
 
@@ -238,10 +375,6 @@ msgstr "Idioma voces"
 #: ui/menus/layouts/settings/tabs/settings_menu.tscn
 msgid "SETTINGS_TELEMETRY"
 msgstr "Permitir telemetría"
-
-#: ui/menus/layouts/settings/tabs/settings_menu.tscn
-msgid "SETTINGS_MOUSE_SENSITIVITY"
-msgstr "Sensibilidad del ratón"
 
 #: ui/menus/layouts/settings/tabs/settings_menu.tscn
 msgid "SETTING_REVERSE_MOUSE"
@@ -264,9 +397,33 @@ msgid "MENU_START"
 msgstr "Nueva partida"
 
 #: ui/menus/layouts/simple/main_menu.tscn
-msgid "MENU_SETTINGS"
-msgstr "Opciones"
-
-#: ui/menus/layouts/simple/main_menu.tscn
 msgid "MENU_CREDITS"
 msgstr "Créditos"
+
+#~ msgid "CONNECT_ONE_SHOT"
+#~ msgstr "CONNECT_ONE_SHOT"
+
+#~ msgid "NORMAL_MAP"
+#~ msgstr "NORMAL_MAP"
+
+#~ msgid "NORMAL_MAP_DEPTH"
+#~ msgstr "NORMAL_MAP_DEPTH"
+
+#, fuzzy
+#~ msgid "SCREEN_UV"
+#~ msgstr "Pantalla"
+
+#~ msgid "SCREEN_TAB"
+#~ msgstr "Pantalla"
+
+#~ msgid "SCREEN_MODE_WINDOWED"
+#~ msgstr "Ventana"
+
+#~ msgid "SCREEN_MODE_BORDERLESS"
+#~ msgstr "Sin bordes"
+
+#~ msgid "SCREEN_MODE_FULLSCREEN"
+#~ msgstr "Pantalla completa"
+
+#~ msgid "SCREEN_MODE_EXCLUSIVE_FULLSCREEN"
+#~ msgstr "Pantalla completa exclusiva"

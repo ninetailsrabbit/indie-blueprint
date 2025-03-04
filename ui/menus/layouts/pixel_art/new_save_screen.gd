@@ -1,6 +1,6 @@
 class_name NewSaveScreen extends Control
 
-signal created_new_save(new_save: SavedGame)
+signal created_new_save(new_save: IndieBlueprintSavedGame)
 
 @export var action_to_submit: StringName = &"ui_accept"
 
@@ -15,7 +15,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 func _ready() -> void:
 	set_process_unhandled_input(visible)
 	
-	SaveManager.error_creating_savegame.connect(on_error_creating_save_game)
+	IndieBlueprintSaveManager.error_creating_savegame.connect(on_error_creating_save_game)
 	
 	save_file_name_line_edit.visibility_changed.connect(on_visibility_changed)
 	save_file_name_line_edit.text_changed.connect(on_text_changed)
@@ -27,16 +27,16 @@ func create_new_save() -> void:
 		set_process_unhandled_input(false)
 		save_file_name_line_edit.editable = false
 		
-		SaveManager.create_new_save(save_file_name_line_edit.text, true)
+		IndieBlueprintSaveManager.create_new_save(save_file_name_line_edit.text, true)
 		
-		created_new_save.emit(SaveManager.current_saved_game)
+		created_new_save.emit(IndieBlueprintSaveManager.current_saved_game)
 	
 	
 func filename_is_valid(filename: String) -> bool:
 	var is_valid: bool = true
 	
 	for character: String in filename:
-		if character in StringHelper.AsciiPunctuation:
+		if character in IndieBlueprintStringHelper.AsciiPunctuation:
 			is_valid = false
 			break
 	

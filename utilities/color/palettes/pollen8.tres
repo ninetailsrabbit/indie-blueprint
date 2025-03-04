@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://6ujiko3ersq"]
-
-[ext_resource type="Script" path="res://utilities/color/color_palette.gd" id="1_brjsj"]
-
-[resource]
-script = ExtResource("1_brjsj")
-id = &"pollen8"
-name = &"Pollen8"
-colors = [Color(0.180392, 0.141176, 0.164706, 1), Color(0.45098, 0.27451, 0.298039, 1), Color(0.670588, 0.337255, 0.458824, 1), Color(0.933333, 0.415686, 0.486275, 1), Color(1, 0.654902, 0.647059, 1), Color(0.203922, 0.67451, 0.729412, 1), Color(0.447059, 0.862745, 0.733333, 1), Color(1, 0.878431, 0.494118, 1), Color(1, 0.905882, 0.839216, 1)]

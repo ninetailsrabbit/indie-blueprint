@@ -9,7 +9,7 @@ class_name WorldSelection extends Control
 
 
 func _ready() -> void:
-	NodeRemover.free_children(world_save_slots)
+	IndieBlueprintNodeRemover.free_children(world_save_slots)
 	
 	await get_tree().process_frame
 	
@@ -22,7 +22,7 @@ func _ready() -> void:
 func display_saved_games() -> void:
 	var saved_game_index: int = 0
 	
-	for saved_game: SavedGame in SaveManager.list_of_saved_games.values():
+	for saved_game: IndieBlueprintSavedGame in IndieBlueprintSaveManager.list_of_saved_games.values():
 		saved_game_index += 1
 		var world_save_slot: WorldSaveSlotPanel = Preloader.WorldSaveSlotPanelScene.instantiate()
 		world_save_slots.add_child(world_save_slot)
@@ -33,7 +33,7 @@ func display_saved_games() -> void:
 	
 	
 	for index in preview_empty_slots:
-		var current_index: int = SaveManager.list_of_saved_games.size() + (index + 1)
+		var current_index: int = IndieBlueprintSaveManager.list_of_saved_games.size() + (index + 1)
 		var world_save_slot: WorldSaveSlotPanel = Preloader.WorldSaveSlotPanelScene.instantiate()
 		
 		world_save_slots.add_child(world_save_slot)
@@ -43,14 +43,14 @@ func display_saved_games() -> void:
 		
 func on_save_slot_selected(world_save_slot: WorldSaveSlotPanel) -> void:
 	if world_save_slot.saved_game:
-		SaveManager.make_current(world_save_slot.saved_game)
-		SceneTransitionManager.transition_to_scene(main_game_scene)
+		IndieBlueprintSaveManager.make_current(world_save_slot.saved_game)
+		IndieBlueprintSceneTransitioner.transition_to(main_game_scene)
 	else:
 		new_save_screen.show()
 
 
-func on_created_new_save(_new_save: SavedGame) -> void:
-	SceneTransitionManager.transition_to_scene(main_game_scene)
+func on_created_new_save(_new_save: IndieBlueprintSavedGame) -> void:
+	IndieBlueprintSceneTransitioner.transition_to(main_game_scene)
 
 
 func on_new_save_screen_visibility_changed() -> void:

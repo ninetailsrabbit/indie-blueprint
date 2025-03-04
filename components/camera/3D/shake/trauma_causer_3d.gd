@@ -8,7 +8,7 @@ func _ready():
 	monitoring = true
 	monitorable = false
 	collision_layer = 0
-	collision_mask = GameGlobals.shakeables_collision_layer
+	collision_mask = IndieBlueprintGameGlobals.shakeables_collision_layer
 
 
 func cause_trauma():

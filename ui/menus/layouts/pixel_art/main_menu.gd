@@ -31,7 +31,7 @@ func on_settings_button_pressed() -> void:
 	
 
 func on_feedback_button_pressed() -> void:
-	NetworkHelper.open_external_link("") ## Link to discord or feedback form
+	IndieBlueprintNetworkHelper.open_external_link("") ## Link to discord or feedback form
 	
 
 func on_quit_button_pressed() -> void:

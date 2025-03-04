@@ -45,18 +45,18 @@ func _ready():
 	current = active
 	set_as_top_level(true)
 	
-	mouse_sensitivity = SettingsManager.get_accessibility_section(GameSettings.MouseSensivitySetting)
+	mouse_sensitivity = IndieBlueprintSettingsManager.get_accessibility_section(IndieBlueprintGameSettings.MouseSensivitySetting)
 	
 	free_camera_enabled.connect(on_free_camera_enabled)
 	free_camera_disabled.connect(on_free_camera_disabled)
-	SettingsManager.updated_setting_section.connect(on_mouse_sensitivity_changed)
+	IndieBlueprintSettingsManager.updated_setting_section.connect(on_mouse_sensitivity_changed)
 	
 	previous_mouse_mode = Input.mouse_mode
 
 
 func _input(event):
 	if active:
-		if InputHelper.is_any_action_just_pressed(mouse_mode_switch_input_actions):
+		if IndieBlueprintInputHelper.is_any_action_just_pressed(mouse_mode_switch_input_actions):
 			switch_mouse_capture_mode()
 			
 		if event is InputEventMouseMotion:
@@ -112,10 +112,10 @@ func is_active() -> bool:
 	
 	
 func switch_mouse_capture_mode() -> void:
-	if InputHelper.is_mouse_visible():
-		InputHelper.capture_mouse()
+	if IndieBlueprintInputHelper.is_mouse_visible():
+		IndieBlueprintInputHelper.capture_mouse()
 	else:
-		InputHelper.show_mouse_cursor()
+		IndieBlueprintInputHelper.show_mouse_cursor()
 
 
 func on_free_camera_enabled():
@@ -126,7 +126,7 @@ func on_free_camera_enabled():
 	set_process_input(true)
 	
 	Input.mouse_mode = previous_mouse_mode
-	InputHelper.capture_mouse()
+	IndieBlueprintInputHelper.capture_mouse()
 	
 	
 func on_free_camera_disabled():
@@ -142,5 +142,5 @@ func on_free_camera_disabled():
 
 
 func on_mouse_sensitivity_changed(section: String, key: String, value: Variant) -> void:
-	if section == GameSettings.AccessibilitySection and key == GameSettings.MouseSensivitySetting:
+	if section == IndieBlueprintGameSettings.AccessibilitySection and key == IndieBlueprintGameSettings.MouseSensivitySetting:
 		mouse_sensitivity = value

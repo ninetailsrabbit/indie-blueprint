@@ -45,4 +45,4 @@ func _screen_mode_to_string(mode: DisplayServer.WindowMode) -> String:
 
 func on_screen_mode_selected(idx) -> void:
 	DisplayServer.window_set_mode(get_item_id(idx))
-	SettingsManager.update_graphics_section(GameSettings.WindowDisplaySetting, DisplayServer.window_get_mode())
+	IndieBlueprintSettingsManager.update_graphics_section(IndieBlueprintGameSettings.WindowDisplaySetting, DisplayServer.window_get_mode())

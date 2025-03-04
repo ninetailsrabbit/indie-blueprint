@@ -9,7 +9,7 @@ var default_game_cursors_by_shape: Dictionary = {}
 
 
 func _ready() -> void:
-	cursor_display_timer = TimeHelper.create_idle_timer(temporary_display_time, false, true)
+	cursor_display_timer = IndieBlueprintTimeHelper.create_idle_timer(temporary_display_time, false, true)
 	cursor_display_timer.name = "CursorDisplayTimer"
 	
 	add_child(cursor_display_timer)
@@ -34,19 +34,19 @@ func change_cursor_temporary_to(texture: Texture2D, cursor_shape: Input.CursorSh
 
 
 func show_mouse() -> void:
-	InputHelper.show_mouse_cursor()
+	IndieBlueprintInputHelper.show_mouse_cursor()
 	
 
 func hide_mouse() -> void:
-	InputHelper.hide_mouse_cursor()
+	IndieBlueprintInputHelper.hide_mouse_cursor()
 
 
 func capture_mouse() -> void:
-	InputHelper.capture_mouse()
+	IndieBlueprintInputHelper.capture_mouse()
 
 
 func switch_mouse_capture_mode() -> void:
-	if InputHelper.is_mouse_visible():
+	if IndieBlueprintInputHelper.is_mouse_visible():
 		capture_mouse()
 	else:
 		show_mouse()

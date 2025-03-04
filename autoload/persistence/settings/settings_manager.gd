@@ -36,7 +36,7 @@ func save_settings(path: String = settings_file_path) -> void:
 	var error: Error = config_file_api.save_encrypted_pass(path, encription_key()) if use_encription else config_file_api.save(path)
 	
 	if error != OK:
-		push_error("SettingsManager: An error %d ocurred trying to save the settings on file %s " % [error_string(error), path])
+		push_error("IndieBlueprintSettingsManager: An error %d ocurred trying to save the settings on file %s " % [error_string(error), path])
 		
 
 func reset_to_factory_settings(path: String = settings_file_path) -> void:
@@ -60,7 +60,7 @@ func load_settings(path: String = settings_file_path) -> void:
 	var error: Error = config_file_api.load_encrypted_pass(path, encription_key()) if use_encription else config_file_api.load(path) 
 	
 	if error != OK:
-		push_error("SettingsManager: An error %d ocurred trying to load the settings from path %s " % [error_string(error), path])
+		push_error("IndieBlueprintSettingsManager: An error %d ocurred trying to load the settings from path %s " % [error_string(error), path])
 		return
 		
 	load_audio()
@@ -95,67 +95,67 @@ func create_settings(path: String = settings_file_path) -> void:
 
 
 func create_audio_section() -> void:
-	for bus: String in AudioManager.available_buses:
-		update_audio_section(bus, AudioManager.get_default_volume_for_bus(bus))
+	for bus: String in IndieBlueprintAudioManager.available_buses:
+		update_audio_section(bus, IndieBlueprintAudioManager.get_default_volume_for_bus(bus))
 	
-	var buses_are_muted: bool = GameSettings.DefaultSettings[GameSettings.MutedAudioSetting]
-	update_audio_section(GameSettings.MutedAudioSetting, buses_are_muted)
+	var buses_are_muted: bool = IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.MutedAudioSetting]
+	update_audio_section(IndieBlueprintGameSettings.MutedAudioSetting, buses_are_muted)
 	
 	if(buses_are_muted):
-		AudioManager.mute_all_buses()
+		IndieBlueprintAudioManager.mute_all_buses()
 	else:
-		AudioManager.unmute_all_buses()
+		IndieBlueprintAudioManager.unmute_all_buses()
 		
 
 func create_graphics_section() -> void:
-	update_graphics_section(GameSettings.FpsCounterSetting, GameSettings.DefaultSettings[GameSettings.FpsCounterSetting])
-	update_graphics_section(GameSettings.MaxFpsSetting, GameSettings.DefaultSettings[GameSettings.MaxFpsSetting])
-	update_graphics_section(GameSettings.WindowDisplaySetting, GameSettings.DefaultSettings[GameSettings.WindowDisplaySetting])
-	update_graphics_section(GameSettings.WindowDisplayBorderlessSetting,  GameSettings.DefaultSettings[GameSettings.WindowDisplayBorderlessSetting])
-	update_graphics_section(GameSettings.WindowResolutionSetting, GameSettings.DefaultSettings[GameSettings.WindowResolutionSetting])
-	update_graphics_section(GameSettings.IntegerScalingSetting, GameSettings.DefaultSettings[GameSettings.IntegerScalingSetting])
-	update_graphics_section(GameSettings.VsyncSetting, GameSettings.DefaultSettings[GameSettings.VsyncSetting])
-	update_graphics_section(GameSettings.Scaling3DMode, GameSettings.DefaultSettings[GameSettings.Scaling3DMode])
-	update_graphics_section(GameSettings.Scaling3DValue, GameSettings.DefaultSettings[GameSettings.Scaling3DValue])
-	update_graphics_section(GameSettings.QualityPresetSetting, GameSettings.DefaultSettings[GameSettings.QualityPresetSetting])
+	update_graphics_section(IndieBlueprintGameSettings.FpsCounterSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.FpsCounterSetting])
+	update_graphics_section(IndieBlueprintGameSettings.MaxFpsSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.MaxFpsSetting])
+	update_graphics_section(IndieBlueprintGameSettings.WindowDisplaySetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.WindowDisplaySetting])
+	update_graphics_section(IndieBlueprintGameSettings.WindowDisplayBorderlessSetting,  IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.WindowDisplayBorderlessSetting])
+	update_graphics_section(IndieBlueprintGameSettings.WindowResolutionSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.WindowResolutionSetting])
+	update_graphics_section(IndieBlueprintGameSettings.IntegerScalingSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.IntegerScalingSetting])
+	update_graphics_section(IndieBlueprintGameSettings.VsyncSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.VsyncSetting])
+	update_graphics_section(IndieBlueprintGameSettings.Scaling3DMode, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.Scaling3DMode])
+	update_graphics_section(IndieBlueprintGameSettings.Scaling3DValue, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.Scaling3DValue])
+	update_graphics_section(IndieBlueprintGameSettings.QualityPresetSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.QualityPresetSetting])
 	
 
 func create_accessibility_section() -> void:
-	update_accessibility_section(GameSettings.MouseSensivitySetting, GameSettings.DefaultSettings[GameSettings.MouseSensivitySetting])
-	update_accessibility_section(GameSettings.ReversedMouseSetting, GameSettings.DefaultSettings[GameSettings.ReversedMouseSetting])
-	update_accessibility_section(GameSettings.ControllerVibrationSetting, GameSettings.DefaultSettings[GameSettings.ControllerVibrationSetting])
-	update_accessibility_section(GameSettings.ScreenBrightnessSetting, GameSettings.DefaultSettings[GameSettings.ScreenBrightnessSetting])
-	update_accessibility_section(GameSettings.PhotosensitivitySetting, GameSettings.DefaultSettings[GameSettings.PhotosensitivitySetting])
-	update_accessibility_section(GameSettings.ScreenShakeSetting, GameSettings.DefaultSettings[GameSettings.ScreenShakeSetting])
-	update_accessibility_section(GameSettings.DaltonismSetting, GameSettings.DefaultSettings[GameSettings.DaltonismSetting])
+	update_accessibility_section(IndieBlueprintGameSettings.MouseSensivitySetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.MouseSensivitySetting])
+	update_accessibility_section(IndieBlueprintGameSettings.ReversedMouseSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.ReversedMouseSetting])
+	update_accessibility_section(IndieBlueprintGameSettings.ControllerVibrationSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.ControllerVibrationSetting])
+	update_accessibility_section(IndieBlueprintGameSettings.ScreenBrightnessSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.ScreenBrightnessSetting])
+	update_accessibility_section(IndieBlueprintGameSettings.PhotosensitivitySetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.PhotosensitivitySetting])
+	update_accessibility_section(IndieBlueprintGameSettings.ScreenShakeSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.ScreenShakeSetting])
+	update_accessibility_section(IndieBlueprintGameSettings.DaltonismSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DaltonismSetting])
 
 
 func create_localization_section() -> void:
-	update_localization_section(GameSettings.CurrentLanguageSetting, GameSettings.DefaultSettings[GameSettings.CurrentLanguageSetting])
-	update_localization_section(GameSettings.VoicesLanguageSetting, GameSettings.DefaultSettings[GameSettings.VoicesLanguageSetting])
-	update_localization_section(GameSettings.SubtitlesLanguageSetting, GameSettings.DefaultSettings[GameSettings.SubtitlesLanguageSetting])
-	update_localization_section(GameSettings.SubtitlesEnabledSetting, GameSettings.DefaultSettings[GameSettings.SubtitlesEnabledSetting])
+	update_localization_section(IndieBlueprintGameSettings.CurrentLanguageSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.CurrentLanguageSetting])
+	update_localization_section(IndieBlueprintGameSettings.VoicesLanguageSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.VoicesLanguageSetting])
+	update_localization_section(IndieBlueprintGameSettings.SubtitlesLanguageSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.SubtitlesLanguageSetting])
+	update_localization_section(IndieBlueprintGameSettings.SubtitlesEnabledSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.SubtitlesEnabledSetting])
 
 
 func create_analytics_section() -> void:
-	update_analytics_section(GameSettings.AllowTelemetrySetting, GameSettings.DefaultSettings[GameSettings.AllowTelemetrySetting])
+	update_analytics_section(IndieBlueprintGameSettings.AllowTelemetrySetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.AllowTelemetrySetting])
 
 
 func create_keybindings_section() -> void:
 	_get_input_map_actions().map(create_keybinding_events_for_action)
-	update_keybindings_section(GameSettings.DefaultInputMapActionsSetting, GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting])
+	update_keybindings_section(IndieBlueprintGameSettings.DefaultInputMapActionsSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DefaultInputMapActionsSetting])
 #endregion
 
 
 func create_keybinding_events_for_action(action: StringName) -> Array[String]:
 	var keybinding_events: Array[String] = []
-	var all_inputs_for_action: Array[InputEvent] = InputHelper.get_all_inputs_for_action(action)
+	var all_inputs_for_action: Array[InputEvent] = IndieBlueprintInputHelper.get_all_inputs_for_action(action)
 	## We save the default input map actions to allow players reset to factory default
-	GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting][action] = all_inputs_for_action
+	IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DefaultInputMapActionsSetting][action] = all_inputs_for_action
 	
 	for input_event: InputEvent in all_inputs_for_action:
 		if input_event is InputEventKey:
-			keybinding_events.append("InputEventKey:%s" %  StringHelper.remove_whitespaces(InputHelper.readable_key(input_event)))
+			keybinding_events.append("InputEventKey:%s" %  IndieBlueprintStringHelper.remove_whitespaces(IndieBlueprintInputHelper.readable_key(input_event)))
 			
 		if input_event is InputEventMouseButton:
 			var mouse_button_text: String = ""
@@ -200,14 +200,14 @@ func create_keybinding_events_for_action(action: StringName) -> Array[String]:
 		if input_event is InputEventJoypadButton:
 			var joypadButton: String = ""
 			
-			if(GamepadControllerManager.current_controller_is_xbox() or GamepadControllerManager.current_controller_is_generic()):
-				joypadButton = "%s Button" % GamepadControllerManager.XboxButtonLabels[input_event.button_index]
+			if(IndieBlueprintGamepadControllerManager.current_controller_is_xbox() or IndieBlueprintGamepadControllerManager.current_controller_is_generic()):
+				joypadButton = "%s Button" % IndieBlueprintGamepadControllerManager.XboxButtonLabels[input_event.button_index]
 			
-			elif GamepadControllerManager.current_controller_is_switch() or GamepadControllerManager.current_controller_is_switch_joycon():
-				joypadButton = "%s Button" % GamepadControllerManager.SwitchButtonLabels[input_event.button_index]
+			elif IndieBlueprintGamepadControllerManager.current_controller_is_switch() or IndieBlueprintGamepadControllerManager.current_controller_is_switch_joycon():
+				joypadButton = "%s Button" % IndieBlueprintGamepadControllerManager.SwitchButtonLabels[input_event.button_index]
 			
-			elif  GamepadControllerManager.current_controller_is_playstation():
-				joypadButton = "%s Button" % GamepadControllerManager.PlaystationButtonLabels[input_event.button_index]
+			elif  IndieBlueprintGamepadControllerManager.current_controller_is_playstation():
+				joypadButton = "%s Button" % IndieBlueprintGamepadControllerManager.PlaystationButtonLabels[input_event.button_index]
 				
 			keybinding_events.append("InputEventJoypadButton%s%d%s%s" % [InputEventSeparator, input_event.button_index, InputEventSeparator, joypadButton])
 	
@@ -219,56 +219,56 @@ func create_keybinding_events_for_action(action: StringName) -> Array[String]:
 
 #region Load
 func load_audio() -> void:
-	var muted_buses: bool = get_audio_section(GameSettings.MutedAudioSetting)
+	var muted_buses: bool = get_audio_section(IndieBlueprintGameSettings.MutedAudioSetting)
 	
-	for bus in config_file_api.get_section_keys(GameSettings.AudioSection):
-		if(bus in AudioManager.available_buses):
-			AudioManager.change_volume(bus, get_audio_section(bus))
-			AudioManager.mute_bus(bus, muted_buses)
+	for bus in config_file_api.get_section_keys(IndieBlueprintGameSettings.AudioSection):
+		if(bus in IndieBlueprintAudioManager.available_buses):
+			IndieBlueprintAudioManager.change_volume(bus, get_audio_section(bus))
+			IndieBlueprintAudioManager.mute_bus(bus, muted_buses)
 		
 @warning_ignore("int_as_enum_without_cast")
 func load_graphics() -> void:
-	for section_key: String in config_file_api.get_section_keys(GameSettings.GraphicsSection):
+	for section_key: String in config_file_api.get_section_keys(IndieBlueprintGameSettings.GraphicsSection):
 		var config_value = get_graphics_section(section_key)
 		
 		match section_key:
-			GameSettings.MaxFpsSetting:
+			IndieBlueprintGameSettings.MaxFpsSetting:
 				Engine.max_fps = config_value
-			GameSettings.WindowDisplaySetting:
+			IndieBlueprintGameSettings.WindowDisplaySetting:
 				DisplayServer.window_set_mode(config_value)
-			GameSettings.WindowDisplayBorderlessSetting:
+			IndieBlueprintGameSettings.WindowDisplayBorderlessSetting:
 				DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, bool(config_value))
-			GameSettings.WindowResolutionSetting:
+			IndieBlueprintGameSettings.WindowResolutionSetting:
 				DisplayServer.window_set_size(config_value)
-			GameSettings.IntegerScalingSetting:
+			IndieBlueprintGameSettings.IntegerScalingSetting:
 				get_tree().root.content_scale_stretch = int(config_value)
-			GameSettings.Scaling3DMode:
+			IndieBlueprintGameSettings.Scaling3DMode:
 				get_viewport().scaling_3d_mode = config_value
-			GameSettings.Scaling3DValue:
+			IndieBlueprintGameSettings.Scaling3DValue:
 				get_viewport().scaling_3d_scale = config_value
-			GameSettings.VsyncSetting:
+			IndieBlueprintGameSettings.VsyncSetting:
 				DisplayServer.window_set_vsync_mode(config_value)
 	
-		updated_setting_section.emit(GameSettings.GraphicsSection, section_key, config_value)
+		updated_setting_section.emit(IndieBlueprintGameSettings.GraphicsSection, section_key, config_value)
 		
 
 
 func load_localization() -> void:
-	for section_key: String in config_file_api.get_section_keys(GameSettings.LocalizationSection):
+	for section_key: String in config_file_api.get_section_keys(IndieBlueprintGameSettings.LocalizationSection):
 		var config_value = get_localization_section(section_key)
 		
 		match section_key:
-			GameSettings.CurrentLanguageSetting:
+			IndieBlueprintGameSettings.CurrentLanguageSetting:
 				TranslationServer.set_locale(config_value)
 				
-		updated_setting_section.emit(GameSettings.LocalizationSection, section_key, config_value)
+		updated_setting_section.emit(IndieBlueprintGameSettings.LocalizationSection, section_key, config_value)
 		
 
 func load_keybindings() -> void:
-	GameSettings.DefaultSettings[GameSettings.DefaultInputMapActionsSetting] = get_keybindings_section(GameSettings.DefaultInputMapActionsSetting)
+	IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DefaultInputMapActionsSetting] = get_keybindings_section(IndieBlueprintGameSettings.DefaultInputMapActionsSetting)
 	
-	for action: String in config_file_api.get_section_keys(GameSettings.KeybindingsSection):
-		if action in [GameSettings.DefaultInputMapActionsSetting]:
+	for action: String in config_file_api.get_section_keys(IndieBlueprintGameSettings.KeybindingsSection):
+		if action in [IndieBlueprintGameSettings.DefaultInputMapActionsSetting]:
 			continue
 			
 		var keybinding: String = get_keybindings_section(action)
@@ -285,74 +285,74 @@ func load_keybindings() -> void:
 
 #region Section Getters
 func get_audio_section(key: String):
-	return config_file_api.get_value(GameSettings.AudioSection, key)
+	return config_file_api.get_value(IndieBlueprintGameSettings.AudioSection, key)
 
 
 func get_keybindings_section(key: String):
-	return config_file_api.get_value(GameSettings.KeybindingsSection, key)
+	return config_file_api.get_value(IndieBlueprintGameSettings.KeybindingsSection, key)
 
 
 func get_graphics_section(key: String):
-	return config_file_api.get_value(GameSettings.GraphicsSection, key)
+	return config_file_api.get_value(IndieBlueprintGameSettings.GraphicsSection, key)
 
 
 func get_accessibility_section(key: String):
-	return config_file_api.get_value(GameSettings.AccessibilitySection, key)
+	return config_file_api.get_value(IndieBlueprintGameSettings.AccessibilitySection, key)
 
 
 func get_controls_section(key: String):
-	return config_file_api.get_value(GameSettings.ControlsSection, key)
+	return config_file_api.get_value(IndieBlueprintGameSettings.ControlsSection, key)
 
 
 func get_localization_section(key: String):
-	return config_file_api.get_value(GameSettings.LocalizationSection, key)
+	return config_file_api.get_value(IndieBlueprintGameSettings.LocalizationSection, key)
 	
 func get_analytics_section(key: String):
-	return config_file_api.get_value(GameSettings.AnalyticsSection, key)
+	return config_file_api.get_value(IndieBlueprintGameSettings.AnalyticsSection, key)
 
 #endregion
 	
 #region Section updaters
 func update_audio_section(key: String, value: Variant) -> void:
-	config_file_api.set_value(GameSettings.AudioSection, key, value)
+	config_file_api.set_value(IndieBlueprintGameSettings.AudioSection, key, value)
 	
-	updated_setting_section.emit(GameSettings.AudioSection, key, value)
+	updated_setting_section.emit(IndieBlueprintGameSettings.AudioSection, key, value)
 
 
 func update_keybindings_section(key: String, value: Variant) -> void:
-	config_file_api.set_value(GameSettings.KeybindingsSection, key, value)
+	config_file_api.set_value(IndieBlueprintGameSettings.KeybindingsSection, key, value)
 	
-	updated_setting_section.emit(GameSettings.KeybindingsSection, key, value)
+	updated_setting_section.emit(IndieBlueprintGameSettings.KeybindingsSection, key, value)
 
 
 func update_graphics_section(key: String, value: Variant) -> void:
-	config_file_api.set_value(GameSettings.GraphicsSection, key, value)
+	config_file_api.set_value(IndieBlueprintGameSettings.GraphicsSection, key, value)
 	
-	updated_setting_section.emit(GameSettings.GraphicsSection, key, value)
+	updated_setting_section.emit(IndieBlueprintGameSettings.GraphicsSection, key, value)
 
 	
 func update_accessibility_section(key: String, value: Variant) -> void:
-	config_file_api.set_value(GameSettings.AccessibilitySection, key, value)
+	config_file_api.set_value(IndieBlueprintGameSettings.AccessibilitySection, key, value)
 	
-	updated_setting_section.emit(GameSettings.AccessibilitySection, key, value)
+	updated_setting_section.emit(IndieBlueprintGameSettings.AccessibilitySection, key, value)
 	
 
 func update_controls_section(key: String, value: Variant) -> void:
-	config_file_api.set_value(GameSettings.ControlsSection, key, value)
+	config_file_api.set_value(IndieBlueprintGameSettings.ControlsSection, key, value)
 	
-	updated_setting_section.emit(GameSettings.ControlsSection, key, value)
+	updated_setting_section.emit(IndieBlueprintGameSettings.ControlsSection, key, value)
 	
 
 func update_analytics_section(key: String, value: Variant) -> void:
-	config_file_api.set_value(GameSettings.AnalyticsSection, key, value)
+	config_file_api.set_value(IndieBlueprintGameSettings.AnalyticsSection, key, value)
 	
-	updated_setting_section.emit(GameSettings.AnalyticsSection, key, value)
+	updated_setting_section.emit(IndieBlueprintGameSettings.AnalyticsSection, key, value)
 	
 
 func update_localization_section(key: String, value: Variant) -> void:
-	config_file_api.set_value(GameSettings.LocalizationSection, key, value)
+	config_file_api.set_value(IndieBlueprintGameSettings.LocalizationSection, key, value)
 
-	updated_setting_section.emit(GameSettings.LocalizationSection, key, value)
+	updated_setting_section.emit(IndieBlueprintGameSettings.LocalizationSection, key, value)
 	
 #endregion
 
@@ -364,10 +364,10 @@ func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
 	match keybinding_type[0]:
 		"InputEventKey":
 			var input_event_key = InputEventKey.new()
-			input_event_key.keycode = OS.find_keycode_from_string(StringHelper.str_replace(keybinding_type[1].strip_edges(), keybinding_modifiers_regex, func(_text: String): return ""))
-			input_event_key.alt_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "alt") and keybinding_type[1].containsn("alt")
-			input_event_key.ctrl_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "ctrl") and keybinding_type[1].containsn("ctrl")
-			input_event_key.shift_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "shift") and keybinding_type[1].containsn("shift")
+			input_event_key.keycode = OS.find_keycode_from_string(IndieBlueprintStringHelper.str_replace(keybinding_type[1].strip_edges(), keybinding_modifiers_regex, func(_text: String): return ""))
+			input_event_key.alt_pressed = not IndieBlueprintStringHelper.case_insensitive_comparison(keybinding_type[1], "alt") and keybinding_type[1].containsn("alt")
+			input_event_key.ctrl_pressed = not IndieBlueprintStringHelper.case_insensitive_comparison(keybinding_type[1], "ctrl") and keybinding_type[1].containsn("ctrl")
+			input_event_key.shift_pressed = not IndieBlueprintStringHelper.case_insensitive_comparison(keybinding_type[1], "shift") and keybinding_type[1].containsn("shift")
 			input_event_key.meta_pressed =  keybinding_type[1].containsn("meta")
 			
 			InputMap.action_add_event(action, input_event_key)
@@ -389,29 +389,29 @@ func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
 			InputMap.action_add_event(action, input_event_joypad_button)
 	
 #region Environment
-func apply_graphics_on_directional_light(directional_light: DirectionalLight3D, quality_preset: HardwareDetector.QualityPreset = HardwareDetector.QualityPreset.Medium) -> void:
-	var preset: HardwareDetector.GraphicQualityPreset = HardwareDetector.graphics_quality_presets[quality_preset]
+func apply_graphics_on_directional_light(directional_light: DirectionalLight3D, quality_preset: IndieBlueprintHardwareDetector.QualityPreset = IndieBlueprintHardwareDetector.QualityPreset.Medium) -> void:
+	var preset: IndieBlueprintHardwareDetector.GraphicQualityPreset = IndieBlueprintHardwareDetector.graphics_quality_presets[quality_preset]
 	
-	for quality: HardwareDetector.GraphicQualityDisplay in preset.quality:
+	for quality: IndieBlueprintHardwareDetector.GraphicQualityDisplay in preset.quality:
 		match quality.project_setting:
 			"shadow_atlas":
 				match quality_preset:
-					HardwareDetector.QualityPreset.Low:
+					IndieBlueprintHardwareDetector.QualityPreset.Low:
 						directional_light.shadow_bias = 0.03
-					HardwareDetector.QualityPreset.Medium:
+					IndieBlueprintHardwareDetector.QualityPreset.Medium:
 						directional_light.shadow_bias = 0.02
-					HardwareDetector.QualityPreset.High:
+					IndieBlueprintHardwareDetector.QualityPreset.High:
 						directional_light.shadow_bias = 0.01
-					HardwareDetector.QualityPreset.Ultra:
+					IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 						directional_light.shadow_bias = 0.005
 
 
 @warning_ignore("int_as_enum_without_cast")
-func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_preset: HardwareDetector.QualityPreset = HardwareDetector.QualityPreset.Medium) -> void:
+func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_preset: IndieBlueprintHardwareDetector.QualityPreset = IndieBlueprintHardwareDetector.QualityPreset.Medium) -> void:
 	var viewport: Viewport = world_environment.get_viewport()
-	var preset: HardwareDetector.GraphicQualityPreset = HardwareDetector.graphics_quality_presets[quality_preset]
+	var preset: IndieBlueprintHardwareDetector.GraphicQualityPreset = IndieBlueprintHardwareDetector.graphics_quality_presets[quality_preset]
 	
-	for quality: HardwareDetector.GraphicQualityDisplay in preset.quality:
+	for quality: IndieBlueprintHardwareDetector.GraphicQualityDisplay in preset.quality:
 		match quality.project_setting:
 			"environment/glow_enabled":
 				world_environment.environment.glow_enabled = bool(quality.enabled)
@@ -420,39 +420,39 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 				
 				if world_environment.environment.ssao_enabled:
 					match quality_preset:
-						HardwareDetector.QualityPreset.Low:
+						IndieBlueprintHardwareDetector.QualityPreset.Low:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_VERY_LOW, true, 0.5, 2, 50, 300)
-						HardwareDetector.QualityPreset.Medium:
+						IndieBlueprintHardwareDetector.QualityPreset.Medium:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_LOW, true, 0.5, 2, 50, 300)
-						HardwareDetector.QualityPreset.High:
+						IndieBlueprintHardwareDetector.QualityPreset.High:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_MEDIUM, true, 0.5, 2, 50, 300)
-						HardwareDetector.QualityPreset.Ultra:
+						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_HIGH, true, 0.5, 2, 50, 300)
 			"environment/ss_reflections_enabled":
 				world_environment.environment.ssr_enabled = bool(quality.enabled)
 				
 				if world_environment.environment.ssr_enabled:
 					match quality_preset:
-						HardwareDetector.QualityPreset.Low:
+						IndieBlueprintHardwareDetector.QualityPreset.Low:
 							world_environment.environment.ssr_max_steps = 8
-						HardwareDetector.QualityPreset.Medium:
+						IndieBlueprintHardwareDetector.QualityPreset.Medium:
 							world_environment.environment.ssr_max_steps = 32
-						HardwareDetector.QualityPreset.High:
+						IndieBlueprintHardwareDetector.QualityPreset.High:
 							world_environment.environment.ssr_max_steps = 56
-						HardwareDetector.QualityPreset.Ultra:
+						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 							world_environment.environment.ssr_max_steps = 56
 			"environment/sdfgi_enabled":
 				world_environment.environment.sdfgi_enabled = bool(quality.enabled)
 				
 				if world_environment.environment.sdfgi_enabled:
 					match quality_preset:
-						HardwareDetector.QualityPreset.Low:
+						IndieBlueprintHardwareDetector.QualityPreset.Low:
 							RenderingServer.gi_set_use_half_resolution(true)
-						HardwareDetector.QualityPreset.Medium:
+						IndieBlueprintHardwareDetector.QualityPreset.Medium:
 							RenderingServer.gi_set_use_half_resolution(true)
-						HardwareDetector.QualityPreset.High:
+						IndieBlueprintHardwareDetector.QualityPreset.High:
 							RenderingServer.gi_set_use_half_resolution(false)
-						HardwareDetector.QualityPreset.Ultra:
+						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
 							RenderingServer.gi_set_use_half_resolution(false)
 			"environment/ssil_enabled":
 				world_environment.environment.ssil_enabled = bool(quality.enabled)

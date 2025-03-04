@@ -23,10 +23,10 @@ func _ready() -> void:
 	settings_menu.hide()
 	settings_menu.z_index = z_index + 1
 
-	save_name_label.text = SaveManager.current_saved_game.display_name if SaveManager.current_saved_game else ""
+	save_name_label.text = IndieBlueprintSaveManager.current_saved_game.display_name if IndieBlueprintSaveManager.current_saved_game else ""
 	
-	SaveManager.created_savegame.connect(on_loaded_savegame)
-	SaveManager.loaded_savegame.connect(on_loaded_savegame)
+	IndieBlueprintSaveManager.created_savegame.connect(on_loaded_savegame)
+	IndieBlueprintSaveManager.loaded_savegame.connect(on_loaded_savegame)
 	
 	settings_menu.visibility_changed.connect(on_settings_menu_visibility_changed)
 	settings_button.pressed.connect(on_settings_button_pressed)
@@ -41,7 +41,7 @@ func on_pause_menu_visibility_changed() -> void:
 	get_tree().paused = visible
 
 
-func on_loaded_savegame(saved_game: SavedGame) -> void:
+func on_loaded_savegame(saved_game: IndieBlueprintSavedGame) -> void:
 	save_name_label.text = saved_game.display_name
 
 
@@ -60,4 +60,3 @@ func on_settings_button_pressed() -> void:
 
 func on_quit_game_button_pressed() -> void:
 	get_tree().quit()
-	
