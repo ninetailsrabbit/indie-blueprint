@@ -5,6 +5,12 @@ const MoveLeft: StringName = &"move_left"
 const MoveForward: StringName = &"move_forward"
 const MoveBack: StringName = &"move_back"
 
+## Right joystick support
+const UpMotion: StringName = &"up_motion"
+const DownMotion: StringName = &"down_motion"
+const LeftMotion: StringName = &"left_motion"
+const RightMotion: StringName = &"right_motion"
+
 const CrouchAction: StringName = &"crouch"
 const CrawlAction: StringName = &"crawl"
 const RunAction: StringName = &"run"

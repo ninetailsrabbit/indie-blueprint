@@ -26,6 +26,7 @@ var input_axis_as_vector: Vector2
 ## Right joystick support
 var input_right_motion_horizontal_axis: float
 var input_right_motion_vertical_axis: float
+var input_right_motion_axis_as_vector: Vector2
 var input_right_motion_as_vector: Vector2
 
 var input_direction_horizontal_axis_applied_deadzone: float
@@ -46,6 +47,7 @@ var previous_input_axis_as_vector: Vector2
 var previous_input_right_motion_horizontal_axis: float
 var previous_input_right_motion_vertical_axis: float
 var previous_input_right_motion_as_vector: Vector2
+var previous_input_right_motion_axis_as_vector: Vector2
 
 var previous_input_direction_horizontal_axis_applied_deadzone: float
 var previous_input_direction_vertical_axis_applied_deadzone: float
@@ -69,7 +71,7 @@ func _init(_actor: Node, _deadzone: float = deadzone):
 func update():
 	_update_previous_directions()
 	# This handles deadzone in a correct way for most use cases. The resulting deadzone will have a circular shape as it generally should.
-	input_direction = Input.get_vector(move_left_action, move_right_action, move_forward_action, move_back_action)
+	input_direction = get_motion_input()
 	
 	if actor is Node3D:
 		world_coordinate_space_direction = actor.transform.basis * Vector3(input_direction.x, 0, input_direction.y).normalized()
@@ -85,7 +87,8 @@ func update():
 	
 	input_right_motion_horizontal_axis = Input.get_axis(left_motion_action, right_motion_action)
 	input_right_motion_vertical_axis = Input.get_axis(up_motion_action, down_motion_action)
-	input_right_motion_as_vector = Vector2(input_right_motion_horizontal_axis, input_right_motion_vertical_axis)
+	input_right_motion_axis_as_vector = Vector2(input_right_motion_horizontal_axis, input_right_motion_vertical_axis)
+	input_right_motion_as_vector = get_right_joystick_input()
 	
 	_calculate_joystick_movement()
 	
@@ -93,6 +96,14 @@ func update():
 	input_direction_vertical_axis_applied_deadzone = input_direction_vertical_axis * (1.0 - deadzone)
 
 
+func get_motion_input() -> Vector2:
+	return Input.get_vector(move_left_action, move_right_action, move_forward_action, move_back_action)
+	
+	
+func get_right_joystick_input() -> Vector2:
+	return Input.get_vector(left_motion_action, right_motion_action, up_motion_action, down_motion_action, deadzone)
+	
+	
 func _input_axis_as_vector() -> Vector2:
 	var input: Vector2 = Vector2(input_direction_horizontal_axis, input_direction_vertical_axis)
 	
@@ -175,7 +186,8 @@ func _update_previous_directions():
 	
 	previous_input_right_motion_horizontal_axis = input_right_motion_horizontal_axis
 	previous_input_right_motion_vertical_axis = input_right_motion_vertical_axis
-	previous_input_right_motion_as_vector = input_right_motion_as_vector
+	previous_input_right_motion_axis_as_vector = input_right_motion_as_vector
+	previous_input_right_motion_as_vector = Input.get_vector(left_motion_action, right_motion_action, up_motion_action, down_motion_action)
 
 	previous_input_direction_horizontal_axis_applied_deadzone = input_direction_horizontal_axis_applied_deadzone
 	previous_input_direction_vertical_axis_applied_deadzone = input_direction_vertical_axis_applied_deadzone
@@ -214,6 +226,41 @@ func change_move_back_action(new_action: StringName) -> MotionInput:
 		move_back_action = new_action
 	else:
 		push_error("MotionInput: The new move back action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+	
+	return self
+	
+func change_motion_right_action(new_action: StringName) -> MotionInput:
+	if InputMap.has_action(new_action):
+		right_motion_action = new_action
+	else:
+		push_error("MotionInput: The new motion right action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+	
+	return self
+
+
+func change_motion_left_action(new_action: StringName) -> MotionInput:
+	if InputMap.has_action(new_action):
+		left_motion_action = new_action
+	else:
+		push_error("MotionInput: The new motion left action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+	
+	return self
+
+
+func change_motion_up_action(new_action: StringName) -> MotionInput:
+	if InputMap.has_action(new_action):
+		up_motion_action = new_action
+	else:
+		push_error("MotionInput: The new motion up action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
+	
+	return self
+
+
+func change_motion_down_action(new_action: StringName) -> MotionInput:
+	if InputMap.has_action(new_action):
+		down_motion_action = new_action
+	else:
+		push_error("MotionInput: The new motion down action %s does not exist in the InputMap, create the action and then reassign it again" % new_action)
 	
 	return self
 #endregion
