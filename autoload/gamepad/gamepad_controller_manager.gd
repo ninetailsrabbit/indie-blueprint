@@ -2,20 +2,20 @@
 extends Node
 
 
-signal controller_connected(device_id, controller_name:String)
-signal controller_disconnected(device_id, previous_controller_name:String, controller_name: String)
+signal controller_connected(device_id, controller_name: String)
+signal controller_disconnected(device_id, previous_controller_name: String, controller_name: String)
 
 const default_vibration_strength = 0.5
 const default_vibration_duration = 0.65
 
-const DeviceGeneric = "generic"
-const DeviceKeyboard = "keyboard"
-const DeviceXboxController = "xbox"
-const DeviceSwitchController = "switch"
-const DeviceSwitchJoyconLeftController = "switch_left_joycon"
-const DeviceSwitchJoyconRightController = "switch_right_joycon"
-const DevicePlaystationController = "playstation"
-const DeviceLunaController = "luna"
+const DeviceGeneric: StringName = &"generic"
+const DeviceKeyboard: StringName = &"keyboard"
+const DeviceXboxController: StringName = &"xbox"
+const DeviceSwitchController: StringName = &"switch"
+const DeviceSwitchJoyconLeftController: StringName = &"switch_left_joycon"
+const DeviceSwitchJoyconRightController: StringName = &"switch_right_joycon"
+const DevicePlaystationController: StringName = &"playstation"
+const DeviceLunaController: StringName = &"luna"
 
 const XboxButtonLabels = ["A", "B", "X", "Y", "Back", "Home", "Menu", "Left Stick", "Right Stick", "Left Shoulder", "Right Shoulder", "Up", "Down", "Left", "Right", "Share"]
 const SwitchButtonLabels = ["B", "A", "Y", "X", "-", "", "+", "Left Stick", "Right Stick", "Left Shoulder", "Right Shoulder", "Up", "Down", "Left", "Right", "Capture"]
@@ -23,7 +23,8 @@ const PlaystationButtonLabels = ["Cross", "Circle", "Square", "Triangle", "Selec
 
 
 var current_controller_guid
-var current_controller_name := DeviceKeyboard
+var current_controller_device := DeviceKeyboard
+var current_controller_name: String = "Keyboard"
 var current_device_id := 0
 var connected: bool = false
 
@@ -64,77 +65,76 @@ func update_current_controller(device: int, controller_name: String) -> void:
 	##https://github.com/mdqinc/SDL_GameControllerDB
 	current_controller_guid = Input.get_joy_guid(device)
 	current_device_id = device
+	current_controller_name = controller_name
 	
 	match controller_name:
 		"Luna Controller":
-			current_controller_name = DeviceLunaController
+			current_controller_device = DeviceLunaController
 		"XInput Gamepad", "Xbox One For Windows", "Xbox Series Controller", "Xbox 360 Controller", \
 		"Xbox One Controller": 
-			current_controller_name = DeviceXboxController
+			current_controller_device = DeviceXboxController
 		"Sony DualSense","Nacon Revolution Unlimited Pro Controller",\
 		"PS3 Controller", "PS4 Controller", "PS5 Controller":
-			current_controller_name = DevicePlaystationController
+			current_controller_device = DevicePlaystationController
 		"Steam Virtual Gamepad": 
-			current_controller_name = DeviceGeneric
+			current_controller_device = DeviceGeneric
 		"Switch","Switch Controller","Nintendo Switch Pro Controller",\
 		"Faceoff Deluxe Wired Pro Controller for Nintendo Switch":
-			current_controller_name = DeviceSwitchController
+			current_controller_device = DeviceSwitchController
 		"Joy-Con (L)":
-			current_controller_name = DeviceSwitchJoyconLeftController
+			current_controller_device = DeviceSwitchJoyconLeftController
 		"Joy-Con (R)":
-			current_controller_name = DeviceSwitchJoyconRightController
+			current_controller_device = DeviceSwitchJoyconRightController
 		_: 
-			current_controller_name = DeviceKeyboard
+			current_controller_device = DeviceKeyboard
+			current_controller_name = "Keyboard"
 
 
 #region Controller detectors
 func current_controller_is_generic() -> bool:
-	return current_controller_name == DeviceGeneric
+	return current_controller_device == DeviceGeneric
 
 
 func current_controller_is_luna() -> bool:
-	return current_controller_name == DeviceLunaController
+	return current_controller_device == DeviceLunaController
 
 
 func current_controller_is_keyboard() -> bool:
-	return current_controller_name == DeviceKeyboard
+	return current_controller_device == DeviceKeyboard
 
 
 func current_controller_is_playstation() -> bool:
-	return current_controller_name == DevicePlaystationController
+	return current_controller_device == DevicePlaystationController
 
 
 func current_controller_is_xbox() -> bool:
-	return current_controller_name == DeviceXboxController
+	return current_controller_device == DeviceXboxController
 
 
 func current_controller_is_switch() -> bool:
-	return current_controller_name == DeviceSwitchController
+	return current_controller_device == DeviceSwitchController
 
 
 func current_controller_is_switch_joycon() -> bool:
-	return current_controller_name in [DeviceSwitchJoyconLeftController, DeviceSwitchJoyconRightController]
+	return current_controller_device in [DeviceSwitchJoyconLeftController, DeviceSwitchJoyconRightController]
 
 
 func current_controller_is_switch_joycon_right() -> bool:
-	return current_controller_name == DeviceSwitchJoyconRightController
+	return current_controller_device == DeviceSwitchJoyconRightController
 
 
 func current_controller_is_switch_joycon_left() -> bool:
-	return current_controller_name == DeviceSwitchJoyconLeftController
+	return current_controller_device == DeviceSwitchJoyconLeftController
 #endregion
 
 
-func on_joy_connection_changed(device_id: int, _connected: bool):
-	var controller_name: String = Input.get_joy_name(device_id) if _connected else ""
-	update_current_controller(device_id, controller_name)
-	
-	connected = _connected
+func on_joy_connection_changed(device_id: int, connected: bool):
+	var previous_controller_name: String = current_controller_name
+	update_current_controller(device_id, Input.get_joy_name(device_id) if connected else "")
 	
 	if connected:
 		controller_connected.emit(device_id, current_controller_name)
 		print_rich("[color=green]Found newly connected joypad #%d: [b]%s[/b] - %s[/color]" % [device_id, Input.get_joy_name(device_id), Input.get_joy_guid(device_id)])
 	else:
-		controller_disconnected.emit(device_id, current_controller_name)
-		print_rich("[color=red]Disconnected joypad #%d.[/color]" % device_id)
-		
+		controller_disconnected.emit(device_id, previous_controller_name, current_controller_name)
+		print_rich("[color=red]Disconnected joypad [b]%s[/b] with id #%d[/color]" % [previous_controller_name, device_id])

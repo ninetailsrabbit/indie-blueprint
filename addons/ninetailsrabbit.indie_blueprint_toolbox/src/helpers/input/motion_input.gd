@@ -5,8 +5,14 @@ var move_left_action: StringName = &"move_left"
 var move_forward_action: StringName = &"move_forward"
 var move_back_action: StringName = &"move_back"
 
+## Right joystick support
+var up_motion_action: StringName = &"up_motion"
+var down_motion_action: StringName = &"down_motion"
+var left_motion_action: StringName = &"left_motion"
+var right_motion_action: StringName = &"right_motion"
+
 var actor: Node
-var deadzone: float = 0.5:
+var deadzone: float = 0.2:
 	set(value):
 		deadzone = clampf(value, 0.0, 1.0)
 
@@ -16,6 +22,12 @@ var input_direction_deadzone_square_shape: Vector2
 var input_direction_horizontal_axis: float
 var input_direction_vertical_axis: float
 var input_axis_as_vector: Vector2
+
+## Right joystick support
+var input_right_motion_horizontal_axis: float
+var input_right_motion_vertical_axis: float
+var input_right_motion_as_vector: Vector2
+
 var input_direction_horizontal_axis_applied_deadzone: float
 var input_direction_vertical_axis_applied_deadzone: float
 var input_joy_direction_left: Vector2
@@ -29,6 +41,12 @@ var previous_input_direction_deadzone_square_shape: Vector2
 var previous_input_direction_horizontal_axis: float
 var previous_input_direction_vertical_axis: float
 var previous_input_axis_as_vector: Vector2
+
+## Right joystick support
+var previous_input_right_motion_horizontal_axis: float
+var previous_input_right_motion_vertical_axis: float
+var previous_input_right_motion_as_vector: Vector2
+
 var previous_input_direction_horizontal_axis_applied_deadzone: float
 var previous_input_direction_vertical_axis_applied_deadzone: float
 var previous_input_joy_direction_left: Vector2
@@ -59,12 +77,15 @@ func update():
 	input_direction_deadzone_square_shape = Vector2(
 		Input.get_action_strength(move_right_action) - Input.get_action_strength(move_left_action),
 		Input.get_action_strength(move_back_action) - Input.get_action_strength(move_forward_action)
-	).limit_length(deadzone)	
+	).limit_length(deadzone)
 	
 	input_direction_horizontal_axis = Input.get_axis(move_left_action, move_right_action)
 	input_direction_vertical_axis = Input.get_axis(move_forward_action, move_back_action)
-	
 	input_axis_as_vector = _input_axis_as_vector()
+	
+	input_right_motion_horizontal_axis = Input.get_axis(left_motion_action, right_motion_action)
+	input_right_motion_vertical_axis = Input.get_axis(up_motion_action, down_motion_action)
+	input_right_motion_as_vector = Vector2(input_right_motion_horizontal_axis, input_right_motion_vertical_axis)
 	
 	_calculate_joystick_movement()
 	
@@ -152,10 +173,13 @@ func _update_previous_directions():
 	previous_input_direction_vertical_axis = input_direction_vertical_axis
 	previous_input_axis_as_vector = input_axis_as_vector
 	
+	previous_input_right_motion_horizontal_axis = input_right_motion_horizontal_axis
+	previous_input_right_motion_vertical_axis = input_right_motion_vertical_axis
+	previous_input_right_motion_as_vector = input_right_motion_as_vector
+
 	previous_input_direction_horizontal_axis_applied_deadzone = input_direction_horizontal_axis_applied_deadzone
 	previous_input_direction_vertical_axis_applied_deadzone = input_direction_vertical_axis_applied_deadzone
 
-	
 
 #region Action setters
 func change_move_right_action(new_action: StringName) -> MotionInput:
