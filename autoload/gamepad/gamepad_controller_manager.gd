@@ -68,9 +68,9 @@ func update_current_controller(device: int, controller_name: String) -> void:
 	match controller_name:
 		"Luna Controller":
 			current_controller_name = DeviceLunaController
-		"XInput Gamepad", "Xbox Series Controller", "Xbox 360 Controller", \
+		"XInput Gamepad", "Xbox One For Windows", "Xbox Series Controller", "Xbox 360 Controller", \
 		"Xbox One Controller": 
-			current_controller_name = DeviceGeneric
+			current_controller_name = DeviceXboxController
 		"Sony DualSense","Nacon Revolution Unlimited Pro Controller",\
 		"PS3 Controller", "PS4 Controller", "PS5 Controller":
 			current_controller_name = DevicePlaystationController
