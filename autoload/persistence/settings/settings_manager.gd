@@ -121,6 +121,7 @@ func create_graphics_section() -> void:
 	
 
 func create_accessibility_section() -> void:
+	update_accessibility_section(IndieBlueprintGameSettings.ControllerSensivitySetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.ControllerSensivitySetting])
 	update_accessibility_section(IndieBlueprintGameSettings.MouseSensivitySetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.MouseSensivitySetting])
 	update_accessibility_section(IndieBlueprintGameSettings.ReversedMouseSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.ReversedMouseSetting])
 	update_accessibility_section(IndieBlueprintGameSettings.ControllerVibrationSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.ControllerVibrationSetting])

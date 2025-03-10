@@ -23,6 +23,7 @@ const Scaling3DMode: StringName = &"scaling_3d_mode"
 const Scaling3DValue: StringName = &"scaling_3d_value"
 const QualityPresetSetting: StringName = &"quality_preset"
 
+const ControllerSensivitySetting: StringName = &"controller_sensitivity"
 const MouseSensivitySetting: StringName = &"mouse_sensitivity"
 const ReversedMouseSetting: StringName = &"reversed_mouse"
 const ControllerVibrationSetting: StringName = &"controller_vibration"
@@ -58,6 +59,7 @@ static var DefaultSettings: Dictionary = {
 	IndieBlueprintGameSettings.Scaling3DMode: Viewport.SCALING_3D_MODE_BILINEAR,
 	IndieBlueprintGameSettings.Scaling3DValue: 1.0,
 	IndieBlueprintGameSettings.QualityPresetSetting: IndieBlueprintHardwareDetector.auto_discover_graphics_quality(),
+	IndieBlueprintGameSettings.ControllerSensivitySetting: 5.0,
 	IndieBlueprintGameSettings.MouseSensivitySetting: 3.0,
 	IndieBlueprintGameSettings.ReversedMouseSetting: false,
 	IndieBlueprintGameSettings.ControllerVibrationSetting: true,
