@@ -12,6 +12,9 @@ class_name SmartDecal extends Decal
 @export var fade_out_time: float = 1.5
 ## Randomize the spin on the Y axis to create a more natural feeling
 @export var spin_randomization: bool = false
+@export_range(0, 360.0, 0.1, "degrees") var spin_randomization_min_angle: float = 0.0
+@export_range(0, 360.0, 0.1, "degrees") var spin_randomization_max_angle: float = 360.0
+
 
 
 func _enter_tree() -> void:
@@ -35,15 +38,17 @@ func adjust_size() -> void:
 func adjust_to_normal(normal: Vector3) -> void:
 	if not normal.is_equal_approx(Vector3.UP) and not normal.is_equal_approx(Vector3.DOWN):
 		look_at(global_position + normal, Vector3.UP)
-		
-	rotate_object_local(Vector3.RIGHT, PI / 2)
+		rotate_object_local(Vector3.RIGHT, PI / 2)
 		
 	if spin_randomization:
-		rotate_object_local(Vector3.UP, randf_range(0, TAU))
+		rotate_object_local(
+			Vector3.UP, 
+			randf_range(deg_to_rad(spin_randomization_min_angle), deg_to_rad(spin_randomization_max_angle))
+		)
 	
 	if fade_after > 0:
 		fade_out()
-		
+
 
 func fade_out(time: float = fade_out_time) -> void:
 	var tween = create_tween()
