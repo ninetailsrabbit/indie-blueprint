@@ -7,6 +7,7 @@ signal hitbox_detected(hitbox: Hitbox2D)
 func _init() -> void:
 	monitoring = true
 	monitorable = false
+	collision_layer = 0
 	collision_mask = IndieBlueprintGameGlobals.hitboxes_collision_layer
 	
 
