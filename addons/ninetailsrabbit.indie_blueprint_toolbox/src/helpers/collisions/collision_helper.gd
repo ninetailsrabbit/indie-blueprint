@@ -20,3 +20,12 @@ static func value_to_layer(value: int) -> int:
 	push_error("CollisionHelper->value_to_layer: The specified value %d) is invalid. Please ensure the value is a power of 2" % value)
 	
 	return 0
+
+## The -0.5 is used in the code, to ensure that the random point is evenly distributed within the shape.
+static func get_random_point_from_collision_shape(collision: CollisionShape3D, use_global: bool = true) -> Vector3:
+	var random_point_local: Vector3
+
+	if collision.shape is BoxShape3D:
+		random_point_local = Vector3(randf() - 0.5, randf() - 0.5, randf() - 0.5) * collision.shape.size
+
+	return collision.to_global(random_point_local) if use_global else random_point_local
