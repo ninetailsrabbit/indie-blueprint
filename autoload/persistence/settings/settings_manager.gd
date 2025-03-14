@@ -95,7 +95,7 @@ func create_settings(path: String = settings_file_path) -> void:
 
 
 func create_audio_section() -> void:
-	for bus: String in IndieBlueprintAudioManager.available_buses:
+	for bus: String in IndieBlueprintAudioManager.enumerate_available_buses():
 		update_audio_section(bus, IndieBlueprintAudioManager.get_default_volume_for_bus(bus))
 	
 	var buses_are_muted: bool = IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.MutedAudioSetting]
