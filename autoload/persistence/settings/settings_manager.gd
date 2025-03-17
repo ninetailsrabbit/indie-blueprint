@@ -223,7 +223,7 @@ func load_audio() -> void:
 	var muted_buses: bool = get_audio_section(IndieBlueprintGameSettings.MutedAudioSetting)
 	
 	for bus in config_file_api.get_section_keys(IndieBlueprintGameSettings.AudioSection):
-		if(bus in IndieBlueprintAudioManager.available_buses):
+		if bus in IndieBlueprintAudioManager.enumerate_available_buses():
 			IndieBlueprintAudioManager.change_volume(bus, get_audio_section(bus))
 			IndieBlueprintAudioManager.mute_bus(bus, muted_buses)
 		
