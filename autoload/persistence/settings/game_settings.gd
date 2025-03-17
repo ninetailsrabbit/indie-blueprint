@@ -27,6 +27,7 @@ const ControllerSensivitySetting: StringName = &"controller_sensitivity"
 const MouseSensivitySetting: StringName = &"mouse_sensitivity"
 const ReversedMouseSetting: StringName = &"reversed_mouse"
 const ControllerVibrationSetting: StringName = &"controller_vibration"
+const CameraFovSetting: StringName = &"camera_fov"
 
 const ScreenBrightnessSetting: StringName = &"screen_brightness"
 const PhotosensitivitySetting: StringName = &"photosensitive"
@@ -63,6 +64,7 @@ static var DefaultSettings: Dictionary = {
 	IndieBlueprintGameSettings.MouseSensivitySetting: 3.0,
 	IndieBlueprintGameSettings.ReversedMouseSetting: false,
 	IndieBlueprintGameSettings.ControllerVibrationSetting: true,
+	IndieBlueprintGameSettings.CameraFovSetting: 75.0,
 	IndieBlueprintGameSettings.ScreenBrightnessSetting: 1.0,
 	IndieBlueprintGameSettings.PhotosensitivitySetting: false,
 	IndieBlueprintGameSettings.ScreenShakeSetting: true,
