@@ -30,6 +30,8 @@ const ControllerVibrationSetting: StringName = &"controller_vibration"
 const CameraFovSetting: StringName = &"camera_fov"
 
 const ScreenBrightnessSetting: StringName = &"screen_brightness"
+const ScreenContrastSetting: StringName = &"screen_contrast"
+const ScreenSaturationSetting: StringName = &"screen_saturation"
 const PhotosensitivitySetting: StringName = &"photosensitive"
 const ScreenShakeSetting: StringName = &"screenshake"
 const DaltonismSetting: StringName = &"daltonism"
@@ -66,6 +68,8 @@ static var DefaultSettings: Dictionary = {
 	IndieBlueprintGameSettings.ControllerVibrationSetting: true,
 	IndieBlueprintGameSettings.CameraFovSetting: 75.0,
 	IndieBlueprintGameSettings.ScreenBrightnessSetting: 1.0,
+	IndieBlueprintGameSettings.ScreenContrastSetting: 1.0,
+	IndieBlueprintGameSettings.ScreenSaturationSetting: 1.0,
 	IndieBlueprintGameSettings.PhotosensitivitySetting: false,
 	IndieBlueprintGameSettings.ScreenShakeSetting: true,
 	IndieBlueprintGameSettings.DaltonismSetting: IndieBlueprintWindowManager.DaltonismTypes.No,
