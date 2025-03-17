@@ -14,6 +14,7 @@ const AnalyticsSection: StringName = &"analytics"
 ## This settings are used as keys for the configuration file .ini or .cfg
 const FpsCounterSetting: StringName = &"fps_counter"
 const MaxFpsSetting: StringName = &"max_fps"
+const CurrentMonitorSetting: StringName = &"current_monitor"
 const WindowDisplaySetting: StringName = &"display"
 const WindowDisplayBorderlessSetting: StringName = &"borderless"
 const WindowResolutionSetting: StringName = &"resolution"
@@ -54,6 +55,7 @@ static var DefaultSettings: Dictionary = {
 	IndieBlueprintGameSettings.MutedAudioSetting: false,
 	IndieBlueprintGameSettings.FpsCounterSetting: false,
 	IndieBlueprintGameSettings.MaxFpsSetting: 0,
+	IndieBlueprintGameSettings.CurrentMonitorSetting: 0,
 	IndieBlueprintGameSettings.WindowDisplaySetting: DisplayServer.window_get_mode(),
 	IndieBlueprintGameSettings.WindowResolutionSetting: DisplayServer.window_get_size(),
 	IndieBlueprintGameSettings.WindowDisplayBorderlessSetting: DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS),

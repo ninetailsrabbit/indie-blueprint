@@ -110,6 +110,7 @@ func create_audio_section() -> void:
 func create_graphics_section() -> void:
 	update_graphics_section(IndieBlueprintGameSettings.FpsCounterSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.FpsCounterSetting])
 	update_graphics_section(IndieBlueprintGameSettings.MaxFpsSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.MaxFpsSetting])
+	update_graphics_section(IndieBlueprintGameSettings.CurrentMonitorSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.CurrentMonitorSetting])
 	update_graphics_section(IndieBlueprintGameSettings.WindowDisplaySetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.WindowDisplaySetting])
 	update_graphics_section(IndieBlueprintGameSettings.WindowDisplayBorderlessSetting,  IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.WindowDisplayBorderlessSetting])
 	update_graphics_section(IndieBlueprintGameSettings.WindowResolutionSetting, IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.WindowResolutionSetting])
@@ -238,6 +239,11 @@ func load_graphics() -> void:
 		match section_key:
 			IndieBlueprintGameSettings.MaxFpsSetting:
 				Engine.max_fps = config_value
+			IndieBlueprintGameSettings.CurrentMonitorSetting:
+				if config_value < DisplayServer.get_screen_count():
+					get_window().current_screen = config_value
+				else:
+					get_window().current_screen = IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.CurrentMonitorSetting]
 			IndieBlueprintGameSettings.WindowDisplaySetting:
 				DisplayServer.window_set_mode(config_value)
 			IndieBlueprintGameSettings.WindowDisplayBorderlessSetting:
