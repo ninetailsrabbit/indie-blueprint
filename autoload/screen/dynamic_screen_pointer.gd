@@ -1,7 +1,6 @@
 @icon("res://autoload/screen/dynamic_crosshair.svg")
 class_name DynamicScreenPointerControl extends Control
 
-
 @export var dot_radius: float = 2.0:
 	set(value):
 		if value != dot_radius:
@@ -52,7 +51,7 @@ var left_reticle_original_rotation: float
 var reticle_original_dot_radius: float
 var reticle_original_dot_color: Color
 
-var dot_reticle_show: bool = true
+var dot_reticle_show: bool = false
 
 
 func _ready() -> void:
@@ -61,7 +60,6 @@ func _ready() -> void:
 	queue_redraw()
 	prepare_reticles()
 	_save_reticle_original_values()
-	
 	hide_cross_reticle()
 
 
@@ -94,18 +92,32 @@ func display_dot_reticle(radius: float = dot_radius, color: Color = dot_color) -
 func hide_dot_reticle() -> void:
 	pass
 
-func display_cross_reticle() -> void:
+
+func display_cross_reticle() -> DynamicScreenPointerControl:
 	top_reticle.show()
 	bottom_reticle.show()
 	right_reticle.show()
 	left_reticle.show()
 	
+	return self
 	
-func hide_cross_reticle() -> void:
+	
+func hide_cross_reticle() -> DynamicScreenPointerControl:
 	top_reticle.hide()
 	bottom_reticle.hide()
 	right_reticle.hide()
 	left_reticle.hide()
+	
+	return self
+
+
+func change_reticles_scale(new_scale: Vector2) -> DynamicScreenPointerControl:
+	top_reticle.scale = new_scale
+	bottom_reticle.scale = new_scale
+	right_reticle.scale = new_scale
+	left_reticle.scale = new_scale
+	
+	return self
 
 
 func expand_reticles(distance: float = 5.0, time: float = 0.15) -> void:

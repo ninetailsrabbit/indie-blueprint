@@ -21,10 +21,10 @@ class GraphicQualityPreset:
 class GraphicQualityDisplay:
 	var project_setting: String = ""
 	var property_name: String = ""
-	var enabled: int = 0
+	var enabled: Variant = 0
 	var available_text: String = ""
 	
-	func _init(_project_setting:  String, _property_name: String, _enabled: int, _available_text: String) -> void:
+	func _init(_project_setting:  String, _property_name: String, _enabled: Variant, _available_text: String) -> void:
 		project_setting = _project_setting
 		property_name = _property_name
 		enabled = _enabled
