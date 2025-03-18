@@ -1,5 +1,10 @@
 extends Node
 
+## Configuration for 4k Games
+# Viewport Size: 1920x1080
+# Aspect: Expand
+# Mode: Canvas items
+
 ## Configuration for retro psx games
 # Viewport Size: 320x180 o 640x360 depending on the textures details you want
 # Aspect: Keep

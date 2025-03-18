@@ -128,11 +128,11 @@ func current_controller_is_switch_joycon_left() -> bool:
 #endregion
 
 
-func on_joy_connection_changed(device_id: int, connected: bool):
+func on_joy_connection_changed(device_id: int, joy_connected: bool):
 	var previous_controller_name: String = current_controller_name
-	update_current_controller(device_id, Input.get_joy_name(device_id) if connected else "")
+	update_current_controller(device_id, Input.get_joy_name(device_id) if joy_connected else "")
 	
-	if connected:
+	if joy_connected:
 		controller_connected.emit(device_id, current_controller_name)
 		print_rich("[color=green]Found newly connected joypad #%d: [b]%s[/b] - %s[/color]" % [device_id, Input.get_joy_name(device_id), Input.get_joy_guid(device_id)])
 	else:
