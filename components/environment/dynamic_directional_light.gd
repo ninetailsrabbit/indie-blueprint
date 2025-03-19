@@ -1,6 +1,11 @@
 class_name DynamicDirectionalLight3D extends DirectionalLight3D
 
+const GroupName: StringName = &"dynamic-environment-light"
 
+
+func _enter_tree() -> void:
+	add_to_group(GroupName)
+	
 
 func _ready() -> void:
 	IndieBlueprintSettingsManager.apply_graphics_on_directional_light(
