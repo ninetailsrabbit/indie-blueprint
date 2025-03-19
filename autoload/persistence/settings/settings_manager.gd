@@ -479,9 +479,10 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 			"mesh_level_of_detail":
 				viewport.mesh_lod_threshold = quality.enabled
 			"scaling_3d":
-				## When using FSR upscaling, AMD recommends exposing the following values as preset options to users 
-				## "Ultra Quality: 0.77", "Quality: 0.67", "Balanced: 0.59", "Performance: 0.5" instead of exposing the entire scale.
-				viewport.scaling_3d_scale = quality.enabled
+				if viewport.scaling_3d_mode != Viewport.SCALING_3D_MODE_BILINEAR:
+					## When using FSR upscaling, AMD recommends exposing the following values as preset options to users 
+					## "Ultra Quality: 0.77", "Quality: 0.67", "Balanced: 0.59", "Performance: 0.5" instead of exposing the entire scale.
+					viewport.scaling_3d_scale = quality.enabled
 #endregion
 	
 
