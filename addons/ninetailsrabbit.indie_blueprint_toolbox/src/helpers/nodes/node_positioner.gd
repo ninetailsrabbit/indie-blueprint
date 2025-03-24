@@ -38,11 +38,18 @@ static func a_is_facing_b(a: Node3D, b: Node3D) -> bool:
 	
 # Use on _process or _physic_process
 static func rotate_toward_v2(from: Node2D, to: Node2D, lerp_weight: float = 0.5) -> void:
-	from.rotation = lerp_angle(from.rotation, global_direction_to_v2(to, from).angle(), clamp(lerp_weight, 0.0, 1.0))
+	from.rotation = lerp_angle(from.rotation, global_direction_to_v2(to, from).angle(), clampf(lerp_weight, 0.0, 1.0))
 
 # Use on _process or _physic_process
 static func rotate_toward_v3(from: Node3D, to: Node3D, lerp_weight: float = 0.5) -> void:
-	from.basis = from.basis.slerp(Basis.looking_at(global_direction_to_v3(from, to)), clamp(lerp_weight, 0.0, 1.0))
+	from.basis = from.basis.slerp(Basis.looking_at(global_direction_to_v3(from, to)), clampf(lerp_weight, 0.0, 1.0))
+
+## Example: look_at_global_position($Player, $Target.position, 0, 0.5)
+## This would make the player look at the target, with a slight upward tilt (0.5 radians or approximately 28.6 degrees).
+static func look_at_position(from: Node3D, target_position: Vector3, offset_yaw: float = 0, offset_pitch: float = 0) -> void:
+	var delta: Vector3 = target_position - from.global_position
+	from.global_rotation.y = (atan2(delta.x, delta.z) - PI) + offset_yaw
+	from.global_rotation.x = ( asin(delta.y / delta.length()) ) + offset_pitch
 
 
 static func align_nodes_v2(from: Node2D, to: Node2D, align_position: bool = true, align_rotation: bool = true) -> void:
@@ -88,7 +95,7 @@ static func get_nearest_nodes_sorted_by_distance(from: Vector2, nodes: Array = [
 	var nodes_copy = nodes.duplicate()\
 		.filter(func(node): return (node is Node2D or node is Node3D) and IndieBlueprintMathHelper.decimal_value_is_between(node.global_position.distance_to(from), min_distance, max_range))
 		
-	nodes_copy.sort_custom(func(a, b): return a.global_position.distance_to(from) < b.global_position.distance_to(from))
+	nodes_copy.sort_custom(func(a, b): return a.global_position.distance_squared_to(from) < b.global_position.distance_squared_to(from))
 	
 	return nodes_copy
 

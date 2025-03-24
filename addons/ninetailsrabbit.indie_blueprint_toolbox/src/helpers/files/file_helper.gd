@@ -132,6 +132,27 @@ static func get_pck_files(path: String) -> Array:
 	return get_files_recursive(path, regex)
 
 
+static func get_resource_files(path: String) -> Array:
+	var regex = RegEx.new()
+	regex.compile(".res$")
+	
+	return get_files_recursive(path, regex)
+
+
+static func get_scene_files(path: String) -> Array:
+	var regex = RegEx.new()
+	regex.compile(".tscn$")
+	
+	return get_files_recursive(path, regex)
+
+
+static func get_shader_files(path: String) -> Array:
+	var regex = RegEx.new()
+	regex.compile(".gdshader$")
+	
+	return get_files_recursive(path, regex)
+
+
 ### CSV & TSV related ###
 static func load_csv(path: String, as_dictionary := true):
 	var file_exists := FileAccess.file_exists(path)

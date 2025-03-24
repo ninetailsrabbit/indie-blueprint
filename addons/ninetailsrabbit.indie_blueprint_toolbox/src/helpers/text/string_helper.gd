@@ -156,7 +156,7 @@ static func str_replace(target: String, regex: RegEx, cb: Callable) -> String:
 	return result
 	
 
-static func case_insensitive_comparison(one: String, two: String) -> bool:
+static func equals_ignore_case(one: String, two: String) -> bool:
 	return one.strip_edges().to_lower() == two.strip_edges().to_lower()
 	
 	
@@ -197,3 +197,8 @@ static func bars(amount: int, separator: String = "") -> String:
 		return bars_text
 		
 	return result
+
+## Pad zero on 1-digit numbers 0-9
+## Example: 5 becomes 05
+static func pad_zero(number: int) -> String:
+	return "%02d" % number

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="IndieBlueprintColorPalette" load_steps=2 format=3 uid="uid://0lwrg4orhopg"]
+[gd_resource type="Resource" script_class="ColorPalette" load_steps=2 format=3 uid="uid://0lwrg4orhopg"]
 
-[ext_resource type="Script" uid="uid://dpw5rxrv74hiy" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/helpers/color/color_palette.gd" id="1_8l30y"]
+[ext_resource type="Script" uid="uid://bdgfoc5auy1wg" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/helpers/color/color_palette.gd" id="1_8l30y"]
 
 [resource]
 script = ExtResource("1_8l30y")

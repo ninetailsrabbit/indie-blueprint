@@ -1,6 +1,13 @@
 class_name IndieBlueprintTextureHelper
 
 
+static func center_texture_rect_pivot(texture_rect: TextureRect) -> TextureRect:
+	if texture_rect.texture:
+		texture_rect.pivot_offset = (texture_rect.texture.get_size() / 2).ceil()
+	
+	return texture_rect
+
+
 static func get_texture_dimensions(texture: Texture2D) -> Rect2i:
 	return texture.get_image().get_used_rect()
 	

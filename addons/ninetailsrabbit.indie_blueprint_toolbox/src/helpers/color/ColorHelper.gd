@@ -23,12 +23,12 @@ static func get_palette(id: StringName) -> IndieBlueprintColorPalette:
 
 
 
-static func get_gradient(id: StringName) -> ColorGradient:
+static func get_gradient(id: StringName) -> IndieBlueprintColorGradient:
 	var regex = RegEx.new()
 	regex.compile(".tres$")
 	
 	for gradient_path: String in IndieBlueprintFileHelper.get_files_recursive(GradientsPath, regex):
-		var gradient: ColorGradient = ResourceLoader.load(gradient_path, "", ResourceLoader.CACHE_MODE_REUSE)
+		var gradient: IndieBlueprintColorGradient = ResourceLoader.load(gradient_path, "", ResourceLoader.CACHE_MODE_REUSE)
 		
 		if gradient.id == id:
 			return gradient

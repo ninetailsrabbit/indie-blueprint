@@ -1,4 +1,4 @@
-class_name SmartDecal extends Decal
+class_name IndieBlueprintSmartDecal extends Decal
 
 ## The minimum size this decal can have. Set both min_size and max_size to not apply a random range between them
 @export var min_size: Vector3 = Vector3.ONE
@@ -14,7 +14,6 @@ class_name SmartDecal extends Decal
 @export var spin_randomization: bool = false
 @export_range(0, 360.0, 0.1, "degrees") var spin_randomization_min_angle: float = 0.0
 @export_range(0, 360.0, 0.1, "degrees") var spin_randomization_max_angle: float = 360.0
-
 
 
 func _enter_tree() -> void:
@@ -48,7 +47,6 @@ func adjust_to_normal(normal: Vector3) -> void:
 	
 	if fade_after > 0:
 		fade_out()
-
 
 func fade_out(time: float = fade_out_time) -> void:
 	var tween = create_tween()

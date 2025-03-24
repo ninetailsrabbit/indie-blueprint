@@ -342,7 +342,7 @@ static func rect_difference(r1: Rect2, r2: Rect2) -> Array:
 
 static func average(numbers: Array = []) -> float:
 	if numbers.is_empty():
-		return 0
+		return 0.0
 
 	return numbers.reduce(func(accum, element): return accum + element, 0.0) / numbers.size()
 

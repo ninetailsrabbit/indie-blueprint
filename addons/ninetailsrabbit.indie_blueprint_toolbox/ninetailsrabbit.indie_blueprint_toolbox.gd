@@ -54,6 +54,6 @@ func _exit_tree() -> void:
 	remove_custom_type("IndieBlueprintRotatorComponent2D")
 	remove_custom_type("IndieBlueprintOrbitComponent2D")
 	remove_custom_type("IndieBlueprintDraggable2D")
-	remove_custom_type("SmartDecal")
+	remove_custom_type("IndieBlueprintSmartDecal")
 	
 	remove_autoload_singleton("IndieBlueprintWindowManager")
