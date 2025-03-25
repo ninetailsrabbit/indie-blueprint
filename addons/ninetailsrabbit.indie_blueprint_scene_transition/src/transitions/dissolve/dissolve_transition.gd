@@ -16,10 +16,10 @@ func transition_in(args: Dictionary = {}) -> void:
 	var tween = create_tween()
 	tween.tween_property(color_rect.material, "shader_parameter/dissolve_amount", 0.0, args.get_or_add("duration", duration))\
 		.from(1.0)
-		
+	
 	tween.finished.connect(func(): in_transition_finished.emit(), CONNECT_ONE_SHOT)
 
-	
+
 func transition_out(args: Dictionary = {}) -> void:
 	in_transition_started.emit()
 	
@@ -30,4 +30,4 @@ func transition_out(args: Dictionary = {}) -> void:
 	tween.tween_property(color_rect.material, "shader_parameter/dissolve_amount", 1.0, args.get_or_add("duration", duration))\
 		.from(0.0)
 		
-	tween.finished.connect(func(): in_transition_finished.emit(), CONNECT_ONE_SHOT)
+	tween.finished.connect(func(): out_transition_finished.emit(), CONNECT_ONE_SHOT)

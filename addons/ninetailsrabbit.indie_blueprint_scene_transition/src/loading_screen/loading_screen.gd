@@ -44,14 +44,13 @@ func _ready() -> void:
 func _process(delta):
 	if loading:
 		scene_load_status = ResourceLoader.load_threaded_get_status(next_scene_path, current_progress)
-		
-		current_progress_value = lerp(current_progress_value, current_progress[0] * 100.0, delta * progress_smooth_factor)
+		current_progress_value = lerpf(current_progress_value, current_progress[0] * 100.0, delta * progress_smooth_factor)
 		
 		match scene_load_status:
 			ResourceLoader.THREAD_LOAD_LOADED:
-				current_progress_value = 100.0
-				finished.emit(ResourceLoader.load_threaded_get(next_scene_path))
-				loading = false
+				if snappedf(current_progress_value, 0.1) >= 100.0:
+					finished.emit(ResourceLoader.load_threaded_get(next_scene_path))
+					loading = false
 			ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 				loading = true
 			[ResourceLoader.THREAD_LOAD_FAILED, ResourceLoader.THREAD_LOAD_INVALID_RESOURCE]:

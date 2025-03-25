@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="IndieBlueprintSceneTransitionConfiguration" load_steps=3 format=3 uid="uid://d0s7ntjjacsso"]
 
 [ext_resource type="PackedScene" uid="uid://i2ck0bmnxkmo" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/voronoi/voronoi_transition.tscn" id="1_00yd5"]
-[ext_resource type="Script" uid="uid://chcn2hxd0pq64" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/configuration/scene_transition_configuration.gd" id="1_6t4fw"]
+[ext_resource type="Script" uid="uid://bxoxn3wvcxabl" path="res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/transitions/configuration/scene_transition_configuration.gd" id="1_6t4fw"]
 
 [resource]
 script = ExtResource("1_6t4fw")

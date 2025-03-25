@@ -9,6 +9,11 @@ signal load_finished(next_scene: String)
 
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
 
+## After using the ResourceLoader into a PackedScene the resource_path can be returned empty
+## so to avoid this error we keep the reference on the first load and use it in the transition
+## https://stackoverflow.com/questions/77729092/is-resourceloader-meant-to-cache-loaded-resources
+var scenes_references_paths: Dictionary[PackedScene, String] = {}
+
 var next_scene_path: String = ""
 ## This variable is used as flag to know if the scene is already loaded when the in-transition finished
 ## or instead follow the _process and change when the loading is finished there.
@@ -41,10 +46,13 @@ func _process(delta: float) -> void:
 			ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 				#push_error("IndieBlueprintSceneTransitioner: An error %s happened, the scene %s is invalid, aborting the transition..." %[error_string(load_status), next_scene_path] )
 				next_scene_path = ""
-		
+
 func _ready() -> void:
 	set_process(false)
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	transition_finished.connect(on_transition_finished)
+	load_finished.connect(on_load_finished)
 
 
 func add_transition_configuration(conf: IndieBlueprintSceneTransitionConfiguration) -> void:
@@ -67,7 +75,7 @@ func transition_to(
 	if is_processing() or not next_scene_path.is_empty():
 		return
 	
-	next_scene_path = scene.resource_path if scene is PackedScene else scene
+	next_scene_path = _get_scene_path(scene)
 	
 	if not _filepath_is_valid(next_scene_path):
 		push_error("IndieBlueprintSceneTransitioner: The scene path %s is not a valid resource to load, aborting scene transition..." % next_scene_path)
@@ -97,8 +105,8 @@ func transition_to(
 		
 		## Initialize the first transition
 		current_transition.transition_in(args.get_or_add("in", {}))
-		
-		
+
+
 func transition_to_with_loading_screen(
 	scene: Variant,
 	loading_screen_scene: Variant,
@@ -107,9 +115,9 @@ func transition_to_with_loading_screen(
 	## A dictionary with "in" and "out" keys to pass the arguments to the corresponding transitions
 	args: Dictionary = {} 
 	) -> void:
-		
-	next_scene_path = loading_screen_scene.resource_path if loading_screen_scene is PackedScene else loading_screen_scene
-	var target_scene_path: String = scene.resource_path if scene is PackedScene else scene
+	
+	var target_scene_path: String = _get_scene_path(scene)
+	next_scene_path = _get_scene_path(loading_screen_scene)
 	
 	if not _filepath_is_valid(next_scene_path):
 		push_error("IndieBlueprintSceneTransitioner: The loading screen scene path %s is not a valid resource to load, aborting scene transition..." % next_scene_path)
@@ -121,7 +129,13 @@ func transition_to_with_loading_screen(
 		load_finished.emit(target_scene_path)
 		return
 	
-	var loading_screen: IndieBlueprintLoadingScreen = loading_screen_scene.instantiate() if loading_screen_scene is PackedScene else ResourceLoader.load(loading_screen_scene)
+	var loading_screen: IndieBlueprintLoadingScreen
+
+	if loading_screen_scene is PackedScene:
+		loading_screen = loading_screen_scene.instantiate() as IndieBlueprintLoadingScreen
+	elif typeof(loading_screen_scene) == TYPE_STRING_NAME or typeof(loading_screen_scene) == TYPE_STRING:
+		loading_screen = load(loading_screen_scene).instantiate()
+		
 	loading_screen.next_scene_path = target_scene_path
 	
 	current_progress.clear()
@@ -169,6 +183,19 @@ func _change_to_loaded_scene(next_scene: String = next_scene_path) -> void:
 	load_finished.emit(next_scene)
 	get_tree().call_deferred("change_scene_to_packed", ResourceLoader.load_threaded_get(next_scene))
 
+
+func _get_scene_path(scene: Variant) -> String:
+	if scene is PackedScene:
+		return scenes_references_paths.get_or_add(scene, scene.resource_path)
+	elif typeof(scene) == TYPE_STRING_NAME or typeof(scene) == TYPE_STRING:
+		return scene
+	else:
+		push_error("IndieBlueprintSceneTransitioner: The scene parameter needs to be a PackedScene or String, aborting scene transition...")
+		load_finished.emit(next_scene_path)
+	
+	return ""
+
+
 func _get_load_status(progress: Array = []) -> ResourceLoader.ThreadLoadStatus:
 	return ResourceLoader.load_threaded_get_status(next_scene_path, progress)
 	
@@ -206,7 +233,7 @@ func on_in_transition_finished(in_transition_id: StringName, out_transition_id: 
 		push_error("An error %s happened when trying to load the scene %s " % [error_string(load_error), next_scene_path])
 		load_finished.emit(next_scene_path)
 	
-	set_process.call_deferred(true)
+	set_process(true)
 
 	if _get_load_status(current_progress) == ResourceLoader.THREAD_LOAD_LOADED:
 		is_loaded = true
@@ -242,6 +269,5 @@ func on_transition_finished(_next_scene_path: String) -> void:
 func on_load_finished(_next_scene_path: String) -> void:
 	current_progress.clear()
 	is_loaded = false
-	set_process.call_deferred(false)
-	
+	set_process(false)
 #endregion
