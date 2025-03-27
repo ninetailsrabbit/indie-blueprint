@@ -3,11 +3,11 @@ class_name IndieBlueprintInteractable3D extends Area3D
 
 const GroupName: StringName = &"interactables"
 
-signal interacted()
-signal canceled_interaction()
-signal focused()
-signal unfocused()
-signal interaction_limit_reached()
+signal interacted
+signal canceled_interaction
+signal focused
+signal unfocused
+signal interaction_limit_reached
 
 
 enum OutlineMode {

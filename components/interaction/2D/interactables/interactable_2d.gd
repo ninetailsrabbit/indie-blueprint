@@ -3,11 +3,13 @@ class_name IndieBlueprintInteractable2D extends Area2D
 
 const GroupName: StringName = &"interactables"
 
-signal interacted()
-signal canceled_interaction()
-signal focused()
-signal unfocused()
-signal interaction_limit_reached()
+signal interacted
+signal canceled_interaction
+@warning_ignore("unused_signal")
+signal focused
+@warning_ignore("unused_signal")
+signal unfocused
+signal interaction_limit_reached
 
 
 @export var activate_on_start: bool = true
