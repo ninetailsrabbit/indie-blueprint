@@ -4,6 +4,8 @@ const MoveRight: StringName = &"move_right"
 const MoveLeft: StringName = &"move_left"
 const MoveForward: StringName = &"move_forward"
 const MoveBack: StringName = &"move_back"
+const RotateRight: StringName = &"rotate_right"
+const RotateLeft: StringName = &"rotate_left"
 
 ## Right joystick support
 const UpMotion: StringName = &"up_motion"

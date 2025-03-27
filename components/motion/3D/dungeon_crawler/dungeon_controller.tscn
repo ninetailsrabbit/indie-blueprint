@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjyhnn5f2105c"]
+
+[ext_resource type="Script" uid="uid://blmqt7mrdg5p8" path="res://components/motion/3D/dungeon_crawler/dungeon_controller.gd" id="1_7c812"]
+[ext_resource type="Script" uid="uid://cq0a178n01slj" path="res://components/camera/3D/shake/camera_shake_3d.gd" id="1_tk5el"]
+[ext_resource type="Script" uid="uid://bs4yktew2kxsm" path="res://components/motion/3D/dungeon_crawler/dungeon_grid_movement.gd" id="3_emxes"]
+
+[node name="DungeonController" type="Node3D"]
+script = ExtResource("1_7c812")
+
+[node name="CameraShake3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+script = ExtResource("1_tk5el")
+metadata/_custom_type_script = "uid://cq0a178n01slj"
+
+[node name="DungeonGridMovement3D" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_emxes")
+target = NodePath("..")
