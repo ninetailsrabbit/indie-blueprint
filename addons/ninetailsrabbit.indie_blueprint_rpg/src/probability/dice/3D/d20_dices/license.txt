@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dnd dice
+* source:	https://sketchfab.com/3d-models/dnd-dice-fa146734515044e88f72ff5e9d098e7d
+* author:	IAM (https://sketchfab.com/UnclePolly)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dnd dice" (https://sketchfab.com/3d-models/dnd-dice-fa146734515044e88f72ff5e9d098e7d) by IAM (https://sketchfab.com/UnclePolly) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

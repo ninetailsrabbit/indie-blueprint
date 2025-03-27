@@ -1,4 +1,3 @@
-@icon("res://components/probability/dices/dice_roller.svg")
 class_name IndieBlueprintDiceRoller extends Node
 
 signal die_rolled(result: int, sides: int)
