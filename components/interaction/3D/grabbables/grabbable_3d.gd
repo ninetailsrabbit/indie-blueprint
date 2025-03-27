@@ -13,19 +13,10 @@
 #Central vs. Non-Central: Use central methods (apply_central_force or apply_central_impulse) if you only want to translate the body without introducing rotation. Use non-central methods (apply_force or apply_impulse) if you want to introduce both translation and rotation based on the application point relative to the center of mass.
 #Torque: Use apply_torque when you want to directly rotate the body around a specific axis without applying a force.
 @icon("res://components/interaction/3D/grabbables/grabbable.svg")
-class_name Grabbable3D extends RigidBody3D
+class_name IndieBlueprintGrabbable3D extends RigidBody3D
 
 const MaximumTransparency: int = 255
-const GroupName: String = "grabbables"
-
-@warning_ignore("unused_signal")
-signal pulled(grabber: Node3D)
-@warning_ignore("unused_signal")
-signal throwed
-@warning_ignore("unused_signal")
-signal dropped
-signal focused
-signal unfocused
+const GroupName: StringName = &"grabbable"
 
 enum GrabState {
 	Neutral,
@@ -33,26 +24,25 @@ enum GrabState {
 	Throw
 }
 
-enum GrabMode {
-	Pull, # Pull the body to the selected slot
-	InPlace # Move the body in place, no pulling is applied
-}
-
 enum OutlineMode {
 	EdgeShader,
 	InvertedHull
 }
 
-## The mesh related to this grabbable to apply the outline
-@export var grabbable_mesh: MeshInstance3D
+signal pulled(grabber: Node3D)
+signal throwed
+signal dropped
+signal focused
+signal unfocused
+
+@export var mesh_instance: MeshInstance3D
 @export_group("Force")
-@export var grab_mode: GrabMode = GrabMode.Pull
-## The initial pull power to attract and manipulate this grabbable
+## The initial pull power to attract and manipulate grabbables
 @export var pull_power: float = 7.5
-## The initial throw power to apply force impulses this grabbable
+## The initial throw power to apply force impulses to grabbables
 @export var throw_power: float = 10.0
 ## Rotation force to apply
-@export var angular_power = 0.01
+@export var angular_power: float = 0.0
 @export_group("Transparency")
 @export var transparency_on_pull: bool = false
 @export_range(0, 255, 1) var transparency_value_on_pull: int = MaximumTransparency
@@ -71,15 +61,13 @@ enum OutlineMode {
 @export var outline_hull_color: Color = Color.WHITE
 @export_range(0, 16, 0.01) var outline_grow_amount: float = 0.02
 @export_group("Information")
-@export var id: String = ""
 @export var title: String = ""
 @export var description: String = ""
-@export var title_translation_key: String = ""
-@export var description_translation_key: String = ""
-@export_group("Screen pointers")
+@export var title_translation_key: StringName
+@export var description_translation_key: StringName
+@export_group("Pointers and cursors")
 @export var focus_screen_pointer: CompressedTexture2D
 @export var interact_screen_pointer: CompressedTexture2D
-@export_group("Cursors")
 @export var focus_cursor: CompressedTexture2D
 @export var interact_cursor: CompressedTexture2D
 
@@ -97,17 +85,144 @@ var current_angular_velocity: Vector3 = Vector3.ZERO
 
 
 func _enter_tree() -> void:
-	add_to_group(GroupName)
-
 	focused.connect(on_focused)
 	unfocused.connect(on_unfocused)
 	
 	collision_layer = IndieBlueprintGameGlobals.grabbables_collision_layer
+	collision_mask = IndieBlueprintGameGlobals.world_collision_layer | IndieBlueprintGameGlobals.player_collision_layer | IndieBlueprintGameGlobals.enemies_collision_layer | IndieBlueprintGameGlobals.grabbables_collision_layer
+	
+	add_to_group(GroupName)
 
 
+func _ready() -> void:
+	if mesh_instance == null:
+		mesh_instance = IndieBlueprintNodeTraversal.first_node_of_type(self, MeshInstance3D.new())
+
+
+func _physics_process(delta: float) -> void:
+	if state_is_pull() and adjust_rotation_on_pull:
+		rotation = rotation.lerp(target_rotation, delta * lerp_adjust_speed)
+		
+		if rotation.is_equal_approx(target_rotation):
+			set_physics_process(false)
+		
+		
+func _integrate_forces(state: PhysicsDirectBodyState3D):
+	if state_is_pull():
+		state.linear_velocity = current_linear_velocity
+		state.angular_velocity = current_angular_velocity
+	
+	elif state_is_throw() and state.linear_velocity.is_zero_approx():
+		current_state = GrabState.Neutral
+	
+	
+func pull(grabber: Node3D) -> void:
+	if not state_is_pull() and current_grabber == null:
+		current_state = GrabState.Pull
+		current_grabber = grabber
+		gravity_scale = 0.0
+		sleeping = false
+		
+		if transparency_on_pull:
+			_apply_transparency()
+
+		pulled.emit(grabber)
+
+
+func throw() -> void:
+	if state_is_pull():
+		gravity_scale = original_gravity_scale
+	
+		var impulse: Vector3 = IndieBlueprintCamera3DHelper.forward_direction(get_viewport().get_camera_3d()) * throw_power
+		apply_impulse(impulse)
+		
+		current_state = GrabState.Throw
+		current_grabber = null
+		
+		if transparency_on_pull:
+			_recover_transparency()
+			
+		throwed.emit()
+
+
+func drop() -> void:
+	if state_is_pull():
+		gravity_scale = original_gravity_scale
+		
+		var impulse: Vector3 = IndieBlueprintCamera3DHelper.forward_direction(get_viewport().get_camera_3d()) * Vector3.ZERO
+		apply_impulse(impulse)
+		
+		current_state = GrabState.Neutral
+		current_grabber = null
+		
+		if transparency_on_pull:
+			_recover_transparency()
+			
+		dropped.emit()
+
+	
+func update_linear_velocity() -> void:
+	if current_grabber:
+		current_linear_velocity = (current_grabber.global_position - global_position) * pull_power
+
+
+func update_angular_velocity() -> void:
+	if current_grabber and angular_power > 0:
+		var q1: Quaternion = global_basis.get_rotation_quaternion()
+		var q2: Quaternion = current_grabber.global_basis.get_rotation_quaternion()
+
+		# Quaternion that transforms q1 into q2
+		var qt = q2 * q1.inverse()
+
+		# Angle from quaternion
+		var angle = 2 * acos(qt.w)
+
+		# There are two distinct quaternions for any orientation.
+		# Ensure we use the representation with the smallest angle.
+		if angle > PI:
+			qt = -qt
+			angle = TAU - angle
+
+		current_angular_velocity =  Vector3.ZERO if angle < IndieBlueprintMathHelper.CommonEpsilon else (Vector3(qt.x, qt.y, qt.z) / sqrt(1 -qt.w * qt.w)) * angular_power
+
+
+func state_is_throw() -> bool:
+	return current_state == GrabState.Throw
+
+
+func state_is_neutral() -> bool:
+	return current_state == GrabState.Neutral
+
+
+func state_is_pull() -> bool:
+	return current_state == GrabState.Pull
+
+
+func _apply_transparency():
+	if transparency_value_on_pull == MaximumTransparency:
+		return
+		
+	var material: StandardMaterial3D = mesh_instance.get_active_material(0)
+	
+	if material:
+		original_transparency = material.albedo_color.a8
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.albedo_color.a8 = transparency_value_on_pull
+
+
+func _recover_transparency():
+	if transparency_value_on_pull == 255:
+		return
+		
+	var material: StandardMaterial3D = mesh_instance.get_active_material(0)
+	
+	if material:
+		material.albedo_color.a8  = original_transparency
+
+	
 func _apply_outline_shader() -> void:
-	if outline_on_focus and grabbable_mesh:
-		var material: StandardMaterial3D = grabbable_mesh.get_active_material(0)
+	if outline_on_focus:
+		var material: StandardMaterial3D = mesh_instance.get_active_material(0)
 		
 		match outline_mode:
 			OutlineMode.EdgeShader:
@@ -131,25 +246,29 @@ func _apply_outline_shader() -> void:
 				
 				outline_material.albedo_color = outline_hull_color
 				outline_material.grow_amount = outline_grow_amount
-				grabbable_mesh.material_overlay = outline_material
+				mesh_instance.material_overlay = outline_material
 
-
+	
 func _remove_outline_shader() -> void:
-	if outline_on_focus and grabbable_mesh:
-		var material: StandardMaterial3D = grabbable_mesh.get_active_material(0)
+	if outline_on_focus:
+		var material: StandardMaterial3D = mesh_instance.get_active_material(0)
 		
 		match outline_mode:
 			OutlineMode.EdgeShader:
 				if material:
 					material.next_pass = null
 			OutlineMode.InvertedHull:
-				grabbable_mesh.material_overlay = null
+				mesh_instance.material_overlay = null
 			
+
 #region Signal callbacks
 func on_focused() -> void:
 	_apply_outline_shader()
+	IndieBlueprintGlobalGameEvents.grabbable_focused.emit(self)
 
 
 func on_unfocused() -> void:
 	_remove_outline_shader()
+	IndieBlueprintGlobalGameEvents.grabbable_unfocused.emit(self)
+
 #endregion

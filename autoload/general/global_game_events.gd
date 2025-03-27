@@ -27,4 +27,8 @@ signal interactable_3d_interaction_limit_reached(interactable: IndieBlueprintInt
 @warning_ignore("unused_signal")
 signal canceled_interactable_3d_scan(interactable: IndieBlueprintInteractable3D)
 
+@warning_ignore("unused_signal")
+signal grabbable_3d_focused(grabbable: IndieBlueprintGrabbable3D)
+@warning_ignore("unused_signal")
+signal grabbable_3d_unfocused(grabbable: IndieBlueprintGrabbable3D)
 #endregion
