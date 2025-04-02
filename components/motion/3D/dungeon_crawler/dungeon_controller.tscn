@@ -15,3 +15,19 @@ metadata/_custom_type_script = "uid://cq0a178n01slj"
 [node name="DungeonGridMovement3D" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_emxes")
 target = NodePath("..")
+
+[node name="FrontRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, -1.1)
+
+[node name="BackRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, 1.1)
+
+[node name="RightRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(1.1, 0, 0)
+
+[node name="LeftRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(-1.1, 0, 0)

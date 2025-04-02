@@ -38,7 +38,7 @@ func rotate(direction: Vector2):
 
 
 func _can_move(direction: Vector2) -> bool:
-	return target and _tween_can_run() and not direction.is_zero_approx() 
+	return target and _tween_can_run() and not direction.is_zero_approx() and direction in IndieBlueprintVectorHelper.directions_v2
 
 
 func _can_rotate(direction: Vector2) -> bool:
