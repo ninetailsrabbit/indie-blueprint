@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="NameRepository" load_steps=2 format=3 uid="uid://dxa3wqfcc5p3t"]
+
+[ext_resource type="Script" uid="uid://cejilr31xj65q" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/helpers/content/names/name_repository.gd" id="1_5jx5o"]
+
+[resource]
+script = ExtResource("1_5jx5o")
+id = &"female_dwarf"
+use_shuffle_bag = true
+region = &"en"
+gender = 0
+names = Array[String]([ "Borwyn", "Balina", "Dwalna", "Thorwyn", "Farina", "Gimla", "Oina", "Gloina", "Dora", "Nora",
+    "Ora", "Fila", "Kila", "Bifura", "Bofura", "Bombura", "Durina", "Thraina", "Throra", "Barda",
+    "Baina", "Branda", "Daina", "Frerina", "Fundina", "Groina", "Halina", "Harina", "Imla", "Kaza",
+    "Lona", "Mana", "Nala", "Ona", "Pala", "Regina", "Rora", "Snorra", "Talina", "Tora",
+    "Ulfa", "Vala", "Ymira", "Zora", "Alara", "Angusina", "Barnabyne", "Cedrica", "Clarencea", "Dirka",
+    "Eamona", "Eldreda", "Fenrisia", "Fergusa", "Garretta", "Hamisha", "Ingvara", "Jaspera", "Kaelana", "Lairda",
+    "Magnusa", "Nevilla", "Oswalda", "Percivala", "Quentina", "Ragnara", "Seamusa", "Stellana", "Torvina", "Ulrica",
+    "Vanca", "Wallaca", "Xerxa", "Yorka", "Angrima", "Brama", "Cormaca", "Dougala", "Einara", "Faelana",
+    "Gunnara", "Hakona", "Ivara", "Jorna", "Kierana", "Larsa", "Mareka", "Nilsa", "Olafa", "Piersa",
+    "Rorica", "Svena", "Tita", "Vidara", "Wulfrica", "Yoricka", "Astrida", "Bjorna", "Casimira", "Dagfinna",
+    "Egila", "Froda", "Grimma", "Halvarda", "Isaka", "Jara", "Knuta", "Leifa", "Mattia", "Oddvara",
+    "Pala", "Reidara", "Sigurda", "Stiana", "Trygva", "Ulfura", "Vigga", "Waldemara", "Yngvara", "Aka",
+    "Barda", "Cai", "Didrika", "Ebba", "Finna", "Geira", "Hallsteina", "Jensa", "Kolbeina", "Lukasa",
+    "Mortena", "Orvara", "Paula", "Roara", "Steina", "Terja", "Vegarda", "Wilhelma", "Aindrea", "Bairda",
+    "Caluma", "Ewana", "Frasera", "Hamisha", "Iaina", "Jocka", "Kenna", "Lachlana", "Murdoca", "Nairna",
+    "Ranalda", "Ruaraidha", "Torquila", "Uisdeana", "Vaughana", "Alpina", "Blaira", "Clyda", "Dougala",
+    "Findlaya", "Gavina", "Hamisha", "Innesa", "Kerra", "Lennoxa", "Rossa", "Struana", "Tavisha", "Urquharta"])
+surnames = Array[String]([ "Stonebeard", "Ironhand", "Battlehammer", "Rockfist", "Goldfinder", "Alebrewer", "Deepdelver", "Mountainheart", "Axebeard", "Steelbrow",
+    "Hammerfall", "Stonehewer", "Ironforge", "Battleaxe", "Rockbeard", "Goldbeard", "Alechugger", "Deepminer", "Mountainlord", "Steelhammer",
+    "Anvilfist", "Stonefoot", "Ironhelm", "Battlefist", "Rockheart", "Goldhammer", "Aleson", "Deepstone", "Mountainshield", "Steelaxe",
+    "Granitebeard", "Stonegrip", "Ironshield", "Battlebrow", "Rockhammer", "Goldfist", "Alewarden", "Deepforge", "Mountainking", "Steelheart",
+    "Boulderfist", "Stonehelm", "Ironstrike", "Battleheart", "Rockbrow", "Goldbrow", "Alegut", "Deepgrip", "Mountainminer", "Steelgrip",
+    "Cliffbeard", "Stoneaxe", "Ironbeard", "Battlefist", "Rockgrip", "Goldgrip", "Alewright", "Deephewer", "Mountainforger", "Steelfoot",
+    "Gravelbeard", "Stonebrow", "Ironfist", "Battleaxe", "Rocklord", "Goldlord", "Aleheart", "Deepstrike", "Mountainhewer", "Steelshield",
+    "Hillbeard", "Stoneheart", "Ironhammer", "Battlebeard", "Rockshield", "Goldshield", "Alemaster", "Deepwarden", "Mountainstrike", "Steelstrike",
+    "Peakbeard", "Stonefist", "Ironbrow", "Battlehelm", "Rockstrike", "Goldstrike", "Alesmith", "Deepking", "Mountainfist", "Steelbeard",
+    "Ridgebeard", "Stonehammer", "Ironheart", "Battlelord", "Rockking", "Goldking", "Alewarden", "Deepbrow", "Mountainlord", "Steelbrow",
+    "Valleybeard", "Stoneaxe", "Ironshield", "Battleking", "Rockstrike", "Goldstrike", "Alewright", "Deepheart", "Mountainstrike", "Steelheart",
+    "Cragbeard", "Stonehelm", "Ironstrike", "Battleheart", "Rockfist", "Goldfist", "Alegut", "Deepgrip", "Mountainminer", "Steelgrip",
+    "Moorbeard", "Stonegrip", "Ironbeard", "Battlebrow", "Rockhammer", "Goldhammer", "Alewarden", "Deepforge", "Mountainking", "Steelaxe",
+    "Glenbeard", "Stonebrow", "Ironfist", "Battlefist", "Rockheart", "Goldbeard", "Aleson", "Deepstone", "Mountainshield", "Steelhammer",
+    "Dalebeard", "Stoneheart", "Ironhelm", "Battleaxe", "Rockbeard", "Goldbeard", "Alechugger", "Deepminer", "Mountainlord", "Steelbrow",
+    "Fellbeard", "Stonefist", "Ironforge", "Battlefist", "Rockbeard", "Goldbeard", "Alebrewer", "Deepdelver", "Mountainheart", "Axebeard",
+    "Braebeard", "Stonehewer", "Ironhand", "Battlehammer", "Rockfist", "Goldfinder", "Alebrewer", "Deepdelver", "Mountainheart", "Axebeard",
+    "Strathbeard", "Stonebeard", "Ironhand", "Battlehammer", "Rockfist", "Goldfinder", "Alebrewer", "Deepdelver", "Mountainheart", "Axebeard",
+    "Lochness", "Ironfoot", "Stonefist", "Goldheart", "Hammerstone", "Axehand", "Steelheart", "Deepaxe", "Mountainbrow", "Rockgrip",
+    "Glenmore", "Stonebrow", "Ironheart", "Goldhand", "Hammerfist", "Axebrow", "Steelgrip", "Deephelm", "Mountainfist", "Rockhammer",
+    "Boulderbrow", "Ironbrow", "Battlebrow", "Rockbrow", "Goldbrow", "Alebrow", "Deepbrow", "Mountainbrow", "Steelbrow", "Granitebrow",
+    "Cliffbrow", "Gravelbrow", "Hillbrow", "Peakbrow", "Ridgebrow", "Valleybrow", "Cragbrow", "Moorbrow", "Glenbrow", "Dalebrow",
+    "Fellbrow", "Braebrow", "Strathbrow", "Lochbrow", "Glenmorebrow", "Boulderhelm", "Ironhelm", "Battlehelm", "Rockhelm", "Goldhelm",
+    "Alehelm", "Deephelm", "Mountainhelm", "Steelhelm", "Granitehelm", "Cliffhelm", "Gravelhelm", "Hillhelm", "Peakhelm", "Ridgehelm",
+    "Valleyhelm", "Craghelm", "Moorhelm", "Glenhelm", "Dalehelm", "Fellhelm", "Braehelm", "Strathhelm", "Lochhelm", "Glenmorehelm",
+    "Boulderheart", "Ironheart", "Battleheart", "Rockheart", "Goldheart", "Aleheart", "Deepheart", "Mountainheart", "Steelheart", "Graniteheart",
+    "Cliffheart", "Gravelheart", "Hillheart", "Peakheart", "Ridgeheart", "Valleyheart", "Cragheart", "Moorheart", "Glenheart", "Daleheart",
+    "Fellheart", "Braeheart", "Strathheart", "Lochheart", "Glenmoreheart", "Boulderhand", "Ironhand", "Battlehand", "Rockhand", "Goldhand",
+    "Alehand", "Deephand", "Mountainhand", "Steelhand", "Granitehand", "Cliffhand", "Gravelhand", "Hillhand", "Peakhand", "Ridgehand",
+    "Valleyhand", "Craghand", "Moorhand", "Glenhand", "Dalehand", "Fellhand", "Braehand", "Strathhand", "Lochhand", "Glenmorehand")
+metadata/_custom_type_script = "uid://cejilr31xj65q"
