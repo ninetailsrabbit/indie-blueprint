@@ -21,8 +21,9 @@ var mouse_position: Vector2 = Vector2.ZERO
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_processing() and current_camera is Camera3D and event is InputEventMouseButton:
-		mouse_position = (event as InputEventMouseButton).position
+	if is_processing() and current_camera is Camera3D:
+		if event is InputEventMouseMotion:
+			mouse_position = event.position
 		
 		if interact_mouse_button == MOUSE_BUTTON_LEFT and IndieBlueprintInputHelper.is_mouse_left_click(event) \
 			or interact_mouse_button == MOUSE_BUTTON_RIGHT and IndieBlueprintInputHelper.is_mouse_right_click(event):
@@ -71,7 +72,7 @@ func get_detected_interactable():
 
 
 func interact(interactable: IndieBlueprintInteractable3D):
-	if interactable:
+	if interactable and interactable.can_be_interacted:
 		interacting = true
 		
 		interactable.interacted.emit()
@@ -82,7 +83,6 @@ func cancel_interact(interactable: IndieBlueprintInteractable3D = current_intera
 	if interactable:
 		interacting = false
 		focused = false
-		
 		
 		interactable.canceled_interaction.emit()
 		IndieBlueprintGlobalGameEvents.interactable_3d_canceled_interaction.emit(interactable)

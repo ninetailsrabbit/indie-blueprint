@@ -16,8 +16,8 @@ enum OutlineMode {
 }
 
 @export var activate_on_start: bool = true
-@export var disable_after_interaction: bool = false
 @export var number_of_times_can_be_interacted: int = 0
+@export var deactive_after_reach_interaction_limit: bool = false
 @export var change_cursor_on_focus: bool = true
 @export var change_screen_pointer_focus: bool = true
 @export var lock_player_on_interact: bool = false
@@ -58,7 +58,11 @@ var times_interacted: int = 0:
 		
 		if previous_value != times_interacted && times_interacted >= number_of_times_can_be_interacted:
 			interaction_limit_reached.emit()
-			deactivate()
+			
+			if deactive_after_reach_interaction_limit:
+				deactivate()
+				
+			can_be_interacted = false
 			
 var outline_material: StandardMaterial3D
 var outline_shader_material: ShaderMaterial
@@ -140,8 +144,8 @@ func _remove_outline_shader() -> void:
 			
 #region Signal callbacks
 func on_interacted() -> void:
-	if disable_after_interaction:
-		deactivate()
+	if number_of_times_can_be_interacted > 0:
+		times_interacted += 1
 	
 	_remove_outline_shader()
 

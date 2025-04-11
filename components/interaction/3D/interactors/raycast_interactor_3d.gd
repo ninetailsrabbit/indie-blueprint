@@ -46,7 +46,7 @@ func _physics_process(_delta):
 
 
 func interact(interactable: IndieBlueprintInteractable3D = current_interactable):
-	if interactable and not interacting:
+	if interactable and not interacting and interactable.can_be_interacted:
 		enabled = false
 		interacting = interactable.lock_player_on_interact
 		
