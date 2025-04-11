@@ -8,6 +8,11 @@
 
 config_version=5
 
+[IndieBlueprint]
+
+config/ninetailsrabbit.interaction_kit_3d/interactables_collision_layer=6
+config/ninetailsrabbit.interaction_kit_3d/grabbables_collision_layer=7
+
 [application]
 
 config/name="IndieBlueprint"
@@ -36,6 +41,7 @@ IndieBlueprintSceneTransitioner="*res://addons/ninetailsrabbit.indie_blueprint_s
 IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
 IndieBlueprintLootManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/loot/loot_manager.gd"
 IndieBlueprintTurnityManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/turns/turnity_manager.gd"
+GlobalInteractionEvents="*res://addons/ninetailsrabbit.interaction_kit_3d/src/global_interaction_events.gd"
 
 [display]
 
@@ -46,7 +52,7 @@ window/size/window_height_override=720
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ninetailsrabbit.indie_blueprint_audio/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_global_clock/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_pool/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_rpg/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_scene_transition/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_state_machine/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/plugin.cfg")
+enabled=PackedStringArray("res://addons/ninetailsrabbit.indie_blueprint_audio/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_global_clock/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_pool/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_rpg/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_scene_transition/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_state_machine/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/plugin.cfg", "res://addons/ninetailsrabbit.interaction_kit_3d/plugin.cfg")
 
 [file_customization]
 

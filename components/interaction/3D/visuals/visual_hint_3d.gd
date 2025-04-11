@@ -1,8 +1,7 @@
 @icon("res://components/interaction/3D/visuals/visual_hint_3d.svg")
 class_name IndieBlueprintVisualHint3D extends Node3D
 
-
-@export var interactable: IndieBlueprintInteractable3D
+@export var interactable: Interactable3D
 @export_category("Image")
 @export var image_hint: Sprite3D
 @export var image_hint_texture: CompressedTexture2D
@@ -27,9 +26,9 @@ func _ready() -> void:
 	assert(image_hint != null or text_hint != null, "IndieBlueprintVisualHint3D: This node needs at least one Sprite3D or Label3D to work as expected")
 	
 	if interactable == null:
-		interactable = IndieBlueprintNodeTraversal.first_node_of_custom_class(self, IndieBlueprintInteractable3D)
+		interactable = IndieBlueprintNodeTraversal.first_node_of_custom_class(self, Interactable3D)
 	
-	assert(interactable != null, "VisualHint3D: This node needs at least one IndieBlueprintInteractable3D so that it can be interactive")
+	assert(interactable != null, "VisualHint3D: This node needs at least one Interactable3D so that it can be interactive")
 	
 	image_hint.texture = image_hint_texture
 	

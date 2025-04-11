@@ -7,7 +7,7 @@ signal turned_off
 ## The individual light this node will affect
 @export var target_light: Light3D
 ## The interactable that listen when entities in the world interact with this node
-@export var interactable: IndieBlueprintInteractable3D
+@export var interactable: Interactable3D
 ## The group name of the lights that will be affected by this switchable
 @export var lights_group: StringName = &""
 ## Activate temporary mode to keep on the lights for a limited amount of time
@@ -41,7 +41,7 @@ var temporary_light_timer: Timer
 
 
 func _ready():
-	assert(interactable is IndieBlueprintInteractable3D, "IndieBlueprintSwitchableLight3D: A interactable 3d must be set")
+	assert(interactable is Interactable3D, "IndieBlueprintSwitchableLight3D: A interactable 3d must be set")
 	
 	_create_temporary_light_timer()
 	
