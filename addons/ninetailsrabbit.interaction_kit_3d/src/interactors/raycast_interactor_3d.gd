@@ -2,6 +2,7 @@ class_name RayCastInteractor3D extends RayCast3D
 
 @export var interact_input_action: StringName = &"interact"
 @export var cancel_interact_input_action: StringName = &"cancel_interact"
+@export var scan_input_action: StringName = &"interact"
 
 
 var current_interactable: Interactable3D
@@ -24,7 +25,15 @@ func _unhandled_input(_event: InputEvent):
 		and current_interactable:
 			
 		cancel_interact(current_interactable)
-
+		
+		
+	if InputMap.has_action(scan_input_action) \
+		and Input.is_action_just_pressed(scan_input_action) \
+		and current_interactable \
+		and not interacting:
+	
+			scan(current_interactable)
+		
 
 func _enter_tree():
 	enabled = true
@@ -47,6 +56,30 @@ func _physics_process(_delta):
 		if focused and not interacting and current_interactable:
 			unfocus(current_interactable)
 
+
+func scan(interactable: Interactable3D = current_interactable):
+	if interactable and not interacting and interactable.can_be_interacted and interactable.scannable:
+		enabled = false
+		interacting = interactable.lock_player_on_interact
+		
+		interactable.scanned.emit()
+		
+		if global_interaction_events:
+			global_interaction_events.interactable_scanned.emit(interactable)
+		
+		interactable._remove_outline_shader()
+		await get_tree().process_frame
+		
+		ScanInteractableLayer.scan(interactable.target_scannable_object)
+		ScanInteractableLayer.scan_ended.connect(
+			func(_scanned_object: Node3D): 
+				interacting = false
+				focused = false
+				enabled = true
+				current_interactable = null
+				, CONNECT_ONE_SHOT)
+		
+	
 
 func interact(interactable: Interactable3D = current_interactable):
 	if interactable and not interacting and interactable.can_be_interacted:

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://m844xqo26yb6"]
+
+[ext_resource type="PackedScene" uid="uid://cose2vydp6e1q" path="res://components/motion/3D/third_person/third_person_controller.tscn" id="1_ar2cf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3nnn"]
+albedo_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+
+[node name="TestScene" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(25, 0.1, 25)
+material = SubResource("StandardMaterial3D_y3nnn")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.40504, 1.82855, 0.6)
+use_collision = true
+size = Vector3(0.470581, 3.505, 4.48438)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.392032, 0, 0.919952, 0, 1, 0, -0.919952, 0, 0.392032, 8.22479, 1.82855, 0.6)
+use_collision = true
+size = Vector3(0.470581, 3.505, 4.48438)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.392032, 0, 0.919952, 0, 1, 0, -0.919952, 0, 0.392032, 2.74237, 2.50058, 6.1381)
+use_collision = true
+size = Vector3(1.22736, 4.84906, 1.33008)
+
+[node name="ThirdPersonController" parent="." instance=ExtResource("1_ar2cf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0541763, 0)

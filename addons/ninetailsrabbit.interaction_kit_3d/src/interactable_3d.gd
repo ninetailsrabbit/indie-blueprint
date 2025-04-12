@@ -6,6 +6,7 @@ signal interacted
 signal canceled_interaction
 signal focused
 signal unfocused
+signal scanned
 signal interaction_limit_reached
 
 
@@ -80,6 +81,7 @@ func _ready() -> void:
 	focused.connect(on_focused)
 	unfocused.connect(on_unfocused)
 	canceled_interaction.connect(on_canceled_interaction)
+	scanned.connect(on_scanned)
 	
 	times_interacted = 0
 	
@@ -155,6 +157,10 @@ func on_focused() -> void:
 	
 
 func on_unfocused() -> void:
+	_remove_outline_shader()
+
+
+func on_scanned() -> void:
 	_remove_outline_shader()
 
 

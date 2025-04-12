@@ -8,6 +8,14 @@ static func is_mouse_right_click(event: InputEvent) -> bool:
 	return event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed
 
 
+static func is_mouse_left_button_pressed(event: InputEvent) -> bool:
+	return  event is InputEventMouse and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+
+
+static func is_mouse_right_button_pressed(event: InputEvent) -> bool:
+	return event is InputEventMouse and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+
+
 static func is_mouse_visible() -> bool:
 	return Input.mouse_mode == Input.MOUSE_MODE_VISIBLE || Input.mouse_mode == Input.MOUSE_MODE_CONFINED
 

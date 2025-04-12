@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0swj2fg5vixu"
-path="res://.godot/imported/rotator.svg-0053d67da659d127e928c65653daf0b0.ctex"
+uid="uid://x2xny0wihltf"
+path="res://.godot/imported/rotator.svg-3eb6b6db90a26f0352b260b8fd33213b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/motion/3D/mouse/rotator.svg"
-dest_files=["res://.godot/imported/rotator.svg-0053d67da659d127e928c65653daf0b0.ctex"]
+source_file="res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/rotator.svg"
+dest_files=["res://.godot/imported/rotator.svg-3eb6b6db90a26f0352b260b8fd33213b.ctex"]
 
 [params]
 

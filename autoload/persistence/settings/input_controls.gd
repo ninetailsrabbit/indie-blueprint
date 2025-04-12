@@ -6,6 +6,9 @@ const MoveForward: StringName = &"move_forward"
 const MoveBack: StringName = &"move_back"
 const RotateRight: StringName = &"rotate_right"
 const RotateLeft: StringName = &"rotate_left"
+const ZoomInCamera: StringName = &"zoom_in_camera"
+const ZoomOutCamera: StringName = &"zoom_out_camera"
+const CameraManualMotion: StringName = &"camera_manual_motion"
 
 ## Right joystick support
 const UpMotion: StringName = &"up_motion"

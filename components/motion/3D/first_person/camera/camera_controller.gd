@@ -29,7 +29,6 @@ class_name IndieBlueprintCameraController extends Node3D
 @export var bob_intensity: float = 0.03
 @export var bob_lerp_speed = 5.0
 
-
 @onready var current_vertical_limit: float:
 	set(value):
 		current_vertical_limit = clampf(value, 0.0, rad_to_deg(TAU))

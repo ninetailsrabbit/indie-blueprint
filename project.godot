@@ -42,6 +42,7 @@ IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/sr
 IndieBlueprintLootManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/loot/loot_manager.gd"
 IndieBlueprintTurnityManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/turns/turnity_manager.gd"
 GlobalInteractionEvents="*res://addons/ninetailsrabbit.interaction_kit_3d/src/global_interaction_events.gd"
+ScanInteractableLayer="*res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/scan_interactable_layer.tscn"
 
 [display]
 
@@ -292,6 +293,21 @@ rotate_right={
 rotate_left={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+]
+}
+zoom_in_camera={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":8,"position":Vector2(332, 25),"global_position":Vector2(341, 73),"factor":1.0,"button_index":4,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+zoom_out_camera={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":16,"position":Vector2(271, 0),"global_position":Vector2(280, 48),"factor":1.0,"button_index":5,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+camera_manual_motion={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":4,"position":Vector2(329, 16),"global_position":Vector2(338, 64),"factor":1.0,"button_index":3,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
 

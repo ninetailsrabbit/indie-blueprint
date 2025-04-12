@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://m8s1gmjpojcs"]
+
+[ext_resource type="Script" uid="uid://oi1qnx3s8nxl" path="res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/scan_interactable.gd" id="1_s2ldf"]
+[ext_resource type="Script" uid="uid://46mwg4nyw8ns" path="res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/mouse_rotator_component_3d.gd" id="2_eav8f"]
+[ext_resource type="Script" uid="uid://c74xss04bc06a" path="res://addons/ninetailsrabbit.interaction_kit_3d/src/interactors/mouse_raycast_interactor_3d.gd" id="3_lkng4"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_s2ldf"]
+
+[node name="ScanInteractable" type="Node3D"]
+script = ExtResource("1_s2ldf")
+
+[node name="MouseRotatorComponent3D" type="Node3D" parent="."]
+script = ExtResource("2_eav8f")
+metadata/_custom_type_script = "uid://46mwg4nyw8ns"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+attributes = SubResource("CameraAttributesPractical_s2ldf")
+
+[node name="Marker3D" type="Marker3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.44894)
+
+[node name="MouseRayCastInteractor3D" type="Node3D" parent="Camera3D" node_paths=PackedStringArray("origin_camera")]
+script = ExtResource("3_lkng4")
+origin_camera = NodePath("..")
+metadata/_custom_type_script = "uid://c74xss04bc06a"

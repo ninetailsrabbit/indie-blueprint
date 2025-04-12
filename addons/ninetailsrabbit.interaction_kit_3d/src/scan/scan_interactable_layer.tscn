@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcseri36yyy3n"]
+
+[ext_resource type="Script" uid="uid://b7kgtx2nwexaw" path="res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/scan_interactable_layer.gd" id="1_558pd"]
+[ext_resource type="PackedScene" uid="uid://m8s1gmjpojcs" path="res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/scan_interactable.tscn" id="2_pyuvp"]
+
+[node name="ScanInteractableLayer" type="CanvasLayer"]
+layer = 3
+script = ExtResource("1_558pd")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="ScanInteractable" parent="Control/SubViewportContainer/SubViewport" instance=ExtResource("2_pyuvp")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1000, 0)
+
+[node name="MouseRotatorComponent3D" parent="Control/SubViewportContainer/SubViewport/ScanInteractable" index="0"]
+reset_rotation_on_release = true
+
+[node name="Camera3D" parent="Control/SubViewportContainer/SubViewport/ScanInteractable" index="1"]
+attributes = null
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Control/SubViewportContainer/SubViewport/ScanInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.8)
+light_color = Color(1, 1, 0.745098, 1)
+light_energy = 0.7
+distance_fade_enabled = true
+distance_fade_begin = 5.0
+
+[editable path="Control/SubViewportContainer/SubViewport/ScanInteractable"]
