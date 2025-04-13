@@ -1,9 +1,9 @@
 ## A useful component to apply camera movement for a first person view
 @icon("res://scenes/character/icons/camera_controller_3d.svg")
-class_name IndieBlueprintCameraController extends Node3D
+class_name IndieBlueprintFirstPersonCameraController extends Node3D
 
 
-@export var actor: Node3D
+@export var actor: IndieBlueprintFirstPersonController
 @export var camera_pivot: Node3D
 @export var camera: Camera3D
 ## 0 Means the rotation on the Y-axis is not limited

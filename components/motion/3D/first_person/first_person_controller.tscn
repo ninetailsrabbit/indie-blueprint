@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwbeagypg16jj"]
+
+[ext_resource type="Script" uid="uid://wlqt4ke2ylq3" path="res://components/motion/3D/first_person/first_person_controller.gd" id="1_pw1ku"]
+[ext_resource type="Script" uid="uid://dn4nxtwctgx2l" path="res://components/motion/3D/first_person/camera/camera_controller.gd" id="2_3dgm8"]
+[ext_resource type="Script" uid="uid://cq0a178n01slj" path="res://components/camera/3D/shake/camera_shake_3d.gd" id="2_3jowx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pw1ku"]
+
+[node name="FirstPersonController" type="CharacterBody3D"]
+script = ExtResource("1_pw1ku")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_pw1ku")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="IndieBlueprintFirstPersonCameraController" type="Node3D" parent="Head" node_paths=PackedStringArray("actor", "camera_pivot", "camera", "bob_head")]
+script = ExtResource("2_3dgm8")
+actor = NodePath("../..")
+camera_pivot = NodePath("../Eyes")
+camera = NodePath("../Eyes/CameraShake3D")
+bob_head = NodePath("../Eyes")
+metadata/_custom_type_script = "uid://dn4nxtwctgx2l"
+
+[node name="Eyes" type="Node3D" parent="Head"]
+
+[node name="CameraShake3D" type="Camera3D" parent="Head/Eyes"]
+script = ExtResource("2_3jowx")
+metadata/_custom_type_script = "uid://cq0a178n01slj"
