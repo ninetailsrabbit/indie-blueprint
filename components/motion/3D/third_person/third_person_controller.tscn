@@ -1,9 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://cose2vydp6e1q"]
+[gd_scene load_steps=13 format=3 uid="uid://cose2vydp6e1q"]
 
 [ext_resource type="Script" uid="uid://cr5diycjrhufp" path="res://components/motion/3D/third_person/third_person_controller.gd" id="1_y2iqo"]
 [ext_resource type="Script" uid="uid://begt3gcweaksh" path="res://components/motion/3D/third_person/spring_arm_pivot.gd" id="2_oa4mc"]
+[ext_resource type="Script" uid="uid://cq0a178n01slj" path="res://components/camera/3D/shake/camera_shake_3d.gd" id="3_gu3wy"]
+[ext_resource type="Script" uid="uid://c0km5k3qx21va" path="res://addons/ninetailsrabbit.indie_blueprint_state_machine/src/finite-state-machine.gd" id="4_5owuh"]
+[ext_resource type="Script" uid="uid://dgg4dvwyg4o6a" path="res://components/motion/3D/third_person/click_mode/states/neutral_state.gd" id="5_8huns"]
+[ext_resource type="Script" uid="uid://c0j8tit7uov31" path="res://components/motion/3D/third_person/click_mode/states/movement_state.gd" id="6_4eeyw"]
+[ext_resource type="Script" uid="uid://dntfxdw3e7d3p" path="res://components/motion/3D/third_person/click_mode/states/projectile_predition_state.gd" id="7_4eeyw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2get0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8huns"]
+albedo_color = Color(1, 0.156863, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4eeyw"]
+material = SubResource("StandardMaterial3D_8huns")
+size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2get0"]
 
@@ -15,12 +27,20 @@ collision_layer = 2
 script = ExtResource("1_y2iqo")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_2get0")
+
+[node name="EyesMesh" type="MeshInstance3D" parent="BodyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59, -0.5)
+mesh = SubResource("BoxMesh_4eeyw")
+skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2get0")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
 [node name="SpringArmPivot" type="Node3D" parent="." node_paths=PackedStringArray("actor")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -35,3 +55,26 @@ spring_length = 6.0
 [node name="SpringPosition" type="Node3D" parent="SpringArmPivot/SpringArm3D"]
 
 [node name="Camera3D" type="Camera3D" parent="SpringArmPivot"]
+unique_name_in_owner = true
+script = ExtResource("3_gu3wy")
+metadata/_custom_type_script = "uid://cq0a178n01slj"
+
+[node name="ClickModeStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("4_5owuh")
+current_state = NodePath("ThirdPersonClickModeNeutralState")
+metadata/_custom_type_script = "uid://c0km5k3qx21va"
+
+[node name="ThirdPersonClickModeNeutralState" type="Node" parent="ClickModeStateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("5_8huns")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://dgg4dvwyg4o6a"
+
+[node name="ThirdPersonClickModeMovementState" type="Node" parent="ClickModeStateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("6_4eeyw")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://c0j8tit7uov31"
+
+[node name="ThirdPersonClickModeProjectilePredictionState" type="Node" parent="ClickModeStateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("7_4eeyw")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://dntfxdw3e7d3p"

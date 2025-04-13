@@ -1,0 +1,3 @@
+class_name ThirdPersonClickModeBaseState extends IndieBlueprintMachineState
+
+@export var actor: IndieBlueprintThirdPersonController
