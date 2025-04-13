@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwbeagypg16jj"]
+[gd_scene load_steps=7 format=3 uid="uid://bwbeagypg16jj"]
 
 [ext_resource type="Script" uid="uid://wlqt4ke2ylq3" path="res://components/motion/3D/first_person/first_person_controller.gd" id="1_pw1ku"]
 [ext_resource type="Script" uid="uid://dn4nxtwctgx2l" path="res://components/motion/3D/first_person/camera/camera_controller.gd" id="2_3dgm8"]
 [ext_resource type="Script" uid="uid://cq0a178n01slj" path="res://components/camera/3D/shake/camera_shake_3d.gd" id="2_3jowx"]
+[ext_resource type="Script" uid="uid://c7xt5wwe4w44d" path="res://components/motion/3D/first_person/footsteps/footstep_manager_3d.gd" id="4_xoe1f"]
+[ext_resource type="Script" uid="uid://cawi11gmsx71g" path="res://addons/ninetailsrabbit.indie_blueprint_audio/src/components/queue/sound_queue.gd" id="5_b0gsh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pw1ku"]
 
@@ -29,3 +31,22 @@ metadata/_custom_type_script = "uid://dn4nxtwctgx2l"
 [node name="CameraShake3D" type="Camera3D" parent="Head/Eyes"]
 script = ExtResource("2_3jowx")
 metadata/_custom_type_script = "uid://cq0a178n01slj"
+
+[node name="FootstepsManager3D" type="Node3D" parent="." node_paths=PackedStringArray("floor_detector_raycast", "sound_queue")]
+script = ExtResource("4_xoe1f")
+floor_detector_raycast = NodePath("FloorDetectorRayCast")
+sound_queue = NodePath("IndieBlueprintSoundQueue")
+metadata/_custom_type_script = "uid://c7xt5wwe4w44d"
+
+[node name="FloorDetectorRayCast" type="RayCast3D" parent="FootstepsManager3D"]
+target_position = Vector3(0, -0.2, 0)
+debug_shape_custom_color = Color(0.917647, 0.643137, 0, 1)
+
+[node name="IndieBlueprintSoundQueue" type="Node" parent="FootstepsManager3D"]
+script = ExtResource("5_b0gsh")
+queue_count = 5.0
+metadata/_custom_type_script = "uid://cawi11gmsx71g"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="FootstepsManager3D/IndieBlueprintSoundQueue"]
+max_distance = 25.0
+bus = &"SFX"

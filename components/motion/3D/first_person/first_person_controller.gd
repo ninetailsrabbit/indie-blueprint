@@ -26,7 +26,7 @@ var is_grounded: bool = false
 var original_head_position: Vector3
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed(&"ui_cancel"):
 		switch_mouse_capture_mode()
 
