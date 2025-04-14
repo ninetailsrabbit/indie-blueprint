@@ -1,17 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwbeagypg16jj"]
+[gd_scene load_steps=18 format=3 uid="uid://bwbeagypg16jj"]
 
 [ext_resource type="Script" uid="uid://wlqt4ke2ylq3" path="res://components/motion/3D/first_person/first_person_controller.gd" id="1_pw1ku"]
 [ext_resource type="Script" uid="uid://dn4nxtwctgx2l" path="res://components/motion/3D/first_person/camera/camera_controller.gd" id="2_3dgm8"]
 [ext_resource type="Script" uid="uid://cq0a178n01slj" path="res://components/camera/3D/shake/camera_shake_3d.gd" id="2_3jowx"]
 [ext_resource type="Script" uid="uid://c7xt5wwe4w44d" path="res://components/motion/3D/first_person/footsteps/footstep_manager_3d.gd" id="4_xoe1f"]
 [ext_resource type="Script" uid="uid://cawi11gmsx71g" path="res://addons/ninetailsrabbit.indie_blueprint_audio/src/components/queue/sound_queue.gd" id="5_b0gsh"]
+[ext_resource type="Script" uid="uid://c0km5k3qx21va" path="res://addons/ninetailsrabbit.indie_blueprint_state_machine/src/finite-state-machine.gd" id="6_s2xml"]
+[ext_resource type="Script" uid="uid://ddjyh4swnqe2w" path="res://components/motion/3D/first_person/states/ground/idle.gd" id="7_mg11p"]
+[ext_resource type="Script" uid="uid://dgb688j57re0p" path="res://components/motion/3D/first_person/states/ground/walk.gd" id="8_aaym1"]
+[ext_resource type="Script" uid="uid://f0xtx351fnuc" path="res://components/motion/3D/first_person/states/ground/run.gd" id="9_ox5nn"]
+[ext_resource type="Script" uid="uid://dlbwqu1ar30hj" path="res://components/motion/3D/first_person/states/ground/crouch.gd" id="10_r8nft"]
+[ext_resource type="Script" uid="uid://buq0ye7rn8ire" path="res://components/motion/3D/first_person/states/ground/crawl.gd" id="11_vnwm8"]
+[ext_resource type="Script" uid="uid://bydhgs0w50pt2" path="res://components/motion/3D/first_person/states/ground/slide.gd" id="12_1tpw1"]
+[ext_resource type="Script" uid="uid://xuc7rr6l32ow" path="res://components/motion/3D/first_person/states/ground/dash.gd" id="13_54dd7"]
+[ext_resource type="Script" uid="uid://nd5eggsmr8nd" path="res://components/motion/3D/first_person/states/air/jump.gd" id="14_euxac"]
+[ext_resource type="Script" uid="uid://b8q4xavs1gf1d" path="res://components/motion/3D/first_person/states/air/fall.gd" id="15_juc27"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pw1ku"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_aaym1"]
+radius = 0.35
 
 [node name="FirstPersonController" type="CharacterBody3D"]
 script = ExtResource("1_pw1ku")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_pw1ku")
 
@@ -32,6 +45,12 @@ metadata/_custom_type_script = "uid://dn4nxtwctgx2l"
 script = ExtResource("2_3jowx")
 metadata/_custom_type_script = "uid://cq0a178n01slj"
 
+[node name="CeilShapeCast" type="ShapeCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+shape = SubResource("SphereShape3D_aaym1")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0, 0.792157, 0, 1)
+
 [node name="FootstepsManager3D" type="Node3D" parent="." node_paths=PackedStringArray("floor_detector_raycast", "sound_queue")]
 script = ExtResource("4_xoe1f")
 floor_detector_raycast = NodePath("FloorDetectorRayCast")
@@ -50,3 +69,57 @@ metadata/_custom_type_script = "uid://cawi11gmsx71g"
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="FootstepsManager3D/IndieBlueprintSoundQueue"]
 max_distance = 25.0
 bus = &"SFX"
+
+[node name="IndieBlueprintFiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("6_s2xml")
+current_state = NodePath("Ground/FirstPersonIdleState")
+metadata/_custom_type_script = "uid://c0km5k3qx21va"
+
+[node name="Ground" type="Node" parent="IndieBlueprintFiniteStateMachine"]
+
+[node name="FirstPersonIdleState" type="Node" parent="IndieBlueprintFiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("7_mg11p")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://ddjyh4swnqe2w"
+
+[node name="FirstPersonWalkState" type="Node" parent="IndieBlueprintFiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("8_aaym1")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://dgb688j57re0p"
+
+[node name="FirstPersonRunState" type="Node" parent="IndieBlueprintFiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("9_ox5nn")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://f0xtx351fnuc"
+
+[node name="FirstPersonCrouchState" type="Node" parent="IndieBlueprintFiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("10_r8nft")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://dlbwqu1ar30hj"
+
+[node name="FirstPersonCrawlState" type="Node" parent="IndieBlueprintFiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("11_vnwm8")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://buq0ye7rn8ire"
+
+[node name="FirstPersonSlideState" type="Node" parent="IndieBlueprintFiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("12_1tpw1")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://bydhgs0w50pt2"
+
+[node name="FirstPersonDashState" type="Node" parent="IndieBlueprintFiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
+script = ExtResource("13_54dd7")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://xuc7rr6l32ow"
+
+[node name="Air" type="Node" parent="IndieBlueprintFiniteStateMachine"]
+
+[node name="FirstPersonJumpState" type="Node" parent="IndieBlueprintFiniteStateMachine/Air" node_paths=PackedStringArray("actor")]
+script = ExtResource("14_euxac")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://nd5eggsmr8nd"
+
+[node name="FirstPersonFallState" type="Node" parent="IndieBlueprintFiniteStateMachine/Air" node_paths=PackedStringArray("actor")]
+script = ExtResource("15_juc27")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://b8q4xavs1gf1d"

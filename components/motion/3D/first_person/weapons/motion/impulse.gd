@@ -29,24 +29,24 @@ func _physics_process(delta):
 	position = lerp(position, current_kick, delta * jump_kick_power)
 	rotation = lerp(rotation, current_rotation, delta * jump_rotation_power)
 
-	#if current_state is HunterJump:
-		#if previous_state is HunterRun:
-			#apply_jump_kick(multiplier_on_jump_after_run)
-		#else:
-			#apply_jump_kick(multiplier_on_jump)
-	#
-	#elif previous_state is HunterAir and current_state is HunterGround:
-		#if next_to_previous_state is HunterRun:
-			#apply_land_kick(multiplier_on_land_after_run)
-		#else:
-			#apply_land_kick(multiplier_on_land)
-		#
-	#elif current_state is HunterCrouch \
-		#or (previous_state is HunterCrouch \
-		#and (current_state is HunterIdle or current_state is HunterWalk)):
-		#apply_jump_kick(multiplier_on_crouch)
-		#
-	#
+	if current_state is FirstPersonJumpState:
+		if previous_state is FirstPersonRunState:
+			apply_jump_kick(multiplier_on_jump_after_run)
+		else:
+			apply_jump_kick(multiplier_on_jump)
+	
+	elif previous_state is FirstPersonAirState and current_state is FirstPersonGroundState:
+		if next_to_previous_state is FirstPersonRunState:
+			apply_land_kick(multiplier_on_land_after_run)
+		else:
+			apply_land_kick(multiplier_on_land)
+		
+	elif current_state is FirstPersonCrouchState \
+		or (previous_state is FirstPersonCrouchState \
+		and (current_state is FirstPersonIdleState or current_state is FirstPersonWalkState)):
+		apply_jump_kick(multiplier_on_crouch)
+		
+	
 func apply_jump_kick(multiplier):
 	current_rotation = Vector3(jump_rotation.x * multiplier, jump_rotation.y * multiplier, 0.0)
 	current_kick = Vector3(0.0, jump_kick * multiplier, 0.0)

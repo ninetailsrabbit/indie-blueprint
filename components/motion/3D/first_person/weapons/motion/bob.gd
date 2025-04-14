@@ -73,45 +73,45 @@ func return_to_default_values() -> void:
 	current_target_lerp_speed = target_lerp_speed
 
 
-#func on_actor_state_changed(_from: IndieBlueprintMachineState, to: IndieBlueprintMachineState) -> void:
-	#if to is HunterGround:
-		### Intensity and headbox index changes when aiming or not
-		#if actor.is_aiming():
-			#
-			#if not to is HunterCrouch and not to is HunterRun:
-				#current_headbob_intensity = 0.004
-				#current_headbob_index_lerp_speed = 10.0
-			#elif to is HunterCrouch:
-				#current_headbob_intensity = 0.005
-				#current_headbob_index_lerp_speed = 8.0
-			#elif to is HunterRun:
-				#current_headbob_intensity = 0.01
-				#current_headbob_index_lerp_speed = 15.0
-		#else:
-			#if to is HunterWalk:
-				#current_headbob_intensity = 0.005
-				#current_headbob_index_lerp_speed = 10.0
-			#elif to is HunterCrouch:
-				#current_headbob_intensity = 0.005
-				#current_headbob_index_lerp_speed = 8.0
-			#elif to is HunterRun:
-				#current_headbob_intensity = 0.01
-				#current_headbob_index_lerp_speed = 15.0
+func on_actor_state_changed(_from: IndieBlueprintMachineState, to: IndieBlueprintMachineState) -> void:
+	if to is FirstPersonGroundState:
+		## Intensity and headbox index changes when aiming or not
+		if actor.is_aiming():
+			
+			if not to is FirstPersonCrouchState and not to is FirstPersonRunState:
+				current_headbob_intensity = 0.004
+				current_headbob_index_lerp_speed = 10.0
+			elif to is FirstPersonCrouchState:
+				current_headbob_intensity = 0.005
+				current_headbob_index_lerp_speed = 8.0
+			elif to is FirstPersonRunState:
+				current_headbob_intensity = 0.01
+				current_headbob_index_lerp_speed = 15.0
+		else:
+			if to is FirstPersonWalkState:
+				current_headbob_intensity = 0.005
+				current_headbob_index_lerp_speed = 10.0
+			elif to is FirstPersonCrouchState:
+				current_headbob_intensity = 0.005
+				current_headbob_index_lerp_speed = 8.0
+			elif to is FirstPersonRunState:
+				current_headbob_intensity = 0.01
+				current_headbob_index_lerp_speed = 15.0
 		#
 		### Normal frequency amplitude to use in bob depending on the current actor state
-		#if to is HunterIdle:
-			#current_target_frequency = 0.2
-			#current_target_amplitude = 0.05
-			#current_target_lerp_speed = 2.0
-		#elif to is HunterWalk:
-			#current_target_frequency = 1.0
-			#current_target_amplitude = 0.04
-			#current_target_lerp_speed = 2.0
-		#elif to is HunterRun:
-			#current_target_frequency = 1.0
-			#current_target_amplitude = 0.08
-			#current_target_lerp_speed = 2.0
-		#elif to is HunterCrouch:
-			#current_target_frequency = 1.0
-			#current_target_amplitude = 0.05
-			#current_target_lerp_speed = 2.0
+		if to is FirstPersonIdleState:
+			current_target_frequency = 0.2
+			current_target_amplitude = 0.05
+			current_target_lerp_speed = 2.0
+		elif to is FirstPersonWalkState:
+			current_target_frequency = 1.0
+			current_target_amplitude = 0.04
+			current_target_lerp_speed = 2.0
+		elif to is FirstPersonRunState:
+			current_target_frequency = 1.0
+			current_target_amplitude = 0.08
+			current_target_lerp_speed = 2.0
+		elif to is FirstPersonCrouchState:
+			current_target_frequency = 1.0
+			current_target_amplitude = 0.05
+			current_target_lerp_speed = 2.0
