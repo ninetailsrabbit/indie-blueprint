@@ -146,6 +146,13 @@ static func get_scene_files(path: String) -> Array:
 	return get_files_recursive(path, regex)
 
 
+static func get_script_files(path: String) -> Array:
+	var regex = RegEx.new()
+	regex.compile(".gd$")
+	
+	return get_files_recursive(path, regex)
+
+
 static func get_shader_files(path: String) -> Array:
 	var regex = RegEx.new()
 	regex.compile(".gdshader$")

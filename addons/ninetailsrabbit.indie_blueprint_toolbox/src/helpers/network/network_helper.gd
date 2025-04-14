@@ -28,3 +28,8 @@ static func open_external_link(url: String) -> void:
 			url = url.uri_encode()
 			
 		OS.shell_open(url)
+
+
+static func clear_signal_connections(selected_signal: Signal):
+	for connection: Dictionary in selected_signal.get_connections():
+		selected_signal.disconnect(connection.callable)
