@@ -19,19 +19,19 @@ extends Node
 # Mode: Canvas items
 # Textures: Nearest (Don't activate the Snaps 2D options for textures\)
 
-const Resolution_Mobile: String = "mobile"
-const Resolution4_3: String = "4:3"
-const Resolution16_9: String = "16:9"
-const Resolution16_10: String = "16:10"
-const Resolution21_9: String = "21:9"
-const IntegerScalingResolutions: String = "integer_scaling"
+const Resolution_Mobile: StringName = &"mobile"
+const Resolution4_3: StringName = &"4:3"
+const Resolution16_9: StringName = &"16:9"
+const Resolution16_10: StringName = &"16:10"
+const Resolution21_9: StringName = &"21:9"
+const IntegerScalingResolutions: StringName = &"integer_scaling"
 
 const AspectRatio4_3: Vector2i = Vector2i(4, 3)
 const AspectRatio16_9: Vector2i = Vector2i(16,9)
 const AspectRatio16_10: Vector2i = Vector2i(16, 10)
 const AspectRatio21_9: Vector2i = Vector2i(21, 9)
 
-var resolutions: Dictionary = {
+var resolutions: Dictionary[StringName, Array] = {
 	Resolution_Mobile: [
 		Vector2i(320, 480),  # Older smartphones
 		Vector2i(320, 640),
@@ -111,46 +111,41 @@ func _enter_tree() -> void:
 
 #region Resolution getters
 func get_mobile_resolutions(use_computer_screen_limit: bool = false) -> Array[Vector2i]:
-	if use_computer_screen_limit:
-		return resolutions[Resolution_Mobile].filter(_filter_by_screen_size_limit)
-		
-	return resolutions[Resolution4_3]
+	return _get_resolution(Resolution_Mobile, use_computer_screen_limit)
 
 
 func get_4_3_resolutions(use_computer_screen_limit: bool = false) -> Array[Vector2i]:
-	if use_computer_screen_limit:
-		return resolutions[Resolution4_3].filter(_filter_by_screen_size_limit)
-		
-	return resolutions[Resolution4_3]
+	return _get_resolution(Resolution4_3, use_computer_screen_limit)
 
 
 func get_16_9_resolutions(use_computer_screen_limit: bool = false) -> Array[Vector2i]:
-	if use_computer_screen_limit:
-		return resolutions[Resolution16_9].filter(_filter_by_screen_size_limit)
-
-	return resolutions[Resolution16_9]
+	return _get_resolution(Resolution16_9, use_computer_screen_limit)
 
 
 func get_16_10_resolutions(use_computer_screen_limit: bool = false) -> Array[Vector2i]:
-	if use_computer_screen_limit:
-		return resolutions[Resolution16_10].filter(_filter_by_screen_size_limit)
-
-	return resolutions[Resolution16_10]
+	return _get_resolution(Resolution16_10, use_computer_screen_limit)
 
 
 func get_21_9_resolutions(use_computer_screen_limit: bool = false) -> Array[Vector2i]:
-	if use_computer_screen_limit:
-		return resolutions[Resolution21_9].filter(_filter_by_screen_size_limit)
-
-	return resolutions[Resolution21_9]
+	return _get_resolution(Resolution21_9, use_computer_screen_limit)
 
 
 func get_integer_scaling_resolutions(use_computer_screen_limit: bool = false) -> Array[Vector2i]:
+	return _get_resolution(IntegerScalingResolutions, use_computer_screen_limit)
+	
+
+func _get_resolution(aspect_ratio: StringName, use_computer_screen_limit: bool = false) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	
+	match aspect_ratio:
+		Resolution4_3, Resolution16_10,  Resolution16_9, Resolution21_9, Resolution_Mobile, IntegerScalingResolutions:
+			result.assign(resolutions[aspect_ratio])
+		
 	if use_computer_screen_limit:
-		return resolutions[IntegerScalingResolutions].filter(_filter_by_screen_size_limit)
-
-	return resolutions[IntegerScalingResolutions]
-
+		result.assign(result.filter(_filter_by_screen_size_limit))
+		
+	return result
+	
 
 func _filter_by_screen_size_limit(screen_size: Vector2i):
 	return screen_size <= IndieBlueprintHardwareDetector.computer_screen_size
@@ -186,7 +181,7 @@ func get_camera2d_frame(viewport: Viewport = get_viewport()) -> Rect2:
 func screenshot(viewport: Viewport) -> Image:
 	var screenshot_image = viewport.get_texture().get_image()
 	
-	assert(screenshot_image is Image, "WindowManager::screenshot: The image output is null")
+	assert(screenshot_image is Image, "IndieBlueprintWindowManager::screenshot: The image output is null")
 
 	return screenshot_image
 
@@ -195,7 +190,7 @@ func screenshot_to_folder(folder: String = "%s/screenshots" % [OS.get_user_data_
 	var create_dir_error: Error = DirAccess.make_dir_recursive_absolute(folder)
 	
 	if create_dir_error != OK:
-		push_error("WindowManager::screenshot_to_folder: Can't create directory '%s'. Error: %s" % [folder, error_string(create_dir_error)])
+		push_error("IndieBlueprintWindowManager::screenshot_to_folder: Can't create directory '%s'. Error: %s" % [folder, error_string(create_dir_error)])
 		return create_dir_error
 	
 	await RenderingServer.frame_post_draw
@@ -204,7 +199,7 @@ func screenshot_to_folder(folder: String = "%s/screenshots" % [OS.get_user_data_
 	var screenshot_save_error = screenshot_image.save_png("%s/%s.png" % [folder, Time.get_datetime_string_from_system().replace(":", "_")])
 	
 	if screenshot_save_error != OK:
-		push_error("WindowManager::screenshot_to_folder: Can't save screenshot image '%s'. Error: %s" % [folder, error_string(screenshot_save_error)])
+		push_error("IndieBlueprintWindowManager::screenshot_to_folder: Can't save screenshot image '%s'. Error: %s" % [folder, error_string(screenshot_save_error)])
 		
 	return screenshot_save_error
 
