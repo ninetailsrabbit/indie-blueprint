@@ -59,8 +59,9 @@ var previous_world_coordinate_space_direction: Vector3
 
 var current_device_id: int = 0
 
-func _init(_actor: Node, _deadzone: float = deadzone):
-	assert(_actor is Node2D or _actor is Node3D, "MotionInput: The actor needs to inherit from Node2D or Node3D to retrieve the input correctly")
+func _init(_actor: Node3D = null, _deadzone: float = deadzone):
+	if _actor == null:
+		push_warning("MotionInput: The actor as Node3D is not set, the world_coordinate_space_direction will return Vector3.ZERO when retrieved")
 	
 	actor = _actor
 	deadzone = _deadzone

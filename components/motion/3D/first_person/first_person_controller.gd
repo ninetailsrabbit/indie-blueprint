@@ -65,7 +65,7 @@ func _physics_process(_delta: float) -> void:
 	motion_input.update()
 	was_grounded = is_grounded
 	is_grounded = is_on_floor()
-
+	
 
 func is_falling() -> bool:
 	var opposite_up_direction = IndieBlueprintVectorHelper.up_direction_opposite_vector3(up_direction)
