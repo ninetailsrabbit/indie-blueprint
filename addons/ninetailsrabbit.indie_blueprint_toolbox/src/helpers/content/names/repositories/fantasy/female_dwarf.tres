@@ -54,5 +54,5 @@ surnames = Array[String]([ "Stonebeard", "Ironhand", "Battlehammer", "Rockfist",
     "Cliffheart", "Gravelheart", "Hillheart", "Peakheart", "Ridgeheart", "Valleyheart", "Cragheart", "Moorheart", "Glenheart", "Daleheart",
     "Fellheart", "Braeheart", "Strathheart", "Lochheart", "Glenmoreheart", "Boulderhand", "Ironhand", "Battlehand", "Rockhand", "Goldhand",
     "Alehand", "Deephand", "Mountainhand", "Steelhand", "Granitehand", "Cliffhand", "Gravelhand", "Hillhand", "Peakhand", "Ridgehand",
-    "Valleyhand", "Craghand", "Moorhand", "Glenhand", "Dalehand", "Fellhand", "Braehand", "Strathhand", "Lochhand", "Glenmorehand")
+    "Valleyhand", "Craghand", "Moorhand", "Glenhand", "Dalehand", "Fellhand", "Braehand", "Strathhand", "Lochhand", "Glenmorehand"])
 metadata/_custom_type_script = "uid://cejilr31xj65q"

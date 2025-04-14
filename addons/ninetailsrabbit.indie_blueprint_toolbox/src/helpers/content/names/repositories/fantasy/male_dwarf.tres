@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ver5d")
-id = &"male_orc"
+id = &"male_dwarf"
 use_shuffle_bag = true
 region = &"en"
 gender = 0
