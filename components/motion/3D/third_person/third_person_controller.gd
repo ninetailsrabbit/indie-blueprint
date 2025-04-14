@@ -28,7 +28,7 @@ enum MovementMode {
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed(&"ui_cancel"):
-		switch_mouse_capture_mode()
+		IndieBlueprintCursorManager.switch_mouse_capture_mode()
 		
 		
 func _ready() -> void:
@@ -50,13 +50,6 @@ func look_at_mouse() -> void:
 		var look_position := origin + world_direction * distance
 		
 		look_at(Vector3(look_position.x, global_position.y, look_position.z))
-
-	
-func switch_mouse_capture_mode() -> void:
-	if IndieBlueprintInputHelper.is_mouse_visible():
-		IndieBlueprintInputHelper.capture_mouse()
-	else:
-		IndieBlueprintInputHelper.show_mouse_cursor()
 
 
 #region Click mode

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://duu18bi8xjtck"]
+
+[ext_resource type="Script" uid="uid://bbmn6dqbqoiie" path="res://components/motion/3D/first_person/weapons/bullets/impacts/bullet_impact_manager.gd" id="1_8r3fo"]
+
+[node name="BulletImpactManager" type="Node"]
+script = ExtResource("1_8r3fo")
+surfaces = null
+impacts = null

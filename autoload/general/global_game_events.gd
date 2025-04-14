@@ -14,3 +14,9 @@ signal interactable_2d_canceled_interaction(interactable: IndieBlueprintInteract
 signal interactable_2d_interaction_limit_reached(interactable: IndieBlueprintInteractable2D)
 
 #endregion
+
+
+#region Weapons
+@warning_ignore("unused_signal")
+signal weapon_fired(weapon: FireArmWeapon, hitscan: RaycastResult)
+#endregion

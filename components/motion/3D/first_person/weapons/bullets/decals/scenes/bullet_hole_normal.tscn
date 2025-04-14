@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cace0swj3vbdq"]
+
+[ext_resource type="Texture2D" uid="uid://nkta216djcly" path="res://components/motion/3D/first_person/weapons/bullets/decals/holes/bullet_hole_basic.png" id="1_xx7m8"]
+[ext_resource type="Script" uid="uid://c8mtdps32umm4" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/components/3D/decals/smart_decal.gd" id="2_ccr1c"]
+
+[node name="BulletHoleNormal" type="Decal"]
+texture_albedo = ExtResource("1_xx7m8")
+script = ExtResource("2_ccr1c")
+min_size = Vector3(0.15, 0.15, 0.15)
+max_size = Vector3(0.2, 0.2, 0.2)
+metadata/_custom_type_script = "uid://dw8lo6r2gpivk"

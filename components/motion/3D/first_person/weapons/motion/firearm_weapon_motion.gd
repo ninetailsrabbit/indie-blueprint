@@ -1,5 +1,5 @@
 @icon("res://components/motion/3D/first_person/weapons/icons/weapon_motion.svg")
-class_name FireArmWeaponMotion extends Node3D
+class_name WeaponMotion extends Node3D
 
 
 func enable() -> void:

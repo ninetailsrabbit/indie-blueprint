@@ -20,11 +20,12 @@ class_name IndieBlueprintFirstPersonController extends CharacterBody3D
 @onready var eyes: Node3D = $Head/Eyes
 @onready var body_collision_shape: CollisionShape3D = $BodyCollisionShape
 @onready var ceil_shape_cast: ShapeCast3D = $Head/CeilShapeCast
+@onready var fire_arm_weapon_manager: FireArmWeaponManager = $FireArmWeaponManager
 
 @onready var camera_controller: IndieBlueprintFirstPersonCameraController = $Head/IndieBlueprintFirstPersonCameraController
 @onready var camera: CameraShake3D = $Head/Eyes/CameraShake3D
 @onready var footsteps_manager: FootstepsManager3D = $FootstepsManager3D
-@onready var state_machine: IndieBlueprintFiniteStateMachine = $IndieBlueprintFiniteStateMachine
+@onready var state_machine: IndieBlueprintFiniteStateMachine = $MotionStateMachine
 
 var motion_input: MotionInput = MotionInput.new(self)
 var was_grounded: bool = false
@@ -34,12 +35,12 @@ var original_head_position: Vector3
 
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if IndieBlueprintInputHelper.is_any_action_just_pressed([InputControls.PauseGame, &"ui_cancel"]):
-		switch_mouse_capture_mode()
+		IndieBlueprintCursorManager.switch_mouse_capture_mode()
 		
 ## Only active when gamepad is connected
 func _unhandled_input(_event: InputEvent) -> void:
 	if IndieBlueprintInputHelper.is_any_action_just_pressed([InputControls.PauseGame, &"ui_cancel"]):
-		switch_mouse_capture_mode()
+		IndieBlueprintCursorManager.switch_mouse_capture_mode()
 		
 
 func _ready() -> void:
@@ -60,7 +61,6 @@ func _ready() -> void:
 	IndieBlueprintGamepadControllerManager.controller_disconnected.connect(on_gamepad_disconnected)
 
 
-
 func _physics_process(_delta: float) -> void:
 	motion_input.update()
 	was_grounded = is_grounded
@@ -78,11 +78,11 @@ func is_falling() -> bool:
 	return not is_grounded and opposite_to_gravity_vector
 
 
-#func is_aiming() -> bool:
-	#return (fire_arm_weapon_manager.left_hand.weapon_equipped \
-		#and fire_arm_weapon_manager.left_hand.weapon_equipped.is_aiming()) \
-		#or (fire_arm_weapon_manager.right_hand.weapon_equipped \
-		#and fire_arm_weapon_manager.right_hand.weapon_equipped.is_aiming())
+func is_aiming() -> bool:
+	return (fire_arm_weapon_manager.left_hand.weapon_equipped \
+		and fire_arm_weapon_manager.left_hand.weapon_equipped.is_aiming()) \
+		or (fire_arm_weapon_manager.right_hand.weapon_equipped \
+		and fire_arm_weapon_manager.right_hand.weapon_equipped.is_aiming())
 
 
 #region Locks
@@ -141,10 +141,3 @@ func on_gamepad_connected(_device_id, _controller_name: String) -> void:
 	
 func on_gamepad_disconnected(_device_id, _previous_controller_name: String, _controller_name: String) -> void:
 	update_gamepad_support()
-
-
-func switch_mouse_capture_mode() -> void:
-	if IndieBlueprintInputHelper.is_mouse_visible():
-		IndieBlueprintInputHelper.capture_mouse()
-	else:
-		IndieBlueprintInputHelper.show_mouse_cursor()

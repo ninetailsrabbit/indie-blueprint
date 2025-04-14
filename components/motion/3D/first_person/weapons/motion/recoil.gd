@@ -1,4 +1,4 @@
-class_name WeaponRecoil extends FireArmWeaponMotion
+class_name WeaponRecoil extends WeaponMotion
 
 @export var kick: float = 0.06
 @export var kick_power: float = 20.0

@@ -1,0 +1,21 @@
+[gd_resource type="RibbonTrailMesh" load_steps=4 format=3 uid="uid://mnyvcr525eo0"]
+
+[sub_resource type="Gradient" id="Gradient_rbh8b"]
+offsets = PackedFloat32Array(0.135593, 0.573446)
+colors = PackedColorArray(0.929412, 0.415686, 0, 0.901961, 1, 1, 0, 0.901961)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eovrh"]
+gradient = SubResource("Gradient_rbh8b")
+fill_from = Vector2(0.504274, 0.991453)
+fill_to = Vector2(0.512821, 0.299145)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58q8s"]
+transparency = 1
+cull_mode = 2
+albedo_texture = SubResource("GradientTexture2D_eovrh")
+
+[resource]
+material = SubResource("StandardMaterial3D_58q8s")
+size = 0.015
+sections = 2
+section_segments = 1

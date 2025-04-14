@@ -57,7 +57,7 @@ func _ready():
 func _input(event):
 	if active:
 		if IndieBlueprintInputHelper.is_any_action_just_pressed(mouse_mode_switch_input_actions):
-			switch_mouse_capture_mode()
+			IndieBlueprintCursorManager.switch_mouse_capture_mode()
 			
 		if event is InputEventMouseMotion:
 			view_motion += event.xformed_by(get_tree().root.get_final_transform()).relative

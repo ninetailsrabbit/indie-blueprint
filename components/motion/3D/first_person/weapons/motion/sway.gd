@@ -1,4 +1,4 @@
-class_name WeaponSway extends FireArmWeaponMotion
+class_name WeaponSway extends WeaponMotion
 
 @export var base_multiplier: float = 0.2
 @export var aim_multiplier: float = 0.2

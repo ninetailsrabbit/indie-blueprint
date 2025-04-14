@@ -35,6 +35,7 @@ const PushWave: StringName = &"push_wave"
 const Aim: StringName = &"aim"
 const Shoot: StringName = &"shoot"
 const Grenade: StringName = &"grenade"
+const Reload: StringName = &"reload"
 
 const PrimaryWeapon: StringName = &"primary_weapon"
 const SecondaryWeapon: StringName = &"secondary_weapon"

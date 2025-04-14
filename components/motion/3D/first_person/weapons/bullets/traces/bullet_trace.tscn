@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c20h16ttexsb5"]
+
+[ext_resource type="RibbonTrailMesh" path="res://components/motion/3D/first_person/weapons/bullets/traces/bullet_trace.tres" id="1_7x34l"]
+[ext_resource type="Script" uid="uid://ciwjsl0fbl2id" path="res://components/motion/3D/first_person/weapons/bullets/traces/bullet_trace.gd" id="1_tvx78"]
+
+[node name="BulletTrace" type="Node3D" node_paths=PackedStringArray("alive_timer")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_tvx78")
+alive_timer = NodePath("Timer")
+
+[node name="Trace" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.2)
+mesh = ExtResource("1_7x34l")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

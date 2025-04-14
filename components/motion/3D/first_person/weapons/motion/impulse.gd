@@ -1,4 +1,4 @@
-class_name WeaponImpulse extends FireArmWeaponMotion
+class_name WeaponImpulse extends WeaponMotion
 
 @export var actor: IndieBlueprintFirstPersonController
 @export var camera: bool = false

@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1hiywj8ylkyk"]
+
+[ext_resource type="Texture2D" uid="uid://b6ep0c0h1knbt" path="res://components/motion/3D/first_person/weapons/bullets/decals/holes/black/bullet_hole_black.png" id="1_g0hh0"]
+[ext_resource type="Texture2D" uid="uid://eusy8gpgjnly" path="res://components/motion/3D/first_person/weapons/bullets/decals/holes/black/bullet_hole_normal.png" id="2_5q45e"]
+[ext_resource type="Script" uid="uid://c8mtdps32umm4" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/components/3D/decals/smart_decal.gd" id="2_olpfn"]
+[ext_resource type="Texture2D" uid="uid://5q87nmd7ng7w" path="res://components/motion/3D/first_person/weapons/bullets/decals/holes/black/bullet_hole_orm.png" id="3_vurba"]
+[ext_resource type="Texture2D" uid="uid://douajdt6pqqmg" path="res://components/motion/3D/first_person/weapons/bullets/decals/holes/black/bullet_hole_emit.png" id="4_wjopp"]
+
+[node name="BulletHoleShiny" type="Decal"]
+texture_albedo = ExtResource("1_g0hh0")
+texture_normal = ExtResource("2_5q45e")
+texture_orm = ExtResource("3_vurba")
+texture_emission = ExtResource("4_wjopp")
+script = ExtResource("2_olpfn")
+min_size = Vector3(0.2, 0.2, 0.2)
+max_size = Vector3(0.25, 0.25, 2.25)

@@ -1,4 +1,4 @@
-class_name WeaponBob extends FireArmWeaponMotion
+class_name WeaponBob extends WeaponMotion
 
 @export var actor: Node3D
 @export var noise: FastNoiseLite
