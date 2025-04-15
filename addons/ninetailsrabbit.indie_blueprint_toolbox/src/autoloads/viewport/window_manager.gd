@@ -159,7 +159,18 @@ func center_window_position(viewport: Viewport = get_viewport()) -> void:
 
 ## Current screen center of the viewport in the world
 func screen_center() -> Vector2i:
-	return get_viewport().get_visible_rect().size / 2
+	return screen_size() / 2
+
+
+func screen_size() -> Vector2:
+	return get_viewport().get_visible_rect().size
+
+
+func screen_ratio() -> float:
+	var current_screen_size: Vector2 = screen_size()
+	
+	return current_screen_size.x / current_screen_size.y
+
 
 ## Center of the pc screen monitor used for play
 func monitor_screen_center() -> Vector2i:

@@ -42,6 +42,12 @@ const MetersPerSecondToKilometersPerHourFactor: float = 3.6
 
 const HexCharacters: String = "0123456789ABCDEF"
 
+## The cbrt functions compute the real cube root of x.
+## https://stackoverflow.com/questions/8493005/c-finding-cube-root-of-a-negative-number-with-pow-function
+static func cbrt(x: float) -> float:
+	return signf(x) * absf(x) ** (1.0 / 3.0)
+	
+	
 ## "x": This is the input value between 0 and 1 that you want to apply the bias to. 
 ## It could represent a probability, a random number between 0 and 1, or any other value in that range.
 ## "bias": This is the bias factor, also between 0 and 1. It controls how much the function pushes the x value away from 0.5 (the center).

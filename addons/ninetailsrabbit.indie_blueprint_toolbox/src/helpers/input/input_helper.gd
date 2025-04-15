@@ -22,6 +22,38 @@ static func is_mouse_button(event: InputEvent) -> bool:
 	return event is InputEventMouseButton
 
 
+static func is_mouse_wheel(event: InputEvent) -> bool:
+	return event is InputEventMouseButton \
+		and (event.button_index == MOUSE_BUTTON_WHEEL_UP \
+		or event.button_index == MOUSE_BUTTON_WHEEL_DOWN \
+		or event.button_index == MOUSE_BUTTON_WHEEL_RIGHT \
+		or event.button_index == MOUSE_BUTTON_WHEEL_LEFT)
+
+
+static func is_mouse_wheel_up(event: InputEvent) -> bool:
+	return is_mouse_wheel(event) and event.button_index == MOUSE_BUTTON_WHEEL_UP
+
+
+static func is_mouse_wheel_down(event: InputEvent) -> bool:
+	return is_mouse_wheel(event) and event.button_index == MOUSE_BUTTON_WHEEL_DOWN
+
+
+static func is_mouse_wheel_right(event: InputEvent) -> bool:
+	return is_mouse_wheel(event) and event.button_index == MOUSE_BUTTON_WHEEL_RIGHT
+
+
+static func is_mouse_wheel_left(event: InputEvent) -> bool:
+	return is_mouse_wheel(event) and event.button_index == MOUSE_BUTTON_WHEEL_LEFT
+
+
+static func is_mouse_wheel_up_or_down(event: InputEvent) -> bool:
+	return is_mouse_wheel_up(event) or is_mouse_wheel_down(event)
+
+
+static func is_mouse_wheel_right_or_left(event: InputEvent) -> bool:
+	return is_mouse_wheel_right(event) or is_mouse_wheel_left(event)
+
+
 static func double_click_to_single(event: InputEvent) -> InputEvent:
 	if event is InputEventMouseButton and event.double_click:
 			event.double_click = false
