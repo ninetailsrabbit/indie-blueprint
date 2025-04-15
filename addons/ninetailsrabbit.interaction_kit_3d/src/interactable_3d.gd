@@ -88,7 +88,7 @@ func _ready() -> void:
 	
 func activate() -> void:
 	priority = 3
-	collision_layer =  InteractionKit3DPluginUtilities.layer_to_value(ProjectSettings.get_setting(InteractionKit3DPluginSettings.InteractablesCollisionLayerSetting))
+	collision_layer =  IndieBlueprintGameGlobals.interactables_collision_layer
 	collision_mask = 0
 	monitorable = true
 	monitoring = false

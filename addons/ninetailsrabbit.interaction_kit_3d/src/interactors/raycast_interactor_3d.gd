@@ -40,7 +40,7 @@ func _enter_tree():
 	exclude_parent = true
 	collide_with_areas = true
 	collide_with_bodies = true
-	collision_mask = 1 | InteractionKit3DPluginUtilities.layer_to_value(ProjectSettings.get_setting(InteractionKit3DPluginSettings.InteractablesCollisionLayerSetting)) | InteractionKit3DPluginUtilities.layer_to_value(ProjectSettings.get_setting(InteractionKit3DPluginSettings.GrabbablesCollisionLayerSetting)) 
+	collision_mask = 1 | IndieBlueprintGameGlobals.interactables_collision_layer | IndieBlueprintGameGlobals.grabbables_collision_layer 
 	
 	if get_tree().root.has_node(InteractionKit3DPluginSettings.GlobalInteractionEventsSingleton):
 		global_interaction_events = get_tree().root.get_node(InteractionKit3DPluginSettings.GlobalInteractionEventsSingleton)

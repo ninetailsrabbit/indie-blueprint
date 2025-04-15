@@ -63,7 +63,7 @@ func get_detected_interactable():
 	var ray_query = PhysicsRayQueryParameters3D.create(
 		from, 
 		to,
-		1 | InteractionKit3DPluginUtilities.layer_to_value(ProjectSettings.get_setting(InteractionKit3DPluginSettings.InteractablesCollisionLayerSetting)) | InteractionKit3DPluginUtilities.layer_to_value(ProjectSettings.get_setting(InteractionKit3DPluginSettings.GrabbablesCollisionLayerSetting)) 
+		1 |IndieBlueprintGameGlobals.interactables_collision_layer | IndieBlueprintGameGlobals.grabbables_collision_layer
 
 	)
 	

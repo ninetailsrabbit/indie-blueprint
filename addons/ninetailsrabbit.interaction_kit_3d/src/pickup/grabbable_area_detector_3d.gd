@@ -3,7 +3,7 @@ class_name GrabbableAreaDetector3D extends Area3D
 
 func _enter_tree() -> void:
 	collision_layer = 0
-	collision_mask = InteractionKit3DPluginUtilities.layer_to_value(ProjectSettings.get_setting(InteractionKit3DPluginSettings.GrabbablesCollisionLayerSetting))
+	collision_mask = IndieBlueprintGameGlobals.grabbables_collision_layer
 	monitorable = false
 	monitoring = true
 	priority = 2
