@@ -119,7 +119,7 @@ func _apply_outline_shader() -> void:
 					outline_shader_material.set_shader_parameter("outline_color", outline_shader_color)
 					outline_shader_material.set_shader_parameter("outline_width", outline_width)
 					material.next_pass = outline_shader_material
-					
+				
 			OutlineMode.InvertedHull:
 				if not outline_material:
 					outline_material = StandardMaterial3D.new()
