@@ -70,7 +70,6 @@ signal unfocused
 @export var focus_cursor: CompressedTexture2D
 @export var interact_cursor: CompressedTexture2D
 
-
 var original_gravity_scale: float  = gravity_scale
 var original_transparency: int = MaximumTransparency
 
