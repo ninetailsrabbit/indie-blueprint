@@ -1,5 +1,5 @@
 ## This node usually is placed in the center of the scenario we want to move around with panning
-## and place the camera upwards relative to this node position that is used as pivot
+## and place the camera upwards relative to this node position
 class_name AerialCamera extends Node3D
 
 signal changed_movement_mode(new_mode: MovementMode)
@@ -35,6 +35,8 @@ class AerialCameraTransform:
 @export var drag_button: MouseButton = MOUSE_BUTTON_LEFT
 @export_category("Movement")
 @export var movement_speed: float = 10.0
+@export var smooth_movement: bool = false
+@export var smooth_movement_lerp: float = 10.0
 @export_category("Drag")
 @export var move_drag_speed: float = 0.03
 @export var rotate_drag_speed: float = 0.01
@@ -129,42 +131,19 @@ func _process(delta: float) -> void:
 func handle_movement(delta: float = get_process_delta_time()) -> void:
 	if movement_mode_is_free():
 		var input_direction: Vector2 = motion_input.input_direction
+		
 		if motion_input.previous_input_direction.is_zero_approx() and not input_direction.is_zero_approx():
 			movement_free_started.emit(AerialCameraTransform.new(global_transform, camera.size, camera.fov))
 		
 		if not input_direction.is_zero_approx():
-			var velocity: Vector3 = Vector3.ZERO
-			
-			match input_direction:
-				Vector2.UP:
-					velocity -= camera.global_transform.basis.z
-				Vector2.DOWN:
-					velocity += camera.global_transform.basis.z
-				Vector2.RIGHT:
-					velocity += camera.global_transform.basis.x
-				Vector2.LEFT:
-					velocity -= camera.global_transform.basis.x
-				
-			if IndieBlueprintVectorHelper.is_diagonal_direction_v2(input_direction):
-				## Diagonal RIGHT - UP
-				if sign(input_direction.x) == 1 and sign(input_direction.y) == -1:
-					velocity += camera.global_transform.basis.x - camera.global_transform.basis.z
-				
-				## Diagonal LEFT - UP
-				elif sign(input_direction.x) == -1 and sign(input_direction.y) == -1:
-					velocity -= camera.global_transform.basis.x + camera.global_transform.basis.z
-					
-				## DIAGONAL RIGHT - DOWN
-				elif sign(input_direction.x) == 1 and sign(input_direction.y) == 1:
-					velocity += camera.global_transform.basis.x + camera.global_transform.basis.z
-					
-				## DIAGONAL LEFT-DOWN
-				elif sign(input_direction.x) == -1 and sign(input_direction.y) == 1:
-					velocity -= camera.global_transform.basis.x - camera.global_transform.basis.z
-					
+			var velocity: Vector3 = (camera.transform.basis *  Vector3(input_direction.x, 0, input_direction.y)).normalized()
 			velocity.y = 0
-			global_translate(velocity.normalized() * delta * movement_speed)
-	
+			
+			if smooth_movement:
+				position = lerp(position, position + transform.basis * (velocity * (movement_speed * 0.1)), delta * smooth_movement_lerp)
+			else:
+				translate(velocity * delta * movement_speed)
+
 	
 ## We want to have a vector that translates our camera, this is used when the movement is drag
 func update_move_vectors() -> void:
