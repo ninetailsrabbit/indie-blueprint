@@ -37,7 +37,7 @@ func physics_update(delta: float) -> void:
 
 func _handle_click_movement():
 	var raycast_result: RaycastResult = IndieBlueprintCamera3DHelper\
-		.project_raycast_to_mouse(actor.get_viewport(), actor.camera)
+		.project_raycast_to_mouse(actor.camera)
 	
 	if raycast_result.collider and raycast_result.collider != self:
 		var _next_position: Vector3 = NavigationServer3D\

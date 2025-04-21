@@ -13,7 +13,7 @@ func handle_unhandled_input(event: InputEvent) -> void:
 
 func _handle_click_movement() -> void:
 	var raycast_result: RaycastResult = IndieBlueprintCamera3DHelper\
-		.project_raycast_to_mouse(get_viewport(), actor.camera)
+		.project_raycast_to_mouse(actor.camera)
 	
 
 	var next_position: Vector3 = NavigationServer3D\
