@@ -63,6 +63,13 @@ static func clean(string: String, include_numbers: bool = true) -> String:
 			
 	return result
 
+
+static func remove_tokens(text: String, tokens: Array[String]) -> String:
+	for token: String in tokens:
+		text = text.replace(token, "")
+
+	return text
+	
 ## This function wraps the provided text into multiple lines if it exceeds the specified max_line_length
 static func wrap_text(text: String = "", max_line_length: int = 120):
 	if text.is_empty() or text.length() <= max_line_length:
