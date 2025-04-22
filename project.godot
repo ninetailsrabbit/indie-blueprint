@@ -12,6 +12,7 @@ config_version=5
 
 config/ninetailsrabbit.interaction_kit_3d/interactables_collision_layer=6
 config/ninetailsrabbit.interaction_kit_3d/grabbables_collision_layer=7
+config/ninetailsrabbit.indie_blueprint_toolbox/enable_timer=false
 
 [application]
 
@@ -36,7 +37,6 @@ IndieBlueprintSoundPool="*res://addons/ninetailsrabbit.indie_blueprint_audio/src
 IndieBlueprintCameraTransitioner="*res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/src/camera_transitioner.tscn"
 IndieBlueprintGlobalClock="*res://addons/ninetailsrabbit.indie_blueprint_global_clock/src/global_clock.tscn"
 IndieBlueprintObjectPoolManager="*res://addons/ninetailsrabbit.indie_blueprint_pool/src/object_pool_manager.gd"
-IndieBlueprintWindowManager="*res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/autoloads/viewport/window_manager.gd"
 IndieBlueprintSceneTransitioner="*res://addons/ninetailsrabbit.indie_blueprint_scene_transition/src/scene_transitioner.tscn"
 IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
 IndieBlueprintLootManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/loot/loot_manager.gd"
@@ -44,6 +44,7 @@ IndieBlueprintTurnityManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/
 GlobalInteractionEvents="*res://addons/ninetailsrabbit.interaction_kit_3d/src/global_interaction_events.gd"
 ScanInteractableLayer="*res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/scan_interactable_layer.tscn"
 BulletImpactManager="*res://components/motion/3D/first_person/weapons/bullets/impacts/bullet_impact_manager.tscn"
+IndieBlueprintWindowManager="*res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/autoloads/viewport/window_manager.gd"
 
 [display]
 
