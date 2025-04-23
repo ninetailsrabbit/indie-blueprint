@@ -52,9 +52,12 @@ class AerialCameraTransform:
 @export_category("Edge panning")
 ## When enabled, the camera moves when the mouse reachs viewport boundaries
 @export var edge_panning: bool = true
+@export var edge_panning_mouse_modes: Array[Input.MouseMode] = [
+	Input.MOUSE_MODE_CONFINED,
+]
 ## An extra margin to detect the viewport boundaries
 @export var edge_size: float = 5.0
-@export var scroll_speed: float = 0.1
+@export var scroll_speed: float = 0.25
 @export_category("Zoom")
 @export var zoom_in_button: MouseButton = MOUSE_BUTTON_WHEEL_UP
 @export var zoom_out_button: MouseButton = MOUSE_BUTTON_WHEEL_DOWN
@@ -161,7 +164,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	motion_input.update()
 	
-	if edge_panning:
+	if edge_panning and Input.mouse_mode in edge_panning_mouse_modes:
 		var mouse_position: Vector2 = get_viewport().get_mouse_position()
 		var scroll_direction: Vector3 = Vector3.ZERO
 		
