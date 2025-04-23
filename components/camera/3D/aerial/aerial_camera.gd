@@ -1,6 +1,7 @@
 ## This node usually is placed in the center of the scenario we want to move around with panning
 ## and place the camera upwards relative to this node position
 ## SETUP: AerialCamera > CameraRotationX (Node3D) > CameraZoomPivot (Node3D, Set the position.y and apply vertical angle here) > Camera3D
+@icon("res://components/camera/3D/aerial/aerial_camera.svg")
 class_name AerialCamera extends Node3D
 
 signal changed_movement_mode(new_mode: MovementMode)
