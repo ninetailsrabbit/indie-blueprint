@@ -1,4 +1,4 @@
-@icon("res://ui/debug/pixel_viewport_drawing.svg")
+@icon("res://ui/debug_ui/pixel_viewport_drawing.svg")
 @tool
 class_name PixelViewportDrawing extends Node2D
 

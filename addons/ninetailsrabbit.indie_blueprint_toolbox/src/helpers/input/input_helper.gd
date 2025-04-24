@@ -11,7 +11,7 @@ static func is_mouse_right_click(event: InputEvent) -> bool:
 
 
 static func is_mouse_left_button_pressed(event: InputEvent) -> bool:
-	return  event is InputEventMouse and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	return event is InputEventMouse and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 
 
 static func is_mouse_right_button_pressed(event: InputEvent) -> bool:

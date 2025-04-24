@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgygd7yooef5e"]
+
+[ext_resource type="Script" uid="uid://brnoefxgrh7rh" path="res://scenes/entry_point/game_entry_point.gd" id="1_q5v3t"]
+[ext_resource type="PackedScene" uid="uid://bewi7gvan2wwq" path="res://ui/content_warning/content_warning_displayer.tscn" id="2_t1770"]
+[ext_resource type="Script" uid="uid://b76wk7tpa8pkd" path="res://ui/content_warning/advisors/content_warning.gd" id="3_8bfj1"]
+[ext_resource type="Resource" uid="uid://bgr4ccqwj3qj7" path="res://ui/content_warning/advisors/content_warning_resemblance.tres" id="4_qv0h4"]
+
+[node name="GameEntryPoint" type="Node"]
+script = ExtResource("1_q5v3t")
+
+[node name="ContentWarnings" parent="." instance=ExtResource("2_t1770")]
+content_warnings_to_display = Array[ExtResource("3_8bfj1")]([ExtResource("4_qv0h4")])
