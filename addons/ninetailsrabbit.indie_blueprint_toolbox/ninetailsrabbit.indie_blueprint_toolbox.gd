@@ -53,7 +53,7 @@ func _enter_tree() -> void:
 	
 	IndieBlueprintToolboxSettings.setup_preloader_output_path()
 	IndieBlueprintToolboxSettings.setup_preloader_classname()
-	IndieBlueprintToolboxSettings.setup_enable_timer(OS.is_debug_build())
+	IndieBlueprintToolboxSettings.setup_enable_timer(false)
 	IndieBlueprintToolboxSettings.setup_preloader_update_frequency()
 	IndieBlueprintToolboxSettings.setup_include_scripts()
 	IndieBlueprintToolboxSettings.setup_include_scenes()

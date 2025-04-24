@@ -64,7 +64,7 @@ static func setup_preloader_classname(filename: StringName = &"IndieBlueprintPre
 	ProjectSettings.save()
 
 
-static func setup_enable_timer(enabled: bool = true) -> void:
+static func setup_enable_timer(enabled: bool = OS.is_debug_build()) -> void:
 	ProjectSettings.set_setting(EnableTimerSetting, enabled)
 	ProjectSettings.add_property_info({
 		"name": EnableTimerSetting,
