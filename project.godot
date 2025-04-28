@@ -12,7 +12,6 @@ config_version=5
 
 config/ninetailsrabbit.interaction_kit_3d/interactables_collision_layer=6
 config/ninetailsrabbit.interaction_kit_3d/grabbables_collision_layer=7
-config/ninetailsrabbit.indie_blueprint_toolbox/enable_timer=false
 
 [application]
 
