@@ -2,9 +2,9 @@ class_name Scale3DSlider extends HSlider
 
 
 func _enter_tree() -> void:
-	min_value = 1.0
+	min_value = 0.5
 	max_value = 5.0
-	step = 1.0
+	step = 0.01
 	tick_count = ceil(max_value / min_value)
 	ticks_on_borders = true
 	
