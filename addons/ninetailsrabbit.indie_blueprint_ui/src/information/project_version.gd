@@ -1,7 +1,7 @@
-class_name ProjectVersion extends Label
+class_name IndieBlueprintProjectVersion extends Label
 
 @export var default_version: String = "1.0.0"
-@export var prefix: String = ""
+@export var prefix: String = "v"
 @export var suffix: String = ""
 
 func _ready() -> void:
