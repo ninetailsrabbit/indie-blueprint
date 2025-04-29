@@ -129,32 +129,17 @@ func _is_clockwise() -> bool:
 func _is_counter_clockwise() -> bool:
 	return rotation_direction == RotationDirection.CounterClockwise
 
+
 func _create_turn_direction_timer():
 	if turn_direction_timer == null:
-		turn_direction_timer = _create_idle_timer(maxf(0.05, change_rotation_direction_after_seconds), false, true)
+		turn_direction_timer = IndieBlueprintTimeHelper.create_idle_timer(maxf(0.05, change_rotation_direction_after_seconds), false, true)
 		turn_direction_timer.name = "TurnDirectionTimer"
-
-		add_child(turn_direction_timer)
-		turn_direction_timer.timeout.connect(on_turn_direction_timer_timeout)
-		
-		_set_owner_to_edited_scene_root(turn_direction_timer)
-
-#region Non-related helpers
-func _create_idle_timer(wait_time: float = 1.0, autostart: bool = false, one_shot: bool = false) -> Timer:
-	var timer = Timer.new()
-	timer.wait_time = wait_time
-	timer.process_callback = Timer.TIMER_PROCESS_IDLE
-	timer.autostart = autostart
-	timer.one_shot = one_shot
 	
-	return timer
+	add_child(turn_direction_timer)
+	turn_direction_timer.timeout.connect(on_turn_direction_timer_timeout)
 
+	IndieBlueprintNodeTraversal.set_owner_to_edited_scene_root(turn_direction_timer)
 
-func _set_owner_to_edited_scene_root(node: Node) -> void:
-	if Engine.is_editor_hint() and node.get_tree():
-		node.owner = node.get_tree().edited_scene_root
-		
-#endregion
 
 func on_turn_direction_timer_timeout():
 	rotation_direction = RotationDirection.CounterClockwise if _is_clockwise() else RotationDirection.Clockwise

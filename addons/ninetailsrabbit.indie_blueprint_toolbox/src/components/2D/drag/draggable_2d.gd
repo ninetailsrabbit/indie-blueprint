@@ -67,7 +67,7 @@ func _ready() -> void:
 	if draggable == null:
 		draggable = get_parent()
 		
-	assert(is_instance_valid(draggable) and (draggable is Node2D or draggable is Control), "Draggable2D: This mouse drag region needs a valid Node2D or Control to works properly")
+	assert(is_instance_valid(draggable) and (draggable is Node2D or draggable is Control), "IndieBlueprintDraggable2D: This mouse drag region needs a valid Node2D or Control to works properly")
 	
 	set_process(false)
 	
@@ -81,8 +81,7 @@ func _ready() -> void:
 	button_down.connect(on_mouse_drag_region_dragged)
 	button_up.connect(on_mouse_drag_region_released)
 	
-	await get_tree().physics_frame
-	anchors_preset = Control.PRESET_FULL_RECT
+	call_deferred("set_anchors_preset", Control.PRESET_FULL_RECT)
 	
 	
 func lock() -> void:

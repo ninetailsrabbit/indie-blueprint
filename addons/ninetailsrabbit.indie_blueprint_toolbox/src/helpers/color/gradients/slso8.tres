@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ColorGradient" load_steps=4 format=3 uid="uid://d1ns282iw6peh"]
+[gd_resource type="Resource" script_class="IndieBlueprintColorGradient" load_steps=4 format=3 uid="uid://d1ns282iw6peh"]
 
 [ext_resource type="Script" uid="uid://cc78widvv0nox" path="res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/helpers/color/color_gradient.gd" id="1_dtu3o"]
 

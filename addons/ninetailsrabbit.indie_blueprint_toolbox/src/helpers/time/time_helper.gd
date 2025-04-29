@@ -45,7 +45,6 @@ static func format_seconds(time: float, use_milliseconds: bool = false) -> Strin
 		
 	return result
 
-
 # Returns the amount of time passed since the engine started
 static func get_ticks(time_unit: TimeUnit = TimeUnit.Seconds) -> float:
 	match time_unit:

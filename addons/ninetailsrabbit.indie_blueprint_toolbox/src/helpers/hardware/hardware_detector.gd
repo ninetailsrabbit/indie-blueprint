@@ -21,10 +21,10 @@ class GraphicQualityPreset:
 class GraphicQualityDisplay:
 	var project_setting: String = ""
 	var property_name: String = ""
-	var enabled: Variant = 0
+	var enabled: int = 0
 	var available_text: String = ""
 	
-	func _init(_project_setting:  String, _property_name: String, _enabled: Variant, _available_text: String) -> void:
+	func _init(_project_setting:  String, _property_name: String, _enabled: int, _available_text: String) -> void:
 		project_setting = _project_setting
 		property_name = _property_name
 		enabled = _enabled
@@ -160,7 +160,6 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail", 4, "Enabled"),
 			GraphicQualityDisplay.new("scaling_3d", "Scaling 3D when BILINEAR is enabled", 1.0, "Enabled"),
 			GraphicQualityDisplay.new("scaling_3d_fsr", "Scaling 3D when FSR is enabled", 0.5, "Enabled"),
-
 		]
 	),
 	QualityPreset.Medium: GraphicQualityPreset.new("For mid-range PCs with slower dedicated graphics",

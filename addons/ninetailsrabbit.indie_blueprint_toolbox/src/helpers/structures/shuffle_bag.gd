@@ -18,8 +18,17 @@ func reshuffle() -> void:
 	bag.shuffle()
 	
 
-func random() -> Variant:
+func pick_random() -> Variant:
 	if bag.is_empty():
 		reshuffle()
 		
 	return bag.pop_front()
+
+
+func pick_randoms(amount: int) -> Variant:
+	var result: Array[Variant] = []
+	
+	for i in amount:
+		result.append(pick_random())
+		
+	return result

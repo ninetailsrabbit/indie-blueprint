@@ -157,7 +157,8 @@ func center_window_position(viewport: Viewport = get_viewport()) -> void:
 	
 	viewport.get_window().position = monitor_screen_center() - windowSize / 2
 
-## Current screen center of the viewport in the world
+## Current screen center of the viewport in the world forward or backward
+## always parallel to the ground
 func screen_center() -> Vector2i:
 	return screen_size() / 2
 
@@ -170,7 +171,6 @@ func screen_ratio() -> float:
 	var current_screen_size: Vector2 = screen_size()
 	
 	return current_screen_size.x / current_screen_size.y
-
 
 ## Center of the pc screen monitor used for play
 func monitor_screen_center() -> Vector2i:
@@ -197,7 +197,7 @@ func screenshot(viewport: Viewport) -> Image:
 	return screenshot_image
 
 
-func screenshot_to_folder(folder: String = "%s/screenshots" % [OS.get_user_data_dir()], viewport: Viewport = get_viewport()) -> Error:
+func screenshot_to_folder(folder: String = "%s/screenshots" % OS.get_user_data_dir(), viewport: Viewport = get_viewport()) -> Error:
 	var create_dir_error: Error = DirAccess.make_dir_recursive_absolute(folder)
 	
 	if create_dir_error != OK:

@@ -74,7 +74,7 @@ static func replace_tokens(text: String, tokens: Array[String], replacement: Str
 static func remove_tokens(text: String, tokens: Array[String])  -> String:
 	return replace_tokens(text, tokens, "")
 
-	
+
 ## This function wraps the provided text into multiple lines if it exceeds the specified max_line_length
 static func wrap_text(text: String = "", max_line_length: int = 120):
 	if text.is_empty() or text.length() <= max_line_length:

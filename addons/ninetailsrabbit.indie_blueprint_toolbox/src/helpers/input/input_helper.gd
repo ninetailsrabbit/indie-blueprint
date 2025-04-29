@@ -11,7 +11,7 @@ static func is_mouse_right_click(event: InputEvent) -> bool:
 
 
 static func is_mouse_left_button_pressed(event: InputEvent) -> bool:
-	return event is InputEventMouse and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	return  event is InputEventMouse and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 
 
 static func is_mouse_right_button_pressed(event: InputEvent) -> bool:
@@ -20,7 +20,7 @@ static func is_mouse_right_button_pressed(event: InputEvent) -> bool:
 
 static func is_mouse_button(event: InputEvent) -> bool:
 	return event is InputEventMouseButton
-
+	
 
 static func is_mouse_wheel(event: InputEvent) -> bool:
 	return event is InputEventMouseButton \
@@ -71,11 +71,19 @@ static func mouse_relative_motion(event: InputEvent, scene_tree: SceneTree) -> V
 
 	
 static func is_mouse_visible() -> bool:
-	return Input.mouse_mode == Input.MOUSE_MODE_VISIBLE || Input.mouse_mode == Input.MOUSE_MODE_CONFINED
+	return Input.mouse_mode == Input.MOUSE_MODE_VISIBLE
+
+
+static func is_mouse_visible_or_confined() -> bool:
+	return is_mouse_visible() or is_mouse_confined()
 
 
 static func is_mouse_captured() -> bool:
 	return Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+
+
+static func is_mouse_confined() -> bool:
+	return Input.mouse_mode == Input.MOUSE_MODE_CONFINED
 
 
 static func show_mouse_cursor() -> void:

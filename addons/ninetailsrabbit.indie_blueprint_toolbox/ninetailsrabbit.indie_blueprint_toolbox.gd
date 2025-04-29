@@ -1,10 +1,11 @@
 @tool
 extends EditorPlugin
 
+
 var preloader_timer: Timer
 var mutex: Mutex
 
-
+	
 func _enter_tree() -> void:
 	add_autoload_singleton("IndieBlueprintWindowManager", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/autoloads/viewport/window_manager.gd")
 	
@@ -236,7 +237,7 @@ func _create_preload_section(preloader: FileAccess, section: String, file_paths:
 			.replace_tokens(path.get_file().trim_suffix("." + extension), [".", "-"], "_")\
 			.lstrip("0123456789")\
 			.to_pascal_case() + suffix
-		
+	
 		if processed_names.has(constant_name) or ClassDB.class_exists(constant_name):
 			var frequency: Dictionary = IndieBlueprintArrayHelper.frequency([constant_name])
 			constant_name += "_%d" % frequency[constant_name]
