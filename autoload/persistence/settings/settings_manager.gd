@@ -29,6 +29,8 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if load_on_start:
 		prepare_settings()
+		
+	print(settings_file_path)
 	
 
 #region Generic
@@ -233,6 +235,9 @@ func load_audio() -> void:
 		
 @warning_ignore("int_as_enum_without_cast")
 func load_graphics() -> void:
+	var viewport: Viewport = get_viewport()
+	var window: Window = get_window()
+	
 	for section_key: String in config_file_api.get_section_keys(IndieBlueprintGameSettings.GraphicsSection):
 		var config_value = get_graphics_section(section_key)
 		
@@ -241,9 +246,9 @@ func load_graphics() -> void:
 				Engine.max_fps = config_value
 			IndieBlueprintGameSettings.CurrentMonitorSetting:
 				if config_value < DisplayServer.get_screen_count():
-					get_window().current_screen = config_value
+					window.current_screen = config_value
 				else:
-					get_window().current_screen = IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.CurrentMonitorSetting]
+					window.current_screen = IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.CurrentMonitorSetting]
 			IndieBlueprintGameSettings.WindowDisplaySetting:
 				DisplayServer.window_set_mode(config_value)
 			IndieBlueprintGameSettings.WindowDisplayBorderlessSetting:
@@ -254,9 +259,13 @@ func load_graphics() -> void:
 				@warning_ignore("int_as_enum_without_cast")
 				get_tree().root.content_scale_stretch = int(config_value)
 			IndieBlueprintGameSettings.Scaling3DMode:
-				get_viewport().scaling_3d_mode = config_value
+				viewport.scaling_3d_mode = config_value
 			IndieBlueprintGameSettings.Scaling3DValue:
-				get_viewport().scaling_3d_scale = config_value
+				if viewport.scaling_3d_mode == Viewport.SCALING_3D_MODE_BILINEAR:
+					viewport.scaling_3d_scale = config_value
+			IndieBlueprintGameSettings.Scaling3DFSRValue:
+				if viewport.scaling_3d_mode != Viewport.SCALING_3D_MODE_BILINEAR:
+					viewport.scaling_3d_scale = config_value
 			IndieBlueprintGameSettings.VsyncSetting:
 				DisplayServer.window_set_vsync_mode(config_value)
 	
@@ -479,6 +488,9 @@ func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_
 			"mesh_level_of_detail":
 				viewport.mesh_lod_threshold = quality.enabled
 			"scaling_3d":
+				if viewport.scaling_3d_mode == Viewport.SCALING_3D_MODE_BILINEAR:
+					viewport.scaling_3d_scale = quality.enabled
+			"scaling_3d_fsr":
 				if viewport.scaling_3d_mode != Viewport.SCALING_3D_MODE_BILINEAR:
 					## When using FSR upscaling, AMD recommends exposing the following values as preset options to users 
 					## "Ultra Quality: 0.77", "Quality: 0.67", "Balanced: 0.59", "Performance: 0.5" instead of exposing the entire scale.

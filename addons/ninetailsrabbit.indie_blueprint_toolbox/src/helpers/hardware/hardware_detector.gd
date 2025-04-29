@@ -21,10 +21,10 @@ class GraphicQualityPreset:
 class GraphicQualityDisplay:
 	var project_setting: String = ""
 	var property_name: String = ""
-	var enabled: int = 0
+	var enabled: Variant = 0
 	var available_text: String = ""
 	
-	func _init(_project_setting:  String, _property_name: String, _enabled: int, _available_text: String) -> void:
+	func _init(_project_setting:  String, _property_name: String, _enabled: Variant, _available_text: String) -> void:
 		project_setting = _project_setting
 		property_name = _property_name
 		enabled = _enabled
@@ -158,6 +158,9 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("shadow_atlas", "Directional shadow atlas", 2048, "Enabled"),
 			GraphicQualityDisplay.new("shadow_filter", "Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_LOW, "Enabled"),
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail", 4, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d", "Scaling 3D when BILINEAR is enabled", 1.0, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d_fsr", "Scaling 3D when FSR is enabled", 0.5, "Enabled"),
+
 		]
 	),
 	QualityPreset.Medium: GraphicQualityPreset.new("For mid-range PCs with slower dedicated graphics",
@@ -172,6 +175,8 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("shadow_atlas", "Directional shadow atlas", 4096, "Enabled"),
 			GraphicQualityDisplay.new("shadow_filter", "Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_MEDIUM, "Enabled"),
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail", 2, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d", "Scaling 3D when BILINEAR is enabled", 1.0, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d_fsr", "Scaling 3D when FSR is enabled", 0.59, "Enabled"),
 		]
 	),
 	QualityPreset.High: GraphicQualityPreset.new("For recent PCs with mid-range dedicated graphics, or older PCs with high-end graphics",
@@ -186,6 +191,8 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("shadow_atlas", "Directional shadow atlas", 8192, "Enabled"),
 			GraphicQualityDisplay.new("shadow_filter", "Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_HIGH, "Enabled"),
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail", 1, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d", "Scaling 3D when BILINEAR is enabled", 1.0, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d_fsr", "Scaling 3D when FSR is enabled", 0.67, "Enabled"),
 		]
 	),
 	QualityPreset.Ultra: GraphicQualityPreset.new("For recent PCs with high-end dedicated graphics",
@@ -200,6 +207,8 @@ static var graphics_quality_presets: Dictionary = {
 			GraphicQualityDisplay.new("shadow_atlas", "Directional shadow atlas", 16384, "Enabled"),
 			GraphicQualityDisplay.new("shadow_filter", "Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_ULTRA, "Enabled"),
 			GraphicQualityDisplay.new("mesh_level_of_detail", "Mesh level of detail (# Always use highest LODs to avoid any form of pop-in.)", 0, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d", "Scaling 3D when BILINEAR is enabled", 1.0, "Enabled"),
+			GraphicQualityDisplay.new("scaling_3d_fsr", "Scaling 3D when FSR is enabled", 0.77, "Enabled"),
 		]
 	),
 }

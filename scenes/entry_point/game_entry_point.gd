@@ -2,7 +2,7 @@ extends Node
 
 @export_file("*.tscn") var next_scene: String = ""
 
-@onready var content_warnings: ContentWarnings = $ContentWarnings
+@onready var content_warnings: IndieBlueprintContentWarnings = $ContentWarnings
 
 
 func _ready() -> void:

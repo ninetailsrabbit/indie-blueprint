@@ -1,11 +1,10 @@
 @tool
 extends EditorPlugin
 
-
 var preloader_timer: Timer
 var mutex: Mutex
 
-	
+
 func _enter_tree() -> void:
 	add_autoload_singleton("IndieBlueprintWindowManager", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/autoloads/viewport/window_manager.gd")
 	

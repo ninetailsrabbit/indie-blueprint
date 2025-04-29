@@ -54,7 +54,7 @@ window/size/window_height_override=720
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ninetailsrabbit.indie_blueprint_audio/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_global_clock/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_pool/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_rpg/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_scene_transition/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_state_machine/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/plugin.cfg", "res://addons/ninetailsrabbit.interaction_kit_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/ninetailsrabbit.indie_blueprint_audio/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_camera_transitioner/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_global_clock/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_pool/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_rpg/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_scene_transition/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_state_machine/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_toolbox/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_ui/plugin.cfg", "res://addons/ninetailsrabbit.interaction_kit_3d/plugin.cfg")
 
 [file_customization]
 

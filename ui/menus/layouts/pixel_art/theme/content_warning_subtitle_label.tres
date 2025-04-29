@@ -1,6 +1,0 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://d2me2ushtvyaj"]
-
-[ext_resource type="FontFile" uid="uid://due85r8gmivst" path="res://scenes/menus/theme/fonts/ark_pixel/ark-pixel-10px-monospaced-latin.otf" id="1_8mhwi"]
-
-[resource]
-font = ExtResource("1_8mhwi")

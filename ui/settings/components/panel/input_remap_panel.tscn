@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs4y3s4v0is47"]
+
+[ext_resource type="Script" uid="uid://dfuskf62qp38q" path="res://ui/settings/components/panel/input_remap_panel.gd" id="1_fw2mc"]
+[ext_resource type="PackedScene" uid="uid://lxbuehwddqs" path="res://ui/settings/components/panel/input_action_keybinding.tscn" id="2_uyeiq"]
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 500.0
+offset_bottom = 65.0
+script = ExtResource("1_fw2mc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="ActionListVboxContainer" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="InputActionKeybinding" parent="MarginContainer/ActionListVboxContainer" instance=ExtResource("2_uyeiq")]
+layout_mode = 2
+
+[node name="ResetToDefaultButton" type="Button" parent="MarginContainer/ActionListVboxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "RESET_TO_DEFAULT"

@@ -21,6 +21,7 @@ const WindowResolutionSetting: StringName = &"resolution"
 const IntegerScalingSetting: StringName = &"integer_scaling"
 const VsyncSetting: StringName = &"vsync"
 const Scaling3DMode: StringName = &"scaling_3d_mode"
+const Scaling3DFSRValue: StringName = &"scaling_3d_fsr_value"
 const Scaling3DValue: StringName = &"scaling_3d_value"
 const QualityPresetSetting: StringName = &"quality_preset"
 
@@ -63,6 +64,7 @@ static var DefaultSettings: Dictionary = {
 	IndieBlueprintGameSettings.VsyncSetting:  DisplayServer.window_get_vsync_mode(),
 	IndieBlueprintGameSettings.Scaling3DMode: Viewport.SCALING_3D_MODE_BILINEAR,
 	IndieBlueprintGameSettings.Scaling3DValue: 1.0,
+	IndieBlueprintGameSettings.Scaling3DFSRValue: 0.59,
 	IndieBlueprintGameSettings.QualityPresetSetting: IndieBlueprintHardwareDetector.auto_discover_graphics_quality(),
 	IndieBlueprintGameSettings.ControllerSensivitySetting: 5.0,
 	IndieBlueprintGameSettings.MouseSensivitySetting: 3.0,
