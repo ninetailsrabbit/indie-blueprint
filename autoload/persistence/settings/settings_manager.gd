@@ -29,9 +29,6 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if load_on_start:
 		prepare_settings()
-		
-	print(settings_file_path)
-	
 
 #region Generic
 func save_settings(path: String = settings_file_path) -> void:
