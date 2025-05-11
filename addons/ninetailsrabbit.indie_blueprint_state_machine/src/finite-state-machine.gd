@@ -6,22 +6,24 @@ signal state_change_failed(from: IndieBlueprintMachineState, to: IndieBlueprintM
 signal stack_pushed(new_state: IndieBlueprintMachineState, stack: Array[IndieBlueprintMachineState])
 signal stack_flushed(stack: Array[IndieBlueprintMachineState])
 
-@export var current_state: IndieBlueprintMachineState
+@export var initial_state: IndieBlueprintMachineState
 @export var enable_stack: bool = true
 @export var stack_capacity: int = 3
 @export var flush_stack_when_reach_capacity: bool = false
 
-var states: Dictionary = {}
-var transitions: Dictionary = {}
+var states: Dictionary[String, Node] = {}
+var transitions: Dictionary[String, IndieBlueprintMachineTransition] = {}
 var states_stack: Array[IndieBlueprintMachineState] = []
 
 var is_transitioning: bool = false
 var locked: bool = false
 
+var current_state: IndieBlueprintMachineState
 
 func _ready():
-	assert(current_state is IndieBlueprintMachineState, "IndieBlueprintFiniteStateMachine: This Finite state machine does not have an initial state defined")
-
+	assert(initial_state != null and initial_state is IndieBlueprintMachineState, "IndieBlueprintFiniteStateMachine: This FSM does not have an initial state defined")
+	current_state = initial_state
+	
 	state_changed.connect(on_state_changed)
 	state_change_failed.connect(on_state_change_failed)
 	
@@ -217,7 +219,6 @@ func unlock_state_machine():
 func _prepare_states(node: Node = self):
 	for child in node.get_children(true):
 		if child is IndieBlueprintMachineState:
-			
 			_add_state_to_dictionary(child)
 		else:
 			if child.get_child_count() > 0:

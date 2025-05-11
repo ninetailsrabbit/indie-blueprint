@@ -44,7 +44,6 @@ static func project_raycast(
 	ray_query.collide_with_bodies = collide_with_bodies
 	ray_query.collide_with_areas = collide_with_areas
 	
-	
 	var result := viewport.get_world_3d().direct_space_state.intersect_ray(ray_query)
 
 	return RaycastResult.new(result)
