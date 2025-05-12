@@ -157,9 +157,9 @@ right_hand = NodePath("../Head/Eyes/CameraShake3D/RightHand")
 left_hand = NodePath("../Head/Eyes/CameraShake3D/LeftHand")
 metadata/_custom_type_script = "uid://bvtiodl6rov6d"
 
-[node name="MotionStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="MotionStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_s2xml")
-current_state = NodePath("Ground/FirstPersonIdleState")
+initial_state = NodePath("Ground/FirstPersonIdleState")
 metadata/_custom_type_script = "uid://c0km5k3qx21va"
 
 [node name="Ground" type="Node" parent="MotionStateMachine"]
