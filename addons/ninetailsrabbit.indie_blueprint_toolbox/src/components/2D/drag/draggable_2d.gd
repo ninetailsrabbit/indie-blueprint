@@ -71,7 +71,7 @@ func _ready() -> void:
 	
 	set_process(false)
 	
-	position = Vector2.ZERO
+	#position = Vector2.ZERO
 	self_modulate.a8 = 0
 	
 	original_position = draggable.global_position
@@ -80,9 +80,8 @@ func _ready() -> void:
 	
 	button_down.connect(on_mouse_drag_region_dragged)
 	button_up.connect(on_mouse_drag_region_released)
-	
-	call_deferred("set_anchors_preset", Control.PRESET_FULL_RECT)
-	
+	anchors_preset = Control.PRESET_FULL_RECT
+
 	
 func lock() -> void:
 	is_locked = true
