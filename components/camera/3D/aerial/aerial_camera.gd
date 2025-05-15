@@ -54,6 +54,7 @@ class AerialCameraTransform:
 @export var edge_panning: bool = true
 @export var edge_panning_mouse_modes: Array[Input.MouseMode] = [
 	Input.MOUSE_MODE_CONFINED,
+	Input.MOUSE_MODE_CONFINED_HIDDEN,
 ]
 ## An extra margin to detect the viewport boundaries
 @export var edge_size: float = 5.0
@@ -68,12 +69,14 @@ class AerialCameraTransform:
 @export var zoom_out_perspective_step: float = 2.0
 @export var min_zoom_perspective: float = -5.0
 @export var max_zoom_perspective: float = 5.0
+## This curve controls how the camera rotation is modified when zooomin in-out, no curve means
+## the camera rotation is not modified when zooming
+@export var perspective_zoom_curve: Curve
 @export_category("Ortographic zoom")
 @export var zoom_in_ortographic_step: float = 2.5
 @export var zoom_out_ortographic_step: float = 2.5
 @export var min_zoom_size: float = 10.0
 @export var max_zoom_size: float = 30.0
-
 
 
 enum MovementMode {
@@ -200,6 +203,9 @@ func _process(delta: float) -> void:
 					camera.size = lerp(camera.size, target_zoom, delta * smooth_zoom_lerp)
 				Camera3D.ProjectionType.PROJECTION_PERSPECTIVE:
 					camera.position.z = lerp(camera.position.z, target_zoom, delta * smooth_zoom_lerp)
+					
+					if perspective_zoom_curve:
+						camera.rotation_degrees.x = lerp(camera.rotation_degrees.x, perspective_zoom_curve.sample(camera.position.z), delta * smooth_zoom_lerp) 
 
 ## We want to have a vector that translates our camera, this is used when the movement is drag
 func update_move_vectors() -> void:
