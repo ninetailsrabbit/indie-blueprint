@@ -54,10 +54,11 @@ environment = SubResource("Environment_wpja5")
 transform = Transform3D(0.877104, 0.237896, -0.417245, 0, 0.868718, 0.495307, 0.4803, -0.434436, 0.761956, -2.32941, 2.78551, 5.87994)
 
 [node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.178671, 0)
 mesh = SubResource("PlaneMesh_a7yv2")
 
 [node name="Sand" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.74106, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.80043, 0)
 mesh = SubResource("BoxMesh_q05bj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

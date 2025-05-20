@@ -79,6 +79,11 @@ uniform sampler2D uv_sampler;
 uniform sampler2DArray caustic_sampler : hint_default_black;
 uniform float caustic_distortion_strength: hint_range(0.0, 0.009) = 0.001; // New uniform for tweaking
 uniform float num_caustic_layers = 16.0; // <<< IMPORTANT: DOUBLE CHECK THIS against your Texture2DArray's actual slices!
+uniform float refraction_strength = 0.05; // How much the background is distorted
+uniform float refraction_fresnel_power = 2.0;
+uniform vec3 underwater_fog_color : source_color; // New uniform for fog color
+uniform float underwater_fog_density = 0.1; // New uniform for fog density
+uniform float underwater_fog_start = 0.0; // New uniform: distance from camera where fog starts (can be negative to make it start immediately)
 
 // Fresnel function to calculate the reflection/refraction effect
 float fresnel(float amount, vec3 normal, vec3 view) {
@@ -280,8 +285,21 @@ void fragment() {
     depth_blend = clamp(1.0 - depth_blend, 0.0, 1.0);
     float depth_blend_power = clamp(pow(depth_blend, 2.5), 0.0, 1.0);
     
-    // Sample screen color and blend it with depth color
-    vec3 screen_color = textureLod(SCREEN_TEXTURE, SCREEN_UV, depth_blend_power * 2.5).rgb;
+	// --- Refraction Distortion Implementation ---
+	vec2 refraction_uv_offset = perturbed_normal.xy * refraction_strength; // Use XY of normal for 2D screen UV distortion
+	// Add some noise to the offset for more organic look (optional, can be subtle)
+	refraction_uv_offset += texture(uv_sampler, SCREEN_UV * 0.1 + TIME * 0.05).rg * 0.01; 
+
+	// The final UV for sampling the screen texture
+	vec2 refracted_screen_uv = SCREEN_UV + refraction_uv_offset;
+
+	// Blend between refracted and original screen UV based on fresnel (less refraction at grazing angles)
+	// This makes reflections stronger than refraction at high angles, which is physically correct.
+	float refraction_fresnel = fresnel(refraction_fresnel_power, NORMAL, VIEW); // Use original NORMAL for camera view
+	refracted_screen_uv = mix(SCREEN_UV, refracted_screen_uv, 1.0 - refraction_fresnel); 
+
+    // Sample screen color using the new refracted UVand blend it with depth color
+	vec3 screen_color = textureLod(SCREEN_TEXTURE, refracted_screen_uv, depth_blend_power * 2.5).rgb;
     vec3 depth_color = mix(shallow_water_color.rgb, deep_water_color.rgb, depth_blend_power);
     vec3 color = mix(screen_color * depth_color, depth_color * 0.25, depth_blend_power * 0.5);
     
@@ -347,9 +365,67 @@ void fragment() {
 
 	// Optionally, make the foam whiter instead of just tinted
 	final_color = mix(final_color, vec3(1.0), final_foam_alpha);
-    // Set the final color, metallic, roughness, and normal
-    ALBEDO = clamp(final_color + depth_color_adj, vec3(0.0), vec3(1.0));
 	
+		// --- Underwater Fog/Color Implementation ---
+	// Check if the camera is underwater
+	float camera_water_height = INV_VIEW_MATRIX[3].y; // Camera's Y position in world space
+	float water_surface_height = world_position.y; // Water's Y position at this fragment (displaced)
+	vec3 final_albedo_color; // Declare a variable to hold the final ALBEDO before assignment
+	
+// --- MODIFIED ALPHA & UNDERWATER FOG BLEND ---
+	if (camera_water_height < water_surface_height) { // Camera is underwater
+	    // Calculate the distance the camera is *below* the water surface
+	    float dist_below_surface = water_surface_height - camera_water_height;
+
+	    // Define a shallow zone where transparency and fog blend in
+	    float shallow_zone_start = 0.0;  // Camera is exactly at surface (or just below)
+	    float shallow_zone_end = 0.5;   // Camera is 0.5 units below surface (adjust this value!)
+
+	    // Calculate an alpha multiplier for the water surface itself based on depth
+	    // Smoothly transition water's alpha from 1.0 (fully opaque) to a lower value (more transparent)
+	    // as the camera goes deeper into the shallow zone.
+	    float surface_alpha_blend = smoothstep(shallow_zone_start, shallow_zone_end, dist_below_surface);
+	    
+	    // Apply a base transparency if desired, or fade it out completely
+	    // ALPHA = mix(1.0, 0.7, surface_alpha_blend); // Water stays somewhat opaque, becomes more transparent deeper
+	    ALPHA = mix(1.0, 0.2, surface_alpha_blend); // Water becomes quite transparent when fully submerged in shallow zone
+	    // If you want it to gradually become more transparent based on actual depth, like your old line:
+	    // float underwater_alpha_factor = smoothstep(water_surface_height - 10.0, water_surface_height, camera_water_height);
+	    // ALPHA = mix(ALPHA, 1.0 - (underwater_alpha_factor * 0.3), underwater_alpha_factor); // Combine with previous alpha
+	    // Let's stick with the simple shallow zone fade for now to fix the "holes"
+
+	    // --- Fog Amount Blending ---
+	    // The previous fog_amount is correct for fading distant objects.
+	    // We now use 'surface_alpha_blend' to mix how much of that fog is applied to what we see.
+	    // When dist_below_surface is small (camera near surface), surface_alpha_blend is low,
+	    // so we see LESS of the fog and more of the clear background.
+	    // As camera goes deeper, surface_alpha_blend increases, so we see MORE fog.
+
+	    float scene_depth_raw = texture(DEPTH_TEXTURE, SCREEN_UV).r;
+	    vec4 world_pos_from_depth_clip = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, scene_depth_raw, 1.0);
+	    vec3 world_pos_from_depth = world_pos_from_depth_clip.xyz / world_pos_from_depth_clip.w;
+
+	    float dist_to_scene_object = length(world_pos_from_depth - INV_VIEW_MATRIX[3].xyz);
+	    
+	    float fog_amount = 1.0 - exp(-(dist_to_scene_object - underwater_fog_start) * underwater_fog_density);
+	    fog_amount = clamp(fog_amount, 0.0, 1.0); 
+
+	    // Adjust the fog blend based on how far below the surface the camera is
+	    // When camera is very close to surface, fog_amount is reduced (more clear)
+	    // As camera goes deeper, fog_amount is fully applied.
+	    float final_fog_blend_factor = mix(0.0, fog_amount, surface_alpha_blend); // Adjust 0.0 to a small value if you want slight fog even right at surface
+	    
+	    final_albedo_color = mix(color, underwater_fog_color, final_fog_blend_factor);
+	    // This mix for the water surface still holds:
+	    final_albedo_color = mix(final_albedo_color, final_color, 0.2); 
+	    
+	} else { // Camera is above water (standard rendering)
+	    final_albedo_color = final_color + depth_color_adj; 
+	}
+	// --- END MODIFIED ALPHA & UNDERWATER FOG BLEND ---
+	
+    // Set the final color, metallic, roughness, and normal
+	ALBEDO = clamp(final_albedo_color, vec3(0.0), vec3(1.0)); // Assign the final albedo color
     METALLIC = metallic;
     ROUGHNESS = roughness;
     NORMAL = perturbed_normal;
