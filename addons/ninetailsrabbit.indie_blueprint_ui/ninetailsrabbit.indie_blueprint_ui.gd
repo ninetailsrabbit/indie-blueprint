@@ -45,8 +45,11 @@ func _enter_tree() -> void:
 		null
 	)
 	
+	add_autoload_singleton("IndieBlueprintUIAnimation", "res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/ui_animation.gd")
+	
 	
 func _exit_tree() -> void:
+	remove_autoload_singleton("IndieBlueprintUIAnimation")
 	remove_custom_type("IndieBlueprintProjectVersion")
 	remove_custom_type("IndieBlueprintMenuBackButton")
 	remove_custom_type("IndieBlueprintPixelViewportDraw")
