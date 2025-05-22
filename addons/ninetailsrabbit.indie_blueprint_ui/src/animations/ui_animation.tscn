@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://d33qsxwsg35jm"]
+
+[ext_resource type="Script" uid="uid://d1cms4s8i6j8l" path="res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/ui_animation.gd" id="1_saue1"]
+[ext_resource type="Resource" uid="uid://b5f6p0jb41ypq" path="res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/default/screen_to_animation_options.tres" id="2_x5ca6"]
+[ext_resource type="Resource" uid="uid://sb4uylvdorq1" path="res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/default/shrink_animation_options.tres" id="3_dygy8"]
+[ext_resource type="Resource" uid="uid://bh7j08a5j4uad" path="res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/default/pop_animation_options.tres" id="4_in7cs"]
+
+[node name="UIAnimation" type="Node"]
+script = ExtResource("1_saue1")
+screen_to_animation_options = ExtResource("2_x5ca6")
+shrink_animation_options = ExtResource("3_dygy8")
+pop_animation_options = ExtResource("4_in7cs")

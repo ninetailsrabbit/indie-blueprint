@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UIAnimationOptions" load_steps=2 format=3 uid="uid://b5f6p0jb41ypq"]
+
+[ext_resource type="Script" uid="uid://c4gj1yb1simeo" path="res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/animation_options.gd" id="1_wlur5"]
+
+[resource]
+script = ExtResource("1_wlur5")
+pivot_offset = 0
+time = 0.4
+transition = 10
+easing = 0
+metadata/_custom_type_script = "uid://c4gj1yb1simeo"
