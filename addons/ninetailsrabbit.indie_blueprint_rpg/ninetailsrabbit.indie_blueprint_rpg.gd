@@ -55,9 +55,11 @@ func _enter_tree() -> void:
 	)
 	
 	add_autoload_singleton("IndieBlueprintTurnityManager", "res://addons/ninetailsrabbit.indie_blueprint_rpg/src/turns/turnity_manager.gd")
+	add_autoload_singleton("IndieBlueprintRecipeManager", "res://addons/ninetailsrabbit.indie_blueprint_rpg/src/items/craft/recipe_manager.tscn")
 
 
 func _exit_tree() -> void:
+	remove_autoload_singleton("IndieBlueprintRecipeManager")
 	remove_autoload_singleton("IndieBlueprintTurnityManager")
 	remove_custom_type("IndieBlueprintTurnitySocket")
 	

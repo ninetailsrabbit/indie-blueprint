@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb62tgy6dxu4w"]
+
+[ext_resource type="Script" uid="uid://bsa1c8orwb601" path="res://addons/ninetailsrabbit.indie_blueprint_rpg/src/items/craft/recipe_manager.gd" id="1_tqgfo"]
+
+[node name="RecipeManager" type="Node"]
+script = ExtResource("1_tqgfo")
