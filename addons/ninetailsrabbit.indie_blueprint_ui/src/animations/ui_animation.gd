@@ -3,6 +3,7 @@ extends Node
 @export var screen_to_animation_options: UIAnimationOptions
 @export var shrink_animation_options: UIAnimationOptions
 @export var pop_animation_options: UIAnimationOptions
+@export var out_screen_animation_options: UIAnimationOptions
 
 
 #region Animations
@@ -28,6 +29,38 @@ func screen_right_to_position(node: CanvasItem, position: Vector2 = Vector2.ZERO
 	node.position.x = get_viewport().get_visible_rect().size.x + node.size.x
 	
 	return screen_to_position(node, position, options)
+
+
+func to_out_of_screen_right(node: CanvasItem, options: UIAnimationOptions = out_screen_animation_options):
+	var tween: Tween = create_tween()
+	tween.tween_property(node, 'position:x', get_viewport().get_visible_rect().size.x + node.size.x, options.time)\
+		.set_trans(options.transition).set_ease(options.easing)
+	
+	return tween.finished
+
+
+func to_out_of_screen_left(node: CanvasItem, options: UIAnimationOptions = out_screen_animation_options):
+	var tween: Tween = create_tween()
+	tween.tween_property(node, 'position:x', -node.size.x, options.time)\
+		.set_trans(options.transition).set_ease(options.easing)
+	
+	return tween.finished
+
+
+func to_out_of_screen_top(node: CanvasItem, options: UIAnimationOptions = out_screen_animation_options):
+	var tween: Tween = create_tween()
+	tween.tween_property(node, 'position:y', -node.size.y, options.time)\
+		.set_trans(options.transition).set_ease(options.easing)
+	
+	return tween.finished
+
+
+func to_out_of_screen_bottom(node: CanvasItem, options: UIAnimationOptions = out_screen_animation_options):
+	var tween: Tween = create_tween()
+	tween.tween_property(node, 'position:y', get_viewport().get_visible_rect().size.y + node.size.y, options.time)\
+		.set_trans(options.transition).set_ease(options.easing)
+	
+	return tween.finished
 
 
 func screen_to_position(node: CanvasItem, position: Vector2 = Vector2.ZERO, options: UIAnimationOptions = screen_to_animation_options):
