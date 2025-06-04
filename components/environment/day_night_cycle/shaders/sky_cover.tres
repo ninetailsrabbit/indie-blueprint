@@ -1,0 +1,45 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://b3alxpsjk8c2w"]
+
+[ext_resource type="Shader" uid="uid://cio63g83uimqa" path="res://components/environment/day_night_cycle/shaders/sky_cover.gdshader" id="1_gb1mi"]
+
+[sub_resource type="Gradient" id="Gradient_h8cxh"]
+offsets = PackedFloat32Array(0.346369, 0.982143)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nsac8"]
+noise_type = 3
+seed = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y68h1"]
+width = 1024
+height = 1024
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_h8cxh")
+noise = SubResource("FastNoiseLite_nsac8")
+
+[resource]
+shader = ExtResource("1_gb1mi")
+shader_parameter/sky_top_color = Color(0.385, 0.454, 0.55, 1)
+shader_parameter/sky_horizon_color = Color(0.646, 0.656, 0.67, 1)
+shader_parameter/sky_curve = 0.15
+shader_parameter/sky_energy = 1.0
+shader_parameter/sky_cover = SubResource("NoiseTexture2D_y68h1")
+shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
+shader_parameter/ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
+shader_parameter/ground_horizon_color = Color(0.646, 0.656, 0.67, 1)
+shader_parameter/ground_curve = 0.02
+shader_parameter/ground_energy = 1.0
+shader_parameter/sun_angle_max = 0.523599
+shader_parameter/sun_curve = 0.15
+shader_parameter/exposure = 1.0
+shader_parameter/wind_offset_direction = Vector2(0.5, 0.1)
+shader_parameter/wind_speed = 0.0
+shader_parameter/clouds_change = true
+shader_parameter/cloud_change_rate = 0.4
+shader_parameter/pole_blend_shape = 0.05
+shader_parameter/pole_blend_strength = 0.05
+shader_parameter/pole_blend_brightness = 0.3
+shader_parameter/horizon_blend_shape = 0.05
+shader_parameter/horizon_blend_strength = 0.05
+shader_parameter/horizon_blend_brightness = 0.3
+shader_parameter/horizon_blend_width = 0.1
