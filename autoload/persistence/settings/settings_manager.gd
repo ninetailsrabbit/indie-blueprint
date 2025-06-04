@@ -282,21 +282,36 @@ func load_localization() -> void:
 		
 
 func load_keybindings() -> void:
+	var current_input_map_actions: Array[StringName] =_get_input_map_actions()
+	
 	IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DefaultInputMapActionsSetting] = get_keybindings_section(IndieBlueprintGameSettings.DefaultInputMapActionsSetting)
 	
 	for action: String in config_file_api.get_section_keys(IndieBlueprintGameSettings.KeybindingsSection):
-		if action in [IndieBlueprintGameSettings.DefaultInputMapActionsSetting]:
+		## Update default action values to take into account new input maps loaded from the last project update
+		if action == IndieBlueprintGameSettings.DefaultInputMapActionsSetting:
+			for default_action: StringName in IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DefaultInputMapActionsSetting]:
+				if not InputMap.has_action(default_action):
+					IndieBlueprintGameSettings.DefaultSettings[IndieBlueprintGameSettings.DefaultInputMapActionsSetting].erase(default_action)
+			
 			continue
 			
 		var keybinding: String = get_keybindings_section(action)
 		
-		InputMap.action_erase_events(action)
+		if InputMap.has_action(action):
+			InputMap.action_erase_events(action)
+		else:
+			config_file_api.set_value(IndieBlueprintGameSettings.KeybindingsSection, action, null)
+			
+		current_input_map_actions.erase(action)
 		
 		if keybinding.contains(KeybindingSeparator):
 			for value: String in keybinding.split(KeybindingSeparator):
 				_add_keybinding_event(action, value.split(InputEventSeparator))
 		else:
 			_add_keybinding_event(action, keybinding.split(InputEventSeparator))
+			
+	if current_input_map_actions.size():
+		current_input_map_actions.map(create_keybinding_events_for_action)
 	
 #endregion
 
@@ -375,6 +390,9 @@ func update_localization_section(key: String, value: Variant) -> void:
 
 #region Private functions
 func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
+	if not InputMap.has_action(action):
+		return
+		
 	var keybinding_modifiers_regex = RegEx.new()
 	keybinding_modifiers_regex.compile(r"\b(Shift|Ctrl|Alt)\+\b")
 	
