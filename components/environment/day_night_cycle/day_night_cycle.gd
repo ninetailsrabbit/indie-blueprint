@@ -1,5 +1,5 @@
 @tool
-class_name DayNightCycleV2 extends Node
+class_name DayNightCycle extends Node
 
 signal changed_day_zone(previous_zone: DayZone, new_zone: DayZone)
 
@@ -48,9 +48,11 @@ enum DayZone {
 
 var current_hour: int = 0:
 	set(value):
+		@warning_ignore("narrowing_conversion")
 		current_hour = clampi(value, 0, HoursPerDay - 1)
 var current_minute: int = 0:
 	set(value):
+		@warning_ignore("narrowing_conversion")
 		current_minute = clampi(value, 0, MinutesPerHour - 1)
 var current_day_zone: DayZone = DayZone.Day
 
@@ -68,8 +70,7 @@ func _ready() -> void:
 	
 	_update_time_rate()
 	update_current_time(start_hour, start_minute)
-	time = (current_hour + (current_minute / MinutesPerHour)) / HoursPerDay
-	
+	_update_time_sampler()
 	call_deferred("set_process", true)
 
 
@@ -97,11 +98,14 @@ func _process(delta: float) -> void:
 func _update_time_rate(seconds_per_minute: float = real_life_seconds_to_game_minute) -> void:
 	time_rate = 1.0 / (MinutesPerDay * seconds_per_minute)
 
+
+func _update_time_sampler(hour: int = current_hour, minute: int = current_minute) -> void:
+	time = (current_hour + (current_minute / MinutesPerHour)) / HoursPerDay
 		
+
 func start(hour: int = current_hour, minute: int = current_minute) -> void:
 	update_current_time(hour, minute)
-	time = (current_hour + (current_minute / MinutesPerHour)) / HoursPerDay
-	
+	_update_time_sampler()
 	call_deferred("set_process", true)
 
 
@@ -111,10 +115,11 @@ func stop() -> void:
 
 func on_hour_changed(new_value: float) -> void:
 	update_current_time(int(new_value), current_minute)
-
+	_update_time_sampler()
 
 func on_minute_changed(new_value: float) -> void:
 	update_current_time(current_hour, int(new_value))
+	_update_time_sampler()
 
 
 func update_current_time(hour: int, minute: int) -> void:
@@ -128,25 +133,25 @@ func update_current_time(hour: int, minute: int) -> void:
 
 func update_sun(hour: int = current_hour, minute: int = current_minute) -> void:
 	if sun:
-		var time: float = hour + (minute / MinutesPerHour)
+		var current_time: float = hour + (minute / MinutesPerHour)
 		
 		if sun_intensity:
-			sun.light_energy = sun_intensity.sample(time)
+			sun.light_energy = sun_intensity.sample(current_time)
 		
 		if sun_gradient:
-			sun.light_color = sun_gradient.sample(time / HoursPerDay)
+			sun.light_color = sun_gradient.sample(current_time / HoursPerDay)
 		
 		## We increase here the maximum hour to extend the visibility of the sun in the horizon
 		## With default values, the sunset happens more or less at 18:30, just increase the maximum hour
 		## to extend the sun visibility during the day (25.0 instead of 23.59)
-		sun.rotation_degrees.x = (time / 25.0) * 360.0 + 90.0
+		sun.rotation_degrees.x = (current_time / 25.0) * 360.0 + 90.0
 
 
 func update_sky(hour: int = current_hour, minute: int = current_minute) -> void:
 	var sky: Sky = world_environment.environment.sky
 	var sky_material: ShaderMaterial = world_environment.environment.sky.sky_material
-	var time: float = hour + (minute / MinutesPerHour)
-	var time_sample: float = time / HoursPerDay
+	var current_time: float = hour + (minute / MinutesPerHour)
+	var time_sample: float = current_time / HoursPerDay
 	
 	if sky_material:
 		if sky_top_color_gradient:
