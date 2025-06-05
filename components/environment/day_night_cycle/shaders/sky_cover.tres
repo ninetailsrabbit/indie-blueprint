@@ -19,14 +19,14 @@ noise = SubResource("FastNoiseLite_nsac8")
 
 [resource]
 shader = ExtResource("1_gb1mi")
-shader_parameter/sky_top_color = Color(0.385, 0.454, 0.55, 1)
-shader_parameter/sky_horizon_color = Color(0.646, 0.656, 0.67, 1)
+shader_parameter/sky_top_color = Color(0.503018, 0.75317, 0.892347, 1)
+shader_parameter/sky_horizon_color = Color(0.858439, 0.918074, 0.936149, 1)
 shader_parameter/sky_curve = 0.15
 shader_parameter/sky_energy = 1.0
 shader_parameter/sky_cover = SubResource("NoiseTexture2D_y68h1")
-shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
-shader_parameter/ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
-shader_parameter/ground_horizon_color = Color(0.646, 0.656, 0.67, 1)
+shader_parameter/sky_cover_modulate = Color(0.952191, 0.952191, 0.952191, 1)
+shader_parameter/ground_bottom_color = Color(0.0939727, 0.090442, 0.0995588, 1)
+shader_parameter/ground_horizon_color = Color(0.719948, 0.732165, 0.71055, 1)
 shader_parameter/ground_curve = 0.02
 shader_parameter/ground_energy = 1.0
 shader_parameter/sun_angle_max = 0.523599

@@ -117,6 +117,7 @@ func on_hour_changed(new_value: float) -> void:
 	update_current_time(int(new_value), current_minute)
 	_update_time_sampler()
 
+
 func on_minute_changed(new_value: float) -> void:
 	update_current_time(current_hour, int(new_value))
 	_update_time_sampler()
