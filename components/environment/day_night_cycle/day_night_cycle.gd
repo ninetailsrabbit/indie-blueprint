@@ -100,7 +100,7 @@ func _update_time_rate(seconds_per_minute: float = real_life_seconds_to_game_min
 
 
 func _update_time_sampler(hour: int = current_hour, minute: int = current_minute) -> void:
-	time = (current_hour + (current_minute / MinutesPerHour)) / HoursPerDay
+	time = (hour + (minute / MinutesPerHour)) / HoursPerDay
 		
 
 func start(hour: int = current_hour, minute: int = current_minute) -> void:

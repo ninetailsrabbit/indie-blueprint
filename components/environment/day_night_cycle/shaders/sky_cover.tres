@@ -3,7 +3,8 @@
 [ext_resource type="Shader" uid="uid://cio63g83uimqa" path="res://components/environment/day_night_cycle/shaders/sky_cover.gdshader" id="1_gb1mi"]
 
 [sub_resource type="Gradient" id="Gradient_h8cxh"]
-offsets = PackedFloat32Array(0.346369, 0.982143)
+offsets = PackedFloat32Array(0.176871, 0.897959)
+colors = PackedColorArray(0.513233, 0.513233, 0.513233, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nsac8"]
 noise_type = 3
@@ -19,14 +20,14 @@ noise = SubResource("FastNoiseLite_nsac8")
 
 [resource]
 shader = ExtResource("1_gb1mi")
-shader_parameter/sky_top_color = Color(0.503018, 0.75317, 0.892347, 1)
-shader_parameter/sky_horizon_color = Color(0.858439, 0.918074, 0.936149, 1)
+shader_parameter/sky_top_color = Color(0.154088, 0.289481, 0.47197, 1)
+shader_parameter/sky_horizon_color = Color(0.885498, 0.455728, 0.38472, 1)
 shader_parameter/sky_curve = 0.15
 shader_parameter/sky_energy = 1.0
 shader_parameter/sky_cover = SubResource("NoiseTexture2D_y68h1")
-shader_parameter/sky_cover_modulate = Color(0.952191, 0.952191, 0.952191, 1)
-shader_parameter/ground_bottom_color = Color(0.0939727, 0.090442, 0.0995588, 1)
-shader_parameter/ground_horizon_color = Color(0.719948, 0.732165, 0.71055, 1)
+shader_parameter/sky_cover_modulate = Color(0.801582, 0.801582, 0.806283, 1)
+shader_parameter/ground_bottom_color = Color(0.151574, 0.102143, 0.0848157, 1)
+shader_parameter/ground_horizon_color = Color(0.562634, 0.390393, 0.288438, 1)
 shader_parameter/ground_curve = 0.02
 shader_parameter/ground_energy = 1.0
 shader_parameter/sun_angle_max = 0.523599
