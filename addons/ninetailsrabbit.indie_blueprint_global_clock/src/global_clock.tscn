@@ -4,6 +4,3 @@
 
 [node name="IndieBlueprintGlobalClock" type="Node"]
 script = ExtResource("1_krokw")
-real_life_seconds_to_game_minute = 1.0
-start_hour = 6
-start_minute = 5
