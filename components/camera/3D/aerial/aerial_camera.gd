@@ -27,7 +27,7 @@ class AerialCameraTransform:
 @export_range(-180, 0, 0.01, "degrees") var vertical_rotation_angle: float = -35.264:
 	set(value):
 		vertical_rotation_angle = value
-		camera_zoom_pivot.rotation_degrees.x = vertical_rotation_angle
+		camera_rotation_x.rotation_degrees.x = vertical_rotation_angle
 
 @export var movement_mode: MovementMode = MovementMode.Free:
 	set(value):
@@ -122,7 +122,6 @@ func _input(event: InputEvent) -> void:
 						if not smooth_zoom:
 							camera.position.z = target_zoom
 						
-						
 		dragging = movement_mode_is_drag() and event.pressed and event.button_index == drag_button
 		rotating = event.pressed and event.button_index == rotate_button
 	
@@ -150,7 +149,7 @@ func _ready() -> void:
 	if camera == null:
 		camera = IndieBlueprintNodeTraversal.first_node_of_type(self, Camera3D.new())
 	
-	camera_zoom_pivot.rotation_degrees.x = vertical_rotation_angle
+	camera_rotation_x.rotation_degrees.x = vertical_rotation_angle
 	
 	screen_size = IndieBlueprintWindowManager.screen_size()
 	screen_ratio = IndieBlueprintWindowManager.screen_ratio()
