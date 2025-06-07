@@ -36,9 +36,6 @@ const MinutesPerHour: float = 60.0
 @export var sky_clouds_color_gradient: Gradient
 
 
-@onready var hour_spin: SpinBox = %Hour
-@onready var minute_spin: SpinBox = %Minute
-
 enum DayZone {
 	Dawn,
 	Day,
@@ -64,9 +61,6 @@ var time_rate: float = 0.0
 
 func _ready() -> void:
 	set_process(false)
-	
-	hour_spin.value_changed.connect(on_hour_changed)
-	minute_spin.value_changed.connect(on_minute_changed)
 	
 	_update_time_rate()
 	update_current_time(start_hour, start_minute)
@@ -111,16 +105,6 @@ func start(hour: int = current_hour, minute: int = current_minute) -> void:
 
 func stop() -> void:
 	set_process(false)
-
-
-func on_hour_changed(new_value: float) -> void:
-	update_current_time(int(new_value), current_minute)
-	_update_time_sampler()
-
-
-func on_minute_changed(new_value: float) -> void:
-	update_current_time(current_hour, int(new_value))
-	_update_time_sampler()
 
 
 func update_current_time(hour: int, minute: int) -> void:
