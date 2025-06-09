@@ -37,6 +37,8 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 	if IndieBlueprintInputHelper.is_any_action_just_pressed([InputControls.PauseGame, &"ui_cancel"]):
 		IndieBlueprintCursorManager.switch_mouse_capture_mode()
 	
+	if Input.is_action_just_pressed("ui_accept"):
+		camera_controller.change_rotation_z(deg_to_rad(5.0) if randi() % 2 == 0 else deg_to_rad(-5.0), 0, 3.0)
 
 ## Only active when gamepad is connected
 func _unhandled_input(_event: InputEvent) -> void:

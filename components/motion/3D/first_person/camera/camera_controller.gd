@@ -2,7 +2,6 @@
 @icon("res://scenes/character/icons/camera_controller_3d.svg")
 class_name IndieBlueprintFirstPersonCameraController extends Node3D
 
-
 @export var actor: IndieBlueprintFirstPersonController
 @export var camera_pivot: Node3D
 @export var camera: Camera3D
@@ -40,6 +39,10 @@ class_name IndieBlueprintFirstPersonCameraController extends Node3D
 
 @onready var root_node: Window = get_tree().root
 
+enum RotationState {
+	NoRotation,
+	RotationZ
+}
 
 var last_mouse_input: Vector2 = Vector2.ZERO
 var mouse_sensitivity: float = 3.0
@@ -53,6 +56,15 @@ var bob_accumulator: float = 0.0
 
 var base_camera_fov: float = 75.0
 var current_camera_fov: float ## Change this variable from the outside to change the fov smoothly in physic_process
+
+var rotation_state: RotationState = RotationState.NoRotation
+var rotation_z_axis_progression: float = 0.0:
+	set(value):
+		rotation_z_axis_progression = clampf(value, 0.0, 1.0)
+var target_angle_z: float = 0.0
+var return_angle_z: float = 0.0
+var rotation_speed_z: float = 4.0
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and IndieBlueprintInputHelper.is_mouse_captured():
@@ -92,7 +104,33 @@ func _physics_process(delta: float) -> void:
 	swing_head(delta)
 	headbob(delta)
 	fov_adjustment(delta, current_camera_fov)
+	rotation_z_axis(delta, target_angle_z, return_angle_z, rotation_speed_z)
 
+## When the target_angle is reached it comes back to the return_angle provided
+func rotation_z_axis(delta: float, target_angle: float, return_angle: float, rotation_speed: float) -> void:
+	if rotation_state == RotationState.RotationZ:
+		rotation_z_axis_progression += delta * rotation_speed;
+		camera.rotation.z = lerp_angle(camera.rotation.z, target_angle, rotation_z_axis_progression)
+		
+		var difference: float = absf(target_angle - camera.rotation.z)
+			
+		if (difference < 0.01):
+			rotation_z_axis_progression = 0
+			
+			if is_equal_approx(snappedf(camera.rotation.z, 0.01), snappedf(return_angle, 0.01)):
+				rotation_state = RotationState.NoRotation
+				camera.rotation.z = return_angle
+			else:
+				if target_angle != return_angle:
+					change_rotation_z(return_angle, return_angle, rotation_speed)
+
+## Useful to apply landing hits or damage hits
+func change_rotation_z(target_angle: float, return_angle: float = 0.0, rotation_speed: float = 4.0) -> void:
+	rotation_state = RotationState.RotationZ
+	target_angle_z = target_angle
+	return_angle_z = return_angle
+	rotation_speed_z = rotation_speed
+ 
 
 func rotate_camera_with_gamepad(_delta: float) -> void:
 	var joystick_motion: Vector2 = actor.motion_input.input_right_motion_as_vector
@@ -133,7 +171,11 @@ func rotate_camera_with_mouse(motion: Vector2) -> void:
 	
 
 func swing_head(delta: float) -> void:
-	if swing_head_enabled and actor.is_grounded and not actor.state_machine.locked:
+	if rotation_state == RotationState.NoRotation \
+		and swing_head_enabled \
+		and actor.is_grounded \
+		and not actor.state_machine.locked:
+			
 		var direction = actor.motion_input.input_direction
 		
 		if direction in IndieBlueprintVectorHelper.horizontal_directions_v2:
