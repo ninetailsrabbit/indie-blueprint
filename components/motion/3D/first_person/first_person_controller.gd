@@ -27,6 +27,11 @@ class_name IndieBlueprintFirstPersonController extends CharacterBody3D
 @onready var footsteps_manager: FootstepsManager3D = $FootstepsManager3D
 @onready var state_machine: IndieBlueprintFiniteStateMachine = $MotionStateMachine
 
+@onready var right_wall_checker: RayCast3D = %RightWallChecker
+@onready var back_wall_checker: RayCast3D = %BackWallChecker
+@onready var left_wall_checker: RayCast3D = %LeftWallChecker
+
+
 var motion_input: MotionInput = MotionInput.new(self)
 var was_grounded: bool = false
 var is_grounded: bool = false
@@ -37,9 +42,6 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 	if IndieBlueprintInputHelper.is_any_action_just_pressed([InputControls.PauseGame, &"ui_cancel"]):
 		IndieBlueprintCursorManager.switch_mouse_capture_mode()
 	
-	if Input.is_action_just_pressed("ui_accept"):
-		camera_controller.change_rotation_z(deg_to_rad(5.0) if randi() % 2 == 0 else deg_to_rad(-5.0), 0, 3.0)
-
 ## Only active when gamepad is connected
 func _unhandled_input(_event: InputEvent) -> void:
 	if IndieBlueprintInputHelper.is_any_action_just_pressed([InputControls.PauseGame, &"ui_cancel"]):
@@ -54,12 +56,14 @@ func _ready() -> void:
 	
 	state_machine.register_transitions([
 		FirstPersonWalkStateToFirstPersonRunStateTransition.new(),
-		FirstPersonRunStateToFirstPersonWalkTransition.new()
+		FirstPersonRunStateToFirstPersonWalkTransition.new(),
+		AnyToFirstPersonWallJumpStateTransition.new()
 	])
 	
 	state_machine.state_changed.connect(on_state_changed)
 	
 	update_gamepad_support()
+	
 	IndieBlueprintGamepadControllerManager.controller_connected.connect(on_gamepad_connected)
 	IndieBlueprintGamepadControllerManager.controller_disconnected.connect(on_gamepad_disconnected)
 
@@ -88,6 +92,24 @@ func is_aiming() -> bool:
 		and fire_arm_weapon_manager.right_hand.weapon_equipped.is_aiming())
 
 
+func wall_normal() -> Vector3:
+	if right_wall_checker.is_colliding():
+		return right_wall_checker.get_collision_normal()
+	elif left_wall_checker.is_colliding():
+		return left_wall_checker.get_collision_normal()
+	elif back_wall_checker.is_colliding():
+		return back_wall_checker.get_collision_normal()
+		
+	return Vector3.ZERO
+	
+	
+func update_wall_checkers(enabled: bool) -> void:
+	if is_node_ready():
+		right_wall_checker.enabled = enabled
+		left_wall_checker.enabled = enabled
+		back_wall_checker.enabled = enabled
+
+	
 #region Locks
 func lock() -> void:
 	lock_movement()

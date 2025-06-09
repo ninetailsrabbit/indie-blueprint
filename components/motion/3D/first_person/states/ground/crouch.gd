@@ -2,6 +2,7 @@ class_name FirstPersonCrouchState extends FirstPersonGroundState
 
 
 func enter() -> void:
+	super.enter()
 	crouch_animation()
 
 

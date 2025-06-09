@@ -36,6 +36,9 @@ var stair_stepping: bool = false
 var crouch_tween: Tween
 
 
+func enter() -> void:
+	actor.update_wall_checkers(false)
+
 
 func physics_update(delta):
 	if not actor.is_grounded:

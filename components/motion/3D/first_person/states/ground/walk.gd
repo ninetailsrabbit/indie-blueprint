@@ -10,6 +10,8 @@ func ready() -> void:
 	
 	
 func enter():
+	super.enter()
+	
 	actor.velocity.y = 0
 
 

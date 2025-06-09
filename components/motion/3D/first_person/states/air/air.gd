@@ -20,6 +20,10 @@ var gravity_enabled: bool = true
 var current_gravity_force: float = gravity_force
 
 
+func enter() -> void:
+	actor.update_wall_checkers(true)
+	
+
 func _ready() -> void:
 	_create_wall_run_start_cooldown_timer()
 	
@@ -99,11 +103,16 @@ func detect_dash() -> void:
 		FSM.change_state_to(FirstPersonDashState)
 	
 
-#func detect_wall_jump() -> void:
-	#if wall_run_start_cooldown_timer.is_stopped() and actor.wall_detected() and InputMap.has_action(jump_input_action) and Input.is_action_just_pressed(jump_input_action):
-		#FSM.change_state_to(WallJump)
-#
-#
+func detect_wall_jump() -> void:
+	var wall_normal: Vector3 = actor.wall_normal()
+	
+	if actor.wall_jump \
+		and not wall_normal.is_zero_approx() \
+		and InputMap.has_action(jump_input_action) \
+		and Input.is_action_just_pressed(jump_input_action):
+		
+		FSM.change_state_to(FirstPersonWallJumpState, {"wall_normal": wall_normal})
+
 #func detect_wall_run() -> void:
 	#if actor.wall_detected():
 		#FSM.change_state_to(WallRun)

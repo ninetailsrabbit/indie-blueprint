@@ -18,6 +18,8 @@ var current_jump_input_buffer_time_frames: int = 0:
 
 
 func enter():
+	super.enter()
+	
 	jump_requested = false
 	current_coyote_time_frames = coyote_time_frames
 	current_jump_input_buffer_time_frames = jump_input_buffer_time_frames
@@ -59,7 +61,7 @@ func physics_update(delta: float):
 				FSM.change_state_to(FirstPersonWalkState)
 			
 	#detect_swim()
-	#detect_wall_jump()
+	detect_wall_jump()
 	#detect_wall_run()
 
 	actor.move_and_slide()

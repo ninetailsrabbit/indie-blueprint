@@ -21,6 +21,8 @@ func ready() -> void:
 
 
 func enter() -> void:
+	super.enter()
+	
 	last_state = FSM.last_state()
 	base_speed = _calculate_base_speed(last_state)
 	

@@ -1,7 +1,8 @@
 class_name FirstPersonIdleState extends FirstPersonGroundState
 
 
-#func enter() -> void:
+func enter() -> void:
+	super.enter()
 	#var current_weapon: FireArmWeapon = actor.current_weapon()
 	#
 	#if current_weapon:

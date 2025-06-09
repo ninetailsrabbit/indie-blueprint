@@ -66,10 +66,10 @@ func ready():
 	
 	
 func enter():
+	super.enter()
+	
 	fall_detection_timer.start(jump_fall_time)
-	
 	apply_jump()
-	
 	actor.move_and_slide()
 	
 
@@ -103,7 +103,7 @@ func physics_update(delta: float):
 			FSM.change_state_to(FirstPersonWalkState)
 			
 	detect_fall_after_jump_fall_time_passed()
-	#detect_wall_jump()
+	detect_wall_jump()
 	#detect_wall_run()
 	
 	actor.move_and_slide()
@@ -127,7 +127,6 @@ func apply_jump() -> void:
 	elif up_direction in [Vector3.RIGHT, Vector3.LEFT]:
 		actor.velocity.x += sign(up_direction.x) * _jump_velocity
 		
-	
 
 func get_gravity() -> float:
 	var up_direction_opposite: Vector3 = IndieBlueprintVectorHelper.up_direction_opposite_vector3(actor.up_direction)

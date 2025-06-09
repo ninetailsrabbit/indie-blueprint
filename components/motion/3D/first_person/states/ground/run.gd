@@ -12,6 +12,7 @@ func ready() -> void:
 
 
 func enter():
+	super.enter()
 	actor.velocity.y = 0
 	
 	if sprint_time > 0 and is_instance_valid(sprint_timer):

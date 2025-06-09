@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://bwbeagypg16jj"]
+[gd_scene load_steps=28 format=3 uid="uid://bwbeagypg16jj"]
 
 [ext_resource type="Script" uid="uid://wlqt4ke2ylq3" path="res://components/motion/3D/first_person/first_person_controller.gd" id="1_pw1ku"]
 [ext_resource type="Script" uid="uid://dn4nxtwctgx2l" path="res://components/motion/3D/first_person/camera/camera_controller.gd" id="2_3dgm8"]
 [ext_resource type="Script" uid="uid://cq0a178n01slj" path="res://components/camera/3D/shake/camera_shake_3d.gd" id="2_3jowx"]
+[ext_resource type="Script" uid="uid://blwjjvhay1fyh" path="res://components/motion/3D/first_person/debug_ui/debug_ui.gd" id="2_iaevn"]
 [ext_resource type="Script" uid="uid://djoknaipow6r0" path="res://components/motion/3D/first_person/weapons/weapon_hand.gd" id="4_r8nft"]
 [ext_resource type="Script" uid="uid://c7xt5wwe4w44d" path="res://components/motion/3D/first_person/footsteps/footstep_manager_3d.gd" id="4_xoe1f"]
 [ext_resource type="Script" uid="uid://cawi11gmsx71g" path="res://addons/ninetailsrabbit.indie_blueprint_audio/src/components/queue/sound_queue.gd" id="5_b0gsh"]
@@ -22,6 +23,7 @@
 [ext_resource type="Script" uid="uid://xuc7rr6l32ow" path="res://components/motion/3D/first_person/states/ground/dash.gd" id="13_54dd7"]
 [ext_resource type="Script" uid="uid://nd5eggsmr8nd" path="res://components/motion/3D/first_person/states/air/jump.gd" id="14_euxac"]
 [ext_resource type="Script" uid="uid://b8q4xavs1gf1d" path="res://components/motion/3D/first_person/states/air/fall.gd" id="15_juc27"]
+[ext_resource type="Script" uid="uid://b16w3mtp5tvx1" path="res://components/motion/3D/first_person/states/special/wall_jump.gd" id="23_g7vry"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pw1ku"]
 
@@ -36,6 +38,69 @@ radius = 0.35
 [node name="FirstPersonController" type="CharacterBody3D"]
 script = ExtResource("1_pw1ku")
 crawl = true
+
+[node name="DebugUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("first_person_controller")]
+script = ExtResource("2_iaevn")
+first_person_controller = NodePath("..")
+
+[node name="Control" type="Control" parent="DebugUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugUI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Panel" type="Panel" parent="DebugUI/Control/MarginContainer"]
+self_modulate = Color(0.988235, 0.988235, 0.988235, 0.141176)
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugUI/Control/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugUI/Control/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="State" type="Label" parent="DebugUI/Control/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Idle -> Jump"
+
+[node name="Velocity" type="Label" parent="DebugUI/Control/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Velocity: 10"
+
+[node name="Speed" type="Label" parent="DebugUI/Control/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Velocity: 10"
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -130,6 +195,27 @@ shape = SubResource("SphereShape3D_aaym1")
 target_position = Vector3(0, 0, 0)
 debug_shape_custom_color = Color(0, 0.792157, 0, 1)
 
+[node name="Wall" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="RightWallChecker" type="RayCast3D" parent="Wall"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
+target_position = Vector3(0.8, 0, 0)
+debug_shape_custom_color = Color(0.839216, 0.705882, 0.423529, 1)
+
+[node name="BackWallChecker" type="RayCast3D" parent="Wall"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+target_position = Vector3(0, 0, 0.8)
+debug_shape_custom_color = Color(0.839216, 0.705882, 0.423529, 1)
+
+[node name="LeftWallChecker" type="RayCast3D" parent="Wall"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, 0)
+target_position = Vector3(-0.8, 0, 0)
+debug_shape_custom_color = Color(0.839216, 0.705882, 0.423529, 1)
+
 [node name="FootstepsManager3D" type="Node3D" parent="." node_paths=PackedStringArray("floor_detector_raycast", "sound_queue")]
 script = ExtResource("4_xoe1f")
 floor_detector_raycast = NodePath("FloorDetectorRayCast")
@@ -217,3 +303,10 @@ metadata/_custom_type_script = "uid://nd5eggsmr8nd"
 script = ExtResource("15_juc27")
 actor = NodePath("../../..")
 metadata/_custom_type_script = "uid://b8q4xavs1gf1d"
+
+[node name="Wall" type="Node" parent="MotionStateMachine"]
+
+[node name="FirstPersonWallJumpState" type="Node" parent="MotionStateMachine/Wall" node_paths=PackedStringArray("actor")]
+script = ExtResource("23_g7vry")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://b16w3mtp5tvx1"

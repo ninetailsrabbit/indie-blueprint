@@ -7,6 +7,8 @@ var crawl_tween: Tween
 
 
 func enter() -> void:
+	super.enter()
+	
 	crawl_tween = create_tween()
 	crawl_tween.tween_property(actor.head, "position:y", actor.original_head_position.y * (1.0 - crawl_percent), crawl_animation_time)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)

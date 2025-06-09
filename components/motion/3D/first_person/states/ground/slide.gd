@@ -30,6 +30,8 @@ func ready():
 	
 
 func enter():
+	super.enter()
+	
 	if is_instance_valid(slide_timer):
 		slide_timer.start()
 	
