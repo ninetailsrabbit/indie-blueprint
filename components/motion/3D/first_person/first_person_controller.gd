@@ -36,12 +36,13 @@ var original_head_position: Vector3
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if IndieBlueprintInputHelper.is_any_action_just_pressed([InputControls.PauseGame, &"ui_cancel"]):
 		IndieBlueprintCursorManager.switch_mouse_capture_mode()
-		
+	
+
 ## Only active when gamepad is connected
 func _unhandled_input(_event: InputEvent) -> void:
 	if IndieBlueprintInputHelper.is_any_action_just_pressed([InputControls.PauseGame, &"ui_cancel"]):
 		IndieBlueprintCursorManager.switch_mouse_capture_mode()
-		
+	
 
 func _ready() -> void:
 	IndieBlueprintInputHelper.capture_mouse()

@@ -10,6 +10,9 @@ class_name IndieBlueprintFirstPersonCameraController extends Node3D
 @export_range(0, 360.0, 0.5, "degrees") var camera_vertical_limit: float = 89.0
 ## 0 Means the rotation on the X-axis is not limited
 @export_range(0, 360.0, 0.5, "degrees") var camera_horizontal_limit: float = 0.0
+@export_category("Fov")
+@export_range(0, 10.0, 0.01) var fov_smooth_factor: float = 1.2 
+@export var fov_lerp_speed: float = 6.0
 @export_group("Swing head")
 @export var swing_head_enabled: bool = true
 @export_range(0, 360.0, 0.01, "degrees") var swing_rotation_degrees: float = 1.5
@@ -48,14 +51,8 @@ var bob_index: float = 0.0
 var bob_vector: Vector3 = Vector3.ZERO
 var bob_accumulator: float = 0.0
 
-var camera_fov: float = 75.0:
-	set(new_fov):
-		if new_fov != camera_fov:
-			camera_fov = clampf(new_fov, 1.0, 179.0)
-			
-			if is_inside_tree() and camera:
-				camera.fov = camera_fov
-
+var base_camera_fov: float = 75.0
+var current_camera_fov: float ## Change this variable from the outside to change the fov smoothly in physic_process
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and IndieBlueprintInputHelper.is_mouse_captured():
@@ -71,11 +68,18 @@ func _ready() -> void:
 	
 	mouse_sensitivity = IndieBlueprintSettingsManager.get_accessibility_section(IndieBlueprintGameSettings.MouseSensivitySetting)
 	controller_joystick_sensitivity = IndieBlueprintSettingsManager.get_accessibility_section(IndieBlueprintGameSettings.ControllerSensivitySetting)
-	camera_fov = IndieBlueprintSettingsManager.get_accessibility_section(IndieBlueprintGameSettings.CameraFovSetting)
 	
 	if camera:
-		camera.fov = camera_fov
-	
+		var accessibility_settings_fov  = IndieBlueprintSettingsManager.get_accessibility_section(IndieBlueprintGameSettings.CameraFovSetting)
+		
+		if accessibility_settings_fov:
+			base_camera_fov = accessibility_settings_fov
+		else:
+			base_camera_fov = 75.0
+		
+		camera.fov = base_camera_fov
+		current_camera_fov = camera.fov
+		
 	if bob_head != null:
 		original_head_bob_position = bob_head.position
 		
@@ -87,6 +91,7 @@ func _physics_process(delta: float) -> void:
 	rotate_camera_with_gamepad(delta)
 	swing_head(delta)
 	headbob(delta)
+	fov_adjustment(delta, current_camera_fov)
 
 
 func rotate_camera_with_gamepad(_delta: float) -> void:
@@ -148,6 +153,14 @@ func headbob(delta: float) -> void:
 			
 	else:
 		bob_head.position = original_head_bob_position
+
+
+func fov_adjustment(delta: float, new_fov: float) -> void:
+	if camera and new_fov != camera.fov:
+		var velocity: float = maxf(0.5, actor.velocity.length())
+		var target_fov = new_fov + fov_smooth_factor * velocity
+
+		camera.fov = lerp(camera.fov, target_fov, delta * fov_lerp_speed)
 
 
 func enable_headbob() -> void:
@@ -215,4 +228,4 @@ func on_setting_section_updated(section: String, key: String, value: Variant) ->
 				IndieBlueprintGameSettings.ControllerSensivitySetting:
 					controller_joystick_sensitivity = value
 				IndieBlueprintGameSettings.CameraFovSetting:
-					camera_fov = value
+					current_camera_fov = value
