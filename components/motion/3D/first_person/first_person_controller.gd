@@ -22,7 +22,7 @@ class_name IndieBlueprintFirstPersonController extends CharacterBody3D
 @onready var ceil_shape_cast: ShapeCast3D = $Head/CeilShapeCast
 @onready var fire_arm_weapon_manager: FireArmWeaponManager = $FireArmWeaponManager
 
-@onready var camera_controller: IndieBlueprintFirstPersonCameraController = $Head/IndieBlueprintFirstPersonCameraController
+@onready var camera_controller: IndieBlueprintFirstPersonCameraController = $Head/CameraController
 @onready var camera: CameraShake3D = $Head/Eyes/CameraShake3D
 @onready var footsteps_manager: FootstepsManager3D = $FootstepsManager3D
 @onready var state_machine: IndieBlueprintFiniteStateMachine = $MotionStateMachine
@@ -120,7 +120,7 @@ func update_gamepad_support() -> void:
 
 func on_state_changed(_from:IndieBlueprintMachineState, to: IndieBlueprintMachineState) -> void:
 	match to.name:
-		"FirstPersonCrouchState":
+		"FirstPersonCrouchState", "FirstPersonSlideState":
 			body_collision_shape.shape.height = 1.3
 			body_collision_shape.shape.radius = 0.5
 			body_collision_shape.position.y = body_collision_shape.shape.height / 2.0

@@ -24,10 +24,8 @@ class_name IndieBlueprintFirstPersonCameraController extends Node3D
 			
 			if bob_head != null:
 				original_head_bob_position = bob_head.position
-			
-@export var bob_speed: float = 10.0
-@export var bob_intensity: float = 0.03
-@export var bob_lerp_speed = 5.0
+@export_range(0, 10.0, 0.01) var bob_frequency: float = 2.4
+@export_range(0, 0.4, 0.01) var bob_amplitude: float = 0.08
 
 @onready var current_vertical_limit: float:
 	set(value):
@@ -48,6 +46,7 @@ var locked: bool = false
 var original_head_bob_position: Vector3 = Vector3.ZERO
 var bob_index: float = 0.0
 var bob_vector: Vector3 = Vector3.ZERO
+var bob_accumulator: float = 0.0
 
 var camera_fov: float = 75.0:
 	set(new_fov):
@@ -140,23 +139,15 @@ func swing_head(delta: float) -> void:
 	
 func headbob(delta: float) -> void:
 	if bob_enabled and actor.is_grounded and not actor.state_machine.locked:
-		bob_index += bob_speed * delta
-		
-		if actor.is_grounded and not actor.motion_input.input_direction.is_zero_approx():
-			bob_vector = Vector3(sin(bob_index / 2.0), sin(bob_index), bob_vector.z)
-			
-			bob_head.position = Vector3(
-				lerp(bob_head.position.x, bob_vector.x * bob_intensity, delta * bob_lerp_speed),
-				lerp(bob_head.position.y, bob_vector.y * (bob_intensity * 2), delta * bob_lerp_speed),
-				bob_head.position.z
+		bob_accumulator += delta * actor.velocity.length()
+		bob_head.position = Vector3(
+			cos(bob_accumulator * bob_frequency / 2.0) * bob_amplitude,
+			sin(bob_accumulator * bob_frequency) * bob_amplitude,
+			0.0
 			)
 			
-		else:
-			bob_head.position = Vector3(
-				lerp(bob_head.position.x, original_head_bob_position.x, delta * bob_lerp_speed),
-				lerp(bob_head.position.y, original_head_bob_position.y, delta * bob_lerp_speed),
-				bob_head.position.z
-			)
+	else:
+		bob_head.position = original_head_bob_position
 
 
 func enable_headbob() -> void:

@@ -35,6 +35,7 @@ radius = 0.35
 
 [node name="FirstPersonController" type="CharacterBody3D"]
 script = ExtResource("1_pw1ku")
+crawl = true
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -43,7 +44,7 @@ shape = SubResource("CapsuleShape3D_pw1ku")
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="IndieBlueprintFirstPersonCameraController" type="Node3D" parent="Head" node_paths=PackedStringArray("actor", "camera_pivot", "camera", "bob_head")]
+[node name="CameraController" type="Node3D" parent="Head" node_paths=PackedStringArray("actor", "camera_pivot", "camera", "bob_head")]
 script = ExtResource("2_3dgm8")
 actor = NodePath("../..")
 camera_pivot = NodePath("../Eyes")
@@ -124,7 +125,7 @@ script = ExtResource("9_pkrwc")
 metadata/_custom_type_script = "uid://jhc6qx1yf01d"
 
 [node name="CeilShapeCast" type="ShapeCast3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0308653, 0)
 shape = SubResource("SphereShape3D_aaym1")
 target_position = Vector3(0, 0, 0)
 debug_shape_custom_color = Color(0, 0.792157, 0, 1)
@@ -151,7 +152,7 @@ bus = &"SFX"
 [node name="FireArmWeaponManager" type="Node" parent="." node_paths=PackedStringArray("actor", "camera_controller", "camera_recoil_node", "right_hand", "left_hand")]
 script = ExtResource("6_ox5nn")
 actor = NodePath("..")
-camera_controller = NodePath("../Head/IndieBlueprintFirstPersonCameraController")
+camera_controller = NodePath("../Head/CameraController")
 camera_recoil_node = NodePath("../Head/Eyes")
 right_hand = NodePath("../Head/Eyes/CameraShake3D/RightHand")
 left_hand = NodePath("../Head/Eyes/CameraShake3D/LeftHand")
@@ -172,11 +173,17 @@ metadata/_custom_type_script = "uid://ddjyh4swnqe2w"
 [node name="FirstPersonWalkState" type="Node" parent="MotionStateMachine/Ground" node_paths=PackedStringArray("actor")]
 script = ExtResource("8_aaym1")
 actor = NodePath("../../..")
+speed = 6.0
+side_speed = 5.5
 metadata/_custom_type_script = "uid://dgb688j57re0p"
 
 [node name="FirstPersonRunState" type="Node" parent="MotionStateMachine/Ground" node_paths=PackedStringArray("actor")]
 script = ExtResource("9_ox5nn")
 actor = NodePath("../../..")
+speed = 8.0
+side_speed = 7.5
+acceleration = 12.0
+friction = 15.0
 metadata/_custom_type_script = "uid://f0xtx351fnuc"
 
 [node name="FirstPersonCrouchState" type="Node" parent="MotionStateMachine/Ground" node_paths=PackedStringArray("actor")]
