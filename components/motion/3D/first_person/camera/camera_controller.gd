@@ -1,5 +1,5 @@
 ## A useful component to apply camera movement for a first person view
-@icon("res://scenes/character/icons/camera_controller_3d.svg")
+@icon("res://components/motion/3D/first_person/camera/camera_controller_3d.svg")
 class_name IndieBlueprintFirstPersonCameraController extends Node3D
 
 @export var actor: IndieBlueprintFirstPersonController
