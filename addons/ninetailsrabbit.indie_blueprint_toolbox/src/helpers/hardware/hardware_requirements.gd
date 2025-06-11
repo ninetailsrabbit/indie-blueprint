@@ -24,8 +24,8 @@ static var gpu_quality: Dictionary = {
 		 # Integrated Graphics (Common & Entry-Level)
 		"Intel UHD Graphics",
 		"Intel UHD Graphics (11th Gen+)", # Most common integrated graphics today
-		"Intel Iris Xe Graphics (64 EUs / 80 EUs)", # Base configurations, higher EUs can sometimes push Medium
-		"AMD Radeon Graphics (Ryzen 3/5 APUs)", # Integrated graphics in lower-end Ryzen processors
+		"Intel Iris Xe Graphics", # Base configurations, higher EUs can sometimes push Medium
+		"AMD Radeon Graphics", # Integrated graphics in lower-end Ryzen processors
 		"Apple M1", # Integrated GPU on original M1 chip (non-Pro/Max/Ultra)
 		"Apple M2", # Integrated GPU on original M2 chip (non-Pro/Max/Ultra)
 		"Apple M3", # Integrated GPU on original M3 chip (non-Pro/Max/Ultra)
