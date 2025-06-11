@@ -121,6 +121,8 @@ func create_settings(path: String = config_file_path) -> void:
 		
 		## Some settings default values can be retrieved from the game engine for a better experience
 		match setting.key:
+			&"quality_preset":
+				setting.update_value(IndieBlueprintHardwareRequirements.auto_discover_graphics_quality())
 			&"vsync":
 				setting.update_value(DisplayServer.window_get_vsync_mode())
 			&"window_borderless":
