@@ -1,4 +1,4 @@
-class_name AudioSlider extends HSlider
+class_name AudioSlider extends SettingHSlider
 
 @export_enum(&"Master", &"Music", &"SFX", &"EchoSFX", &"Voice", &"UI", &"Ambient") var target_bus: String = IndieBlueprintAudioManager.MusicBus
 
@@ -10,16 +10,14 @@ func _enter_tree() -> void:
 	max_value = 1.0
 	step = 0.001
 	
-	drag_ended.connect(audio_slider_drag_ended)
-
 
 func _ready() -> void:
+	super._ready()
 	value = IndieBlueprintAudioManager.get_actual_volume_db_from_bus(target_bus)
+	
 
-
-func audio_slider_drag_ended(volume_changed: bool):
+func on_setting_changed(volume_changed: bool):
 	if volume_changed:
-		
 		if(target_bus == IndieBlueprintAudioManager.SFXBus):
 			IndieBlueprintAudioManager.change_volume(IndieBlueprintAudioManager.EchoSFXBus, value)
 			

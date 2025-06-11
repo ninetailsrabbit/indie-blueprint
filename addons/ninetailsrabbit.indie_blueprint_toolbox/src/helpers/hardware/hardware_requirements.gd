@@ -20,7 +20,7 @@ enum QualityPreset {
 }
 
 
-static var gpu_quality: Dictionary = {
+static var gpu_quality: Dictionary[QualityPreset, Array] = {
 	QualityPreset.Low: [
 		 # Integrated Graphics (Common & Entry-Level)
 		"Intel UHD Graphics",

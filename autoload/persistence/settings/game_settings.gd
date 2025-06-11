@@ -13,6 +13,7 @@ const AnalyticsSection: StringName = &"analytics"
 #region Setting properties
 ## This settings are used as keys for the configuration file .ini or .cfg
 const FpsCounterSetting: StringName = &"fps_counter"
+const FpsLimitsSetting: StringName = &"fps_limits"
 const MaxFpsSetting: StringName = &"max_fps"
 const CurrentMonitorSetting: StringName = &"current_monitor"
 const WindowDisplaySetting: StringName = &"window_display"

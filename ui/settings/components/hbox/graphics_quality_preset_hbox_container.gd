@@ -12,7 +12,7 @@ func create_graphic_quality_preset_buttons() -> void:
 
 	quality_preset_button_group.pressed.connect(on_quality_button_pressed)
 	
-	for quality_preset in IndieBlueprintHardwareDetector.graphics_quality_presets:
+	for quality_preset: IndieBlueprintHardwareRequirements.QualityPreset in IndieBlueprintHardwareRequirements.graphics_quality_presets:
 		var button: Button = Button.new()
 		button.set_meta(IndieBlueprintGameSettings.QualityPresetSetting, quality_preset)
 		button.text = tr(TranslationKeys.QualityPresetKeys[quality_preset])

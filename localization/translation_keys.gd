@@ -44,10 +44,10 @@ static var QualityHighTranslationKey := "QUALITY_HIGH"
 static var QualityUltraTranslationKey := "QUALITY_ULTRA"
 
 static var QualityPresetKeys: Dictionary = {
-	IndieBlueprintHardwareDetector.QualityPreset.Low: QualityLowTranslationKey,
-	IndieBlueprintHardwareDetector.QualityPreset.Medium: QualityMediumTranslationKey,
-	IndieBlueprintHardwareDetector.QualityPreset.High: QualityHighTranslationKey,
-	IndieBlueprintHardwareDetector.QualityPreset.Ultra: QualityUltraTranslationKey,
+	IndieBlueprintHardwareRequirements.QualityPreset.Low: QualityLowTranslationKey,
+	IndieBlueprintHardwareRequirements.QualityPreset.Medium: QualityMediumTranslationKey,
+	IndieBlueprintHardwareRequirements.QualityPreset.High: QualityHighTranslationKey,
+	IndieBlueprintHardwareRequirements.QualityPreset.Ultra: QualityUltraTranslationKey,
 }
 
 static var EmptySaveSlot: String = "EMPTY_SAVE_SLOT"

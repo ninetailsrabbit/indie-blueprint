@@ -1,0 +1,17 @@
+class_name SettingCheckbutton extends CheckButton
+
+@export var setting: GameSetting
+
+
+func _enter_tree() -> void:
+	assert(setting != null, "SettingCheckButton: The %s check button does not have a GameSetting resource linked" % name)
+	assert(setting.field_type == TYPE_BOOL, "SettingCheckButton: The '%s check button' contains a setting '%s' that is not a boolean type" % [name, setting.key])
+
+
+func _ready() -> void:
+	button_pressed = IndieBlueprintSettingsManager.get_section(setting.section, setting.key)
+	toggled.connect(on_setting_changed)
+
+
+func on_setting_changed(enabled: bool) -> void:
+	IndieBlueprintSettingsManager.update_setting_section(setting.section, setting.key, enabled)

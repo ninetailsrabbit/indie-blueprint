@@ -1,12 +1,12 @@
-class_name MutedAudioCheckButton extends CheckButton
+class_name MutedAudioCheckButton extends SettingCheckbutton
 
 
 func _ready() -> void:
+	super._ready()
 	button_pressed = IndieBlueprintAudioManager.all_buses_are_muted()
-	toggled.connect(on_mute_audio_changed)
 
 
-func on_mute_audio_changed(enabled: bool) -> void:
+func on_setting_changed(enabled: bool) -> void:
 	if(enabled):
 		IndieBlueprintAudioManager.mute_all_buses()
 	else:

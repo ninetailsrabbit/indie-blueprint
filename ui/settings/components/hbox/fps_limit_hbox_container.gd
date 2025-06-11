@@ -1,9 +1,17 @@
 class_name FpsLimitHboxContainer extends HBoxContainer
 
 ## The range of available frame per second limits, this option should only be enabled when vsync it's off
-@export var fps_limits: Array[int] = [0, 30, 60, 90, 144, 240, 300] ## This ranges are available on GameSettings but static variables cannot be used on exported parameters
+@export var fps_limits: GameSetting
 
 var fps_limit_button_group: ButtonGroup = ButtonGroup.new()
+
+
+func _enter_tree() -> void:
+	if fps_limits == null:
+		if IndieBlueprintSettingsManager.active_settings.has(IndieBlueprintGameSettings.FpsLimitsSetting):
+			fps_limits = IndieBlueprintSettingsManager.active_settings[IndieBlueprintGameSettings.FpsLimitsSetting]
+	
+	assert(fps_limits.field_type == TYPE_ARRAY and fps_limits.value().size() > 0, "FpsLimitsHboxContainer: The game setting resource does not contain a value of type Array[int]")
 
 
 func _ready() -> void:
@@ -13,7 +21,7 @@ func _ready() -> void:
 func create_fps_limit_buttons() -> void:
 	fps_limit_button_group.pressed.connect(on_fps_limit_button_pressed)
 	
-	for fps_limit in fps_limits:
+	for fps_limit: int in fps_limits.value():
 		var button: Button = Button.new()
 		button.text = str(fps_limit)
 		button.name = str(fps_limit)
