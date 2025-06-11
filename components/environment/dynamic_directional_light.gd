@@ -8,7 +8,7 @@ func _enter_tree() -> void:
 	
 
 func _ready() -> void:
-	IndieBlueprintSettingsManager.apply_graphics_on_directional_light(
+	IndieBlueprintHardwareRequirements.apply_graphics_on_directional_light(
 		self, 
 		IndieBlueprintSettingsManager.get_graphics_section(IndieBlueprintGameSettings.QualityPresetSetting)
 		)
@@ -18,5 +18,5 @@ func _ready() -> void:
 	
 func on_updated_setting_section(section: String, key: String, value: Variant) -> void:
 	if section == IndieBlueprintGameSettings.GraphicsSection and key == IndieBlueprintGameSettings.QualityPresetSetting:
-		IndieBlueprintSettingsManager.apply_graphics_on_directional_light(self, value)
+		IndieBlueprintHardwareRequirements.apply_graphics_on_directional_light(self, value)
 		

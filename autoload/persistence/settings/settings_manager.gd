@@ -86,9 +86,11 @@ func load_settings(path: String = config_file_path) -> void:
 		return
 	
 	for setting: GameSetting in active_settings.values():
-		var config_value: Variant = config_file_api.get_value(setting.section, setting.key)
+		var config_value: Variant = config_file_api.get_value(setting.section, setting.key, null)
 		
-		if config_value:
+		if config_value == null:
+			update_setting_section(setting.section, setting.key, setting.value())
+		else:
 			setting.update_value(config_value)
 			
 	load_audio()
@@ -116,15 +118,15 @@ func create_settings(path: String = config_file_path) -> void:
 		## Some settings default values can be retrieved from the game engine for a better experience
 		match setting.key:
 			&"vsync":
-				setting.int_value = DisplayServer.window_get_vsync_mode()
+				setting.update_value(DisplayServer.window_get_vsync_mode())
 			&"window_borderless":
-				setting.int_value = DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS)
+				setting.update_value(DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS))
 			&"window_resolution":
-				setting.int_value = DisplayServer.window_get_vsync_mode()
+				setting.update_value(DisplayServer.window_get_size())
 			&"integer_scaling":
-				setting.bool_value = true if ProjectSettings.get_setting("display/window/stretch/scale_mode") == "integer" else false
+				setting.update_value(true if ProjectSettings.get_setting("display/window/stretch/scale_mode") == "integer" else false)
 			&"current_language", &"voices_language", &"subtitles_language":
-				setting.string_value = TranslationServer.get_locale()
+				setting.update_value(TranslationServer.get_locale())
 				
 		update_setting_section(setting.section, setting.key, setting.value())
 		
@@ -139,7 +141,7 @@ func create_audio_section() -> void:
 	for bus: String in IndieBlueprintAudioManager.enumerate_available_buses():
 		update_audio_section(bus, IndieBlueprintAudioManager.get_default_volume_for_bus(bus))
 	
-	var buses_are_muted: bool = active_settings[IndieBlueprintGameSettings.MutedAudioSetting].bool_value if active_settings.has(&"muted_audio") else false
+	var buses_are_muted: bool = active_settings[IndieBlueprintGameSettings.MutedAudioSetting].value() if active_settings.has(&"muted_audio") else false
 	update_audio_section(IndieBlueprintGameSettings.MutedAudioSetting, buses_are_muted)
 	
 	if(buses_are_muted):
@@ -420,95 +422,6 @@ func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
 			input_event_joypad_button.button_index = int(keybinding_type[1])
 			
 			InputMap.action_add_event(action, input_event_joypad_button)
-	
-#region Environment
-func apply_graphics_on_directional_light(directional_light: DirectionalLight3D, quality_preset: IndieBlueprintHardwareDetector.QualityPreset = IndieBlueprintHardwareDetector.QualityPreset.Medium) -> void:
-	var preset: IndieBlueprintHardwareDetector.GraphicQualityPreset = IndieBlueprintHardwareDetector.graphics_quality_presets[quality_preset]
-	
-	for quality: IndieBlueprintHardwareDetector.GraphicQualityDisplay in preset.quality:
-		match quality.project_setting:
-			"shadow_atlas":
-				match quality_preset:
-					IndieBlueprintHardwareDetector.QualityPreset.Low:
-						directional_light.shadow_bias = 0.03
-					IndieBlueprintHardwareDetector.QualityPreset.Medium:
-						directional_light.shadow_bias = 0.02
-					IndieBlueprintHardwareDetector.QualityPreset.High:
-						directional_light.shadow_bias = 0.01
-					IndieBlueprintHardwareDetector.QualityPreset.Ultra:
-						directional_light.shadow_bias = 0.005
-
-
-@warning_ignore("int_as_enum_without_cast")
-func apply_graphics_on_environment(world_environment: WorldEnvironment, quality_preset: IndieBlueprintHardwareDetector.QualityPreset = IndieBlueprintHardwareDetector.QualityPreset.Medium) -> void:
-	var viewport: Viewport = world_environment.get_viewport()
-	var preset: IndieBlueprintHardwareDetector.GraphicQualityPreset = IndieBlueprintHardwareDetector.graphics_quality_presets[quality_preset]
-	
-	for quality: IndieBlueprintHardwareDetector.GraphicQualityDisplay in preset.quality:
-		match quality.project_setting:
-			"environment/glow_enabled":
-				world_environment.environment.glow_enabled = bool(quality.enabled)
-			"environment/ssao_enabled":
-				world_environment.environment.ssao_enabled = bool(quality.enabled)
-				
-				if world_environment.environment.ssao_enabled:
-					match quality_preset:
-						IndieBlueprintHardwareDetector.QualityPreset.Low:
-							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_VERY_LOW, true, 0.5, 2, 50, 300)
-						IndieBlueprintHardwareDetector.QualityPreset.Medium:
-							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_LOW, true, 0.5, 2, 50, 300)
-						IndieBlueprintHardwareDetector.QualityPreset.High:
-							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_MEDIUM, true, 0.5, 2, 50, 300)
-						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
-							RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_HIGH, true, 0.5, 2, 50, 300)
-			"environment/ss_reflections_enabled":
-				world_environment.environment.ssr_enabled = bool(quality.enabled)
-				
-				if world_environment.environment.ssr_enabled:
-					match quality_preset:
-						IndieBlueprintHardwareDetector.QualityPreset.Low:
-							world_environment.environment.ssr_max_steps = 8
-						IndieBlueprintHardwareDetector.QualityPreset.Medium:
-							world_environment.environment.ssr_max_steps = 32
-						IndieBlueprintHardwareDetector.QualityPreset.High:
-							world_environment.environment.ssr_max_steps = 56
-						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
-							world_environment.environment.ssr_max_steps = 56
-			"environment/sdfgi_enabled":
-				world_environment.environment.sdfgi_enabled = bool(quality.enabled)
-				
-				if world_environment.environment.sdfgi_enabled:
-					match quality_preset:
-						IndieBlueprintHardwareDetector.QualityPreset.Low:
-							RenderingServer.gi_set_use_half_resolution(true)
-						IndieBlueprintHardwareDetector.QualityPreset.Medium:
-							RenderingServer.gi_set_use_half_resolution(true)
-						IndieBlueprintHardwareDetector.QualityPreset.High:
-							RenderingServer.gi_set_use_half_resolution(false)
-						IndieBlueprintHardwareDetector.QualityPreset.Ultra:
-							RenderingServer.gi_set_use_half_resolution(false)
-			"environment/ssil_enabled":
-				world_environment.environment.ssil_enabled = bool(quality.enabled)
-			"rendering/anti_aliasing/quality/msaa_3d":
-				@warning_ignore("int_as_enum_without_cast")
-				viewport.msaa_3d = quality.enabled
-			"shadow_atlas":
-				RenderingServer.directional_shadow_atlas_set_size(quality.enabled, true)
-				viewport.positional_shadow_atlas_size = quality.enabled
-			"shadow_filter":
-				RenderingServer.directional_soft_shadow_filter_set_quality(quality.enabled)
-				RenderingServer.positional_soft_shadow_filter_set_quality(quality.enabled)
-			"mesh_level_of_detail":
-				viewport.mesh_lod_threshold = quality.enabled
-			"scaling_3d":
-				if viewport.scaling_3d_mode == Viewport.SCALING_3D_MODE_BILINEAR:
-					viewport.scaling_3d_scale = quality.enabled
-			"scaling_3d_fsr":
-				if viewport.scaling_3d_mode != Viewport.SCALING_3D_MODE_BILINEAR:
-					## When using FSR upscaling, AMD recommends exposing the following values as preset options to users 
-					## "Ultra Quality: 0.77", "Quality: 0.67", "Balanced: 0.59", "Performance: 0.5" instead of exposing the entire scale.
-					viewport.scaling_3d_scale = quality.enabled
-#endregion
 	
 
 func _get_input_map_actions() -> Array[StringName]:
