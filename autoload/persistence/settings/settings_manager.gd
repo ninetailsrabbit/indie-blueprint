@@ -35,6 +35,10 @@ var config_file_path: String
 
 var active_settings: Dictionary[StringName, GameSetting] = {}
 
+var viewport_start_size: Vector2i = Vector2i(
+	ProjectSettings.get_setting(&"display/window/size/viewport_width"),
+	ProjectSettings.get_setting(&"display/window/size/viewport_height")
+)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -122,7 +126,7 @@ func create_settings(path: String = config_file_path) -> void:
 			&"window_borderless":
 				setting.update_value(DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS))
 			&"window_resolution":
-				setting.update_value(DisplayServer.window_get_size())
+				setting.update_value(viewport_start_size)
 			&"integer_scaling":
 				setting.update_value(true if ProjectSettings.get_setting("display/window/stretch/scale_mode") == "integer" else false)
 			&"current_language", &"voices_language", &"subtitles_language":

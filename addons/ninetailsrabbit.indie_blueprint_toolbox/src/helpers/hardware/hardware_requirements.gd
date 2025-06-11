@@ -1,3 +1,4 @@
+## Used the following repository as reference for graphic settings https://github.com/godotengine/godot-demo-projects/blob/master/3d/graphics_settings
 class_name IndieBlueprintHardwareRequirements
 
 class GraphicQualityDisplay:
@@ -212,7 +213,7 @@ static var graphics_quality_presets: Dictionary[QualityPreset, Array] = {
 	## For low-end PCs with integrated graphics, as well as mobile devices
 	QualityPreset.Low: [
 		
-		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", false),
+		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", [false, false]),
 		GraphicQualityDisplay.new("rendering/environment/screen_space_reflection", &"Screen Space Reflection", [false, RenderingServer.ENV_SSR_ROUGHNESS_QUALITY_DISABLED, 8]),
 		GraphicQualityDisplay.new("rendering/environment/sdfgi_enabled", &"SDFGI", [false, true]),
 		GraphicQualityDisplay.new("rendering/environment/ssil_enabled", &"SSIL", false),
@@ -222,13 +223,13 @@ static var graphics_quality_presets: Dictionary[QualityPreset, Array] = {
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/atlas_size", &"Directional shadow atlas", 2048),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/directional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_LOW),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_LOW),
-		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 1.0),
+		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 4.0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/scale", &"Scaling 3D when BILINEAR is enabled", 1.0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/fsr_sharpness", &"Scaling 3D when FSR is enabled", 0.5),
 		GraphicQualityDisplay.new("directional_light/shadow_bias", &"Directional Light 3D Shadow Bias", 0.03),
 	],
 	QualityPreset.Medium: [
-		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", false),
+		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", [false, false]),
 		GraphicQualityDisplay.new("rendering/environment/screen_space_reflection", &"Screen Space Reflection", [true, RenderingServer.ENV_SSR_ROUGHNESS_QUALITY_LOW, 16]),
 		GraphicQualityDisplay.new("rendering/environment/sdfgi_enabled", &"SDFGI", [false, true]),
 		GraphicQualityDisplay.new("rendering/environment/ssil_enabled", &"SSIL", false),
@@ -238,14 +239,14 @@ static var graphics_quality_presets: Dictionary[QualityPreset, Array] = {
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/atlas_size", &"Directional shadow atlas", 4096),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/directional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_MEDIUM),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_MEDIUM),
-		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 0.8),
+		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 2.0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/scale", &"Scaling 3D when BILINEAR is enabled", 1.0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/fsr_sharpness", &"Scaling 3D when FSR is enabled", 0.59),
 		GraphicQualityDisplay.new("directional_light/shadow_bias", &"Directional Light 3D Shadow Bias", 0.02),
 		
 	],
 	QualityPreset.High: [
-		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", true),
+		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", [false, true]),
 		GraphicQualityDisplay.new("rendering/environment/screen_space_reflection", &"Screen Space Reflection", [true, RenderingServer.ENV_SSR_ROUGHNESS_QUALITY_HIGH, 32]),
 		GraphicQualityDisplay.new("rendering/environment/sdfgi_enabled", &"SDFGI", [true, false]),
 		GraphicQualityDisplay.new("rendering/environment/ssil_enabled", &"SSIL", true),
@@ -255,14 +256,14 @@ static var graphics_quality_presets: Dictionary[QualityPreset, Array] = {
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/atlas_size", &"Directional shadow atlas", 8192),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/directional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_HIGH),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_HIGH),
-		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 0.4),
+		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 1.0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/scale", &"Scaling 3D when BILINEAR is enabled", 1.0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/fsr_sharpness", &"Scaling 3D when FSR is enabled", 0.67),
 		GraphicQualityDisplay.new("directional_light/shadow_bias", &"Directional Light 3D Shadow Bias", 0.01),
 		
 	],
 	QualityPreset.Ultra: [
-		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", true),
+		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", [false, true]),
 		GraphicQualityDisplay.new("rendering/environment/screen_space_reflection", &"Screen Space Reflection", [true, RenderingServer.ENV_SSR_ROUGHNESS_QUALITY_HIGH, 64]),
 		GraphicQualityDisplay.new("rendering/environment/sdfgi_enabled", &"SDFGI", [true, false]),
 		GraphicQualityDisplay.new("rendering/environment/ssil_enabled", &"SSIL", true),
@@ -272,7 +273,7 @@ static var graphics_quality_presets: Dictionary[QualityPreset, Array] = {
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/atlas_size", &"Directional shadow atlas", 16384),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/directional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_ULTRA),
 		GraphicQualityDisplay.new("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality", &"Shadow quality filter", RenderingServer.SHADOW_QUALITY_SOFT_ULTRA),
-		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 0.1),
+		GraphicQualityDisplay.new("rendering/mesh_lod/lod_change/threshold_pixels", &"Mesh level of detail", 0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/scale", &"Scaling 3D when BILINEAR is enabled", 1.0),
 		GraphicQualityDisplay.new("rendering/scaling_3d/fsr_sharpness", &"Scaling 3D when FSR is enabled", 0.77),
 		GraphicQualityDisplay.new("directional_light/shadow_bias", &"Directional Light 3D Shadow Bias", 0.005),
@@ -308,7 +309,11 @@ static func apply_graphics_on_environment(world_environment: WorldEnvironment, q
 	for quality: GraphicQualityDisplay in preset:
 		match quality.project_setting:
 			"rendering/environment/glow_enabled":
-				world_environment.environment.glow_enabled =  quality.value
+				world_environment.environment.glow_enabled =  quality.value[0]
+				
+				if world_environment.environment.glow_enabled:
+					RenderingServer.environment_glow_set_use_bicubic_upscale(quality.value[1])
+				
 			"rendering/environment/screen_space_reflection":
 				world_environment.environment.ssr_enabled = quality.value[0]
 				
