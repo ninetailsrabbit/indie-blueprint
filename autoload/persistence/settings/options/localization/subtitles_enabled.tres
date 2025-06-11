@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="GameSetting" load_steps=2 format=3 uid="uid://cdvf6w8puewxg"]
+
+[ext_resource type="Script" uid="uid://b1ucbadjglwnm" path="res://autoload/persistence/settings/game_setting.gd" id="1_yejl3"]
+
+[resource]
+script = ExtResource("1_yejl3")
+section = &"localization"
+key = &"subtitles_enabled"
+field_type = 1
+default_int_value = 0
+int_value = 0
+min_int_value = 0
+max_int_value = 0
+default_float_value = 0.0
+float_value = 0.0
+min_float_value = 0.0
+max_float_value = 0.0
+default_bool_value = false
+bool_value = false
+default_string_value = "en_GB"
+string_value = "en_GB"
+default_string_name_value = &""
+string_name_value = &""
+default_array_value = []
+array_value = []
+default_dictionary_value = {}
+dictionary_value = {}
+default_color_value = Color(0, 0, 0, 1)
+color_value = Color(0, 0, 0, 1)
+default_vector2_value = Vector2(0, 0)
+vector2_value = Vector2(0, 0)
+default_vector2i_value = Vector2i(0, 0)
+vector2i_value = Vector2i(0, 0)
+default_vector3_value = Vector3(0, 0, 0)
+vector3_value = Vector3(0, 0, 0)
+default_vector3i_value = Vector3i(0, 0, 0)
+vector3i_value = Vector3i(0, 0, 0)
+metadata/_custom_type_script = "uid://b1ucbadjglwnm"

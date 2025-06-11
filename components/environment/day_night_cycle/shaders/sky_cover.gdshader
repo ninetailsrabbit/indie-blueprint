@@ -107,16 +107,16 @@ void sky() {
     float base_pole_blend_factor = abs(EYEDIR.y);  // Original blend factor (circular)
     float noise_pole_blend = blended_noise_texture.r * pole_blend_shape;
     float pole_blend_factor = smoothstep(1.0 - pole_blend_strength, 1.0, base_pole_blend_factor + noise_pole_blend);
-    
+
     // Horizon blending - detect when we're near the horizon
     float horizon_distance = abs(EYEDIR.y);  // This will be close to 0 near the horizon
     float horizon_factor = 1.0 - smoothstep(0.0, horizon_blend_width, horizon_distance);
     float noise_horizon_blend = blended_noise_texture.g * horizon_blend_shape;
     float horizon_blend_factor = smoothstep(1.0 - horizon_blend_strength, 1.0, horizon_factor + noise_horizon_blend);
-    
+
     // Combine both blend factors (poles and horizon)
     float combined_blend_factor = max(pole_blend_factor, horizon_blend_factor);
-    
+
     // Blend noise with brightness value based on the combined factor
     vec3 blended_noise = mix(blended_noise_texture.rgb, vec3(pole_blend_brightness), pole_blend_factor);
     blended_noise = mix(blended_noise, vec3(horizon_blend_brightness), horizon_blend_factor);

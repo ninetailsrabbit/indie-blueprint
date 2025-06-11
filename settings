@@ -1,0 +1,35 @@
+[accessibility]
+
+controller_sensibility=5.0
+mouse_sensitivity=3.0
+camera_fov=75.0
+screen_brightness=1.0
+screen_contrast=1.0
+screen_saturation=1.0
+reversed_mouse=false
+controller_vibration=false
+photosensitivity=false
+screen_shake=true
+
+[graphics]
+
+fps_counter=0
+fps_limits=[0, 30, 60, 90, 144, 240, 300]
+current_monitor=0
+integer_scaling=false
+scaling_3d_value=1.0
+scaling_3d_mode=0
+scaling_3d_fsr_value=0.59
+vsync=1
+window_borderless=false
+window_resolution=Vector2i(1280, 720)
+
+[audio]
+
+muted_audio=false
+
+[localization]
+
+current_language="en_GB"
+subtitles_language="en_GB"
+voices_language="en_GB"

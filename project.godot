@@ -29,7 +29,6 @@ IndieBlueprintGameGlobals="*res://autoload/general/game_globals.gd"
 IndieBlueprintGlobalGameEvents="*res://autoload/general/global_game_events.gd"
 IndieBlueprintCursorManager="*res://autoload/screen/cursor_manager.gd"
 IndieBlueprintGlobalEffects="*res://autoload/effects/global_effects.tscn"
-IndieBlueprintSettingsManager="*res://autoload/persistence/settings/settings_manager.gd"
 IndieBlueprintAudioManager="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/audio_manager.gd"
 IndieBlueprintMusicManager="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/music_manager.gd"
 IndieBlueprintSoundPool="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/sound_pool.gd"
@@ -46,6 +45,7 @@ IndieBlueprintLootManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src
 IndieBlueprintTurnityManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/turns/turnity_manager.gd"
 IndieBlueprintRecipeManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/items/craft/recipe_manager.tscn"
 IndieBlueprintWindowManager="*res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/autoloads/viewport/window_manager.gd"
+IndieBlueprintSettingsManager="*res://autoload/persistence/settings/settings_manager.tscn"
 
 [display]
 

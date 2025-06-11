@@ -1,6 +1,6 @@
 extends PanelContainer
 
-const InputActionKeybindingScene = preload("res://ui/menus/components/panel/input_action_keybinding.tscn")
+const InputActionKeybindingScene = preload("res://ui/settings/components/panel/input_action_keybinding.tscn")
 
 @export var include_ui_actions: bool = false
 @export var exclude_actions: Array[String] = []
