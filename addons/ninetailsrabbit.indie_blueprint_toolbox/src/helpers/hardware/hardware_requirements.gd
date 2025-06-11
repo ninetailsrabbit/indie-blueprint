@@ -212,7 +212,6 @@ static var gpu_quality: Dictionary = {
 static var graphics_quality_presets: Dictionary[QualityPreset, Array] = {
 	## For low-end PCs with integrated graphics, as well as mobile devices
 	QualityPreset.Low: [
-		
 		GraphicQualityDisplay.new("rendering/environment/glow_enabled", &"Glow", [false, false]),
 		GraphicQualityDisplay.new("rendering/environment/screen_space_reflection", &"Screen Space Reflection", [false, RenderingServer.ENV_SSR_ROUGHNESS_QUALITY_DISABLED, 8]),
 		GraphicQualityDisplay.new("rendering/environment/sdfgi_enabled", &"SDFGI", [false, true]),
@@ -333,9 +332,6 @@ static func apply_graphics_on_environment(world_environment: WorldEnvironment, q
 					RenderingServer.gi_set_use_half_resolution(quality.value[1])
 			"rendering/environment/ssil_enabled":
 				world_environment.environment.ssil_enabled = quality.value
-			"rendering/anti_aliasing/quality/msaa_3d":
-				@warning_ignore("int_as_enum_without_cast")
-				viewport.msaa_3d = quality.value
 			"rendering/lights_and_shadows/directional_shadow/soft_shadow_filter_quality":
 				RenderingServer.directional_soft_shadow_filter_set_quality(quality.value)
 			"rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality":
@@ -353,8 +349,8 @@ static func apply_graphics_on_environment(world_environment: WorldEnvironment, q
 					## When using FSR upscaling, AMD recommends exposing the following values as preset options to users 
 					## "Ultra Quality: 0.77", "Quality: 0.67", "Balanced: 0.59", "Performance: 0.5" instead of exposing the entire scale.
 					viewport.scaling_3d_scale = quality.value
-					
 			"rendering/anti_aliasing/quality/msaa_3d":
+				@warning_ignore("int_as_enum_without_cast")
 				viewport.msaa_3d = quality.value
 				
 				if viewport.msaa_3d == Viewport.MSAA_DISABLED:

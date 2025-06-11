@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_7r818")
 section = &"graphics"
-key = &"antialiasing_3d"
+key = &"antialiasing_2d"
 field_type = 2
 default_int_value = 0
 int_value = 0

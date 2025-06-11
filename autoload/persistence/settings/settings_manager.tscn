@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bfs5o6c72ghu5"]
+[gd_scene load_steps=34 format=3 uid="uid://bfs5o6c72ghu5"]
 
 [ext_resource type="Script" uid="uid://dluyeio81kq61" path="res://autoload/persistence/settings/settings_manager.gd" id="1_6cpbx"]
 [ext_resource type="Script" uid="uid://b1ucbadjglwnm" path="res://autoload/persistence/settings/game_setting.gd" id="2_i61yj"]
@@ -31,7 +31,9 @@
 [ext_resource type="Resource" uid="uid://cdvf6w8puewxg" path="res://autoload/persistence/settings/options/localization/subtitles_enabled.tres" id="29_if272"]
 [ext_resource type="Resource" uid="uid://djde1h654xmy2" path="res://autoload/persistence/settings/options/analytics/allow_telemetry.tres" id="30_yx2ma"]
 [ext_resource type="Resource" uid="uid://bx7aobo1v3t20" path="res://autoload/persistence/settings/options/graphics/quality_preset.tres" id="31_yx2ma"]
+[ext_resource type="Resource" uid="uid://1h1tujf8qwpc" path="res://autoload/persistence/settings/options/graphics/antialiasing_2d.tres" id="32_jv6ht"]
+[ext_resource type="Resource" uid="uid://br6w83pbyfnvn" path="res://autoload/persistence/settings/options/graphics/antialiasing_3d.tres" id="33_ek0cg"]
 
 [node name="SettingsManager" type="Node"]
 script = ExtResource("1_6cpbx")
-settings = Array[ExtResource("2_i61yj")]([ExtResource("3_y8lf3"), ExtResource("4_uy1sa"), ExtResource("5_uy1sa"), ExtResource("6_i7mbh"), ExtResource("7_wneib"), ExtResource("8_p745u"), ExtResource("9_p745u"), ExtResource("10_52571"), ExtResource("11_u4jby"), ExtResource("12_mfg0x"), ExtResource("13_2duqx"), ExtResource("14_1ulcl"), ExtResource("15_ktkle"), ExtResource("17_dangt"), ExtResource("16_lvhkn"), ExtResource("18_sd48f"), ExtResource("19_if272"), ExtResource("20_yx2ma"), ExtResource("21_dqp2r"), ExtResource("22_jv6ht"), ExtResource("23_mfg0x"), ExtResource("24_1ulcl"), ExtResource("25_ktkle"), ExtResource("26_dangt"), ExtResource("27_sd48f"), ExtResource("28_if272"), ExtResource("29_if272"), ExtResource("30_yx2ma"), ExtResource("31_yx2ma")])
+settings = Array[ExtResource("2_i61yj")]([ExtResource("3_y8lf3"), ExtResource("4_uy1sa"), ExtResource("5_uy1sa"), ExtResource("6_i7mbh"), ExtResource("7_wneib"), ExtResource("8_p745u"), ExtResource("9_p745u"), ExtResource("10_52571"), ExtResource("11_u4jby"), ExtResource("12_mfg0x"), ExtResource("13_2duqx"), ExtResource("14_1ulcl"), ExtResource("15_ktkle"), ExtResource("17_dangt"), ExtResource("16_lvhkn"), ExtResource("18_sd48f"), ExtResource("19_if272"), ExtResource("20_yx2ma"), ExtResource("21_dqp2r"), ExtResource("22_jv6ht"), ExtResource("23_mfg0x"), ExtResource("24_1ulcl"), ExtResource("25_ktkle"), ExtResource("26_dangt"), ExtResource("27_sd48f"), ExtResource("28_if272"), ExtResource("29_if272"), ExtResource("30_yx2ma"), ExtResource("31_yx2ma"), ExtResource("32_jv6ht"), ExtResource("33_ek0cg")])
