@@ -1,16 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgygd7yooef5e"]
+[gd_scene load_steps=3 format=3 uid="uid://bgygd7yooef5e"]
 
 [ext_resource type="Script" uid="uid://brnoefxgrh7rh" path="res://scenes/entry_point/game_entry_point.gd" id="1_q5v3t"]
 [ext_resource type="PackedScene" uid="uid://bewi7gvan2wwq" path="res://addons/ninetailsrabbit.indie_blueprint_ui/src/content_warning/content_warning_displayer.tscn" id="2_o56dt"]
-[ext_resource type="Script" uid="uid://kpee48ag7wn" path="res://ui/settings/components/slider/setting_hslider.gd" id="3_fjm6l"]
 
 [node name="GameEntryPoint" type="Node"]
 script = ExtResource("1_q5v3t")
 
 [node name="ContentWarnings" parent="." instance=ExtResource("2_o56dt")]
-
-[node name="SettingHSlider" type="HSlider" parent="."]
-offset_right = 8.0
-offset_bottom = 16.0
-script = ExtResource("3_fjm6l")
-metadata/_custom_type_script = "uid://kpee48ag7wn"

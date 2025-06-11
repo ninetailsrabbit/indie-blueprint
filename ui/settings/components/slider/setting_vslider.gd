@@ -30,6 +30,6 @@ func _ready() -> void:
 	value = IndieBlueprintSettingsManager.get_section(setting.section, setting.key)
 		
 
-func on_setting_changed(value_changed: bool) -> void:
-	if value_changed:
+func on_setting_changed(new_value_changed: bool) -> void:
+	if new_value_changed:
 		IndieBlueprintSettingsManager.update_setting_section(setting.section, setting.key, value)
