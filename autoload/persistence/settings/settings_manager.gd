@@ -134,6 +134,7 @@ func create_settings(path: String = config_file_path) -> void:
 			&"current_language", &"voices_language", &"subtitles_language":
 				setting.update_value(TranslationServer.get_locale())
 				
+				
 		update_setting_section(setting.section, setting.key, setting.value())
 		
 	create_audio_section()
@@ -266,6 +267,14 @@ func load_graphics() -> void:
 			IndieBlueprintGameSettings.IntegerScalingSetting:
 				@warning_ignore("int_as_enum_without_cast")
 				get_tree().root.content_scale_stretch = int(config_value)
+			IndieBlueprintGameSettings.Antialiasing3DSetting:
+				viewport.msaa_3d = config_value
+				
+				if viewport.msaa_3d == Viewport.MSAA_DISABLED:
+					RenderingServer.viewport_set_screen_space_aa(viewport.get_viewport_rid(), RenderingServer.VIEWPORT_SCREEN_SPACE_AA_FXAA)
+				else:
+					RenderingServer.viewport_set_screen_space_aa(viewport.get_viewport_rid(), RenderingServer.VIEWPORT_SCREEN_SPACE_AA_DISABLED)
+					
 			IndieBlueprintGameSettings.Scaling3DMode:
 				viewport.scaling_3d_mode = config_value
 			IndieBlueprintGameSettings.Scaling3DValue:

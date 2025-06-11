@@ -1,20 +1,20 @@
-[gd_resource type="Resource" script_class="GameSetting" load_steps=2 format=3 uid="uid://b1nbqoclik7fv"]
+[gd_resource type="Resource" script_class="GameSetting" load_steps=2 format=3 uid="uid://br6w83pbyfnvn"]
 
-[ext_resource type="Script" uid="uid://b1ucbadjglwnm" path="res://autoload/persistence/settings/game_setting.gd" id="1_smrru"]
+[ext_resource type="Script" uid="uid://b1ucbadjglwnm" path="res://autoload/persistence/settings/game_setting.gd" id="1_u3jq2"]
 
 [resource]
-script = ExtResource("1_smrru")
+script = ExtResource("1_u3jq2")
 section = &"graphics"
-key = &"scaling_3d_value"
-field_type = 3
+key = &"antialiasing_2d"
+field_type = 2
 default_int_value = 0
 int_value = 0
 min_int_value = 0
-max_int_value = 5
-default_float_value = 1.0
+max_int_value = 4
+default_float_value = 0.0
 float_value = 0.0
-min_float_value = 0.25
-max_float_value = 2.0
+min_float_value = 0.0
+max_float_value = 0.0
 default_bool_value = false
 bool_value = false
 default_string_value = ""

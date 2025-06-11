@@ -321,6 +321,7 @@ static func apply_graphics_on_environment(world_environment: WorldEnvironment, q
 					ProjectSettings.set_setting("rendering/environment/screen_space_reflection/roughness_quality", quality.value[1])
 					world_environment.environment.ssr_max_steps = quality.value[2]
 			"rendering/environment/ssao_enabled":
+				ProjectSettings.set_setting("rendering/environment/ssao/quality", quality.value[0])
 				world_environment.environment.ssao_enabled = quality.value[0]
 				
 				if world_environment.environment.ssao_enabled:
@@ -352,3 +353,11 @@ static func apply_graphics_on_environment(world_environment: WorldEnvironment, q
 					## When using FSR upscaling, AMD recommends exposing the following values as preset options to users 
 					## "Ultra Quality: 0.77", "Quality: 0.67", "Balanced: 0.59", "Performance: 0.5" instead of exposing the entire scale.
 					viewport.scaling_3d_scale = quality.value
+					
+			"rendering/anti_aliasing/quality/msaa_3d":
+				viewport.msaa_3d = quality.value
+				
+				if viewport.msaa_3d == Viewport.MSAA_DISABLED:
+					RenderingServer.viewport_set_screen_space_aa(viewport.get_viewport_rid(), RenderingServer.VIEWPORT_SCREEN_SPACE_AA_FXAA)
+				else:
+					RenderingServer.viewport_set_screen_space_aa(viewport.get_viewport_rid(), RenderingServer.VIEWPORT_SCREEN_SPACE_AA_DISABLED)

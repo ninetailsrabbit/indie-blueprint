@@ -15,9 +15,9 @@
 [ext_resource type="Resource" uid="uid://bcl5sg0ungho1" path="res://autoload/persistence/settings/options/graphics/current_monitor.tres" id="13_2duqx"]
 [ext_resource type="Resource" uid="uid://er50vubsqo8n" path="res://autoload/persistence/settings/options/graphics/integer_scaling.tres" id="14_1ulcl"]
 [ext_resource type="Resource" uid="uid://4n5xbag64pt1" path="res://autoload/persistence/settings/options/graphics/max_fps.tres" id="15_ktkle"]
-[ext_resource type="Resource" uid="uid://b1nbqoclik7fv" path="res://autoload/persistence/settings/options/graphics/scaling_3d_fsr_value.tres" id="16_lvhkn"]
+[ext_resource type="Resource" uid="uid://b1nbqoclik7fv" path="res://autoload/persistence/settings/options/graphics/scaling_3d_value.tres" id="16_lvhkn"]
 [ext_resource type="Resource" uid="uid://binfvnwb7k7q2" path="res://autoload/persistence/settings/options/graphics/scaling_3d_mode.tres" id="17_dangt"]
-[ext_resource type="Resource" uid="uid://cne4so42tuc1h" path="res://autoload/persistence/settings/options/graphics/scaling_3d_value.tres" id="18_sd48f"]
+[ext_resource type="Resource" uid="uid://cne4so42tuc1h" path="res://autoload/persistence/settings/options/graphics/scaling_3d_fsr_value.tres" id="18_sd48f"]
 [ext_resource type="Resource" uid="uid://cbydm33m20rsn" path="res://autoload/persistence/settings/options/graphics/vsync.tres" id="19_if272"]
 [ext_resource type="Resource" uid="uid://dc4hqettyaqeg" path="res://autoload/persistence/settings/options/graphics/window_borderless.tres" id="20_yx2ma"]
 [ext_resource type="Resource" uid="uid://j7pp0jlc20uj" path="res://autoload/persistence/settings/options/graphics/window_display.tres" id="21_dqp2r"]
@@ -34,4 +34,4 @@
 
 [node name="SettingsManager" type="Node"]
 script = ExtResource("1_6cpbx")
-settings = Array[ExtResource("2_i61yj")]([ExtResource("3_y8lf3"), ExtResource("4_uy1sa"), ExtResource("5_uy1sa"), ExtResource("6_i7mbh"), ExtResource("7_wneib"), ExtResource("8_p745u"), ExtResource("9_p745u"), ExtResource("10_52571"), ExtResource("11_u4jby"), ExtResource("12_mfg0x"), ExtResource("13_2duqx"), ExtResource("14_1ulcl"), ExtResource("15_ktkle"), ExtResource("16_lvhkn"), ExtResource("17_dangt"), ExtResource("18_sd48f"), ExtResource("19_if272"), ExtResource("20_yx2ma"), ExtResource("21_dqp2r"), ExtResource("22_jv6ht"), ExtResource("23_mfg0x"), ExtResource("24_1ulcl"), ExtResource("25_ktkle"), ExtResource("26_dangt"), ExtResource("27_sd48f"), ExtResource("28_if272"), ExtResource("29_if272"), ExtResource("30_yx2ma"), ExtResource("31_yx2ma")])
+settings = Array[ExtResource("2_i61yj")]([ExtResource("3_y8lf3"), ExtResource("4_uy1sa"), ExtResource("5_uy1sa"), ExtResource("6_i7mbh"), ExtResource("7_wneib"), ExtResource("8_p745u"), ExtResource("9_p745u"), ExtResource("10_52571"), ExtResource("11_u4jby"), ExtResource("12_mfg0x"), ExtResource("13_2duqx"), ExtResource("14_1ulcl"), ExtResource("15_ktkle"), ExtResource("17_dangt"), ExtResource("16_lvhkn"), ExtResource("18_sd48f"), ExtResource("19_if272"), ExtResource("20_yx2ma"), ExtResource("21_dqp2r"), ExtResource("22_jv6ht"), ExtResource("23_mfg0x"), ExtResource("24_1ulcl"), ExtResource("25_ktkle"), ExtResource("26_dangt"), ExtResource("27_sd48f"), ExtResource("28_if272"), ExtResource("29_if272"), ExtResource("30_yx2ma"), ExtResource("31_yx2ma")])

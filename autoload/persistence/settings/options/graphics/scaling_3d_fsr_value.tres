@@ -1,18 +1,18 @@
-[gd_resource type="Resource" script_class="GameSetting" load_steps=2 format=3 uid="uid://b1nbqoclik7fv"]
+[gd_resource type="Resource" script_class="GameSetting" load_steps=2 format=3 uid="uid://cne4so42tuc1h"]
 
 [ext_resource type="Script" uid="uid://b1ucbadjglwnm" path="res://autoload/persistence/settings/game_setting.gd" id="1_3ntkk"]
 
 [resource]
 script = ExtResource("1_3ntkk")
 section = &"graphics"
-key = &"scaling_3d_value"
+key = &"scaling_3d_fsr_value"
 field_type = 3
 default_int_value = 0
 int_value = 0
 min_int_value = 0
 max_int_value = 5
-default_float_value = 1.0
-float_value = 1.0
+default_float_value = 0.59
+float_value = 0.59
 min_float_value = 0.25
 max_float_value = 2.0
 default_bool_value = false

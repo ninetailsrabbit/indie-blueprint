@@ -35,6 +35,10 @@ static func renderer_is_mobile() -> bool:
 	return renderer().nocasecmp_to("mobile") == 0
 
 
+static func has_fsr() -> bool:
+	return OS.has_feature("fsr")
+
+
 static func is_steam_deck() -> bool:
 	return IndieBlueprintStringHelper.equals_ignore_case(distribution_name, "SteamOS") \
 		or video_adapter_name.containsn("radv vangogh") \
