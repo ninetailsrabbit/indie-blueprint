@@ -8,6 +8,7 @@ class_name FixedCamera3D extends Node3D
 ## 0 Means the rotation on the X-axis is not limited
 @export_range(0, 360.0, 0.5, "degrees") var camera_horizontal_limit: float = 0.0
 @export var use_quaternions: bool = true
+@export var use_limits: bool = true
 
 
 @onready var current_vertical_limit: float:
@@ -44,8 +45,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		global_transform = global_transform.interpolate_with(desired_transform, delta * rotation_speed)
 	
-	camera_pivot.rotation_degrees.y = limit_horizontal_rotation(camera_pivot.rotation_degrees.y)
-	camera_pivot.rotation_degrees.x = limit_vertical_rotation(camera_pivot.rotation_degrees.x)
+	if use_limits:
+		camera_pivot.rotation_degrees.y = limit_horizontal_rotation(camera_pivot.rotation_degrees.y)
+		camera_pivot.rotation_degrees.x = limit_vertical_rotation(camera_pivot.rotation_degrees.x)
 
 
 func lock() -> void:
