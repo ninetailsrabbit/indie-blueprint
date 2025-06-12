@@ -30,6 +30,7 @@ static func project_raycast(
 	viewport: Viewport,
 	from: Vector3,
 	to: Vector3,
+	distance: float,
 	collide_with_bodies: bool = true,
 	collide_with_areas: bool = false,
 	collision_mask: int = 1
@@ -46,7 +47,7 @@ static func project_raycast(
 	
 	var result := viewport.get_world_3d().direct_space_state.intersect_ray(ray_query)
 
-	return RaycastResult.new(result)
+	return RaycastResult.new(from, to, distance, result)
 	
 
 static func project_raycast_from_camera_center(
@@ -62,7 +63,7 @@ static func project_raycast_from_camera_center(
 	var origin = camera.project_ray_origin(screen_center)
 	var to: Vector3 = origin + camera.project_ray_normal(screen_center) * distance
 	
-	return project_raycast(viewport, origin, to, collide_with_bodies, collide_with_areas, collision_mask)
+	return project_raycast(viewport, origin, to, distance, collide_with_bodies, collide_with_areas, collision_mask)
 	
 	
 static func project_raycast_to_mouse(
@@ -80,4 +81,4 @@ static func project_raycast_to_mouse(
 	var from := camera.project_ray_origin(mouse_position)
 	var to := camera.project_position(mouse_position, distance)
 	
-	return project_raycast(viewport, from, to, collide_with_bodies, collide_with_areas, collision_mask)
+	return project_raycast(viewport, from, to, distance, collide_with_bodies, collide_with_areas, collision_mask)
