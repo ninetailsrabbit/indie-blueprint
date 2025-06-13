@@ -92,8 +92,8 @@ func load_settings(path: String = config_file_path) -> void:
 	for setting: GameSetting in active_settings.values():
 		var config_value: Variant = config_file_api.get_value(setting.section, setting.key, null)
 		
-		if config_value == null:
-			update_setting_section(setting.section, setting.key, setting.value())
+		if config_value == null: ## The setting is created if it does not exists.
+			update_setting_section(setting.section, setting.key, setting.default_value())
 		else:
 			setting.update_value(config_value)
 			

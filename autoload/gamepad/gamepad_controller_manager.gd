@@ -1,7 +1,6 @@
 # Nintendo switch pro controllers does not work yet https://github.com/godotengine/godot/issues/81191
 extends Node
 
-
 signal controller_connected(device_id, controller_name: String)
 signal controller_disconnected(device_id, previous_controller_name: String, controller_name: String)
 

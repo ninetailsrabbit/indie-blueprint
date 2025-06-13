@@ -119,6 +119,36 @@ func value() -> Variant:
 			return null
 
 
+func default_value() -> Variant:
+	match field_type:
+		TYPE_INT:
+			return default_int_value
+		TYPE_FLOAT:
+			return default_float_value
+		TYPE_BOOL:
+			return default_bool_value
+		TYPE_STRING:
+			return default_string_value
+		TYPE_STRING_NAME:
+			return default_string_name_value
+		TYPE_ARRAY:
+			return default_array_value
+		TYPE_DICTIONARY:
+			return default_dictionary_value
+		TYPE_COLOR:
+			return default_color_value
+		TYPE_VECTOR2:
+			return default_vector2_value
+		TYPE_VECTOR2I:
+			return default_vector2i_value
+		TYPE_VECTOR3:
+			return default_vector3_value
+		TYPE_VECTOR3I:
+			return default_vector3i_value
+		_:
+			return null
+			
+			
 func update_value(new_value: Variant) -> void:
 	match field_type:
 		TYPE_INT:
