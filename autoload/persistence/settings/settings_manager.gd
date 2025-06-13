@@ -96,6 +96,7 @@ func load_settings(path: String = config_file_path) -> void:
 			update_setting_section(setting.section, setting.key, setting.default_value())
 		else:
 			setting.update_value(config_value)
+		
 			
 	load_audio()
 	load_graphics()
