@@ -225,7 +225,7 @@ func hitscan() -> RaycastResult:
 		
 		return create_hitscan(origin, to)
 		
-	return RaycastResult.new({})
+	return RaycastResult.new(Vector3.ZERO, Vector3.ZERO, 0, {})
 
 
 func create_hitscan(origin: Vector3, to: Vector3) -> RaycastResult:
@@ -239,7 +239,7 @@ func create_hitscan(origin: Vector3, to: Vector3) -> RaycastResult:
 	hitscan_ray_query.collide_with_areas = true 
 	hitscan_ray_query.collide_with_bodies = true
 	
-	return RaycastResult.new(get_world_3d().direct_space_state.intersect_ray(hitscan_ray_query))
+	return RaycastResult.new(origin,to,1000,get_world_3d().direct_space_state.intersect_ray(hitscan_ray_query))
 
 
 func _handle_hitscan_collision(target_hitscan: RaycastResult) -> void:
