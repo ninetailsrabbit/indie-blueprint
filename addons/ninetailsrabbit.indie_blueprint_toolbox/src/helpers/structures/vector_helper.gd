@@ -3,6 +3,8 @@ class_name IndieBlueprintVectorHelper
 static var directions_v2: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 static var horizontal_directions_v2: Array[Vector2] = [Vector2.LEFT, Vector2.RIGHT]
 static var vertical_directions_v2: Array[Vector2] = [Vector2.UP, Vector2.DOWN]
+static var horizontal_directions_v2i: Array[Vector2i] = [Vector2i.LEFT, Vector2i.RIGHT]
+static var vertical_directions_v2i: Array[Vector2i] = [Vector2i.UP, Vector2i.DOWN]
 
 static var directions_v3: Array[Vector3] = [
 	Vector3.UP,
@@ -13,12 +15,30 @@ static var directions_v3: Array[Vector3] = [
 	Vector3.RIGHT
 ]
 
+static var directions_v3i: Array[Vector3] = [
+	Vector3i.UP,
+	Vector3i.DOWN,
+	Vector3i.FORWARD,
+	Vector3i.BACK,
+	Vector3i.LEFT,
+	Vector3i.RIGHT
+]
+
 static var opposite_directions_v2: Dictionary = {
 	Vector2.UP: Vector2.DOWN,
 	Vector2.DOWN: Vector2.UP,
 	Vector2.RIGHT: Vector2.LEFT,
 	Vector2.LEFT: Vector2.RIGHT
 }
+
+
+static var opposite_directions_v2i: Dictionary = {
+	Vector2i.UP: Vector2i.DOWN,
+	Vector2i.DOWN: Vector2i.UP,
+	Vector2i.RIGHT: Vector2i.LEFT,
+	Vector2i.LEFT: Vector2i.RIGHT
+}
+
 
 static var opposite_directions_v3: Dictionary = {
   	Vector3.UP: Vector3.DOWN,
@@ -29,11 +49,29 @@ static var opposite_directions_v3: Dictionary = {
 	Vector3.BACK: Vector3.FORWARD
 }
 
+
+static var opposite_directions_v3i: Dictionary = {
+  	Vector3i.UP: Vector3i.DOWN,
+	Vector3i.DOWN: Vector3i.UP,
+	Vector3i.RIGHT: Vector3i.LEFT, 
+	Vector3i.LEFT: Vector3i.RIGHT, 
+	Vector3i.FORWARD: Vector3i.BACK, 
+	Vector3i.BACK: Vector3i.FORWARD
+}
+
+
 static func up_direction_opposite_vector2(up_direction: Vector2) -> Vector2:
 	if opposite_directions_v2.has(up_direction):
 		return opposite_directions_v2[up_direction]
 	
 	return Vector2.ZERO
+
+
+static func up_direction_opposite_vector2i(up_direction: Vector2i) -> Vector2i:
+	if opposite_directions_v2i.has(up_direction):
+		return opposite_directions_v2i[up_direction]
+	
+	return Vector2i.ZERO
 
 
 static func up_direction_opposite_vector3(up_direction: Vector3) -> Vector3:
@@ -42,8 +80,15 @@ static func up_direction_opposite_vector3(up_direction: Vector3) -> Vector3:
 	
 	return Vector3.ZERO
 
+
+static func up_direction_opposite_vector3i(up_direction: Vector3i) -> Vector3i:
+	if opposite_directions_v3i.has(up_direction):
+		return opposite_directions_v3i[up_direction]
+	
+	return Vector3i.ZERO
+
 ## Converts Vectors like Vector3(1, 0, 0) into Vector3(0, 1, 1)
-static func invert_vector(vector: Vector3) -> Vector3:
+static func invert_vector3(vector: Vector3) -> Vector3:
 	var new_vector: Vector3 = vector.normalized().round()
 
 	new_vector.x = 0 if new_vector.x != 0 else 1
@@ -52,7 +97,7 @@ static func invert_vector(vector: Vector3) -> Vector3:
 	
 	return new_vector
 	
-
+	
 static func generate_2d_random_directions_using_degrees(num_directions: int = 10, origin: Vector2 = Vector2.UP, min_angle: float = 0.0, max_angle: float = 360.0) -> Array[Vector2]:
 	var random_directions: Array[Vector2] = []
 
