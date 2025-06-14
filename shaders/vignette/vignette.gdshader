@@ -19,5 +19,5 @@ void fragment(){
 	text.rgba *= (vignette_rgb.rgba);
 	text.rgba *= (1.0 - vignette(UV));
 
-	COLOR = vec4((text.rgb)*color.rgb,text.a);
+	COLOR = vec4((text.rgb) * color.rgb, text.a);
 }

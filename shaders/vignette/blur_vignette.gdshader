@@ -8,10 +8,10 @@ uniform float blur_outer : hint_range(0, 1) = 0.66; // Outer edge of the blur ef
 
 void fragment() {
     // Original color of the pixel from the screen
-    vec4 pixelColor = texture(screen_texture, UV);
+    vec4 pixel_color = texture(screen_texture, UV);
 
     // Color with blur effect from the screen
-    vec4 blurColor = textureLod(screen_texture, SCREEN_UV, blur_amount);
+    vec4 blur_color = textureLod(screen_texture, SCREEN_UV, blur_amount);
 
     // Calculate distance from the center of the screen
     float distance = length(UV - vec2(0.5, 0.5));
@@ -20,14 +20,14 @@ void fragment() {
     float blur = smoothstep(blur_inner - blur_radius, blur_outer, distance);
 
     // Mix colors of the blur effect and the original color based on the smoothstep value
-    pixelColor.rgb = mix(blurColor.rgb, COLOR.rgb, -blur);
+    pixel_color.rgb = mix(blur_color.rgb, COLOR.rgb, -blur);
 
     // Set the alpha component of the blur effect to the smoothstep value
-    blurColor.a = blur;
+    blur_color.a = blur;
 
     // Mix colors of the blur effect with white for an additional effect
-    blurColor.rgb = mix(blurColor.rgb, vec3(1.0), 0.1);
+    blur_color.rgb = mix(blur_color.rgb, vec3(1.0), 0.1);
 
     // Set the final color to the modified color of the blur effect
-    COLOR = blurColor;
+    COLOR = blur_color;
 }
