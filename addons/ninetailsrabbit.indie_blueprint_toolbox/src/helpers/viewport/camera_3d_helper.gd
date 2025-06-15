@@ -82,3 +82,15 @@ static func project_raycast_to_mouse(
 	var to := camera.project_position(mouse_position, distance)
 	
 	return project_raycast(viewport, from, to, distance, collide_with_bodies, collide_with_areas, collision_mask)
+
+
+static func camera_snap_to_grid(camera: Camera3D, target: Node3D, grid_size: float, ground_y_level: float = 0.0) -> Vector3:
+	assert(grid_size > 0, "IndieBlueprintCamera3DHelper: The grid size is zero or below, make sure the size is greater than 0")
+	
+	var raycast = IndieBlueprintCamera3DHelper.project_raycast_to_mouse(camera)
+	var grid: Vector3 = (raycast.position / grid_size).floor()
+	
+	var snap_position: Vector3 = Vector3(grid.x, 0.0, grid.z) * grid_size
+	snap_position.y = ground_y_level
+	
+	return snap_position
