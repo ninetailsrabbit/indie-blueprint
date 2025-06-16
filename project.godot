@@ -40,12 +40,12 @@ IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/sr
 GlobalInteractionEvents="*res://addons/ninetailsrabbit.interaction_kit_3d/src/global_interaction_events.gd"
 ScanInteractableLayer="*res://addons/ninetailsrabbit.interaction_kit_3d/src/scan/scan_interactable_layer.tscn"
 BulletImpactManager="*res://components/motion/3D/first_person/weapons/bullets/impacts/bullet_impact_manager.tscn"
-IndieBlueprintUIAnimation="*res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/ui_animation.gd"
 IndieBlueprintLootManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/loot/loot_manager.gd"
 IndieBlueprintTurnityManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/turns/turnity_manager.gd"
 IndieBlueprintRecipeManager="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/items/craft/recipe_manager.tscn"
 IndieBlueprintWindowManager="*res://addons/ninetailsrabbit.indie_blueprint_toolbox/src/autoloads/viewport/window_manager.gd"
 IndieBlueprintSettingsManager="*res://autoload/persistence/settings/settings_manager.tscn"
+IndieBlueprintUIAnimation="*res://addons/ninetailsrabbit.indie_blueprint_ui/src/animations/ui_animation.gd"
 
 [display]
 
