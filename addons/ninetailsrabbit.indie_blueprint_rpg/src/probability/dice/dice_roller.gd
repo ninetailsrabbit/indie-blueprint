@@ -5,16 +5,33 @@ signal die_rolled_detailed(roll_detailed: DiceRollDetailed)
 
 class DiceRollDetailed extends RefCounted:
 	var sides: int
-	var dices: int
+	var number_of_dices: int
+	var dices: Array[int] = []
 	var sum: int = 0
+	var multiply: int = 0
+	var exponential: int = 0
 	var highest: int = 0
 	var lowest: int = 0
 	var average: int = 0
 	
-	func _init(_sides: int, _dices: int, _sum: int, _highest: int, _lowest: int, _average: int) -> void:
+	func _init(
+		_sides: int,
+		_number_of_dices: int,
+		_dices: Array[int],
+		_sum: int,
+		_multiply: int,
+		_exponential: int,
+		_highest: int,
+		_lowest: int, 
+		_average: int
+	) -> void:
+		
 		sides = _sides
+		number_of_dices = _number_of_dices
 		dices = _dices
 		sum = _sum
+		multiply = _multiply
+		exponential = _exponential
 		highest = _highest
 		lowest = _lowest
 		average = _average
@@ -22,6 +39,8 @@ class DiceRollDetailed extends RefCounted:
 
 enum RollResultTypes {
 	Sum,
+	Multiply,
+	Exponential,
 	Highest,
 	Lowest,
 	Average
@@ -59,6 +78,10 @@ func roll_dices(amount: int, sides: int, roll_type: RollResultTypes = RollResult
 	match roll_type:
 		RollResultTypes.Sum:
 			result = sum_die_values(dice_roll_results)
+		RollResultTypes.Multiply:
+			result = multiply_die_values(dice_roll_results)
+		RollResultTypes.Exponential:
+			result = exponential_die_values(dice_roll_results)
 		RollResultTypes.Highest:
 			result = dice_roll_results.max()
 		RollResultTypes.Lowest:
@@ -74,7 +97,14 @@ func roll_dices_detailed(amount: int, sides: int) -> DiceRollDetailed:
 	var detail_result: Dictionary = {
 		"sides": sides,
 		"dices": [],
-		"results": {"sum": 0, "highest": 0, "lowest": 0, "average": 0}
+		"results": {
+			"sum": 0,
+			"multiply": 0,
+			"exponential": 0,
+			"highest": 0,
+			"lowest": 0,
+			"average": 0
+		}
 	}
 	
 	var callable: Callable = func(result: int, _sides: int): detail_result["dices"].append(result)
@@ -88,15 +118,19 @@ func roll_dices_detailed(amount: int, sides: int) -> DiceRollDetailed:
 	gathered_dices_result.assign(detail_result.dices)
 	
 	detail_result.results.sum = sum_die_values(gathered_dices_result)
+	detail_result.results.multiply = multiply_die_values(gathered_dices_result)
+	detail_result.results.exponential = exponential_die_values(gathered_dices_result)
 	detail_result.results.highest = gathered_dices_result.max()
 	detail_result.results.lowest = gathered_dices_result.min()
 	detail_result.results.average = detail_result.results.sum / amount
 	
-	
 	var die_result: DiceRollDetailed = DiceRollDetailed.new(
 		sides,
 		amount,
+		gathered_dices_result,
 		detail_result.results.sum,
+		detail_result.results.multiply,
+		detail_result.results.exponential,
 		detail_result.results.highest,
 		detail_result.results.lowest,
 		detail_result.results.average,
@@ -125,3 +159,11 @@ func roll_dices_average(amount: int, sides: int) -> int:
 	
 func sum_die_values(values: Array[int]) -> int:
 	return values.reduce(func(accum: int, value: int): return accum + value, 0)
+
+
+func multiply_die_values(values: Array[int]) -> int:
+	return values.reduce(func(accum: int, value: int): return accum * value, 0)
+
+
+func exponential_die_values(values: Array[int]) -> int:
+	return values.reduce(func(accum: int, value: int): return pow(accum, value), 0)
