@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_wqck5")
 section = &"accessibility"
-key = &"controller_sensibility"
+key = &"controller_sensitivity"
 field_type = 3
 default_int_value = 1
 int_value = 0
