@@ -7,6 +7,7 @@ script = ExtResource("1_d5iar")
 
 [node name="GlobalCamera2D" type="Camera2D" parent="."]
 enabled = false
+process_callback = 0
 
 [node name="GlobalCamera3D" type="Camera3D" parent="."]
 process_mode = 4
