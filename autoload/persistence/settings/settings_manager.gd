@@ -1,15 +1,13 @@
 extends Node
 
-signal reset_to_default_settings
-signal created_settings
-signal loaded_settings
-signal removed_setting_file
+signal reset_to_default_settings(path: String)
+signal created_settings(path: String)
+signal loaded_settings(path: String)
+signal removed_settings(path: String)
 signal updated_setting_section(section: String, key: String, value: Variant)
 
 const KeybindingSeparator: String = "|"
 const InputEventSeparator: String = ":"
-const FileFormat: String = "ini" #  ini or cfg
-
 enum ConfigFileFormat {
 	ini,
 	cfg
@@ -43,7 +41,7 @@ var viewport_start_size: Vector2i = Vector2i(
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		save_settings()
-		
+	
 		
 func _enter_tree() -> void:
 	updated_setting_section.connect(on_updated_setting_section)
@@ -51,6 +49,10 @@ func _enter_tree() -> void:
 	
 	for setting: GameSetting in settings.filter(func(setting): return setting != null):
 		active_settings[setting.key] = setting
+	
+	created_settings.connect(on_created_settings)
+	loaded_settings.connect(on_loaded_settings)
+	removed_settings.connect(on_removed_settings)
 	
 	
 func _ready() -> void:
@@ -72,7 +74,7 @@ func reset_to_factory_settings(path: String = config_file_path) -> void:
 	create_settings(path)
 	load_settings(path)
 	
-	reset_to_default_settings.emit()
+	reset_to_default_settings.emit(path)
 
 
 func prepare_settings() -> void:
@@ -103,14 +105,14 @@ func load_settings(path: String = config_file_path) -> void:
 	load_localization()
 	load_keybindings()
 	
-	loaded_settings.emit()
+	loaded_settings.emit(path)
 
 
 func remove_settings_file(path: String = config_file_path) -> void:
 	if FileAccess.file_exists(path):
 		DirAccess.remove_absolute(path)
 		
-	removed_setting_file.emit()
+	removed_settings.emit(path)
 	
 #endregion
 
@@ -142,7 +144,7 @@ func create_settings(path: String = config_file_path) -> void:
 	create_keybindings_section()
 	save_settings(path)
 	
-	created_settings.emit()
+	created_settings.emit(path)
 
 
 func create_audio_section() -> void:
@@ -223,7 +225,7 @@ func create_keybinding_events_for_action(action: StringName) -> Array[String]:
 			elif IndieBlueprintGamepadControllerManager.current_controller_is_switch() or IndieBlueprintGamepadControllerManager.current_controller_is_switch_joycon():
 				joypadButton = "%s Button" % IndieBlueprintGamepadControllerManager.SwitchButtonLabels[input_event.button_index]
 			
-			elif  IndieBlueprintGamepadControllerManager.current_controller_is_playstation():
+			elif IndieBlueprintGamepadControllerManager.current_controller_is_playstation():
 				joypadButton = "%s Button" % IndieBlueprintGamepadControllerManager.PlaystationButtonLabels[input_event.button_index]
 				
 			keybinding_events.append("InputEventJoypadButton%s%d%s%s" % [InputEventSeparator, input_event.button_index, InputEventSeparator, joypadButton])
@@ -449,6 +451,17 @@ func _encription_key() -> StringName:
 
 
 #region Signal callbacks
+func on_created_settings(path: String) -> void:
+	print_rich("[b]IndieBlueprintSettingsManager:[/b] [color=green]Created[/color] a new settings file on [color=yellow][i]%s[/i][/color]" % path)
+	
+func on_loaded_settings(path: String) -> void:
+	print_rich("[b]IndieBlueprintSettingsManager:[/b] [color=green]Loaded[/color] existing settings file from [color=yellow][i]%s[/i][/color]" % path)
+
+	
+func on_removed_settings(path: String) -> void:
+	print_rich("[b]IndieBlueprintSettingsManager:[/b] [color=red]Removed[/color] settings file from [color=yellow][i]%s[/i][/color]" % path)
+
+	
 func on_updated_setting_section(_section: String, _key: String, _value: Variant) -> void:
 	save_settings(config_file_path)
 #endregion
